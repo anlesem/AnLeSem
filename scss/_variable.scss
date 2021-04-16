@@ -1,16 +1,27 @@
-$laptop-width: 1024px;
+$laptop-width: 1280px;
 $tablet-width: 768px;
 $mobile-width: 375px;
 
+$background-dark: rgba(0, 0, 0, .7);
+$background-light: rgba(255, 255, 255, .7);
+
+$hover-place: 15%;
+
 
 // Размеры блоков
-$width-container: 100vh;
+$width-container: $laptop-width;
+
+$width-horz-block: 43%;
+$height-horz-block: 70%;
+
+$width-vert-block: 70%;
+$height-vert-block: 43%;
 
 // Бирки
-$width-horz-tag: 10vh;
-$height-horz-tag: 100%;
+$width-horz-tag: 15vh;
+$height-horz-tag: 20vh;
 
-$width-vert-tag: 100%;
-$height-vert-tag: 10vh;
+$width-vert-tag: 20vh;
+$height-vert-tag: 15vh;
 
 // Полигоны обрезки

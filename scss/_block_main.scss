@@ -3,11 +3,19 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 	height: 100vh;
-	background-color: #fff;
+	background: url(../img/background_big.jpg) center center no-repeat fixed;
+	background-size: cover;
+
+	&::before {
+		content: "";
+		@include position-size-parent;
+		z-index: -1;
+		background-color: $background-light;
+	}
 }
 
 .container {
-	width: $width-container;
+	max-width: $width-container;
 	margin: 0 auto;
 
 	@include laptop {
@@ -17,75 +25,162 @@ body {
 
 header {
 	height: 100px;
-	background-color: #222;
+	background-color: $background-dark;
 }
 
 main {
+	position: relative;
 	flex-grow: 1;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: #ddd;
 }
 
 .left,
 .right {
 	position: relative;
-	width: 10%;
-	height: 50%;
-	background-color: blue;
-	transition: all 500ms;
+	width: $hover-place;
+	height: $height-horz-block;
+
+	&__content {
+		width: 0;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	&:hover &__content {
+		width: 100%;
+		transition: width 500ms;
+	}
+
+	&__tag {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: $width-horz-tag;
+		height: $height-horz-tag;
+		background-color: $background-dark;
+	}
 }
 
 .left {
 	order: 1;
+
+	&__tag {
+		left: 0;
+		clip-path: polygon(0 0, 100% 50%, 0 100%);
+	}
+
+	&:hover &__tag {
+		left: 100%;
+		transition: left 500ms;
+	}
 }
 
 .right {
 	order: 3;
+
+	&__tag {
+		right: 0;
+		clip-path: polygon(100% 0, 0 50%, 100% 100%);
+	}
+
+	&:hover &__tag {
+		right: 100%;
+		transition: right 500ms;
+	}
 }
 
 .left:hover,
 .right:hover {
-	width: 40%;
-	height: 100%;
+	width: $width-horz-block;
+	transition: all 500ms;
+
+	&~.wrap__center {
+		width: $width-horz-block;
+
+		& .info {
+			height: $height-horz-block;
+		}
+	}
 }
 
 .wrap__center {
-	width: 50%;
+	width: $width-vert-block;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	order: 2;
-	transition: all 500ms;
 }
 
 .top,
 .down {
-	position: relative;
 	width: 100%;
-	height: 10%;
-	background-color: blue;
-	transition: all 500ms;
+	height: $hover-place;
+
+	&__content {
+		width: 100%;
+		height: 0;
+		overflow: hidden;
+	}
+
+	&:hover &__content {
+		height: 100%;
+		transition: height 500ms;
+	}
+
+	&__tag {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		width: $width-vert-tag;
+		height: $height-vert-tag;
+		background-color: $background-dark;
+	}
 }
 
 .top {
 	order: 1;
+
+	&__tag {
+		top: 0;
+		clip-path: polygon(0 0, 100% 0, 50% 100%);
+	}
+
+	&:hover &__tag {
+		top: 100%;
+		transition: top 500ms;
+	}
 }
 
 .down {
 	order: 3;
+
+	&__tag {
+		bottom: 0;
+		clip-path: polygon(0 100%, 50% 0, 100% 100%);
+	}
+
+	&:hover &__tag {
+		bottom: 100%;
+		transition: bottom 500ms;
+	}
 }
 
 .top:hover,
 .down:hover {
-	width: $width-container;
-	height: 40%;
+	position: relative;
+	height: $height-vert-block;
+	transition: all 500ms;
+
+	&~.info {
+		height: $height-vert-block;
+	}
 }
 
-.content {
-	height: 60%;
+.info {
+	width: 100%;
 	order: 2;
 
 	&>div {
@@ -95,17 +190,17 @@ main {
 	}
 }
 
-.left:hover~.wrap__center .content__left,
-.right:hover+.wrap__center .content__right,
-.top:hover~.content .content__top,
-.down:hover+.content .content__down {
+.left:hover~.wrap__center .info__left,
+.right:hover+.wrap__center .info__right,
+.top:hover~.info .info__top,
+.down:hover+.info .info__down {
 	display: block;
 	position: relative;
 	z-index: 5;
-	background-color: #888833;
+	background-color: $background-light;
 }
 
 footer {
 	height: 50px;
-	background-color: #222;
+	background-color: $background-dark;
 }
