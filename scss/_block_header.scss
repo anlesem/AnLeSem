@@ -1,0 +1,30 @@
+.header {
+	display: flex;
+	justify-content: space-around;
+	color: #fff;
+}
+
+.logo {
+	display: inline-block;
+	text-align: center;
+}
+
+nav a {
+	display: inline-block;
+}
+
+nav {
+	display: contents;
+}
+
+.logo {
+	order: 2;
+}
+
+nav a:nth-child(n+3) {
+	order: 3;
+}
+
+a:hover {
+	color: green;
+}
