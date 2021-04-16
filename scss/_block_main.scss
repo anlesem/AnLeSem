@@ -6,6 +6,16 @@ body {
 	background: url(../img/background_big.jpg) center center no-repeat fixed;
 	background-size: cover;
 
+	@include laptop {
+		background: url(../img/background_medium.jpg) center center no-repeat fixed;
+		background-size: cover;
+	}
+
+	@include mobile {
+		background: url(../img/background_small.jpg) center center no-repeat fixed;
+		background-size: cover;
+	}
+
 	&::before {
 		content: "";
 		@include position-size-parent;
@@ -15,12 +25,8 @@ body {
 }
 
 .container {
-	max-width: $width-container;
+	width: $width-container;
 	margin: 0 auto;
-
-	@include laptop {
-		width: 100%;
-	}
 }
 
 header {
@@ -38,56 +44,56 @@ main {
 
 .left,
 .right {
-	position: relative;
-	width: $hover-place;
+	width: $hover-space;
 	height: $height-horz-block;
 
 	&__content {
 		width: 0;
 		height: 100%;
-		overflow: hidden;
+		background-color: $background-dark;
+
+		&::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			width: $width-horz-tag;
+			height: $height-horz-tag;
+			background-color: $background-dark;
+		}
 	}
 
 	&:hover &__content {
 		width: 100%;
 		transition: width 500ms;
 	}
-
-	&__tag {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		width: $width-horz-tag;
-		height: $height-horz-tag;
-		background-color: $background-dark;
-	}
 }
 
 .left {
 	order: 1;
 
-	&__tag {
-		left: 0;
-		clip-path: polygon(0 0, 100% 50%, 0 100%);
-	}
+	&__content {
+		position: relative;
 
-	&:hover &__tag {
-		left: 100%;
-		transition: left 500ms;
+		&::after {
+			left: 100%;
+			clip-path: polygon(0 0, 100% 50%, 0 100%);
+		}
 	}
 }
 
 .right {
 	order: 3;
+	position: relative;
 
-	&__tag {
+	&__content {
+		position: absolute;
 		right: 0;
-		clip-path: polygon(100% 0, 0 50%, 100% 100%);
-	}
 
-	&:hover &__tag {
-		right: 100%;
-		transition: right 500ms;
+		&::after {
+			right: 100%;
+			clip-path: polygon(100% 0, 0 50%, 100% 100%);
+		}
 	}
 }
 
@@ -117,12 +123,22 @@ main {
 .top,
 .down {
 	width: 100%;
-	height: $hover-place;
+	height: $hover-space;
 
 	&__content {
 		width: 100%;
 		height: 0;
-		overflow: hidden;
+		background-color: $background-dark;
+
+		&::after {
+			content: "";
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			width: $width-vert-tag;
+			height: $height-vert-tag;
+			background-color: $background-dark;
+		}
 	}
 
 	&:hover &__content {
@@ -130,41 +146,36 @@ main {
 		transition: height 500ms;
 	}
 
-	&__tag {
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
-		width: $width-vert-tag;
-		height: $height-vert-tag;
-		background-color: $background-dark;
-	}
 }
+
 
 .top {
 	order: 1;
 
-	&__tag {
+	&__content {
+		position: absolute;
 		top: 0;
-		clip-path: polygon(0 0, 100% 0, 50% 100%);
-	}
+		left: 0;
 
-	&:hover &__tag {
-		top: 100%;
-		transition: top 500ms;
+		&::after {
+			top: 100%;
+			clip-path: polygon(0 0, 100% 0, 50% 100%);
+		}
 	}
 }
 
 .down {
 	order: 3;
+	position: relative;
 
-	&__tag {
+	&__content {
+		position: absolute;
 		bottom: 0;
-		clip-path: polygon(0 100%, 50% 0, 100% 100%);
-	}
 
-	&:hover &__tag {
-		bottom: 100%;
-		transition: bottom 500ms;
+		&::after {
+			bottom: 100%;
+			clip-path: polygon(0 100%, 50% 0, 100% 100%);
+		}
 	}
 }
 
@@ -178,6 +189,7 @@ main {
 		height: $height-vert-block;
 	}
 }
+
 
 .info {
 	width: 100%;

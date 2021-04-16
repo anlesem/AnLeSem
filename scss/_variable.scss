@@ -2,26 +2,43 @@ $laptop-width: 1280px;
 $tablet-width: 768px;
 $mobile-width: 375px;
 
+
+// * Цветовая палитра
 $background-dark: rgba(0, 0, 0, .7);
 $background-light: rgba(255, 255, 255, .7);
 
-$hover-place: 15%;
 
 
-// Размеры блоков
+// * Параметры для блоков
+// Размер секций для срабатывания наведения ~ равен бирке
+$hover-space: 15%;
+
+// Размер половины секции при наведении, исходя из ( 100% - 15% ) / 2
+$half-space: 42.5%;
+
+// Размер полной секций при наведении, исходя из 100% - ( 15% * 2 )
+$free-space: 70%;
+
+// Размеры бирок длинная и короткая стороны треугольника
+$long-size: 20vh;
+$short-size: 15vh;
+
+
+// * Размеры блоков
+// Ширина контейнера
 $width-container: $laptop-width;
 
-$width-horz-block: 43%;
-$height-horz-block: 70%;
+// Ширина и высота горизонтальных секций
+$width-horz-block: $half-space;
+$height-horz-block: $free-space;
 
-$width-vert-block: 70%;
-$height-vert-block: 43%;
+// Ширина и высота вертикальных секций
+$width-vert-block: $free-space;
+$height-vert-block: $half-space;
 
 // Бирки
-$width-horz-tag: 15vh;
-$height-horz-tag: 20vh;
+$width-horz-tag: $short-size;
+$height-horz-tag: $long-size;
 
-$width-vert-tag: 20vh;
-$height-vert-tag: 15vh;
-
-// Полигоны обрезки
+$width-vert-tag: $long-size;
+$height-vert-tag: $short-size;
