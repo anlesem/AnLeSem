@@ -47,9 +47,11 @@ main {
 
 .left {
 	order: 1;
+	position: relative;
 
 	&__box {
-		position: relative;
+		position: absolute;
+		left: 0;
 
 		&::after {
 			left: 100%;
@@ -164,6 +166,15 @@ main {
 	}
 }
 
+.left,
+.right,
+.top,
+.down {
+
+	&__content {
+		display: none;
+	}
+}
 
 .info {
 	width: 100%;
@@ -195,17 +206,16 @@ main {
 	background-color: $background-light;
 }
 
-.left,
-.right,
-.top,
-.down {
-
-	&__content {
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-	}
+.left:hover .left__content,
+.right:hover .right__content,
+.top:hover .top__content,
+.down:hover .down__content {
+	display: block;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
+
 
 footer {
 	min-height: 50px;
