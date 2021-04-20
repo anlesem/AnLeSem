@@ -1,12 +1,43 @@
 .header {
 	display: flex;
 	justify-content: space-around;
-	color: #fff;
+	align-items: center;
+	color: #ffC000;
 }
 
 .logo {
 	display: inline-block;
+	width: 80px;
+	height: 80px;
+	margin: 10px;
 	text-align: center;
+
+	& img {
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+	}
+
+	&__card {
+		visibility: hidden;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		background-color: $background-light;
+
+		@include position-size-parent;
+	}
+
+	&:hover {
+		width: 200px;
+		height: 200px;
+		transition: all $timeout;
+
+		&__card {
+			visibility: visible;
+			transition: visibility $timeout;
+		}
+	}
 }
 
 nav a {
