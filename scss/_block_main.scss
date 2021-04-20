@@ -3,34 +3,10 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 	height: 100vh;
-	background: url(../img/background_big.jpg) center center no-repeat fixed;
-	background-size: cover;
-
-	@include laptop {
-		background: url(../img/background_medium.jpg) center center no-repeat fixed;
-		background-size: cover;
-	}
-
-	@include mobile {
-		background: url(../img/background_small.jpg) center center no-repeat fixed;
-		background-size: cover;
-	}
-
-	&::before {
-		content: "";
-		@include position-size-parent;
-		z-index: -1;
-		background-color: $background-light;
-	}
-}
-
-.container {
-	width: $width-container;
-	margin: 0 auto;
 }
 
 header {
-	height: 100px;
+	min-height: 100px;
 	background-color: $background-dark;
 }
 
@@ -47,7 +23,7 @@ main {
 	width: $hover-space;
 	height: $height-horz-block;
 
-	&__content {
+	&__box {
 		width: 0;
 		height: 100%;
 		background-color: $background-dark;
@@ -63,17 +39,19 @@ main {
 		}
 	}
 
-	&:hover &__content {
+	&:hover &__box {
 		width: 100%;
-		transition: width 500ms;
+		transition: width $timeout;
 	}
 }
 
 .left {
 	order: 1;
+	position: relative;
 
-	&__content {
-		position: relative;
+	&__box {
+		position: absolute;
+		left: 0;
 
 		&::after {
 			left: 100%;
@@ -86,7 +64,7 @@ main {
 	order: 3;
 	position: relative;
 
-	&__content {
+	&__box {
 		position: absolute;
 		right: 0;
 
@@ -100,7 +78,7 @@ main {
 .left:hover,
 .right:hover {
 	width: $width-horz-block;
-	transition: all 500ms;
+	transition: all $timeout;
 
 	&~.wrap__center {
 		width: $width-horz-block;
@@ -125,7 +103,7 @@ main {
 	width: 100%;
 	height: $hover-space;
 
-	&__content {
+	&__box {
 		width: 100%;
 		height: 0;
 		background-color: $background-dark;
@@ -141,18 +119,16 @@ main {
 		}
 	}
 
-	&:hover &__content {
+	&:hover &__box {
 		height: 100%;
-		transition: height 500ms;
+		transition: height $timeout;
 	}
-
 }
-
 
 .top {
 	order: 1;
 
-	&__content {
+	&__box {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -168,7 +144,7 @@ main {
 	order: 3;
 	position: relative;
 
-	&__content {
+	&__box {
 		position: absolute;
 		bottom: 0;
 
@@ -183,23 +159,41 @@ main {
 .down:hover {
 	position: relative;
 	height: $height-vert-block;
-	transition: all 500ms;
+	transition: all $timeout;
 
 	&~.info {
 		height: $height-vert-block;
 	}
 }
 
+.left,
+.right,
+.top,
+.down {
+
+	&__content {
+		display: none;
+	}
+}
 
 .info {
 	width: 100%;
 	order: 2;
+	opacity: 0;
 
 	&>div {
 		display: none;
 		width: 100%;
 		height: 100%;
 	}
+}
+
+.left:hover~.wrap__center .info,
+.right:hover+.wrap__center .info,
+.top:hover~.info,
+.down:hover+.info {
+	opacity: 1;
+	transition: opacity $timeout;
 }
 
 .left:hover~.wrap__center .info__left,
@@ -212,7 +206,18 @@ main {
 	background-color: $background-light;
 }
 
+.left:hover .left__content,
+.right:hover .right__content,
+.top:hover .top__content,
+.down:hover .down__content {
+	display: block;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+
 footer {
-	height: 50px;
+	min-height: 50px;
 	background-color: $background-dark;
 }

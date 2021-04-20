@@ -4,6 +4,36 @@ body {
 	font-style: normal;
 	font-weight: 400;
 	line-height: 19px;
+
+	background: url(../img/background_big.jpg) center center no-repeat fixed;
+	background-size: cover;
+
+	@include laptop {
+		background: url(../img/background_medium.jpg) center center no-repeat fixed;
+		background-size: cover;
+	}
+
+	@include mobile {
+		background: url(../img/background_small.jpg) center center no-repeat fixed;
+		background-size: cover;
+	}
+
+	&::before {
+		content: "";
+		@include position-size-parent;
+		z-index: -1;
+		background-color: $background-light;
+		opacity: .8;
+	}
+}
+
+.container {
+	width: $width-container;
+	margin: 0 auto;
+
+	@include laptop {
+		width: 100%;
+	}
 }
 
 .visually-hidden {
