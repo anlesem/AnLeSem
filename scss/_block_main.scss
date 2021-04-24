@@ -26,12 +26,6 @@ main {
 	&__box {
 		background-color: $background-dark;
 
-		// &::before {
-		// 	position: absolute;
-		// 	content: "";
-		// 	box-sizing: border-box;
-		// }
-
 		&::after {
 			position: absolute;
 			box-sizing: border-box;
@@ -62,6 +56,13 @@ main {
 			height: $height-horz-tag;
 			line-height: $height-horz-tag;
 		}
+
+		&::before {
+			position: absolute;
+			content: "";
+			box-sizing: border-box;
+			width: $width-horz-tag - 6vh;
+		}
 	}
 }
 
@@ -75,7 +76,6 @@ main {
 
 		&::before {
 			left: 100%;
-			width: $width-horz-tag - 6vh;
 			padding: 1vh;
 			background: url(../img/left_logo.svg) center center no-repeat content-box;
 			background-size: contain;
@@ -105,7 +105,6 @@ main {
 
 		&::before {
 			right: 100%;
-			width: $width-horz-tag - 6vh;
 			padding: 2vh;
 			background: url(../img/right_logo.svg) center center no-repeat content-box;
 			background-size: contain;
@@ -144,7 +143,6 @@ main {
 		width: 100%;
 		height: 0;
 
-		&::before,
 		&::after {
 			left: 50%;
 			transform: translateX(-50%);
@@ -179,11 +177,11 @@ main {
 
 .down {
 	order: 3;
-	position: relative;
 
 	&__box {
 		position: absolute;
 		bottom: 0;
+		left: 0;
 
 		&::after {
 			content: $content-down;
