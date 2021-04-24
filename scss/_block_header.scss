@@ -1,0 +1,75 @@
+.header {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	color: $text-light;
+}
+
+.logo {
+	position: relative;
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+	margin: 10px;
+	text-align: center;
+
+	& img {
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+	}
+
+	&__card {
+		@include position-size-parent;
+
+		visibility: hidden;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		padding: 20% 0;
+		border-radius: 50%;
+		background-color: $background-light;
+		color: #d16416;
+		font-size: 14px;
+		font-weight: 700;
+
+		& h3 {
+			font-size: 18px;
+			font-weight: 700;
+			color: $title-dark;
+		}
+	}
+
+	&:hover {
+		width: 200px;
+		height: 200px;
+		transition: all $timeout;
+
+	}
+
+	&:hover .logo__card {
+		visibility: visible;
+		transition: visibility $timeout;
+	}
+}
+
+
+nav a {
+	display: inline-block;
+}
+
+nav {
+	display: contents;
+}
+
+.logo {
+	order: 2;
+}
+
+nav a:nth-child(n+3) {
+	order: 3;
+}
+
+a:hover {
+	opacity: 0.7;
+}

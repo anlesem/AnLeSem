@@ -1,0 +1,280 @@
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100vh;
+}
+
+header {
+	min-height: 100px;
+	background-color: $background-dark;
+}
+
+main {
+	position: relative;
+	flex-grow: 1;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.left,
+.right,
+.up,
+.down {
+
+	&__box {
+		background-color: $background-dark;
+
+		&::after {
+			position: absolute;
+			box-sizing: border-box;
+			background-color: $background-dark;
+			color: $title-light;
+		}
+	}
+
+	&__content {
+		display: none;
+	}
+}
+
+.left,
+.right {
+	width: $hover-space;
+	height: $height-horz-block;
+
+	&__box {
+		width: 0;
+		height: 100%;
+
+		&::before,
+		&::after {
+			top: 50%;
+			transform: translateY(-50%);
+			width: $width-horz-tag;
+			height: $height-horz-tag;
+			line-height: $height-horz-tag;
+		}
+
+		&::before {
+			position: absolute;
+			content: "";
+			box-sizing: border-box;
+			width: $width-horz-tag - 6vh;
+		}
+	}
+}
+
+.left {
+	order: 1;
+	position: relative;
+
+	&__box {
+		position: absolute;
+		left: 0;
+
+		&::before {
+			left: 100%;
+			padding: 1vh;
+			background: url(../img/left_logo.svg) center center no-repeat content-box;
+			background-size: contain;
+		}
+
+		&::after {
+			content: $content-left;
+			left: 100%;
+			padding-left: 1vh;
+			clip-path: polygon(0 0, 100% 50%, 0 100%);
+		}
+	}
+
+	&:hover &__box {
+		width: 100%;
+		transition: width $timeout;
+	}
+}
+
+.right {
+	order: 3;
+	position: relative;
+
+	&__box {
+		position: absolute;
+		right: 0;
+
+		&::before {
+			right: 100%;
+			padding: 2vh;
+			background: url(../img/right_logo.svg) center center no-repeat content-box;
+			background-size: contain;
+		}
+
+		&::after {
+			content: $content-right;
+			right: 100%;
+			padding-right: 1vh;
+			clip-path: polygon(100% 0, 0 50%, 100% 100%);
+			text-align: right;
+		}
+	}
+
+	&:hover &__box {
+		width: 100%;
+		transition: width $timeout;
+	}
+}
+
+.wrap__center {
+	width: $width-vert-block;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	order: 2;
+}
+
+.up,
+.down {
+	width: 100%;
+	height: $hover-space;
+
+	&__box {
+		width: 100%;
+		height: 0;
+
+		&::after {
+			left: 50%;
+			transform: translateX(-50%);
+			width: $width-vert-tag;
+			height: $height-vert-tag;
+			text-align: center;
+		}
+	}
+}
+
+.up {
+	order: 1;
+
+	&__box {
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		&::after {
+			content: $content-up;
+			top: 100%;
+			padding-top: 2vh;
+			clip-path: polygon(0 0, 100% 0, 50% 100%);
+		}
+	}
+
+	&:hover &__box {
+		height: 100%;
+		transition: height $timeout;
+	}
+}
+
+.down {
+	order: 3;
+
+	&__box {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+
+		&::after {
+			content: $content-down;
+			bottom: 100%;
+			padding-top: $height-vert-tag - 5vh;
+			clip-path: polygon(0 100%, 50% 0, 100% 100%);
+		}
+	}
+
+	&:hover &__box {
+		height: 100%;
+		transition: height $timeout;
+	}
+}
+
+.info {
+	width: 100%;
+	order: 2;
+	opacity: 0;
+
+	&>div {
+		display: none;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.left:hover,
+.right:hover {
+	width: $width-horz-block;
+	transition: all $timeout;
+
+	&~.wrap__center {
+		width: $width-horz-block;
+
+		& .info {
+			height: $height-horz-block;
+		}
+	}
+}
+
+.up:hover,
+.down:hover {
+	position: relative;
+	height: $height-vert-block;
+	transition: all $timeout;
+
+	&~.info {
+		height: $height-vert-block;
+	}
+}
+
+.left:hover .left__box,
+.right:hover .right__box,
+.up:hover .up__box,
+.down:hover .down__box {
+
+	&::after {
+		content: "";
+		transition: content $timeout;
+	}
+}
+
+.left:hover~.wrap__center .info,
+.right:hover+.wrap__center .info,
+.up:hover~.info,
+.down:hover+.info {
+	opacity: 1;
+	transition: opacity $timeout;
+}
+
+.left:hover~.wrap__center .info__left,
+.right:hover+.wrap__center .info__right,
+.up:hover~.info .info__top,
+.down:hover+.info .info__down {
+	display: block;
+	position: relative;
+	z-index: 5;
+	background-color: $background-light;
+}
+
+.left:hover .left__content,
+.right:hover .right__content,
+.up:hover .up__content,
+.down:hover .down__content {
+	display: block;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+
+footer {
+	min-height: 50px;
+	background-color: $background-dark;
+}
