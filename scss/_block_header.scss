@@ -2,10 +2,11 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	color: #ffC000;
+	color: $text-light;
 }
 
 .logo {
+	position: relative;
 	display: inline-block;
 	width: 80px;
 	height: 80px;
@@ -19,13 +20,21 @@
 	}
 
 	&__card {
+		@include position-size-parent;
+
 		visibility: hidden;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
+		padding: 20% 0;
+		border-radius: 50%;
 		background-color: $background-light;
+		color: $text-dark;
 
-		@include position-size-parent;
+		& h3 {
+			font-weight: 700;
+			color: $title-dark;
+		}
 	}
 
 	&:hover {
@@ -33,12 +42,14 @@
 		height: 200px;
 		transition: all $timeout;
 
-		&__card {
-			visibility: visible;
-			transition: visibility $timeout;
-		}
+	}
+
+	&:hover .logo__card {
+		visibility: visible;
+		transition: visibility $timeout;
 	}
 }
+
 
 nav a {
 	display: inline-block;
