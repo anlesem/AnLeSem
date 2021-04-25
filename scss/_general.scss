@@ -6,16 +6,13 @@ body {
 	line-height: 19px;
 
 	background: url(../img/background_big.jpg) center center no-repeat fixed;
-	background-size: cover;
 
 	@include laptop {
 		background: url(../img/background_medium.jpg) center center no-repeat fixed;
-		background-size: cover;
 	}
 
 	@include mobile {
 		background: url(../img/background_small.jpg) center center no-repeat fixed;
-		background-size: cover;
 	}
 
 	&::before {

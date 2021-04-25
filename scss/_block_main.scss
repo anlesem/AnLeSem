@@ -28,6 +28,7 @@ main {
 
 		&::after {
 			position: absolute;
+			z-index: 1;
 			box-sizing: border-box;
 			background-color: $background-dark;
 			color: $title-light;
@@ -199,8 +200,27 @@ main {
 
 .info {
 	width: 100%;
+	height: 100%;
+	margin: 0 auto;
 	order: 2;
-	opacity: 0;
+
+	&__up {
+		width: 100%;
+		height: 100%;
+		background: url(../img/background_big.jpg) center center no-repeat fixed;
+
+		@include laptop {
+			background: url(../img/background_medium.jpg) center center no-repeat fixed;
+		}
+
+		@include mobile {
+			background: url(../img/background_small.jpg) center center no-repeat fixed;
+		}
+
+		& p {
+			mix-blend-mode: overlay;
+		}
+	}
 
 	&>div {
 		display: none;
@@ -219,11 +239,33 @@ main {
 
 		& .info {
 			height: $height-horz-block;
+
+			&__up {
+				display: none;
+			}
 		}
 	}
 }
 
-.up:hover,
+.up:hover {
+	position: relative;
+	height: 20%;
+	transition: all $timeout;
+
+	&~.info {
+		height: 80%;
+
+		& .info__up {
+			animation: unset;
+			background: none;
+
+			& p {
+				mix-blend-mode: unset;
+			}
+		}
+	}
+}
+
 .down:hover {
 	position: relative;
 	height: $height-vert-block;
@@ -231,6 +273,10 @@ main {
 
 	&~.info {
 		height: $height-vert-block;
+
+		& .info__up {
+			display: none;
+		}
 	}
 }
 
@@ -249,17 +295,18 @@ main {
 .right:hover+.wrap__center .info,
 .up:hover~.info,
 .down:hover+.info {
+	animation: unset;
 	opacity: 1;
 	transition: opacity $timeout;
 }
 
 .left:hover~.wrap__center .info__left,
 .right:hover+.wrap__center .info__right,
-.up:hover~.info .info__top,
+.up:hover~.info .info__up,
 .down:hover+.info .info__down {
 	display: block;
 	position: relative;
-	z-index: 5;
+	z-index: 10;
 	background-color: $background-light;
 }
 
