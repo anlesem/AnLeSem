@@ -10,7 +10,7 @@ $timeout: 200ms;
 // * Заголовки
 $content-up: "Концепция";
 $content-right: "Творчество";
-$content-down: "Обучение";
+$content-down: "Прочее";
 $content-left: "Проект";
 
 
@@ -54,7 +54,7 @@ $height-horz-block: $free-space;
 
 // Ширина и высота вертикальных секций
 $width-vert-block: $free-space;
-$height-vert-block: $half-space;
+$height-vert-block: 20%;
 
 // Бирки
 $width-horz-tag: $short-size;

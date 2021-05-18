@@ -4,15 +4,26 @@
 		display: none;
 	}
 
+	&__wrapper {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+
+		&-label {
+			border-bottom: 1px solid $title-light;
+		}
+	}
+
 	& label {
+		display: inline-block;
 		margin-right: 30px;
-		padding: 5px 10px;
+		padding: 0px 20px 5px;
 		font-size: 16px;
 	}
 
 	& p {
 		display: none;
-		margin-top: 30px;
 	}
 }
 
@@ -30,17 +41,17 @@
 	}
 }
 
-#concept:checked~.wrap__center .label-concept,
-#history:checked~.wrap__center .label-history,
-#about:checked~.wrap__center .label-about {
+#up-1:checked~.wrap__center .label-up-1,
+#up-2:checked~.wrap__center .label-up-2,
+#up-3:checked~.wrap__center .label-up-3 {
 	font-size: 20px;
 	font-weight: 700;
 	border-bottom: 3px solid $title-light;
 }
 
-#concept:checked~.wrap__center .text-concept,
-#history:checked~.wrap__center .text-history,
-#about:checked~.wrap__center .text-about {
+#up-1:checked~.wrap__center .text-up-1,
+#up-2:checked~.wrap__center .text-up-2,
+#up-3:checked~.wrap__center .text-up-3 {
 	display: block;
 }
 

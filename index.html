@@ -29,9 +29,12 @@
 		</div>
 	</header>
 	<main class="container">
-		<input type="radio" name="up" class="up__radio" id="concept" checked>
-		<input type="radio" name="up" class="up__radio" id="history">
-		<input type="radio" name="up" class="up__radio" id="about">
+		<input type="radio" name="up" class="up__radio" id="up-1" checked>
+		<input type="radio" name="up" class="up__radio" id="up-2">
+		<input type="radio" name="up" class="up__radio" id="up-3">
+		<input type="radio" name="down" class="down__radio" id="down-1" checked>
+		<input type="radio" name="down" class="down__radio" id="down-2">
+		<input type="radio" name="down" class="down__radio" id="down-3">
 		<section class="left">
 			<div class="left__box">
 				<div class="left__content">
@@ -60,33 +63,40 @@
 			<section class="up">
 				<div class="up__box">
 					<div class="up__content">
-						<label class="label-concept title-light" for="concept">Концепция</label>
-						<label class="label-history title-light" for="history">История</label>
-						<label class="label-about title-light" for="about">О сайте</label>
-						<p class="text-light text-concept">Общий подход к логике дизайна сайтостроения</p>
-						<p class="text-light text-history">Исторические параллели</p>
-						<p class="text-light text-about">Идея данной разработки</p>
+						<div class="up__wrapper">
+							<div class="up__wrapper-label">
+								<label class="label-up-1 title-light" for="up-1">Концепция</label>
+								<label class="label-up-2 title-light" for="up-2">История</label>
+								<label class="label-up-3 title-light" for="up-3">О сайте</label>
+							</div>
+							<p class="text-light text-up-1">Общий подход к логике дизайна сайтостроения</p>
+							<p class="text-light text-up-2">Исторические параллели</p>
+							<p class="text-light text-up-3">Идея данной разработки</p>
+						</div>
 					</div>
 				</div>
 			</section>
 			<section class="down">
 				<div class="down__box">
 					<div class="down__content">
-						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo repellendus aut reprehenderit
-							cumque
-							libero, veritatis, quam mollitia nisi maxime deleniti ut possimus voluptatum facilis
-							exercitationem!
-							Quae
-							accusamus eligendi rem dolorem.
-						</p>
+						<div class="down__wrapper">
+							<div class="down__wrapper-label">
+								<label class="label-down-1 title-light" for="down-1">Работа</label>
+								<label class="label-down-2 title-light" for="down-2">Обучение</label>
+								<!-- <label class="label-down-3 title-light" for="down-3">О сайте</label> -->
+							</div>
+							<p class="text-light text-down-1">Общий подход к логике дизайна сайтостроения</p>
+							<p class="text-light text-down-2">Исторические параллели</p>
+							<!-- <p class="text-light text-down-3">Идея данной разработки</p> -->
+						</div>
 					</div>
 				</div>
 			</section>
 			<section class="info">
 				<article class="info__up">
-					<p class="text-dark text-concept">Общий подход к логике дизайна сайтостроения</p>
-					<p class="text-dark text-history">Историческая параллель</p>
-					<p class="text-dark text-about">Идея данной разработки</p>
+					<p class="text-dark text-up-1">Общий подход к логике дизайна сайтостроения</p>
+					<p class="text-dark text-up-2">Историческая параллель</p>
+					<p class="text-dark text-up-3">Идея данной разработки</p>
 				</article>
 				<div class="info__right"></div>
 				<div class="info__down"></div>

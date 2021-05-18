@@ -252,11 +252,10 @@ main {
 
 .up:hover {
 	position: relative;
-	height: 20%;
+	height: $height-vert-block;
 	transition: all $timeout;
 
 	&~.info {
-		height: 80%;
 
 		& .info__up {
 			animation: unset;
@@ -275,7 +274,6 @@ main {
 	transition: all $timeout;
 
 	&~.info {
-		height: $height-vert-block;
 
 		& .info__up {
 			display: none;
