@@ -36,17 +36,6 @@ info_right.onmouseleave = function () {
 
 
 
-//* Наведение в мобильной версии 
-
-// let tag_up = document.getElementById('up-tag');
-// let tag_up = document.getElementById('up-tag');
-// let tag_up = document.getElementById('up-tag');
-// let tag_up = document.getElementById('up-tag');
-
-// tag_up.addEventListener('click', function () {
-// 	document.querySelector('.up').classList.add('hover');
-// });
-
 //* Закрываем открытое
 
 let cls = document.getElementById('close');
@@ -56,7 +45,23 @@ cls.addEventListener('click', function () {
 	document.querySelector('.down').classList.remove('hover');
 	document.querySelector('.left').classList.remove('hover');
 	document.querySelector('.right').classList.remove('hover');
+	cls.style.display = 'none'
 });
+
+function displayBlock() {
+		cls.style.display = 'block';
+}
+
+let tag_up = document.getElementById('up-tag');
+let tag_down = document.getElementById('down-tag');
+let tag_left = document.getElementById('left-tag');
+let tag_right = document.getElementById('right-tag');
+
+tag_up.addEventListener('touchstart', displayBlock);
+tag_down.addEventListener('touchstart', displayBlock);
+tag_left.addEventListener('touchstart', displayBlock);
+tag_right.addEventListener('touchstart', displayBlock);
+
 
 
 
