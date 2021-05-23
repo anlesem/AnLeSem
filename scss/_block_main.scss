@@ -65,7 +65,6 @@ main {
 			position: absolute;
 			content: "";
 			box-sizing: border-box;
-			width: $width-horz-tag - 6vh;
 		}
 	}
 }
@@ -80,7 +79,8 @@ main {
 
 		&::before {
 			left: 100%;
-			padding: 1vh;
+			width: 110px;
+			padding: 10px;
 			background: url(../img/left_logo.svg) center center no-repeat content-box;
 			background-size: contain;
 		}
@@ -88,7 +88,7 @@ main {
 		&::after {
 			content: $content-left;
 			left: 100%;
-			padding-left: 1vh;
+			padding-left: 20px;
 			clip-path: polygon(0 0, 100% 50%, 0 100%);
 		}
 	}
@@ -109,7 +109,8 @@ main {
 
 		&::before {
 			right: 100%;
-			padding: 2vh;
+			width: 110px;
+			padding: 20px;
 			background: url(../img/right_logo.svg) center center no-repeat content-box;
 			background-size: contain;
 		}
@@ -117,7 +118,7 @@ main {
 		&::after {
 			content: $content-right;
 			right: 100%;
-			padding-right: 1vh;
+			padding-right: 10px;
 			clip-path: polygon(100% 0, 0 50%, 100% 100%);
 			text-align: right;
 		}
@@ -168,7 +169,7 @@ main {
 		&::after {
 			content: $content-up;
 			top: 100%;
-			padding-top: 2vh;
+			padding-top: $padding-content-up;
 			clip-path: polygon(0 0, 100% 0, 50% 100%);
 		}
 	}
@@ -190,7 +191,7 @@ main {
 		&::after {
 			content: $content-down;
 			bottom: 100%;
-			padding-top: $height-vert-tag - 5vh;
+			padding-top: $padding-content-down;
 			clip-path: polygon(0 100%, 50% 0, 100% 100%);
 		}
 	}

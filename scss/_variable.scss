@@ -30,35 +30,29 @@ $title-dark: #61330d;
 
 
 // * Параметры для блоков
-// Размер секций для срабатывания наведения ~ равен бирке
-$hover-space: 15%;
-
-// Размер половины секции при наведении, исходя из ( 100% - 15% ) / 2
-$half-space: 42.5%;
-
-// Размер полной секций при наведении, исходя из 100% - ( 15% * 2 )
-$free-space: 70%;
-
-// Размеры бирок длинная и короткая стороны треугольника
-$long-size: 20vh;
-$short-size: 15vh;
-
-
-// * Размеры блоков
 // Ширина контейнера
 $width-container: $laptop-width;
 
-// Ширина и высота горизонтальных секций
-$width-horz-block: $half-space;
-$height-horz-block: $free-space;
+// Размер секций для срабатывания наведения ~ равен бирке
+$hover-space: 15%;
 
-// Ширина и высота вертикальных секций
-$width-vert-block: $free-space;
+// Ширина и высота (исходя из (100% - 15% ) / 2 ) горизонтальных секций
+$width-horz-block: 42.5%;
+$height-horz-block: 70%;
+
+// Ширина (исходя из 100% - 15% * 2 ) и высота вертикальных секций
+$width-vert-block: 70%;
 $height-vert-block: 20%;
 
-// Бирки
-$width-horz-tag: $short-size;
-$height-horz-tag: $long-size;
+// * Бирки
+// Горизонтальные
+$width-horz-tag: 150px;
+$height-horz-tag: 200px;
 
-$width-vert-tag: $long-size;
-$height-vert-tag: $short-size;
+
+// Вертикальные
+$width-vert-tag: 200px;
+$height-vert-tag: 150px;
+// отступ заголовков
+$padding-content-up: 30px;
+$padding-content-down: 100px;
