@@ -38,29 +38,47 @@ info_right.onmouseleave = function () {
 
 //* Закрываем открытое
 
+function viewClose() {
+	cls.style.fill = '#aaa';
+	cls.style.opacity = '1';
+}
+
 let cls = document.getElementById('close');
+let tag_up = document.getElementById('up-tag');
+let tag_down = document.getElementById('down-tag');
+let tag_left = document.getElementById('left-tag');
+let tag_right = document.getElementById('right-tag');
 
 cls.addEventListener('click', function () {
 	document.querySelector('.up').classList.remove('hover');
 	document.querySelector('.down').classList.remove('hover');
 	document.querySelector('.left').classList.remove('hover');
 	document.querySelector('.right').classList.remove('hover');
-	cls.style.display = 'none'
+	cls.style.fill = 'rgba(0, 0, 0, .7)'
+	cls.style.opacity = '0.5'
 });
 
-function displayBlock() {
-		cls.style.display = 'block';
-}
 
-let tag_up = document.getElementById('up-tag');
-let tag_down = document.getElementById('down-tag');
-let tag_left = document.getElementById('left-tag');
-let tag_right = document.getElementById('right-tag');
+tag_up.addEventListener('touchstart', viewClose);
+tag_down.addEventListener('touchstart', viewClose);
+tag_left.addEventListener('touchstart', viewClose);
+tag_right.addEventListener('touchstart', viewClose);
 
-tag_up.addEventListener('touchstart', displayBlock);
-tag_down.addEventListener('touchstart', displayBlock);
-tag_left.addEventListener('touchstart', displayBlock);
-tag_right.addEventListener('touchstart', displayBlock);
+tag_up.addEventListener('touchstart', function () {
+	document.querySelector('.up').classList.add('hover');
+});
+
+tag_down.addEventListener('touchstart', function () {
+	document.querySelector('.down').classList.add('hover');
+});
+
+tag_left.addEventListener('touchstart', function () {
+	document.querySelector('.left').classList.add('hover');
+});
+
+tag_right.addEventListener('touchstart', function () {
+	document.querySelector('.right').classList.add('hover');
+});
 
 
 

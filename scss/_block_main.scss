@@ -12,6 +12,7 @@ header {
 }
 
 main {
+	// позиция для отсутствия движения верхних бирок при наведении на боковые
 	position: relative;
 	flex-grow: 1;
 	display: flex;
@@ -24,16 +25,16 @@ main {
 .up,
 .down {
 
+	&-tag {
+		position: absolute;
+		z-index: 5;
+		box-sizing: border-box;
+		color: $title-light;
+		font-size: 18px;
+	}
+
 	&__box {
 		background-color: $background-dark;
-
-		&-tag {
-			position: absolute;
-			z-index: 5;
-			box-sizing: border-box;
-			color: $title-light;
-			font-size: 18px;
-		}
 	}
 
 	&__content {
@@ -44,81 +45,107 @@ main {
 
 .left,
 .right {
+	position: relative;
 	width: $hover-space;
 	height: $height-horz-block;
 
 	@include tablet {
 		width: 0;
+		height: 100%;
+	}
+
+	&-tag {
+		top: 50%;
+		transform: translateY(-50%);
+		width: $width-horz-tag;
+		height: $height-horz-tag;
+		line-height: $height-horz-tag;
+
+		&::after {
+			content: "";
+			@include position-size-parent;
+			z-index: -1;
+			background-color: $background-dark;
+		}
+
 	}
 
 	&__box {
 		width: 0;
 		height: 100%;
-
-		&-tag {
-			top: 50%;
-			transform: translateY(-50%);
-			width: $width-horz-tag;
-			height: $height-horz-tag;
-			line-height: $height-horz-tag;
-
-			&::after {
-				content: "";
-				@include position-size-parent;
-				z-index: -1;
-				background-color: $background-dark;
-			}
-
-		}
 	}
 }
 
 .left {
 	order: 1;
-	position: relative;
+
+	&-tag {
+		left: 0;
+		padding-left: 20px;
+		clip-path: polygon(0 0, 100% 50%, 0 100%);
+		background: url(../img/left_logo.svg) center center no-repeat content-box;
+		background-size: contain;
+	}
 
 	&__box {
 		position: absolute;
 		left: 0;
+	}
 
-		&-tag {
-			left: 100%;
-			padding-left: 20px;
-			clip-path: polygon(0 0, 100% 50%, 0 100%);
-			background: url(../img/left_logo.svg) center center no-repeat content-box;
-			background-size: contain;
-		}
+	&:hover &-tag,
+	&.hover &-tag {
+		left: 100%;
+		transition: left $timeout;
 	}
 
 	&:hover &__box,
 	&.hover &__box {
 		width: 100%;
 		transition: width $timeout;
+
+		@include tablet {
+			top: 0;
+			z-index: 8;
+			width: 100vw;
+			height: 50%;
+		}
 	}
 }
 
 .right {
 	order: 3;
-	position: relative;
+
+	&-tag {
+		right: 0;
+		padding-right: 10px;
+		clip-path: polygon(100% 0, 0 50%, 100% 100%);
+		text-align: right;
+		background: url(../img/right_logo.svg) center center no-repeat content-box;
+		background-size: contain;
+	}
 
 	&__box {
 		position: absolute;
 		right: 0;
+	}
 
-		&-tag {
-			right: 100%;
-			padding-right: 10px;
-			clip-path: polygon(100% 0, 0 50%, 100% 100%);
-			text-align: right;
-			background: url(../img/right_logo.svg) center center no-repeat content-box;
-			background-size: contain;
-		}
+	&:hover &-tag,
+	&.hover &-tag {
+		right: 100%;
+		transition: right $timeout;
 	}
 
 	&:hover &__box,
 	&.hover &__box {
 		width: 100%;
 		transition: width $timeout;
+
+		@include tablet {
+			top: 0;
+			z-index: 8;
+			width: 100vw;
+			height: 50%;
+		}
 	}
 }
 
@@ -144,34 +171,40 @@ main {
 		height: 0;
 	}
 
+	&-tag {
+		left: 50%;
+		transform: translateX(-50%);
+		width: $width-vert-tag;
+		height: $height-vert-tag;
+		text-align: center;
+		background-color: $background-dark;
+	}
+
 	&__box {
 		width: 100%;
 		height: 0;
-
-		&-tag {
-			left: 50%;
-			transform: translateX(-50%);
-			width: $width-vert-tag;
-			height: $height-vert-tag;
-			text-align: center;
-			background-color: $background-dark;
-		}
 	}
 }
 
 .up {
 	order: 1;
 
+	&-tag {
+		top: 0;
+		padding-top: $padding-content-up;
+		clip-path: polygon(0 0, 100% 0, 50% 100%);
+	}
+
 	&__box {
 		position: absolute;
 		top: 0;
 		left: 0;
+	}
 
-		&-tag {
-			top: 100%;
-			padding-top: $padding-content-up;
-			clip-path: polygon(0 0, 100% 0, 50% 100%);
-		}
+	&:hover &-tag,
+	&.hover &-tag {
+		top: 100%;
+		transition: top $timeout;
 	}
 
 	&:hover &__box,
@@ -184,16 +217,22 @@ main {
 .down {
 	order: 3;
 
+	&-tag {
+		bottom: 0;
+		padding-top: $padding-content-down;
+		clip-path: polygon(0 100%, 50% 0, 100% 100%);
+	}
+
 	&__box {
 		position: absolute;
 		bottom: 0;
 		left: 0;
+	}
 
-		&-tag {
-			bottom: 100%;
-			padding-top: $padding-content-down;
-			clip-path: polygon(0 100%, 50% 0, 100% 100%);
-		}
+	&:hover &-tag,
+	&.hover &-tag {
+		bottom: 100%;
+		transition: bottom $timeout;
 	}
 
 	&:hover &__box,
@@ -250,6 +289,20 @@ main {
 
 			&__up {
 				display: none;
+			}
+		}
+	}
+
+	@include tablet {
+		width: 0;
+
+		&~.wrap__center {
+			width: 100%;
+
+			& .info {
+				position: absolute;
+				bottom: 0;
+				height: 50%;
 			}
 		}
 	}

@@ -18,9 +18,12 @@
 	display: none;
 
 	@include tablet {
+		display: block;
 		@include position-center;
 		width: 60px;
 		height: 60px;
-		fill: $text-info;
+		fill: $background-dark;
+		opacity: 0.5;
+		transition: fill $timeout opacity $timeout;
 	}
 }
