@@ -27,11 +27,10 @@ main {
 	&__box {
 		background-color: $background-dark;
 
-		&::after {
+		&-tag {
 			position: absolute;
-			z-index: 1;
+			z-index: 5;
 			box-sizing: border-box;
-			background-color: $background-dark;
 			color: $title-light;
 			font-size: 18px;
 		}
@@ -48,23 +47,28 @@ main {
 	width: $hover-space;
 	height: $height-horz-block;
 
+	@include tablet {
+		width: 0;
+	}
+
 	&__box {
 		width: 0;
 		height: 100%;
 
-		&::before,
-		&::after {
+		&-tag {
 			top: 50%;
 			transform: translateY(-50%);
 			width: $width-horz-tag;
 			height: $height-horz-tag;
 			line-height: $height-horz-tag;
-		}
 
-		&::before {
-			position: absolute;
-			content: "";
-			box-sizing: border-box;
+			&::after {
+				content: "";
+				@include position-size-parent;
+				z-index: -1;
+				background-color: $background-dark;
+			}
+
 		}
 	}
 }
@@ -77,23 +81,17 @@ main {
 		position: absolute;
 		left: 0;
 
-		&::before {
-			left: 100%;
-			width: 110px;
-			padding: 10px;
-			background: url(../img/left_logo.svg) center center no-repeat content-box;
-			background-size: contain;
-		}
-
-		&::after {
-			content: $content-left;
+		&-tag {
 			left: 100%;
 			padding-left: 20px;
 			clip-path: polygon(0 0, 100% 50%, 0 100%);
+			background: url(../img/left_logo.svg) center center no-repeat content-box;
+			background-size: contain;
 		}
 	}
 
-	&:hover &__box {
+	&:hover &__box,
+	&.hover &__box {
 		width: 100%;
 		transition: width $timeout;
 	}
@@ -107,24 +105,18 @@ main {
 		position: absolute;
 		right: 0;
 
-		&::before {
-			right: 100%;
-			width: 110px;
-			padding: 20px;
-			background: url(../img/right_logo.svg) center center no-repeat content-box;
-			background-size: contain;
-		}
-
-		&::after {
-			content: $content-right;
+		&-tag {
 			right: 100%;
 			padding-right: 10px;
 			clip-path: polygon(100% 0, 0 50%, 100% 100%);
 			text-align: right;
+			background: url(../img/right_logo.svg) center center no-repeat content-box;
+			background-size: contain;
 		}
 	}
 
-	&:hover &__box {
+	&:hover &__box,
+	&.hover &__box {
 		width: 100%;
 		transition: width $timeout;
 	}
@@ -137,6 +129,10 @@ main {
 	flex-direction: column;
 	justify-content: space-between;
 	order: 2;
+
+	@include tablet {
+		width: 100%;
+	}
 }
 
 .up,
@@ -144,16 +140,21 @@ main {
 	width: 100%;
 	height: $hover-space;
 
+	@include tablet {
+		height: 0;
+	}
+
 	&__box {
 		width: 100%;
 		height: 0;
 
-		&::after {
+		&-tag {
 			left: 50%;
 			transform: translateX(-50%);
 			width: $width-vert-tag;
 			height: $height-vert-tag;
 			text-align: center;
+			background-color: $background-dark;
 		}
 	}
 }
@@ -166,15 +167,15 @@ main {
 		top: 0;
 		left: 0;
 
-		&::after {
-			content: $content-up;
+		&-tag {
 			top: 100%;
 			padding-top: $padding-content-up;
 			clip-path: polygon(0 0, 100% 0, 50% 100%);
 		}
 	}
 
-	&:hover &__box {
+	&:hover &__box,
+	&.hover &__box {
 		height: 100%;
 		transition: height $timeout;
 	}
@@ -188,15 +189,15 @@ main {
 		bottom: 0;
 		left: 0;
 
-		&::after {
-			content: $content-down;
+		&-tag {
 			bottom: 100%;
 			padding-top: $padding-content-down;
 			clip-path: polygon(0 100%, 50% 0, 100% 100%);
 		}
 	}
 
-	&:hover &__box {
+	&:hover &__box,
+	&.hover &__box {
 		height: 100%;
 		transition: height $timeout;
 	}
@@ -235,7 +236,9 @@ main {
 }
 
 .left:hover,
-.right:hover {
+.left.hover,
+.right:hover,
+.right.hover {
 	width: $width-horz-block;
 	transition: all $timeout;
 
@@ -252,7 +255,8 @@ main {
 	}
 }
 
-.up:hover {
+.up:hover,
+.up.hover {
 	position: relative;
 	height: $height-vert-block;
 	transition: all $timeout;
@@ -270,7 +274,8 @@ main {
 	}
 }
 
-.down:hover {
+.down:hover,
+.down.hover {
 	position: relative;
 	height: $height-vert-block;
 	transition: all $timeout;
@@ -284,29 +289,40 @@ main {
 }
 
 .left:hover .left__box,
+.left.hover .left__box,
 .right:hover .right__box,
+.right.hover .right__box,
 .up:hover .up__box,
-.down:hover .down__box {
+.up.hover .up__box,
+.down:hover .down__box,
+.down.hover .down__box {
 
-	&::after {
-		content: "";
-		transition: content $timeout;
+	&-tag {
+		color: $background-dark;
 	}
 }
 
 .left:hover~.wrap__center .info,
+.left.hover~.wrap__center .info,
 .right:hover+.wrap__center .info,
+.right.hover+.wrap__center .info,
 .up:hover~.info,
-.down:hover+.info {
+.up.hover~.info,
+.down:hover+.info,
+.down.hover+.info {
 	animation: unset;
 	opacity: 1;
 	transition: opacity $timeout;
 }
 
 .left:hover~.wrap__center .info__left,
+.left.hover~.wrap__center .info__left,
 .right:hover+.wrap__center .info__right,
+.right.hover+.wrap__center .info__right,
 .up:hover~.info .info__up,
-.down:hover+.info .info__down {
+.up.hover~.info .info__up,
+.down:hover+.info .info__down,
+.down.hover+.info .info__down {
 	display: block;
 	position: relative;
 	z-index: 10;
@@ -314,17 +330,27 @@ main {
 }
 
 .left:hover .left__content,
+.left.hover .left__content,
 .right:hover .right__content,
+.right.hover .right__content,
 .up:hover .up__content,
-.down:hover .down__content {
+.up.hover .up__content,
+.down:hover .down__content,
+.down.hover .down__content {
 	display: block;
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
 }
 
-
 footer {
 	min-height: 50px;
+	line-height: 50px;
 	background-color: $background-dark;
+
+	@include tablet {
+		position: relative;
+		min-height: 80px;
+		line-height: 80px;
+	}
 }

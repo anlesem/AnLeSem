@@ -17,6 +17,12 @@
 </head>
 
 <body>
+	<svg class="visually-hidden">
+		<symbol id="icon__close" viewBox="0 0 256 256">
+			<path
+				d="M127.99951,26.00012a102,102,0,1,0,102,102A102.1153,102.1153,0,0,0,127.99951,26.00012Zm0,192a90,90,0,1,1,90-90A90.10218,90.10218,0,0,1,127.99951,218.00012ZM164.2417,100.2428l-27.75732,27.75732,27.75732,27.75733a5.99971,5.99971,0,1,1-8.48438,8.48535L127.99951,136.485,100.2417,164.2428a5.99971,5.99971,0,0,1-8.48438-8.48535l27.75733-27.75733L91.75732,100.2428a5.99971,5.99971,0,1,1,8.48438-8.48535l27.75781,27.75781,27.75781-27.75781a5.99971,5.99971,0,0,1,8.48438,8.48535Z" />
+		</symbol>
+	</svg>
 	<header>
 		<div class="header container">
 			<div class="logo">
@@ -44,6 +50,7 @@
 		<input type="radio" name="down" class="down__radio" id="down-2">
 		<section class="left">
 			<div class="left__box">
+				<div class="left__box-tag" id="left-tag">Проект</div>
 				<div class="left__content">
 					<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo repellendus aut reprehenderit
 						cumque
@@ -57,6 +64,7 @@
 		</section>
 		<section class="right">
 			<div class="right__box">
+				<div class="right__box-tag" id="right-tag">Творчество</div>
 				<div class="right__content">
 					<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo repellendus aut reprehenderit
 						cumque
@@ -71,6 +79,7 @@
 		<section class="wrap__center">
 			<section class="up">
 				<div class="up__box">
+					<div class="up__box-tag" id="up-tag">Концепция</div>
 					<div class="up__content">
 						<div class="up__wrapper">
 							<div class="up__wrapper-label">
@@ -87,6 +96,7 @@
 			</section>
 			<section class="down">
 				<div class="down__box">
+					<div class="down__box-tag" id="down-tag">Прочее</div>
 					<div class="down__content">
 						<div class="down__wrapper">
 							<div class="down__wrapper-label">
@@ -100,18 +110,26 @@
 				</div>
 			</section>
 			<section class="info">
-				<article class="info__up">
+				<article class="info__up" id="info__up">
 					<p class="text-dark text-up-1">Общий подход к логике дизайна сайтостроения</p>
 					<p class="text-dark text-up-2">Историческая параллель</p>
 					<p class="text-dark text-up-3">Идея данной разработки</p>
 				</article>
-				<div class="info__right"></div>
-				<div class="info__down"></div>
-				<div class="info__left"></div>
+				<div class="info__down" id="info__down"></div>
+				<div class="info__left" id="info__left"></div>
+				<div class="info__right" id="info__right"></div>
 			</section>
 		</section>
 	</main>
-	<footer></footer>
+	<footer>
+		<div class="copyright">&copy; 2021 <span class="copyright__full">Все права защищены. </span> </div>
+		<div class="close" id="close">
+			<svg width="70" height="70" viewBox="0 0 70 70">
+				<use href="#icon__close" />
+			</svg>
+		</div>
+	</footer>
+	<script src="./js/scritps.js"></script>
 </body>
 
 </html>

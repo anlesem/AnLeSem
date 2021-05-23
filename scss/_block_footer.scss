@@ -1,0 +1,27 @@
+.copyright {
+	color: $text-info;
+	text-align: right;
+	margin-right: 30px;
+
+	@include mobile {
+		margin-right: 10px;
+	}
+
+	&__full {
+		@include tablet {
+			display: none;
+		}
+	}
+}
+
+.close {
+	display: none;
+
+	@include tablet {
+		display: block;
+		@include position-center;
+		width: 70px;
+		height: 70px;
+		fill: $text-info;
+	}
+}
