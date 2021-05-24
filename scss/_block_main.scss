@@ -341,18 +341,24 @@ main {
 	}
 }
 
-.left:hover .left__box,
-.left.hover .left__box,
-.right:hover .right__box,
-.right.hover .right__box,
-.up:hover .up__box,
-.up.hover .up__box,
-.down:hover .down__box,
-.down.hover .down__box {
+// отключение заголовка бирки 
+.left:hover,
+.left.hover,
+.right:hover,
+.right.hover,
+.up:hover,
+.up.hover,
+.down:hover,
+.down.hover {
 
-	&-tag {
-		color: $background-dark;
+	& span {
+		display: none;
 	}
+}
+
+// к тому же span 
+.title-tag.hover {
+	display: none;
 }
 
 .left:hover~.wrap__center .info,
