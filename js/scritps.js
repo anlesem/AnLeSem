@@ -6,9 +6,16 @@ let info_left = document.getElementById('info__left');
 let info_right = document.getElementById('info__right');
 
 
-info_up.onmouseenter = function () {
-	document.querySelector('.up').classList.add('hover');
+function addHover(block) {
+	document.querySelector(block).classList.add('hover');
 }
+
+info_up.onmouseenter = addHover('.up');
+
+
+// info_up.onmouseenter = function () {
+// 	document.querySelector('.up').classList.add('hover');
+// }
 info_up.onmouseleave = function () {
 	document.querySelector('.up').classList.remove('hover');
 }
