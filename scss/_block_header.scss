@@ -2,7 +2,21 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	color: #ebb289;
+	color: $text-menu;
+
+	&__menu-text {
+		@include tablet {
+			display: none;
+		}
+	}
+
+	&__menu-icon {
+		display: none;
+
+		@include tablet {
+			display: contents;
+		}
+	}
 }
 
 .logo {
@@ -54,22 +68,32 @@
 }
 
 
-nav a {
-	display: inline-block;
-	width: 10%;
-	text-align: center;
-}
-
 nav {
 	display: contents;
+
+	& a {
+		display: inline-block;
+		width: 10%;
+		text-align: center;
+	}
+
+	& a:nth-child(n+3) {
+		order: 3;
+	}
+
+	& svg {
+		fill: $text-menu;
+		opacity: 0.8;
+
+		@include mobile {
+			width: 100%;
+			height: auto;
+		}
+	}
 }
 
 .logo {
 	order: 2;
-}
-
-nav a:nth-child(n+3) {
-	order: 3;
 }
 
 a:hover {

@@ -1,7 +1,16 @@
-.up {
+.up,
+.down {
 
 	&__radio {
 		display: none;
+	}
+
+	&__content {
+		padding: 10px 20px;
+
+		@include mobile {
+			padding: 10px 10px;
+		}
 	}
 
 	&__wrapper {
@@ -12,14 +21,33 @@
 
 		&-label {
 			border-bottom: 1px solid $title-light;
+
+			@include tablet {
+				display: flex;
+				justify-content: space-around;
+			}
 		}
 	}
 
 	& label {
 		display: inline-block;
+		box-sizing: content-box;
+		height: 100%;
 		margin-right: 30px;
-		padding: 0px 20px 5px;
+		padding: 0px 20px;
 		font-size: 16px;
+
+		@include tablet {
+			margin-right: 0;
+			padding: 0;
+			width: 30%;
+			text-align: center;
+		}
+
+		@include mobile {
+			font-size: 14px;
+		}
+
 	}
 
 	& p {
@@ -31,8 +59,12 @@
 	opacity: 0;
 	animation: info-opacity infinite 8s linear;
 
-	&__up {
+	&__up,
+	&__down {
 		padding: 20px;
+	}
+
+	&__up {
 		animation: info-text infinite 72s linear;
 
 		& p {
@@ -43,15 +75,23 @@
 
 #up-1:checked~.wrap__center .label-up-1,
 #up-2:checked~.wrap__center .label-up-2,
-#up-3:checked~.wrap__center .label-up-3 {
-	font-size: 20px;
+#up-3:checked~.wrap__center .label-up-3,
+#down-1:checked~.wrap__center .label-down-1,
+#down-2:checked~.wrap__center .label-down-2 {
+	font-size: 18px;
 	font-weight: 700;
 	border-bottom: 3px solid $title-light;
+
+	@include mobile {
+		font-size: 14px;
+	}
 }
 
 #up-1:checked~.wrap__center .text-up-1,
 #up-2:checked~.wrap__center .text-up-2,
-#up-3:checked~.wrap__center .text-up-3 {
+#up-3:checked~.wrap__center .text-up-3,
+#down-1:checked~.wrap__center .text-down-1,
+#down-2:checked~.wrap__center .text-down-2 {
 	display: block;
 }
 

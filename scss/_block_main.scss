@@ -38,7 +38,6 @@ main {
 	}
 
 	&__content {
-		padding: 20px;
 		display: none;
 	}
 }
@@ -254,11 +253,11 @@ main {
 		background: url(../img/background_big.jpg) center center no-repeat fixed;
 
 		@include laptop {
-			background: url(../img/background_medium.jpg) center center no-repeat fixed;
+			background: url(../img/background_ls_medium.jpg) center center no-repeat fixed;
 		}
 
 		@include mobile {
-			background: url(../img/background_small.jpg) center center no-repeat fixed;
+			background: url(../img/background_ls_small.jpg) center center no-repeat fixed;
 		}
 
 		& p {

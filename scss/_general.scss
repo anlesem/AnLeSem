@@ -5,8 +5,16 @@ body {
 	font-weight: 400;
 	line-height: 22px;
 
-	background: url(../img/background_small.jpg) center center no-repeat;
-	background-size: 400%;
+	background: url(../img/background_ls.jpg) center center no-repeat;
+	background-size: 1000%;
+
+	@include laptop {
+		background-size: 500%;
+	}
+
+	@include mobile {
+		background-size: 200%;
+	}
 
 	&::before {
 		content: "";
@@ -24,7 +32,7 @@ body {
 		background: url(../img/background_big.jpg) center center no-repeat fixed;
 
 		@include laptop {
-			background: url(../img/background_medium.jpg) center center no-repeat fixed;
+			background: url(../img/background_ls_medium.jpg) center center no-repeat fixed;
 		}
 
 		@include mobile {
