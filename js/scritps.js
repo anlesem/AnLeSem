@@ -97,6 +97,8 @@ footer.addEventListener('mouseover', removeAll);
 
 
 
+
+
 //* Движения
 
 var initialPoint;
@@ -115,21 +117,23 @@ document.addEventListener('touchend', function(event) {
 	var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
 	var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
 	if (xAbs > 20 || yAbs > 20) {
-		removeAll();
-		if (xAbs > yAbs) {
-			if (finalPoint.pageX < initialPoint.pageX){
-				addHover('.right'); 								//Движение влево
+		if (document.querySelector('.hover') == null) {
+			// alert(document.querySelector('.hover'));
+			if (xAbs > yAbs) {
+				if (finalPoint.pageX < initialPoint.pageX) {
+					addHover('.right'); 								//Движение влево
+				}
+				else {
+					addHover('.left');								//Движение влево
+				}
 			}
-			else{
-				addHover('.left');								//Движение влево
-			}
-		}
-		else {
-			if (finalPoint.pageY < initialPoint.pageY){
-				addHover('.down'); 								//Движение вверх
-			}
-			else{
-				addHover('.up'); 									//Движение вниз
+			else {
+				if (finalPoint.pageY < initialPoint.pageY) {
+					addHover('.down'); 								//Движение вверх
+				}
+				else {
+					addHover('.up'); 									//Движение вниз
+				}
 			}
 		}
 	}
