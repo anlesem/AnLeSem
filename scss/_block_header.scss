@@ -4,22 +4,68 @@
 	align-items: center;
 	color: $text-menu;
 
-	&__menu-text {
-		@include tablet {
-			display: none;
+	& nav {
+		display: contents;
+		height: 100%;
+
+		& a {
+			position: relative;
+			display: inline-block;
+			width: 15%;
+
+			text-align: center;
+
+			@include tablet {
+				min-height: 100px;
+			}
+
+			&:nth-child(n+3) {
+				order: 3;
+			}
+
+			&:hover {
+
+				& svg {
+					z-index: auto;
+
+					@include tablet {
+						opacity: 0.3;
+					}
+				}
+
+				& span {
+					opacity: 0.3;
+				}
+			}
 		}
-	}
 
-	&__menu-icon {
-		display: none;
+		& span {
+			@include tablet {
+				display: none;
+			}
+		}
 
-		@include tablet {
-			display: contents;
+		& svg {
+			@include position-center;
+			z-index: -1;
+			fill: #777;
+
+			@include tablet {
+				z-index: auto;
+				fill: $text-menu;
+				opacity: 0.8;
+			}
+
+			@include mobile {
+				width: 100%;
+				height: auto;
+			}
 		}
 	}
 }
 
 .logo {
+	order: 2;
 	position: relative;
 	display: inline-block;
 	width: 80px;
@@ -34,9 +80,12 @@
 	}
 
 	&__card {
-		@include position-size-parent;
-
-		visibility: hidden;
+		position: absolute;
+		top: 50%;
+		bottom: 50%;
+		left: 50%;
+		right: 50%;
+		overflow: hidden;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
@@ -46,6 +95,7 @@
 		color: #d16416;
 		font-size: 14px;
 		font-weight: 700;
+		opacity: 0;
 
 		& h3 {
 			font-size: 18px;
@@ -59,43 +109,27 @@
 		height: 200px;
 		transition: all $timeout;
 
-	}
-
-	&:hover .logo__card {
-		visibility: visible;
-		transition: visibility $timeout;
-	}
-}
-
-
-nav {
-	display: contents;
-
-	& a {
-		display: inline-block;
-		width: 10%;
-		text-align: center;
-	}
-
-	& a:nth-child(n+3) {
-		order: 3;
-	}
-
-	& svg {
-		fill: $text-menu;
-		opacity: 0.8;
-
-		@include mobile {
-			width: 100%;
-			height: auto;
+		& .logo__card {
+			animation: contacts $timeout linear 1s forwards;
 		}
 	}
 }
 
-.logo {
-	order: 2;
-}
 
-a:hover {
-	opacity: 0.7;
+@keyframes contacts {
+	from {
+		top: 50%;
+		bottom: 50%;
+		left: 50%;
+		right: 50%;
+		opacity: 0;
+	}
+
+	to {
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		opacity: 1;
+	}
 }

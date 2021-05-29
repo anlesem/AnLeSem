@@ -20,17 +20,17 @@
 		justify-content: space-around;
 
 		&-label {
+			display: flex;
+			justify-content: start;
 			border-bottom: 1px solid $title-light;
 
 			@include tablet {
-				display: flex;
 				justify-content: space-around;
 			}
 		}
 	}
 
 	& label {
-		display: inline-block;
 		box-sizing: content-box;
 		height: 100%;
 		margin-right: 30px;
@@ -38,6 +38,7 @@
 		font-size: 16px;
 
 		@include tablet {
+			flex-grow: 1;
 			margin-right: 0;
 			padding: 0;
 			width: 30%;
@@ -47,7 +48,6 @@
 		@include mobile {
 			font-size: 14px;
 		}
-
 	}
 
 	& p {
