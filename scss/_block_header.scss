@@ -11,12 +11,13 @@
 		& a {
 			position: relative;
 			display: inline-block;
-			width: 15%;
+			width: 20%;
 
 			text-align: center;
 
 			@include tablet {
 				min-height: 100px;
+				width: 15%;
 			}
 
 			&:nth-child(n+3) {
@@ -54,11 +55,6 @@
 				z-index: auto;
 				fill: $text-menu;
 				opacity: 0.8;
-			}
-
-			@include mobile {
-				width: 100%;
-				height: auto;
 			}
 		}
 	}
@@ -111,6 +107,17 @@
 
 		& .logo__card {
 			animation: contacts $timeout linear 1s forwards;
+		}
+
+		&+nav a {
+			width: 10%;
+		}
+
+		&+nav svg {
+			@include mobile {
+				width: 100%;
+				height: auto;
+			}
 		}
 	}
 }
