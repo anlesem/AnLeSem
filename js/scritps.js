@@ -99,26 +99,43 @@ footer.addEventListener('mouseover', removeAll);
 
 //* Движения
 
-let eventTouch = null;
+var initialPoint;
+var finalPoint;
 
-document.addEventListener("touchstart", function (e) {
-    eventTouch = e;
-});
-document.addEventListener("touchmove", function (e) {
-	let orientationX = 0; 											// Вертикальная ось
-	let orientationY = 0; 											// Горизонтальная ось
-	if (eventTouch) {
-		orientationX = (e.touches[0].pageX - eventTouch.touches[0].pageX);
-		orientationY = (e.touches[0].pageY - eventTouch.touches[0].pageY);
-		if (orientationX > 0) addHover('.down');				// справа налево
-		else addHover('.up');									// слева направо
-		if (orientationY > 0) addHover('.left');				// справа налево
-		else addHover('.right');									// слева направо
-    }
-});
-document.addEventListener("touched", function (e) {
-    eventTouch = null;
-});
+document.addEventListener('touchstart', function(event) {
+	// event.preventDefault();
+	// event.stopPropagation();
+	initialPoint=event.changedTouches[0];
+}, false);
+
+document.addEventListener('touchend', function(event) {
+	// event.preventDefault();
+	// event.stopPropagation();
+	finalPoint=event.changedTouches[0];
+	var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
+	var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
+	if (xAbs > 20 || yAbs > 20) {
+		removeAll();
+		if (xAbs > yAbs) {
+			if (finalPoint.pageX < initialPoint.pageX){
+				addHover('.right'); 								//Движение влево
+			}
+			else{
+				addHover('.left');								//Движение влево
+			}
+		}
+		else {
+			if (finalPoint.pageY < initialPoint.pageY){
+				addHover('.down'); 								//Движение вверх
+			}
+			else{
+				addHover('.up'); 									//Движение вниз
+			}
+		}
+	}
+}, false);
+
+
 
 
 
