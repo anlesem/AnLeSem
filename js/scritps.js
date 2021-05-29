@@ -97,7 +97,28 @@ footer.addEventListener('mouseover', removeAll);
 
 
 
+//* Движения
 
+let eventTouch = null;
+
+document.addEventListener("touchstart", function (e) {
+    eventTouch = e;
+});
+document.addEventListener("touchmove", function (e) {
+	let orientationX = 0; 											// Вертикальная ось
+	let orientationY = 0; 											// Горизонтальная ось
+	if (eventTouch) {
+		orientationX = (e.touches[0].pageX - eventTouch.touches[0].pageX);
+		orientationY = (e.touches[0].pageY - eventTouch.touches[0].pageY);
+		if (orientationX > 0) addHover('.down');				// справа налево
+		else addHover('.up');									// слева направо
+		if (orientationY > 0) addHover('.left');				// справа налево
+		else addHover('.right');									// слева направо
+    }
+});
+document.addEventListener("touched", function (e) {
+    eventTouch = null;
+});
 
 
 
