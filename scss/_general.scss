@@ -5,15 +5,15 @@ body {
 	font-weight: 400;
 	line-height: 22px;
 
-	background: url(../img/background_ls.jpg) center center no-repeat;
+	background: url(../img/background_ls640.jpg) center center no-repeat;
 	background-size: 1000%;
+
+	@media screen and (max-width: 1080px) and (orientation: portrait) {
+		background: url(../img/background_pr280.jpg) center center no-repeat;
+	}
 
 	@include laptop {
 		background-size: 500%;
-	}
-
-	@include mobile {
-		background-size: 200%;
 	}
 
 	&::before {
@@ -29,14 +29,26 @@ body {
 		@include position-size-parent;
 		z-index: -10;
 
-		background: url(../img/background_big.jpg) center center no-repeat fixed;
+		background: $bg-PC;
 
 		@include laptop {
-			background: url(../img/background_ls_medium.jpg) center center no-repeat fixed;
+			background: $bc-laptop;
 		}
 
 		@include mobile {
-			background: url(../img/background_small.jpg) center center no-repeat fixed;
+			background: $bc-mobile;
+		}
+
+		@media screen and (max-width: 1080px) and (orientation: portrait) {
+			background: $bc-laptop-pt;
+		}
+
+		@media screen and (max-width: 768px) and (orientation: portrait) {
+			background: $bc-tablet-pt;
+		}
+
+		@media screen and (max-width: 375px) and (orientation: portrait) {
+			background: $bc-mobile-pt;
 		}
 	}
 }
@@ -44,6 +56,10 @@ body {
 .container {
 	width: $width-container;
 	margin: 0 auto;
+
+	@media screen and (min-aspect-ratio: 2/1) {
+		width: 100%;
+	}
 
 	@include laptop {
 		width: 100%;

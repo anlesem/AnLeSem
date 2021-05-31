@@ -4,11 +4,11 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 	overflow: hidden;
-}
 
-header {
-	min-height: 100px;
-	background-color: $background-dark;
+	@media screen and (min-aspect-ratio: 2/1) {
+		flex-direction: row;
+	}
+
 }
 
 main {
@@ -47,6 +47,11 @@ main {
 	position: relative;
 	width: $hover-space;
 	height: $height-horz-block;
+
+	@media screen and (max-width: $laptop-width) and (min-aspect-ratio: 2/1) {
+		width: 0;
+		height: 100%;
+	}
 
 	@include tablet {
 		width: 0;
@@ -102,7 +107,11 @@ main {
 		width: 100%;
 		transition: width $timeout;
 
-		@include tablet {
+		@media screen and (max-width: $laptop-width) and (min-aspect-ratio: 2/1) {
+			z-index: 8;
+		}
+
+		@media screen and (max-width: $tablet-width) and (max-aspect-ratio: 2/1) {
 			top: 0;
 			z-index: 8;
 			width: 100vw;
@@ -139,7 +148,11 @@ main {
 		width: 100%;
 		transition: width $timeout;
 
-		@include tablet {
+		@media screen and (max-width: $laptop-width) and (min-aspect-ratio: 2/1) {
+			z-index: 8;
+		}
+
+		@media screen and (max-width: $tablet-width) and (max-aspect-ratio: 2/1) {
 			top: 0;
 			z-index: 8;
 			width: 100vw;
@@ -156,6 +169,10 @@ main {
 	justify-content: space-between;
 	order: 2;
 
+	@media screen and (max-width: $laptop-width) and (min-aspect-ratio: 2/1) {
+		width: 100%;
+	}
+
 	@include tablet {
 		width: 100%;
 	}
@@ -165,6 +182,10 @@ main {
 .down {
 	width: 100%;
 	height: $hover-space;
+
+	@media screen and (max-width: $laptop-width) and (min-aspect-ratio: 2/1) {
+		height: 0;
+	}
 
 	@include tablet {
 		height: 0;
@@ -250,14 +271,26 @@ main {
 	&__up {
 		width: 100%;
 		height: 100%;
-		background: url(../img/background_big.jpg) center center no-repeat fixed;
+		background: $bg-PC;
 
 		@include laptop {
-			background: url(../img/background_ls_medium.jpg) center center no-repeat fixed;
+			background: $bc-laptop;
 		}
 
 		@include mobile {
-			background: url(../img/background_ls_small.jpg) center center no-repeat fixed;
+			background: $bc-mobile;
+		}
+
+		@media screen and (max-width: 1080px) and (orientation: portrait) {
+			background: $bc-laptop-pt;
+		}
+
+		@media screen and (max-width: 768px) and (orientation: portrait) {
+			background: $bc-tablet-pt;
+		}
+
+		@media screen and (max-width: 375px) and (orientation: portrait) {
+			background: $bc-mobile-pt;
 		}
 
 		& p {
@@ -292,7 +325,19 @@ main {
 		}
 	}
 
-	@include tablet {
+	@media screen and (max-width: $laptop-width) and (min-aspect-ratio: 2/1) {
+		width: 50%;
+
+		&~.wrap__center {
+			width: 50%;
+
+			& .info {
+				height: 100%;
+			}
+		}
+	}
+
+	@media screen and (max-width: $tablet-width) and (max-aspect-ratio: 2/1) {
 		width: 0;
 
 		&~.wrap__center {
@@ -399,16 +444,4 @@ main {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-}
-
-footer {
-	min-height: 50px;
-	line-height: 50px;
-	background-color: $background-dark;
-
-	@include tablet {
-		position: relative;
-		min-height: 70px;
-		line-height: 70px;
-	}
 }

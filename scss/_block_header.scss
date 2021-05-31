@@ -1,8 +1,23 @@
+header {
+	min-height: 100px;
+	background-color: $background-dark;
+
+	@media screen and (min-aspect-ratio: 2/1) {
+		width: 30%;
+		height: 100%;
+	}
+}
+
 .header {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	color: $text-menu;
+
+	@media screen and (min-aspect-ratio: 2/1) {
+		flex-direction: column;
+		height: 100%;
+	}
 
 	& nav {
 		display: contents;
@@ -12,12 +27,21 @@
 			position: relative;
 			display: inline-block;
 			width: 20%;
-
 			text-align: center;
+
+			@media screen and (min-aspect-ratio: 2/1) {
+				width: 100%;
+			}
 
 			@include tablet {
 				min-height: 100px;
 				width: 15%;
+
+				@media screen and (min-aspect-ratio: 2/1) {
+					min-height: auto;
+					height: 15%;
+					width: 100%;
+				}
 			}
 
 			&:nth-child(n+3) {
@@ -106,37 +130,31 @@
 		transition: all $timeout;
 
 		& .logo__card {
-			animation: contacts $timeout linear 1s forwards;
+			animation: contacts $timeout linear 500ms forwards;
 		}
 
 		&+nav a {
 			width: 10%;
+
+			@media screen and (min-aspect-ratio: 2/1) {
+				height: 10%;
+				width: 100%;
+			}
 		}
 
 		&+nav svg {
+			@include tablet {
+
+				@media screen and (min-aspect-ratio: 2/1) {
+					height: 100%;
+					width: auto;
+				}
+			}
+
 			@include mobile {
 				width: 100%;
 				height: auto;
 			}
 		}
-	}
-}
-
-
-@keyframes contacts {
-	from {
-		top: 50%;
-		bottom: 50%;
-		left: 50%;
-		right: 50%;
-		opacity: 0;
-	}
-
-	to {
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		opacity: 1;
 	}
 }

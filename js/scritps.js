@@ -10,21 +10,27 @@ function addHover(block) {
 // Закрытие всего открытого
 function removeAll() {
 	forMobile();
-	cls.style.fill = 'rgba(0, 0, 0, .7)'
-	cls.style.opacity = '0.5'
+	cls.style.fill = 'rgba(0, 0, 0, .7)';
+	cls.style.opacity = '0.5';
 	document.querySelector('.up').classList.remove('hover');
 	document.querySelector('.down').classList.remove('hover');
 	document.querySelector('.left').classList.remove('hover');
 	document.querySelector('.right').classList.remove('hover');
 }
 
+function addHoverMobile(block) {
+	removeAll();
+	addHover(block);
+}
+
 
 // дополнение для мобильных устройств (скрытие/показ наименований бирок)
 function forMobile(condition) {
 	// значение ширины экрана
-	let screenView = document.documentElement.scrollWidth;
+	let screenViewW = document.documentElement.scrollWidth;
+	let screenViewH = document.documentElement.scrollHeight;
 
-	if (screenView < 768) {
+	if (((screenViewW < 1280) && (screenViewW / screenViewH) > 2) || (screenViewW < 768)) {
 		let elements = document.querySelectorAll('.title-tag');
 		for (let elem of elements) {
 			// alert(elem.innerHTML);
@@ -82,10 +88,10 @@ let tag_right = document.getElementById('right-tag');
 let header = document.getElementById('header');
 let footer = document.getElementById('footer');
 
-tag_up.addEventListener('touchstart', () => addHover('.up'));
-tag_down.addEventListener('touchstart', () => addHover('.down'));
-tag_left.addEventListener('touchstart', () => addHover('.left'));
-tag_right.addEventListener('touchstart', () => addHover('.right'));
+tag_up.addEventListener('touchstart', () => addHoverMobile('.up'));
+tag_down.addEventListener('touchstart', () => addHoverMobile('.down'));
+tag_left.addEventListener('touchstart', () => addHoverMobile('.left'));
+tag_right.addEventListener('touchstart', () => addHoverMobile('.right'));
 
 // Закрытие в мобильной версии
 

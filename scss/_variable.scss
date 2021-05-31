@@ -51,3 +51,22 @@ $height-vert-tag: 150px;
 // отступ заголовков
 $padding-content-up: 30px;
 $padding-content-down: 100px;
+
+//* Фон
+// основной для ПК
+$bg-PC: url(../img/background_ls2560.jpg) center center no-repeat fixed;
+
+// основной для портативных устройств
+$bc-laptop: url(../img/background_ls1280.jpg) center center no-repeat fixed;
+
+// основной для мобильных телефонов
+$bc-mobile: url(../img/background_ls1024.jpg) center center no-repeat fixed;
+
+// вертикальный для Ноутбуков
+$bc-laptop-pt: url(../img/background_pr1080.jpg) center center no-repeat fixed;
+
+// вертикальный для планшетов
+$bc-tablet-pt: url(../img/background_pr768.jpg) center center no-repeat fixed;
+
+// вертикальный для мобильных телефонов
+$bc-mobile-pt: url(../img/background_pr375.jpg) center center no-repeat fixed;
