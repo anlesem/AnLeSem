@@ -1,7 +1,15 @@
+//* Параметры адаптивного поведения
 // BreakPoints
-$laptop-width: 1280px;
+$pc-width: 1280px;
+$laptop-width: 1024px;
 $tablet-width: 768px;
 $mobile-width: 375px;
+
+// Соотношение сторон экрана 
+$proportion: "2/1";
+
+// Минимальная высота
+$break-height: 640px;
 
 // Задержка наведения основная
 $timeout: 200ms;
@@ -26,7 +34,7 @@ $title-dark: #61330d;
 
 // * Параметры для блоков
 // Ширина контейнера
-$width-container: $laptop-width;
+$width-container: $pc-width;
 
 // Размер секций для срабатывания наведения ~ равен бирке
 $hover-space: 15%;

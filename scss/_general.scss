@@ -12,7 +12,7 @@ body {
 		background: url(../img/background_pr280.jpg) center center no-repeat;
 	}
 
-	@include laptop {
+	@include pc {
 		background-size: 500%;
 	}
 
@@ -31,7 +31,7 @@ body {
 
 		background: $bg-PC;
 
-		@include laptop {
+		@include pc {
 			background: $bc-laptop;
 		}
 
@@ -53,15 +53,16 @@ body {
 	}
 }
 
+// Настройка ориентации 1-1 (+ main, header и footer)
 .container {
 	width: $width-container;
 	margin: 0 auto;
 
-	@media screen and (min-aspect-ratio: 2/1) {
+	@media screen and (min-aspect-ratio: $proportion) {
 		width: 100%;
 	}
 
-	@include laptop {
+	@include pc {
 		width: 100%;
 	}
 }

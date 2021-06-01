@@ -2,7 +2,8 @@ header {
 	min-height: 100px;
 	background-color: $background-dark;
 
-	@media screen and (min-aspect-ratio: 2/1) {
+	// Настройка ориентации 1-6 (+ general, main и footer)
+	@media screen and (min-aspect-ratio: $proportion) {
 		width: 30%;
 		height: 100%;
 	}
@@ -14,13 +15,14 @@ header {
 	align-items: center;
 	color: $text-menu;
 
-	@media screen and (min-aspect-ratio: 2/1) {
+	// Настройка ориентации 2-6
+	@media screen and (min-aspect-ratio: $proportion) {
 		flex-direction: column;
 		height: 100%;
 	}
 
 	& nav {
-		display: contents;
+		display: contents; // для внедрения блока логотипа
 		height: 100%;
 
 		& a {
@@ -29,7 +31,8 @@ header {
 			width: 20%;
 			text-align: center;
 
-			@media screen and (min-aspect-ratio: 2/1) {
+			// Настройка ориентации 3-6
+			@media screen and (min-aspect-ratio: $proportion) {
 				width: 100%;
 			}
 
@@ -37,7 +40,8 @@ header {
 				min-height: 100px;
 				width: 15%;
 
-				@media screen and (min-aspect-ratio: 2/1) {
+				// Настройка ориентации 4-6
+				@media screen and (min-aspect-ratio: $proportion) {
 					min-height: auto;
 					height: 15%;
 					width: 100%;
@@ -136,19 +140,19 @@ header {
 		&+nav a {
 			width: 10%;
 
-			@media screen and (min-aspect-ratio: 2/1) {
+			// Настройка ориентации 5-6
+			@media screen and (min-aspect-ratio: $proportion) {
 				height: 10%;
 				width: 100%;
 			}
 		}
 
 		&+nav svg {
-			@include tablet {
 
-				@media screen and (min-aspect-ratio: 2/1) {
-					height: 100%;
-					width: auto;
-				}
+			// Настройка ориентации 6-6
+			@media screen and (max-width: $tablet-width) and (min-aspect-ratio: $proportion) {
+				height: 100%;
+				width: auto;
 			}
 
 			@include mobile {

@@ -4,12 +4,13 @@ function addHover(block) {
 	document.querySelector(block).classList.add('hover');
 	cls.style.fill = '#aaa';
 	cls.style.opacity = '1';
-	forMobile('оff');
+	hiddenTitleTag();
 }
 
 // Закрытие всего открытого
 function removeAll() {
-	forMobile();
+	let elements = document.querySelectorAll('.title-tag');
+	for (let elem of elements) { elem.classList.remove('hover'); }
 	cls.style.fill = 'rgba(0, 0, 0, .7)';
 	cls.style.opacity = '0.5';
 	document.querySelector('.up').classList.remove('hover');
@@ -25,24 +26,30 @@ function addHoverMobile(block) {
 
 
 // дополнение для мобильных устройств (скрытие/показ наименований бирок)
-function forMobile(condition) {
+function hiddenTitleTag() {
 	// значение ширины экрана
 	let screenViewW = document.documentElement.scrollWidth;
 	let screenViewH = document.documentElement.scrollHeight;
 
-	if (((screenViewW < 1280) && (screenViewW / screenViewH) > 2) || (screenViewW < 768)) {
+	if (((screenViewW < pc_width) && (screenViewW / screenViewH) > proportion) ||
+		((screenViewW < pc_width) && (screenViewH < break_height)) ||
+		(screenViewW < laptop_width)) {
 		let elements = document.querySelectorAll('.title-tag');
-		for (let elem of elements) {
-			// alert(elem.innerHTML);
-			if (condition == 'оff')
-				elem.classList.add('hover');
-			else elem.classList.remove('hover');
-		 } 
+		for (let elem of elements) { elem.classList.add('hover'); }
 	}
 }
 
 
 //* ----------------------------------------------------------------
+
+// параметры (следует уточнять в _variable.scss)
+var pc_width = 1280;
+var laptop_width = 1024;
+// var tablet_width = 768;
+// var mobile_width = 375;
+var proportion = 2;
+var break_height = 640;
+
 
 // Наведение в ПК версии
 

@@ -4,7 +4,8 @@ footer {
 	line-height: 50px;
 	background-color: $background-dark;
 
-	@media screen and (min-aspect-ratio: 2/1) {
+	// Настройка ориентации 1-4 (+ general, header и main)
+	@media screen and (min-aspect-ratio: $proportion) {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
@@ -12,7 +13,9 @@ footer {
 		height: 100%;
 	}
 
-	@include tablet {
+	@media screen and (max-width: $pc-width) and (min-aspect-ratio: $proportion),
+	(max-width: $pc-width) and (max-height: $break-height),
+	(max-width: $laptop-width) {
 		min-height: 70px;
 		line-height: 70px;
 	}
@@ -23,7 +26,8 @@ footer {
 	text-align: right;
 	margin-right: 30px;
 
-	@media screen and (min-aspect-ratio: 2/1) {
+	// Настройка ориентации 2-4
+	@media screen and (min-aspect-ratio: $proportion) {
 		text-align: center;
 		margin-right: 0;
 	}
@@ -32,8 +36,11 @@ footer {
 		margin-right: 10px;
 	}
 
+	// Отключение полной надписи для малых экранов
 	&__full {
-		@media screen and (min-aspect-ratio: 2/1) {
+
+		// Настройка ориентации 3-4
+		@media screen and (min-aspect-ratio: $proportion) {
 			display: none;
 		}
 
@@ -52,7 +59,11 @@ footer {
 	opacity: 0.5;
 	transition: fill $timeout opacity $timeout;
 
-	@media screen and (max-width: $laptop-width) and (min-aspect-ratio: 2/1) {
+	// Переход в полноэкранный режим 1-4 (+ main)
+	// Настройка ориентации 4-4
+	@media screen and (max-width: $pc-width) and (min-aspect-ratio: $proportion),
+	(max-width: $pc-width) and (max-height: $break-height),
+	(max-width: $laptop-width) {
 		display: block;
 	}
 

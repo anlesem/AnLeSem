@@ -5,7 +5,8 @@ body {
 	justify-content: space-between;
 	overflow: hidden;
 
-	@media screen and (min-aspect-ratio: 2/1) {
+	// Настройка ориентации 1-5 (+ general, header и footer)
+	@media screen and (min-aspect-ratio: $proportion) {
 		flex-direction: row;
 	}
 
@@ -25,6 +26,7 @@ main {
 .up,
 .down {
 
+	// Настройка бирок 1-7 
 	&-tag {
 		position: absolute;
 		z-index: 5;
@@ -33,6 +35,7 @@ main {
 		font-size: 18px;
 	}
 
+	// Настройка контента 1-7 (обёртка)
 	&__box {
 		background-color: $background-dark;
 	}
@@ -48,16 +51,20 @@ main {
 	width: $hover-space;
 	height: $height-horz-block;
 
-	@media screen and (max-width: $laptop-width) and (min-aspect-ratio: 2/1) {
+	// Переход в полноэкранный режим 1-4 (+ footer (кнопка)
+	// Настройка ориентации 2-5 
+	@media screen and (max-width: $pc-width) and (min-aspect-ratio: $proportion),
+	(max-width: $pc-width) and (max-height: $break-height) {
 		width: 0;
 		height: 100%;
 	}
 
-	@include tablet {
+	@include laptop {
 		width: 0;
 		height: 100%;
 	}
 
+	// Настройка бирок 2-7 
 	&-tag {
 		top: 50%;
 		transform: translateY(-50%);
@@ -74,6 +81,7 @@ main {
 
 	}
 
+	// Настройка контента 2-7
 	&__box {
 		width: 0;
 		height: 100%;
@@ -83,6 +91,7 @@ main {
 .left {
 	order: 1;
 
+	// Настройка бирок 3а-7 
 	&-tag {
 		left: 0;
 		padding-left: 20px;
@@ -91,29 +100,29 @@ main {
 		background-size: contain;
 	}
 
+	// Настройка контента 3а-7
 	&__box {
 		position: absolute;
 		left: 0;
 	}
 
+	// Настройка бирок 4а-7 (наведение)
 	&:hover &-tag,
 	&.hover &-tag {
 		left: 100%;
 		transition: left $timeout;
 	}
 
+	// Настройка контента 4а-7 (наведение)
 	&:hover &__box,
 	&.hover &__box {
 		width: 100%;
+		z-index: 10;
 		transition: width $timeout;
 
-		@media screen and (max-width: $laptop-width) and (min-aspect-ratio: 2/1) {
-			z-index: 8;
-		}
-
-		@media screen and (max-width: $tablet-width) and (max-aspect-ratio: 2/1) {
+		// Разделение на две горизонтальные части левого и правого блоков для малых экранов 1а-2
+		@media screen and (max-width: $tablet-width) and (orientation: portrait) {
 			top: 0;
-			z-index: 8;
 			width: 100vw;
 			height: 50%;
 		}
@@ -123,6 +132,7 @@ main {
 .right {
 	order: 3;
 
+	// Настройка бирок 3б-7 
 	&-tag {
 		right: 0;
 		padding-right: 10px;
@@ -132,29 +142,29 @@ main {
 		background-size: contain;
 	}
 
+	// Настройка контента 3б-7
 	&__box {
 		position: absolute;
 		right: 0;
 	}
 
+	// Настройка бирок 4б-7 (наведение)
 	&:hover &-tag,
 	&.hover &-tag {
 		right: 100%;
 		transition: right $timeout;
 	}
 
+	// Настройка контента 4б-7 (наведение)
 	&:hover &__box,
 	&.hover &__box {
 		width: 100%;
+		z-index: 10;
 		transition: width $timeout;
 
-		@media screen and (max-width: $laptop-width) and (min-aspect-ratio: 2/1) {
-			z-index: 8;
-		}
-
-		@media screen and (max-width: $tablet-width) and (max-aspect-ratio: 2/1) {
+		// Разделение на две горизонтальные части левого и правого блоков для малых экранов 1б-2
+		@media screen and (max-width: $tablet-width) and (orientation: portrait) {
 			top: 0;
-			z-index: 8;
 			width: 100vw;
 			height: 50%;
 		}
@@ -169,11 +179,14 @@ main {
 	justify-content: space-between;
 	order: 2;
 
-	@media screen and (max-width: $laptop-width) and (min-aspect-ratio: 2/1) {
+	// Переход в полноэкранный режим 2-4
+	// Настройка ориентации 3-5 
+	@media screen and (max-width: $pc-width) and (min-aspect-ratio: $proportion),
+	(max-width: $pc-width) and (max-height: $break-height) {
 		width: 100%;
 	}
 
-	@include tablet {
+	@include laptop {
 		width: 100%;
 	}
 }
@@ -183,14 +196,18 @@ main {
 	width: 100%;
 	height: $hover-space;
 
-	@media screen and (max-width: $laptop-width) and (min-aspect-ratio: 2/1) {
+	// Переход в полноэкранный режим 3-4
+	// Настройка ориентации 4-5 
+	@media screen and (max-width: $pc-width) and (min-aspect-ratio: $proportion),
+	(max-width: $pc-width) and (max-height: $break-height) {
 		height: 0;
 	}
 
-	@include tablet {
+	@include laptop {
 		height: 0;
 	}
 
+	// Настройка бирок 5-7 
 	&-tag {
 		left: 50%;
 		transform: translateX(-50%);
@@ -200,6 +217,7 @@ main {
 		background-color: $background-dark;
 	}
 
+	// Настройка контента 5-7
 	&__box {
 		width: 100%;
 		height: 0;
@@ -209,24 +227,28 @@ main {
 .up {
 	order: 1;
 
+	// Настройка бирок 6а-7 
 	&-tag {
 		top: 0;
 		padding-top: $padding-content-up;
 		clip-path: polygon(0 0, 100% 0, 50% 100%);
 	}
 
+	// Настройка контента 6а-7
 	&__box {
 		position: absolute;
 		top: 0;
 		left: 0;
 	}
 
+	// Настройка бирок 7а-7 (наведение) 
 	&:hover &-tag,
 	&.hover &-tag {
 		top: 100%;
 		transition: top $timeout;
 	}
 
+	// Настройка контента 7а-7 (наведение)
 	&:hover &__box,
 	&.hover &__box {
 		height: 100%;
@@ -237,24 +259,28 @@ main {
 .down {
 	order: 3;
 
+	// Настройка бирок 6б-7  
 	&-tag {
 		bottom: 0;
 		padding-top: $padding-content-down;
 		clip-path: polygon(0 100%, 50% 0, 100% 100%);
 	}
 
+	// Настройка контента 6б-7 
 	&__box {
 		position: absolute;
 		bottom: 0;
 		left: 0;
 	}
 
+	// Настройка бирок 7б-7  (наведение)
 	&:hover &-tag,
 	&.hover &-tag {
 		bottom: 100%;
 		transition: bottom $timeout;
 	}
 
+	// Настройка контента 7б-7 (наведение)
 	&:hover &__box,
 	&.hover &__box {
 		height: 100%;
@@ -273,7 +299,7 @@ main {
 		height: 100%;
 		background: $bg-PC;
 
-		@include laptop {
+		@include pc {
 			background: $bc-laptop;
 		}
 
@@ -306,6 +332,7 @@ main {
 	}
 }
 
+// Размеры горизонтальных блоков при наведении
 .left:hover,
 .left.hover,
 .right:hover,
@@ -325,7 +352,11 @@ main {
 		}
 	}
 
-	@media screen and (max-width: $laptop-width) and (min-aspect-ratio: 2/1) {
+	// Переход в полноэкранный режим 4-4
+	// Настройка ориентации 5-5
+	@media screen and (max-width: $pc-width) and (min-aspect-ratio: $proportion),
+	(max-width: $pc-width) and (max-height: $break-height),
+	(max-width: $laptop-width) {
 		width: 50%;
 
 		&~.wrap__center {
@@ -337,7 +368,8 @@ main {
 		}
 	}
 
-	@media screen and (max-width: $tablet-width) and (max-aspect-ratio: 2/1) {
+	// Разделение на две горизонтальные части левого и правого блоков для малых экранов 2-2
+	@media screen and (max-width: $tablet-width) and (orientation: portrait) {
 		width: 0;
 
 		&~.wrap__center {
@@ -352,6 +384,7 @@ main {
 	}
 }
 
+// Размеры вертикальных блоков при наведении (верх)
 .up:hover,
 .up.hover {
 	position: relative;
@@ -371,6 +404,7 @@ main {
 	}
 }
 
+// Размеры вертикальных блоков при наведении (низ)
 .down:hover,
 .down.hover {
 	position: relative;
@@ -400,11 +434,12 @@ main {
 	}
 }
 
-// к тому же span 
+// к тому же span что и выше 
 .title-tag.hover {
 	display: none;
 }
 
+// отключение анимации "дыхание окон"
 .left:hover~.wrap__center .info,
 .left.hover~.wrap__center .info,
 .right:hover+.wrap__center .info,
@@ -418,6 +453,7 @@ main {
 	transition: opacity $timeout;
 }
 
+// отображение основного контента (область белого)
 .left:hover~.wrap__center .info__left,
 .left.hover~.wrap__center .info__left,
 .right:hover+.wrap__center .info__right,
@@ -432,6 +468,7 @@ main {
 	background-color: $background-light;
 }
 
+// отображение заголовков для контента (область чёрного)
 .left:hover .left__content,
 .left.hover .left__content,
 .right:hover .right__content,
