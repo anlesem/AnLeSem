@@ -36,8 +36,8 @@ footer {
 	}
 
 	// Для сверх узких экранов 1-1 (+ header и main)
-	@media screen and (max-width: $slim-screen) and (orientation: portrait),
-	(max-height: $slim-screen) and (orientation: landscape) {
+	@media screen and (max-width: $slim-screen-tag) and (orientation: portrait),
+	(max-height: $slim-screen-tag) and (orientation: landscape) {
 		display: none;
 	}
 
@@ -60,9 +60,15 @@ footer {
 	@include position-center;
 	width: 60px;
 	height: 60px;
+	border-radius: 30px;
+	border: 2px solid $background-dark;
 	fill: $background-dark;
 	opacity: 0.5;
 	transition: all $timeout;
+
+	& svg {
+		@include position-center;
+	}
 
 	// Переход в полноэкранный режим 2-2
 	@include screen-full {
@@ -70,6 +76,8 @@ footer {
 	}
 
 	&.hover {
+		width: 180px;
+		border: 2px solid #aaa;
 		fill: #aaa;
 		opacity: 1;
 	}
