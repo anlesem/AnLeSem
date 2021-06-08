@@ -11,6 +11,10 @@ $proportion: "2/1";
 // Минимальная высота
 $break-height: 640px;
 
+// Узкий экран
+$slim-screen: 270px;
+$slim-screen-tag: 320px;
+
 // Задержка наведения основная
 $timeout: 200ms;
 
@@ -56,9 +60,7 @@ $height-horz-tag: 200px;
 // Вертикальные
 $width-vert-tag: 200px;
 $height-vert-tag: 150px;
-// отступ заголовков
-$padding-content-up: 30px;
-$padding-content-down: 100px;
+
 
 //* Фон
 // основной для ПК

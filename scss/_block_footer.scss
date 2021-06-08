@@ -4,7 +4,7 @@ footer {
 	line-height: 50px;
 	background-color: $background-dark;
 
-	// Настройка ориентации 1-4 (+ general, header и main)
+	// Настройка ориентации 1-3 (+ general, header и main)
 	@media screen and (min-aspect-ratio: $proportion) {
 		display: flex;
 		flex-direction: column;
@@ -13,9 +13,8 @@ footer {
 		height: 100%;
 	}
 
-	@media screen and (max-width: $pc-width) and (min-aspect-ratio: $proportion),
-	(max-width: $pc-width) and (max-height: $break-height),
-	(max-width: $laptop-width) {
+	// Переход в полноэкранный режим 1-2 (+ main)
+	@include screen-full {
 		min-height: 70px;
 		line-height: 70px;
 	}
@@ -26,7 +25,7 @@ footer {
 	text-align: right;
 	margin-right: 30px;
 
-	// Настройка ориентации 2-4
+	// Настройка ориентации 2-3
 	@media screen and (min-aspect-ratio: $proportion) {
 		text-align: center;
 		margin-right: 0;
@@ -36,10 +35,16 @@ footer {
 		margin-right: 10px;
 	}
 
+	// Для сверх узких экранов 1-1 (+ header и main)
+	@media screen and (max-width: $slim-screen) and (orientation: portrait),
+	(max-height: $slim-screen) and (orientation: landscape) {
+		display: none;
+	}
+
 	// Отключение полной надписи для малых экранов
 	&__full {
 
-		// Настройка ориентации 3-4
+		// Настройка ориентации 3-3
 		@media screen and (min-aspect-ratio: $proportion) {
 			display: none;
 		}
@@ -57,17 +62,15 @@ footer {
 	height: 60px;
 	fill: $background-dark;
 	opacity: 0.5;
-	transition: fill $timeout opacity $timeout;
+	transition: all $timeout;
 
-	// Переход в полноэкранный режим 1-4 (+ main)
-	// Настройка ориентации 4-4
-	@media screen and (max-width: $pc-width) and (min-aspect-ratio: $proportion),
-	(max-width: $pc-width) and (max-height: $break-height),
-	(max-width: $laptop-width) {
+	// Переход в полноэкранный режим 2-2
+	@include screen-full {
 		display: block;
 	}
 
-	@include tablet {
-		display: block;
+	&.hover {
+		fill: #aaa;
+		opacity: 1;
 	}
 }

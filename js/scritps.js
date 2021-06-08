@@ -2,8 +2,7 @@
 // показ и скрытие при наведении 
 function addHover(block) {
 	document.querySelector(block).classList.add('hover');
-	cls.style.fill = '#aaa';
-	cls.style.opacity = '1';
+	document.querySelector('.close').classList.add('hover');
 	hiddenTitleTag();
 }
 
@@ -11,8 +10,7 @@ function addHover(block) {
 function removeAll() {
 	let elements = document.querySelectorAll('.title-tag');
 	for (let elem of elements) { elem.classList.remove('hover'); }
-	cls.style.fill = 'rgba(0, 0, 0, .7)';
-	cls.style.opacity = '0.5';
+	document.querySelector('.close').classList.remove('hover');
 	document.querySelector('.up').classList.remove('hover');
 	document.querySelector('.down').classList.remove('hover');
 	document.querySelector('.left').classList.remove('hover');

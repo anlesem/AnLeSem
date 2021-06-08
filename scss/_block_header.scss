@@ -31,21 +31,25 @@ header {
 			width: 20%;
 			text-align: center;
 
-			// Настройка ориентации 3-6
-			@media screen and (min-aspect-ratio: $proportion) {
-				width: 100%;
-			}
-
+			// переход на большую кнопку, удобную для нажатия
 			@include tablet {
 				min-height: 100px;
 				width: 15%;
+			}
 
-				// Настройка ориентации 4-6
-				@media screen and (min-aspect-ratio: $proportion) {
+			// Настройка ориентации 3-5
+			@media screen and (min-aspect-ratio: $proportion) {
+				width: 100%;
+
+				@include tablet {
 					min-height: auto;
 					height: 15%;
-					width: 100%;
 				}
+			}
+
+			// Для сверх узких экранов 1-2 (+ main и footer)
+			@media screen and (max-height: $slim-screen) and (orientation: landscape) {
+				font-size: 14px;
 			}
 
 			&:nth-child(n+3) {
@@ -83,6 +87,17 @@ header {
 				z-index: auto;
 				fill: $text-menu;
 				opacity: 0.8;
+			}
+
+			// Для сверх узких экранов 2-2
+			@media screen and (max-width: $slim-screen) and (orientation: portrait) {
+				width: 100%;
+				height: auto;
+			}
+
+			@media screen and (max-height: $slim-screen) and (orientation: landscape) {
+				width: auto;
+				height: 100%;
 			}
 		}
 	}
@@ -138,26 +153,25 @@ header {
 		}
 
 		&+nav a {
-			width: 10%;
+			width: 5%;
 
-			// Настройка ориентации 5-6
+			// Настройка ориентации 4-5
 			@media screen and (min-aspect-ratio: $proportion) {
-				height: 10%;
+				height: 5%;
 				width: 100%;
 			}
 		}
 
 		&+nav svg {
+			@include tablet {
+				width: 100%;
+				height: auto;
+			}
 
-			// Настройка ориентации 6-6
+			// Настройка ориентации 5-5
 			@media screen and (max-width: $tablet-width) and (min-aspect-ratio: $proportion) {
 				height: 100%;
 				width: auto;
-			}
-
-			@include mobile {
-				width: 100%;
-				height: auto;
 			}
 		}
 	}

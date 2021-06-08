@@ -5,7 +5,7 @@ body {
 	justify-content: space-between;
 	overflow: hidden;
 
-	// Настройка ориентации 1-5 (+ general, header и footer)
+	// Настройка ориентации 1-1 (+ general, header и footer)
 	@media screen and (min-aspect-ratio: $proportion) {
 		flex-direction: row;
 	}
@@ -52,14 +52,7 @@ main {
 	height: $height-horz-block;
 
 	// Переход в полноэкранный режим 1-4 (+ footer (кнопка)
-	// Настройка ориентации 2-5 
-	@media screen and (max-width: $pc-width) and (min-aspect-ratio: $proportion),
-	(max-width: $pc-width) and (max-height: $break-height) {
-		width: 0;
-		height: 100%;
-	}
-
-	@include laptop {
+	@include screen-full {
 		width: 0;
 		height: 100%;
 	}
@@ -79,6 +72,15 @@ main {
 			background-color: $background-dark;
 		}
 
+		// Для сверх узких экранов 1-3 (+ header и footer)
+		@media screen and (max-width: $slim-screen-tag) and (orientation: portrait) {
+			width: 100px;
+			font-size: 14px;
+		}
+
+		@media screen and (max-height: $slim-screen-tag) and (orientation: landscape) {
+			font-size: 14px;
+		}
 	}
 
 	// Настройка контента 2-7
@@ -94,7 +96,7 @@ main {
 	// Настройка бирок 3а-7 
 	&-tag {
 		left: 0;
-		padding-left: 20px;
+		padding-left: 10px;
 		clip-path: polygon(0 0, 100% 50%, 0 100%);
 		background: url(../img/left_logo.svg) center center no-repeat content-box;
 		background-size: contain;
@@ -180,13 +182,7 @@ main {
 	order: 2;
 
 	// Переход в полноэкранный режим 2-4
-	// Настройка ориентации 3-5 
-	@media screen and (max-width: $pc-width) and (min-aspect-ratio: $proportion),
-	(max-width: $pc-width) and (max-height: $break-height) {
-		width: 100%;
-	}
-
-	@include laptop {
+	@include screen-full {
 		width: 100%;
 	}
 }
@@ -197,13 +193,7 @@ main {
 	height: $hover-space;
 
 	// Переход в полноэкранный режим 3-4
-	// Настройка ориентации 4-5 
-	@media screen and (max-width: $pc-width) and (min-aspect-ratio: $proportion),
-	(max-width: $pc-width) and (max-height: $break-height) {
-		height: 0;
-	}
-
-	@include laptop {
+	@include screen-full {
 		height: 0;
 	}
 
@@ -215,6 +205,16 @@ main {
 		height: $height-vert-tag;
 		text-align: center;
 		background-color: $background-dark;
+
+		// Бирки для сверх узких экранов 2-3
+		@media screen and (max-height: $slim-screen-tag) and (orientation: landscape) {
+			height: 100px;
+			font-size: 14px;
+		}
+
+		@media screen and (max-width: $slim-screen-tag) and (orientation: portrait) {
+			font-size: 14px;
+		}
 	}
 
 	// Настройка контента 5-7
@@ -230,8 +230,13 @@ main {
 	// Настройка бирок 6а-7 
 	&-tag {
 		top: 0;
-		padding-top: $padding-content-up;
+		line-height: 100px;
 		clip-path: polygon(0 0, 100% 0, 50% 100%);
+
+		// Бирки для сверх узких экранов 3а-3
+		@media screen and (max-height: $slim-screen-tag) and (orientation: landscape) {
+			line-height: 70px;
+		}
 	}
 
 	// Настройка контента 6а-7
@@ -262,8 +267,14 @@ main {
 	// Настройка бирок 6б-7  
 	&-tag {
 		bottom: 0;
-		padding-top: $padding-content-down;
+		line-height: 200px;
 		clip-path: polygon(0 100%, 50% 0, 100% 100%);
+
+		// Бирки для сверх узких экранов 3б-3
+		@media screen and (max-height: $slim-screen-tag) and (orientation: landscape) {
+			line-height: 130px;
+		}
+
 	}
 
 	// Настройка контента 6б-7 
@@ -353,10 +364,7 @@ main {
 	}
 
 	// Переход в полноэкранный режим 4-4
-	// Настройка ориентации 5-5
-	@media screen and (max-width: $pc-width) and (min-aspect-ratio: $proportion),
-	(max-width: $pc-width) and (max-height: $break-height),
-	(max-width: $laptop-width) {
+	@include screen-full {
 		width: 50%;
 
 		&~.wrap__center {

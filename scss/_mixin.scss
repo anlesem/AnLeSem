@@ -22,6 +22,15 @@
 	}
 }
 
+@mixin screen-full {
+
+	@media (max-width: $pc-width) and (min-aspect-ratio: $proportion),
+	(max-width: $pc-width) and (max-height: $break-height),
+	(max-width: $laptop-width) {
+		@content;
+	}
+}
+
 @mixin adaptive-font($pc-font-size, $mob-font-size) {
 	$add-size: $pc-font-size - $mob-font-size;
 	$max-width: $max-width - 320;
