@@ -26,19 +26,22 @@
 		border-left: 3px solid transparent;
 	}
 
-	1% {
+	0.5% {
 		border-top: 3px solid #fff;
+		border-right: 3px solid transparent;
+	}
+
+	1% {
+		border-right: 3px solid #fff;
+		border-bottom: 3px solid transparent;
+	}
+
+	1.5% {
+		border-bottom: 3px solid #fff;
+		border-left: 3px solid transparent;
 	}
 
 	2% {
-		border-right: 3px solid #fff;
-	}
-
-	3% {
-		border-bottom: 3px solid #fff;
-	}
-
-	4% {
 		border-left: 3px solid #fff;
 	}
 
@@ -46,15 +49,15 @@
 		border-top: 3px solid transparent;
 	}
 
-	16% {
+	15.5% {
 		border-right: 3px solid transparent;
 	}
 
-	17% {
+	16% {
 		border-bottom: 3px solid transparent;
 	}
 
-	18% {
+	16.5% {
 		border-left: 3px solid transparent;
 	}
 
