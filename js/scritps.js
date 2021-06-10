@@ -33,9 +33,9 @@ function addHoverMobile(block) {
 }
 
 function removeLogo() {
+	removeAll()
 	// console.log(logoActive);
 	if (logoActive) document.querySelector('.logo').style.animation = "unset";
-	else removeAll();
 }
 
 
