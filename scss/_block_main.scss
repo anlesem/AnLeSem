@@ -72,6 +72,7 @@ main {
 		width: $width-horz-tag;
 		height: $height-horz-tag;
 		line-height: $height-horz-tag;
+		animation: rhythm-tag-horz infinite 8s 8s linear;
 
 		&::after {
 			content: "";
@@ -213,6 +214,7 @@ main {
 		height: $height-vert-tag;
 		text-align: center;
 		background-color: $background-dark;
+		animation: rhythm-tag-vert infinite 8s 8s linear;
 
 		// Бирки для сверх узких экранов 2-3
 		@media screen and (max-height: $slim-screen-tag) and (orientation: landscape) {
@@ -452,7 +454,7 @@ main {
 	}
 }
 
-// отключение заголовка бирки 
+// отключение заголовка бирки и анимации
 .left:hover,
 .left.hover,
 .right:hover,

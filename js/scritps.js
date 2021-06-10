@@ -3,6 +3,13 @@
 function addHover(block) {
 	document.querySelector(block).classList.add('hover');
 	document.querySelector('.close').classList.add('hover');
+	document.querySelector('.left-tag').style.animation = "unset";
+	document.querySelector('.right-tag').style.animation = "unset";
+	document.querySelector('.up-tag').style.animation = "unset";
+	document.querySelector('.down-tag').style.animation = "unset";
+	document.querySelector('.logo').style.animation = "unset";
+
+
 	hiddenTitleTag();
 }
 
@@ -15,6 +22,11 @@ function removeAll() {
 	document.querySelector('.down').classList.remove('hover');
 	document.querySelector('.left').classList.remove('hover');
 	document.querySelector('.right').classList.remove('hover');
+	document.querySelector('.left-tag').style.animation = "rhythm-tag-horz infinite 8s 8s linear";
+	document.querySelector('.right-tag').style.animation = "rhythm-tag-horz infinite 8s 8s linear";
+	document.querySelector('.up-tag').style.animation = "rhythm-tag-vert infinite 8s 8s linear";
+	document.querySelector('.down-tag').style.animation = "rhythm-tag-vert infinite 8s 8s linear";
+	document.querySelector('.logo').style.animation = "circle infinite 8s 4s linear";
 }
 
 function addHoverMobile(block) {

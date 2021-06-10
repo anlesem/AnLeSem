@@ -18,8 +18,124 @@
 	}
 }
 
+@keyframes circle {
+	from {
+		border-top: 3px solid #000;
+		border-right: 3px solid #000;
+		border-bottom: 3px solid #000;
+		border-left: 3px solid #000;
+	}
+
+	1% {
+		border-top: 3px solid #fff;
+	}
+
+	2% {
+		border-right: 3px solid #fff;
+	}
+
+	3% {
+		border-bottom: 3px solid #fff;
+	}
+
+	4% {
+		border-left: 3px solid #fff;
+	}
+
+	6% {
+		border-top: 3px solid #000;
+	}
+
+	7% {
+		border-right: 3px solid #000;
+	}
+
+	8% {
+		border-bottom: 3px solid #000;
+	}
+
+	9% {
+		border-left: 3px solid #000;
+	}
+
+
+	to {
+		border-top: 3px solid #000;
+		border-right: 3px solid #000;
+		border-bottom: 3px solid #000;
+		border-left: 3px solid #000;
+	}
+}
+
+
+
 
 //* Основной блок
+// Пульс
+@keyframes rhythm-tag-horz {
+	from {
+		width: $width-horz-tag;
+		height: $height-horz-tag;
+	}
+
+	1% {
+		width: $width-horz-tag + 25px;
+		height: $height-horz-tag + 25px;
+	}
+
+	2% {
+		width: $width-horz-tag;
+		height: $height-horz-tag;
+	}
+
+	4% {
+		width: $width-horz-tag + 10px;
+		height: $height-horz-tag + 10px;
+	}
+
+	5% {
+		width: $width-horz-tag;
+		height: $height-horz-tag;
+	}
+
+	to {
+		width: $width-horz-tag;
+		height: $height-horz-tag;
+	}
+}
+
+@keyframes rhythm-tag-vert {
+	from {
+		width: $width-vert-tag;
+		height: $height-vert-tag;
+	}
+
+	1% {
+		width: $width-vert-tag + 25px;
+		height: $height-vert-tag + 25px;
+	}
+
+	2% {
+		width: $width-vert-tag;
+		height: $height-vert-tag;
+	}
+
+	4% {
+		width: $width-vert-tag + 10px;
+		height: $height-vert-tag + 10px;
+	}
+
+	5% {
+		width: $width-vert-tag;
+		height: $height-vert-tag;
+	}
+
+	to {
+		width: $width-vert-tag;
+		height: $height-vert-tag;
+	}
+}
+
 // дыхание окон
 @keyframes info-opacity {
 	from {

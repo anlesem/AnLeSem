@@ -93,6 +93,14 @@
 #down-1:checked~.wrap__center .text-down-1,
 #down-2:checked~.wrap__center .text-down-2 {
 	display: block;
+}
+
+#up-1:checked~.wrap__center .title-up-1,
+#up-2:checked~.wrap__center .title-up-2,
+#up-3:checked~.wrap__center .title-up-3,
+#down-1:checked~.wrap__center .title-down-1,
+#down-2:checked~.wrap__center .title-down-2 {
+	display: block;
 
 	@media screen and (max-height: $break-height) {
 		display: none;
