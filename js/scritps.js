@@ -8,8 +8,6 @@ function addHover(block) {
 	document.querySelector('.up-tag').style.animation = "unset";
 	document.querySelector('.down-tag').style.animation = "unset";
 	document.querySelector('.logo').style.animation = "unset";
-
-
 	hiddenTitleTag();
 }
 
@@ -32,6 +30,12 @@ function removeAll() {
 function addHoverMobile(block) {
 	removeAll();
 	addHover(block);
+}
+
+function removeLogo() {
+	// console.log(logoActive);
+	if (logoActive) document.querySelector('.logo').style.animation = "unset";
+	else removeAll();
 }
 
 
@@ -59,14 +63,23 @@ var laptop_width = 1024;
 // var mobile_width = 375;
 var proportion = 2;
 var break_height = 640;
+var logoActive = false;
 
 
 // Наведение в ПК версии
 
+let logo = document.getElementById('logo');
 let info_up = document.getElementById('info__up');
 let info_down = document.getElementById('info__down');
 let info_left = document.getElementById('info__left');
 let info_right = document.getElementById('info__right');
+
+logo.addEventListener('mouseover', function () {
+	logoActive = true;
+});
+logo.addEventListener('mouseout', function () {
+	logoActive = false;
+} );
 
 info_up.addEventListener('mouseover', () => addHover('.up'));
 info_down.addEventListener('mouseover', () => addHover('.down'));
@@ -113,8 +126,8 @@ tag_right.addEventListener('touchstart', () => addHoverMobile('.right'));
 // Закрытие в мобильной версии
 
 cls.addEventListener('click', removeAll);
-header.addEventListener('click', removeAll);
-header.addEventListener('mouseover', removeAll);
+header.addEventListener('click', removeLogo);
+header.addEventListener('mouseover', removeLogo);
 footer.addEventListener('click', removeAll);
 footer.addEventListener('mouseover', removeAll);
 
