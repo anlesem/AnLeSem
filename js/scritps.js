@@ -3,11 +3,8 @@
 function addHover(block) {
 	document.querySelector(block).classList.add('hover');
 	document.querySelector('.close').classList.add('hover');
-	document.querySelector('.left-tag').style.animation = "unset";
-	document.querySelector('.right-tag').style.animation = "unset";
-	document.querySelector('.up-tag').style.animation = "unset";
-	document.querySelector('.down-tag').style.animation = "unset";
 	document.querySelector('.logo').style.animation = "unset";
+	tagRemoveAnimation();
 	hiddenTitleTag();
 }
 
@@ -20,11 +17,8 @@ function removeAll() {
 	document.querySelector('.down').classList.remove('hover');
 	document.querySelector('.left').classList.remove('hover');
 	document.querySelector('.right').classList.remove('hover');
-	document.querySelector('.left-tag').style.animation = "rhythm-tag-horz infinite 8s 8s linear";
-	document.querySelector('.right-tag').style.animation = "rhythm-tag-horz infinite 8s 8s linear";
-	document.querySelector('.up-tag').style.animation = "rhythm-tag-vert infinite 8s 8s linear";
-	document.querySelector('.down-tag').style.animation = "rhythm-tag-vert infinite 8s 8s linear";
-	document.querySelector('.logo').style.animation = "circle infinite 8s 4s linear";
+	logoSetAnimation();
+	tagSetAnimation();
 }
 
 function addHoverMobile(block) {
@@ -32,10 +26,35 @@ function addHoverMobile(block) {
 	addHover(block);
 }
 
-function removeLogo() {
+function logoRemoveAnimation() {
 	removeAll()
-	// console.log(logoActive);
 	if (logoActive) document.querySelector('.logo').style.animation = "unset";
+}
+
+function logoSetAnimation() {
+	document.querySelector('.logo').style.animation = "circle infinite 8s 4s linear";
+}
+
+function tagSetAnimation() {
+	tagRemoveAnimation();
+	if (slimScreen.matches) {
+		document.querySelector('.up-tag').style.animation = 'rhythm-tag-vert-slim infinite 8s 8s linear';
+		document.querySelector('.down-tag').style.animation = 'rhythm-tag-vert-slim infinite 8s 8s linear';
+		document.querySelector('.left-tag').style.animation = 'rhythm-tag-horz-slim infinite 8s 8s linear';
+		document.querySelector('.right-tag').style.animation = 'rhythm-tag-horz-slim infinite 8s 8s linear';
+	} else {
+		document.querySelector('.left-tag').style.animation = 'rhythm-tag-horz infinite 8s 8s linear';
+		document.querySelector('.right-tag').style.animation = 'rhythm-tag-horz infinite 8s 8s linear';
+		document.querySelector('.up-tag').style.animation = 'rhythm-tag-vert infinite 8s 8s linear';
+		document.querySelector('.down-tag').style.animation = 'rhythm-tag-vert infinite 8s 8s linear';
+	}
+}
+
+function tagRemoveAnimation() {
+	document.querySelector('.left-tag').style.animation = 'none';
+	document.querySelector('.right-tag').style.animation = 'none';
+	document.querySelector('.up-tag').style.animation = 'none';
+	document.querySelector('.down-tag').style.animation = 'none';
 }
 
 
@@ -63,8 +82,13 @@ var laptop_width = 1024;
 // var mobile_width = 375;
 var proportion = 2;
 var break_height = 640;
+var slim_screen_tag = 320;
+
 var logoActive = false;
 
+const slimScreen = window.matchMedia('(max-height: ' + slim_screen_tag + 'px), (max-width:  ' + slim_screen_tag + 'px)');
+
+slimScreen.addListener(tagSetAnimation);
 
 // Наведение в ПК версии
 
@@ -79,6 +103,7 @@ logo.addEventListener('mouseover', function () {
 });
 logo.addEventListener('mouseout', function () {
 	logoActive = false;
+	logoSetAnimation();
 } );
 
 info_up.addEventListener('mouseover', () => addHover('.up'));
@@ -126,8 +151,8 @@ tag_right.addEventListener('touchstart', () => addHoverMobile('.right'));
 // Закрытие в мобильной версии
 
 cls.addEventListener('click', removeAll);
-header.addEventListener('click', removeLogo);
-header.addEventListener('mouseover', removeLogo);
+header.addEventListener('click', logoRemoveAnimation);
+header.addEventListener('mouseover', logoRemoveAnimation);
 footer.addEventListener('click', removeAll);
 footer.addEventListener('mouseover', removeAll);
 

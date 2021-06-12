@@ -75,6 +75,9 @@
 
 //* Основной блок
 // Пульс
+$range-max: 4px;
+$range-min: 1px;
+
 @keyframes rhythm-tag-horz {
 	from {
 		width: $width-horz-tag;
@@ -82,8 +85,8 @@
 	}
 
 	1% {
-		width: $width-horz-tag + 25px;
-		height: $height-horz-tag + 25px;
+		width: $width-horz-tag + $range-max;
+		height: $height-horz-tag + $range-max;
 	}
 
 	2% {
@@ -91,9 +94,14 @@
 		height: $height-horz-tag;
 	}
 
+	3% {
+		width: $width-horz-tag;
+		height: $height-horz-tag;
+	}
+
 	4% {
-		width: $width-horz-tag + 10px;
-		height: $height-horz-tag + 10px;
+		width: $width-horz-tag + $range-min;
+		height: $height-horz-tag + $range-min;
 	}
 
 	5% {
@@ -103,6 +111,43 @@
 
 	to {
 		width: $width-horz-tag;
+		height: $height-horz-tag;
+	}
+}
+
+@keyframes rhythm-tag-horz-slim {
+	from {
+		width: $width-horz-tag - $d-slim-tag;
+		height: $height-horz-tag;
+	}
+
+	1% {
+		width: $width-horz-tag - $d-slim-tag + $range-max;
+		height: $height-horz-tag + $range-max;
+	}
+
+	2% {
+		width: $width-horz-tag - $d-slim-tag;
+		height: $height-horz-tag;
+	}
+
+	3% {
+		width: $width-horz-tag - $d-slim-tag;
+		height: $height-horz-tag;
+	}
+
+	4% {
+		width: $width-horz-tag - $d-slim-tag + $range-min;
+		height: $height-horz-tag + $range-min;
+	}
+
+	5% {
+		width: $width-horz-tag - $d-slim-tag;
+		height: $height-horz-tag;
+	}
+
+	to {
+		width: $width-horz-tag - $d-slim-tag;
 		height: $height-horz-tag;
 	}
 }
@@ -114,8 +159,8 @@
 	}
 
 	1% {
-		width: $width-vert-tag + 25px;
-		height: $height-vert-tag + 25px;
+		width: $width-vert-tag + $range-max;
+		height: $height-vert-tag + $range-max;
 	}
 
 	2% {
@@ -123,9 +168,14 @@
 		height: $height-vert-tag;
 	}
 
+	3% {
+		width: $width-vert-tag;
+		height: $height-vert-tag;
+	}
+
 	4% {
-		width: $width-vert-tag + 10px;
-		height: $height-vert-tag + 10px;
+		width: $width-vert-tag + $range-min;
+		height: $height-vert-tag + $range-min;
 	}
 
 	5% {
@@ -138,6 +188,54 @@
 		height: $height-vert-tag;
 	}
 }
+
+@keyframes rhythm-tag-vert-slim {
+	from {
+		width: $width-vert-tag;
+		height: $height-vert-tag - $d-slim-tag;
+	}
+
+	1% {
+		width: $width-vert-tag + $range-max;
+		height: $height-vert-tag - $d-slim-tag + $range-max;
+	}
+
+	2% {
+		width: $width-vert-tag;
+		height: $height-vert-tag - $d-slim-tag;
+	}
+
+	3% {
+		width: $width-vert-tag;
+		height: $height-vert-tag - $d-slim-tag;
+	}
+
+	4% {
+		width: $width-vert-tag + $range-min;
+		height: $height-vert-tag - $d-slim-tag + $range-min;
+	}
+
+	5% {
+		width: $width-vert-tag;
+		height: $height-vert-tag - $d-slim-tag;
+	}
+
+	to {
+		width: $width-vert-tag;
+		height: $height-vert-tag - $d-slim-tag;
+	}
+}
+
+@keyframes stop {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
 
 // дыхание окон
 @keyframes info-opacity {

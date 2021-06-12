@@ -26,7 +26,6 @@ $background-light: rgba(255, 255, 255, .8);
 
 // Текст
 $text-light: #eed5c3;
-// $text-dark: #410041;
 $text-dark: #61330d;
 $text-info: #999;
 $text-menu: #ebb289;
@@ -34,7 +33,7 @@ $text-menu: #ebb289;
 
 // Заголовок
 $title-light: #afb894;
-$title-dark: #61330d;
+$title-dark: #192c01;
 
 
 // * Параметры для блоков
@@ -62,6 +61,8 @@ $height-horz-tag: 200px;
 $width-vert-tag: 200px;
 $height-vert-tag: 150px;
 
+// Дельта для узкого экрана
+$d-slim-tag: 50px;
 
 //* Фон
 // основной для ПК

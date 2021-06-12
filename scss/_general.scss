@@ -113,6 +113,12 @@ body {
 	color: $title-dark;
 }
 
+.text-light,
+.text-dark {
+	line-height: 22px;
+	margin-bottom: 10px;
+}
+
 .text-light {
 	color: $text-light;
 }

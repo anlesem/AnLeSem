@@ -70,6 +70,21 @@
 		& p {
 			display: none;
 		}
+
+		& img {
+			display: none;
+		}
+	}
+}
+
+.img-up-1 {
+	float: left;
+	margin-right: 15px;
+	border-radius: 50%;
+
+	@include mobile {
+		width: 100%;
+		height: auto;
 	}
 }
 
@@ -105,4 +120,15 @@
 	@media screen and (max-height: $break-height) {
 		display: none;
 	}
+}
+
+#up-1:checked~.wrap__center .up:hover~.info .img-up-1,
+#up-1:checked~.wrap__center .up.hover~.info .img-up-1,
+#up-2:checked~.wrap__center .up:hover~.info .img-up-2,
+#up-2:checked~.wrap__center .up.hover~.info .img-up-2,
+#up-3:checked~.wrap__center .up:hover~.info .img-up-3,
+#up-3:checked~.wrap__center .up.hover~.info .img-up-3 {
+
+	display: block;
+
 }
