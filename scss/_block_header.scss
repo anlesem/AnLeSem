@@ -132,11 +132,11 @@ header {
 		border-radius: 40px;
 		background: url(../img/logo80.jpg) center center no-repeat;
 
-		@media (max-device-pixel-ratio: 2) {
+		@media (min-device-pixel-ratio: 2) {
 			background: url(../img/logo160.jpg) center center no-repeat;
 		}
 
-		@media (max-device-pixel-ratio: 3) {
+		@media (min-device-pixel-ratio: 3) {
 			background: url(../img/logo240.jpg) center center no-repeat;
 		}
 	}
