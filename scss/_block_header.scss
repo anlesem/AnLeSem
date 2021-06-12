@@ -130,8 +130,15 @@ header {
 		@include position-size-parent;
 		z-index: 0;
 		border-radius: 40px;
-		background: url(../img/avatar300.jpg) center center no-repeat;
-		background-size: 100%;
+		background: url(../img/logo80.jpg) center center no-repeat;
+
+		@media (max-device-pixel-ratio: 2) {
+			background: url(../img/logo160.jpg) center center no-repeat;
+		}
+
+		@media (max-device-pixel-ratio: 3) {
+			background: url(../img/logo240.jpg) center center no-repeat;
+		}
 	}
 
 	&__card {
@@ -162,8 +169,12 @@ header {
 
 	&:hover {
 		width: 250px;
-		transition: all $timeout;
+		transition: all 500ms;
 		animation: unset;
+
+		&::after {
+			background-size: 100%;
+		}
 
 		// Настройка ориентации 5-9
 		@media screen and (min-aspect-ratio: $proportion) {
@@ -183,7 +194,7 @@ header {
 		}
 
 		& .logo__card {
-			animation: contacts $timeout linear forwards;
+			animation: contacts $timeout 300ms linear forwards;
 
 			// Настройка ориентации 7-9
 			@media screen and (max-width: $tablet-width) and (min-aspect-ratio: $proportion) {
