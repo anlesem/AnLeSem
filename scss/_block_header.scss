@@ -132,11 +132,13 @@ header {
 		border-radius: 40px;
 		background: url(../img/logo80.jpg) center center no-repeat;
 
+
 		@media screen and (-webkit-min-device-pixel-ratio: 2),
 		screen and (-moz-min-device-pixel-ratio: 2),
 		screen and (-o-min-device-pixel-ratio: 2),
 		screen and (min-device-pixel-ratio: 2) {
 			background: url(../img/logo160.jpg) center center no-repeat;
+			background-size: 80px 80px;
 		}
 
 		@media screen and (-webkit-min-device-pixel-ratio: 3),
@@ -144,6 +146,7 @@ header {
 		screen and (-o-min-device-pixel-ratio: 3),
 		screen and (min-device-pixel-ratio: 3) {
 			background: url(../img/logo240.jpg) center center no-repeat;
+			background-size: 80px 80px;
 		}
 	}
 
