@@ -4,6 +4,7 @@ function addHover(block) {
 	document.querySelector(block).classList.add('hover');
 	document.querySelector('.close').classList.add('hover');
 	document.querySelector('.logo').style.animation = "unset";
+	blockActiveSet();
 	tagRemoveAnimation();
 	hiddenTitleTag();
 }
@@ -17,6 +18,7 @@ function removeAll() {
 	document.querySelector('.down').classList.remove('hover');
 	document.querySelector('.left').classList.remove('hover');
 	document.querySelector('.right').classList.remove('hover');
+	blockActive = false;
 	logoSetAnimation();
 	tagSetAnimation();
 }
@@ -25,6 +27,10 @@ function addHoverMobile(block) {
 	removeAll();
 	addHover(block);
 }
+
+function blockActiveSet () {
+	blockActive = true;
+};
 
 function logoRemoveAnimation() {
 	removeAll()
@@ -85,6 +91,7 @@ var break_height = 640;
 var slim_screen_tag = 320;
 
 var logoActive = false;
+var blockActive = false;
 
 const slimScreen = window.matchMedia('(max-height: ' + slim_screen_tag + 'px), (max-width:  ' + slim_screen_tag + 'px)');
 
@@ -148,8 +155,13 @@ tag_down.addEventListener('touchstart', () => addHoverMobile('.down'));
 tag_left.addEventListener('touchstart', () => addHoverMobile('.left'));
 tag_right.addEventListener('touchstart', () => addHoverMobile('.right'));
 
-// Закрытие в мобильной версии
+// Блокировка случайного движения
+tag_up.addEventListener('mouseover', blockActiveSet);
+tag_down.addEventListener('mouseover', blockActiveSet);
+tag_left.addEventListener('mouseover', blockActiveSet);
+tag_right.addEventListener('mouseover', blockActiveSet);
 
+// Закрытие в мобильной версии
 cls.addEventListener('click', removeAll);
 header.addEventListener('click', logoRemoveAnimation);
 header.addEventListener('mouseover', logoRemoveAnimation);
@@ -177,8 +189,8 @@ document.addEventListener('touchend', function(event) {
 	finalPoint=event.changedTouches[0];
 	var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
 	var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
-	if (xAbs > 20 || yAbs > 20) {
-		if (document.querySelector('.hover') == null) {
+	if (!blockActive)  {
+		if (xAbs > 20 || yAbs > 20) {
 			// alert(document.querySelector('.hover'));
 			if (xAbs > yAbs) {
 				if (finalPoint.pageX < initialPoint.pageX) {
