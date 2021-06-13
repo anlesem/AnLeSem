@@ -1,3 +1,30 @@
+.left,
+.right {
+
+	&__content {
+		display: flex;
+		flex-direction: column;
+
+		padding: 20px;
+
+		&-img {
+			width: 100%;
+			height: calc(100% - 50px);
+			overflow: hidden;
+
+			// & picture {
+			// 	width: 100%;
+			// 	height: auto;
+			// }
+		}
+
+		&-label {
+			height: 50px;
+		}
+	}
+}
+
+
 .info__left,
 .info__right {
 

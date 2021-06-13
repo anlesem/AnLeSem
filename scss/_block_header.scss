@@ -181,9 +181,7 @@ header {
 		transition: all 500ms;
 		animation: unset;
 
-		&::after {
-			background-size: 100%;
-		}
+		&::after {}
 
 		// Настройка ориентации 5-9
 		@media screen and (min-aspect-ratio: $proportion) {
