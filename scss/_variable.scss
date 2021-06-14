@@ -1,6 +1,6 @@
 //* Параметры адаптивного поведения
 // BreakPoints
-$pc-width: 1280px;
+$pc-width: 1310px;
 $laptop-width: 1024px;
 $tablet-width: 768px;
 $mobile-width: 375px;
@@ -37,15 +37,12 @@ $title-dark: #192c01;
 
 
 // * Параметры для блоков
-// Ширина контейнера
-$width-container: $pc-width;
-
 // Размер секций для срабатывания наведения ~ равен бирке
-$hover-space: 15%;
+$hover-space: 20%;
 
 // Ширина и высота (исходя из (100% - 15% ) / 2 ) горизонтальных секций
 $width-horz-block: 42.5%;
-$height-horz-block: 70%;
+$height-horz-block: 60%;
 
 // Ширина (исходя из 100% - 15% * 2 ) и высота вертикальных секций
 $width-vert-block: 70%;

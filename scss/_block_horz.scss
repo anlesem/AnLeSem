@@ -10,7 +10,8 @@
 		justify-content: space-around;
 		padding: 20px;
 
-		@media (min-aspect-ratio: 2/3) and (orientation: portrait) {
+		@media (max-width: $laptop-width) and (min-aspect-ratio: 2/3) and (orientation: portrait),
+		(min-width: 1600px) and (max-height:$mobile-width) {
 			flex-direction: row;
 			justify-content: space-between;
 		}
@@ -22,7 +23,8 @@
 			width: 100%;
 			overflow: hidden;
 
-			@media (min-aspect-ratio: 2/3) and (orientation: portrait) {
+			@media (max-width: $laptop-width) and (min-aspect-ratio: 2/3) and (orientation: portrait),
+			(min-width: 1600px) and (max-height:$mobile-width) {
 				height: 100%;
 				width: 75%;
 			}
@@ -41,7 +43,8 @@
 			height: 25%;
 			overflow: hidden;
 
-			@media (min-aspect-ratio: 2/3) and (orientation: portrait) {
+			@media (max-width: $laptop-width) and (min-aspect-ratio: 2/3) and (orientation: portrait),
+			(min-width: 1600px) and (max-height:$mobile-width) {
 				flex-direction: column;
 				width: 25%;
 				height: 100%;
@@ -52,7 +55,8 @@
 				max-height: 100px;
 				overflow: hidden;
 
-				@media (min-aspect-ratio: 2/3) and (orientation: portrait) {
+				@media (max-width: $laptop-width) and (min-aspect-ratio: 2/3) and (orientation: portrait),
+				(min-width: 1600px) and (max-height:$mobile-width) {
 					width: 70%;
 					height: 30%;
 				}

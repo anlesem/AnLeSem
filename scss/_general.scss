@@ -1,8 +1,7 @@
 * {
 	scrollbar-width: thin;
-	scrollbar-color: #ccc transparent;
+	scrollbar-color: $background-dark transparent;
 
-	/* для Chrome/Edge/Safari */
 	&::-webkit-scrollbar {
 		width: 8px;
 	}
@@ -12,11 +11,9 @@
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background-color: #ccc;
+		background-color: $background-dark;
 	}
 }
-
-
 
 html,
 body {
@@ -33,7 +30,7 @@ body {
 	background: url(../img/background_ls640.jpg) center center no-repeat;
 	background-size: 1000%;
 
-	@media screen and (max-width: 1080px) and (orientation: portrait) {
+	@media (max-width: 1080px) and (orientation: portrait) {
 		background: url(../img/background_pr280.jpg) center center no-repeat;
 	}
 
@@ -64,15 +61,15 @@ body {
 			background: $bc-mobile;
 		}
 
-		@media screen and (max-width: 1080px) and (orientation: portrait) {
+		@media (max-width: 1080px) and (orientation: portrait) {
 			background: $bc-laptop-pt;
 		}
 
-		@media screen and (max-width: 768px) and (orientation: portrait) {
+		@media (max-width: 768px) and (orientation: portrait) {
 			background: $bc-tablet-pt;
 		}
 
-		@media screen and (max-width: 375px) and (orientation: portrait) {
+		@media (max-width: 375px) and (orientation: portrait) {
 			background: $bc-mobile-pt;
 		}
 	}
@@ -80,10 +77,15 @@ body {
 
 // Настройка ориентации 1-1 (+ main, header и footer)
 .container {
-	width: $width-container;
+	width: calc(100vh + 20vh);
 	margin: 0 auto;
 
-	@media screen and (min-aspect-ratio: $proportion) {
+	@media (orientation: landscape) and (max-aspect-ratio: 4/3) {
+		width: calc(100vh - 170px);
+	}
+
+	@media (orientation: portrait),
+	(min-aspect-ratio: $proportion) {
 		width: 100%;
 	}
 
