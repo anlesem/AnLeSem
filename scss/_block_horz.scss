@@ -10,12 +10,22 @@
 		justify-content: space-around;
 		padding: 20px;
 
+		@media (min-width: $mobile-width + 1px) and (max-width: $laptop-width) and (orientation: portrait) {
+			flex-direction: row;
+			justify-content: space-between;
+		}
+
 		&-img {
 			display: flex;
 			align-items: center;
 			height: 70%;
 			width: 100%;
 			overflow: hidden;
+
+			@media (min-width: $mobile-width + 1px) and (max-width: $laptop-width) and (orientation: portrait) {
+				height: 100%;
+				width: 75%;
+			}
 
 			& picture {
 				object-fit: cover;
@@ -31,10 +41,21 @@
 			height: 25%;
 			overflow: hidden;
 
+			@media (min-width: $mobile-width + 1px) and (max-width: $laptop-width) and (orientation: portrait) {
+				flex-direction: column;
+				width: 25%;
+				height: 100%;
+			}
+
 			& label {
 				width: 30%;
 				max-height: 100px;
 				overflow: hidden;
+
+				@media (min-width: $mobile-width + 1px) and (max-width: $laptop-width) and (orientation: portrait) {
+					width: 70%;
+					height: 30%;
+				}
 			}
 		}
 	}

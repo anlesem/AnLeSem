@@ -131,6 +131,7 @@ header {
 		z-index: 0;
 		border-radius: 40px;
 		background: url(../img/logo80.jpg) center center no-repeat;
+		background-size: 80px 80px;
 
 
 		@media screen and (-webkit-min-device-pixel-ratio: 2),
@@ -138,7 +139,7 @@ header {
 		screen and (-o-min-device-pixel-ratio: 2),
 		screen and (min-device-pixel-ratio: 2) {
 			background: url(../img/logo160.jpg) center center no-repeat;
-			background-size: 80px 80px;
+			background-size: 100%;
 		}
 
 		@media screen and (-webkit-min-device-pixel-ratio: 3),
@@ -146,7 +147,7 @@ header {
 		screen and (-o-min-device-pixel-ratio: 3),
 		screen and (min-device-pixel-ratio: 3) {
 			background: url(../img/logo240.jpg) center center no-repeat;
-			background-size: 80px 80px;
+			background-size: 100%;
 		}
 	}
 
@@ -181,7 +182,9 @@ header {
 		transition: all 500ms;
 		animation: unset;
 
-		&::after {}
+		&::after {
+			background-size: 100%;
+		}
 
 		// Настройка ориентации 5-9
 		@media screen and (min-aspect-ratio: $proportion) {

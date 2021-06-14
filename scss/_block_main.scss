@@ -130,7 +130,7 @@ main {
 		transition: width $timeout;
 
 		// Разделение на две горизонтальные части левого и правого блоков для малых экранов 1а-2
-		@media (max-width: $tablet-width) and (orientation: portrait) {
+		@media (max-width: $laptop-width) and (orientation: portrait) {
 			top: 0;
 			width: 100vw;
 			height: 50%;
@@ -172,7 +172,7 @@ main {
 		transition: width $timeout;
 
 		// Разделение на две горизонтальные части левого и правого блоков для малых экранов 1б-2
-		@media (max-width: $tablet-width) and (orientation: portrait) {
+		@media (max-width: $laptop-width) and (orientation: portrait) {
 			top: 0;
 			width: 100vw;
 			height: 50%;
@@ -394,7 +394,7 @@ main {
 	}
 
 	// Разделение на две горизонтальные части левого и правого блоков для малых экранов 2-2
-	@media (max-width: $tablet-width) and (orientation: portrait) {
+	@media (max-width: $laptop-width) and (orientation: portrait) {
 		width: 0;
 
 		&~.wrap__center {
