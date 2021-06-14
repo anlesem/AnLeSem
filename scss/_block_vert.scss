@@ -85,6 +85,8 @@
 	@include mobile {
 		width: 100%;
 		height: auto;
+		float: none;
+		text-align: center;
 	}
 }
 
