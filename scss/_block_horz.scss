@@ -10,8 +10,8 @@
 		justify-content: space-around;
 		padding: 20px;
 
-		@media (max-width: $laptop-width) and (min-aspect-ratio: 2/3) and (orientation: portrait),
-		(min-width: 1600px) and (max-height:$mobile-width) {
+		// Внутреннее перестроение для сохранения правильных пропорций 1-4 
+		@include aspect-ratio-horz {
 			flex-direction: row;
 			justify-content: space-between;
 		}
@@ -23,8 +23,8 @@
 			width: 100%;
 			overflow: hidden;
 
-			@media (max-width: $laptop-width) and (min-aspect-ratio: 2/3) and (orientation: portrait),
-			(min-width: 1600px) and (max-height:$mobile-width) {
+			// Внутреннее перестроение для сохранения правильных пропорций 2-4 
+			@include aspect-ratio-horz {
 				height: 100%;
 				width: 75%;
 			}
@@ -43,8 +43,8 @@
 			height: 25%;
 			overflow: hidden;
 
-			@media (max-width: $laptop-width) and (min-aspect-ratio: 2/3) and (orientation: portrait),
-			(min-width: 1600px) and (max-height:$mobile-width) {
+			// Внутреннее перестроение для сохранения правильных пропорций 3-4 
+			@include aspect-ratio-horz {
 				flex-direction: column;
 				width: 25%;
 				height: 100%;
@@ -55,8 +55,8 @@
 				max-height: 100px;
 				overflow: hidden;
 
-				@media (max-width: $laptop-width) and (min-aspect-ratio: 2/3) and (orientation: portrait),
-				(min-width: 1600px) and (max-height:$mobile-width) {
+				// Внутреннее перестроение для сохранения правильных пропорций 4-4 
+				@include aspect-ratio-horz {
 					width: 70%;
 					height: 30%;
 				}

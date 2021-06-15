@@ -22,6 +22,7 @@
 	}
 }
 
+// Переход в полноэкранный режим
 @mixin screen-full {
 
 	@media (max-width: $pc-width) and (min-aspect-ratio: $proportion),
@@ -31,47 +32,30 @@
 	}
 }
 
-@mixin adaptive-font($pc-font-size, $mob-font-size) {
-	$add-size: $pc-font-size - $mob-font-size;
-	$max-width: $max-width - 320;
-	font-size: calc(#{$mob-font-size + px} + #{$add-size} * ((100vw - 320px) / #{$max-width}));
+// Разделение на две горизонтальные части левого и правого блоков для малых экранов
+@mixin screen-full-horz {
+
+	@media (max-width: $laptop-width) and (max-aspect-ratio: 4/3) {
+		@content;
+	}
 }
 
-@mixin placeholder-color($color) {
-	::-webkit-input-placeholder {
-		color: $color;
-		opacity: 1;
-		transition: opacity 0.3s ease;
-	}
+// Внутреннее перестроение для сохранения правильных пропорций левого и правого блоков
+@mixin aspect-ratio-horz {
 
-	::-moz-placeholder {
-		color: $color;
-		opacity: 1;
-		transition: opacity 0.3s ease;
+	@media (max-width: $laptop-width) and (min-aspect-ratio: 2/3) and (orientation: portrait),
+	(max-width: $laptop-width) and (max-aspect-ratio: 4/3) and (orientation: landscape),
+	(min-aspect-ratio: 5/1) and (orientation: landscape) {
+		@content;
 	}
+}
 
-	/* Firefox 19+ */
-	:-ms-input-placeholder {
-		opacity: 1;
-		transition: opacity 0.3s ease;
-		color: $color
+// Ограничение высоты блока для сохранения правильных пропорций левого и правого блоков
+@mixin stop-height-horz {
+
+	@media (orientation: portrait) {
+		@content;
 	}
-
-	:focus::-webkit-input-placeholder {
-		opacity: 0;
-		transition: opacity 0.3s ease;
-	}
-
-	:focus::-moz-placeholder {
-		opacity: 0;
-		transition: opacity 0.3s ease;
-	}
-
-	:focus:-ms-input-placeholder {
-		opacity: 0;
-		transition: opacity 0.3s ease;
-	}
-
 }
 
 @mixin position-center {

@@ -61,6 +61,10 @@ body {
 			background: $bc-mobile;
 		}
 
+		@media (orientation: portrait) {
+			background: $bc-PC-pt;
+		}
+
 		@media (max-width: 1080px) and (orientation: portrait) {
 			background: $bc-laptop-pt;
 		}
@@ -80,11 +84,9 @@ body {
 	width: calc(100vh + 20vh);
 	margin: 0 auto;
 
-	@media (orientation: landscape) and (max-aspect-ratio: 4/3) {
-		width: calc(100vh - 170px);
-	}
-
+	// Настройка высоты блока для сохранения правильных пропорций 1-1 (+ main)
 	@media (orientation: portrait),
+	(orientation: landscape) and (max-aspect-ratio: 4/3),
 	(min-aspect-ratio: $proportion) {
 		width: 100%;
 	}
