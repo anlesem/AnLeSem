@@ -38,6 +38,12 @@ body {
 		background-size: 500%;
 	}
 
+	@include screen-off {
+		background: none;
+		font-size: 12px;
+		line-height: 14px;
+	}
+
 	&::before {
 		content: "";
 		@include position-size-parent;
@@ -76,6 +82,10 @@ body {
 		@media (max-width: 375px) and (orientation: portrait) {
 			background: $bc-mobile-pt;
 		}
+
+		@include screen-off {
+			background: none;
+		}
 	}
 }
 
@@ -94,6 +104,11 @@ body {
 	@include pc {
 		width: 100%;
 	}
+}
+
+.container-content {
+	max-width: 600px;
+	margin: 0 auto;
 }
 
 .visually-hidden {

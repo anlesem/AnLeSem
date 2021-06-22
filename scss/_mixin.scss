@@ -40,6 +40,26 @@
 	}
 }
 
+// Для сверх узких экранов
+@mixin screen-slim {
+
+	@media (max-width: $slim-screen-tag),
+	(max-height: $slim-screen-tag),
+	(max-height: 475px) and (max-aspect-ratio: $proportion) {
+		@content;
+	}
+}
+
+// Отключение оформления для архаических мобильных
+@mixin screen-off {
+
+	@media (max-width: $screen-off),
+	(max-height: $screen-off),
+	(max-height: 350px) and (max-aspect-ratio: $proportion) {
+		@content;
+	}
+}
+
 // Внутреннее перестроение для сохранения правильных пропорций левого и правого блоков
 @mixin aspect-ratio-horz {
 

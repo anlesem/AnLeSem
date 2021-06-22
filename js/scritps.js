@@ -1,41 +1,55 @@
+// Отключение наведения мышью
+function turnOffMouse() {
+	document.querySelector('.up').classList.remove('up-hover');
+	document.querySelector('.down').classList.remove('down-hover');
+	document.querySelector('.left').classList.remove('left-hover');
+	document.querySelector('.right').classList.remove('right-hover');
+}
 
-// показ и скрытие при наведении 
+// Включение наведения мышью
+function turnOnMouse() {
+	document.querySelector('.up').classList.add('up-hover');
+	document.querySelector('.down').classList.add('down-hover');
+	document.querySelector('.left').classList.add('left-hover');
+	document.querySelector('.right').classList.add('right-hover');
+}
+
+// показ при наведении
 function addHover(block) {
-	document.querySelector(block).classList.add('hover');
-	document.querySelector('.close').classList.add('hover');
-	document.querySelector('.logo').style.animation = "unset";
-	blockActiveSet();
-	tagRemoveAnimation();
-	hiddenTitleTag();
+	if (!offScreen.matches) {
+		document.querySelector(block).classList.add('hover');
+		document.querySelector('.logo').style.animation = "unset";
+		document.querySelector('.close').classList.add('hover');
+		blockActiveSet(block);
+		tagRemoveAnimation();
+		hiddenTitleTag();
+	}
 }
 
 // Закрытие всего открытого
 function removeAll() {
-	let elements = document.querySelectorAll('.title-tag');
-	for (let elem of elements) { elem.classList.remove('hover'); }
+	showTitleTag();
 	document.querySelector('.close').classList.remove('hover');
 	document.querySelector('.up').classList.remove('hover');
 	document.querySelector('.down').classList.remove('hover');
 	document.querySelector('.left').classList.remove('hover');
 	document.querySelector('.right').classList.remove('hover');
 	blockActive = false;
-	logoSetAnimation();
+	if (logoActive) document.querySelector('.logo').style.animation = "unset";
+	else logoSetAnimation();
 	tagSetAnimation();
+	// document.addEventListener('touchend', end);
 }
 
-function addHoverMobile(block) {
+function addHoverReset(block) {
 	removeAll();
+	turnOffMouse();
 	addHover(block);
 }
 
-function blockActiveSet () {
-	blockActive = true;
+function blockActiveSet (block) {
+	blockActive = block;
 };
-
-function logoRemoveAnimation() {
-	removeAll()
-	if (logoActive) document.querySelector('.logo').style.animation = "unset";
-}
 
 function logoSetAnimation() {
 	document.querySelector('.logo').style.animation = "circle infinite 8s 4s linear";
@@ -64,55 +78,73 @@ function tagRemoveAnimation() {
 }
 
 
-// дополнение для мобильных устройств (скрытие/показ наименований бирок)
+// скрытие/показ наименований всех бирок в полноэкранном режиме 
 function hiddenTitleTag() {
-	// значение ширины экрана
-	let screenViewW = document.documentElement.scrollWidth;
-	let screenViewH = document.documentElement.scrollHeight;
+	if (fullScreen.matches) {
+		let tag = document.querySelectorAll('.tag');
+		let title = document.querySelectorAll('.title-tag');
+		for (let elem of tag) { elem.classList.add('hover'); }
+		for (let elem of title) { elem.classList.add('hover'); }
+	} 
+}
 
-	if (((screenViewW < pc_width) && (screenViewW / screenViewH) > proportion) ||
-		((screenViewW < pc_width) && (screenViewH < break_height)) ||
-		(screenViewW < laptop_width)) {
-		let elements = document.querySelectorAll('.title-tag');
-		for (let elem of elements) { elem.classList.add('hover'); }
-	}
+function showTitleTag() {
+	let tag = document.querySelectorAll('.tag');
+	let title = document.querySelectorAll('.title-tag');
+	for (let elem of tag) { elem.classList.remove('hover'); }
+	for (let elem of title) { elem.classList.remove('hover'); }
 }
 
 
 //* ----------------------------------------------------------------
 
 // параметры (следует уточнять в _variable.scss)
-var pc_width = 1280;
+var pc_width = 1310;
 var laptop_width = 1024;
 // var tablet_width = 768;
 // var mobile_width = 375;
-var proportion = 2;
+var proportion = 5 / 2;
 var break_height = 640;
 var slim_screen_tag = 320;
+var screen_off = 200;
 
 var logoActive = false;
 var blockActive = false;
 
-const slimScreen = window.matchMedia('(max-height: ' + slim_screen_tag + 'px), (max-width:  ' + slim_screen_tag + 'px)');
+// Медиа запросы  (следует уточнять в _mixin.scss)
+const fullScreen = window.matchMedia('(max-width:  ' + pc_width + 'px) and (min-aspect-ratio: ' + proportion + '), (max-height: ' + break_height + 'px), (max-width:  ' + laptop_width + 'px)');
+const slimScreen = window.matchMedia('(max-width: ' + slim_screen_tag + 'px), (max-height:  ' + slim_screen_tag + 'px), (max-height: 475px) and (max-aspect-ratio: ' + proportion + ')');
+const offScreen = window.matchMedia('(max-width: ' + screen_off + 'px), (max-height:  ' + screen_off + 'px), (max-height: 350px) and (max-aspect-ratio: ' + proportion + ')');
 
-slimScreen.addListener(tagSetAnimation);
-
-// Наведение в ПК версии
-
+// Активные компоненты
+let header = document.getElementById('header');
 let logo = document.getElementById('logo');
+
+let footer = document.getElementById('footer');
+let cls = document.getElementById('close');
+
 let info_up = document.getElementById('info__up');
 let info_down = document.getElementById('info__down');
 let info_left = document.getElementById('info__left');
 let info_right = document.getElementById('info__right');
 
-logo.addEventListener('mouseover', function () {
-	logoActive = true;
-});
-logo.addEventListener('mouseout', function () {
-	logoActive = false;
-	logoSetAnimation();
-} );
+let box_up = document.getElementById('up__box');
+let box_down = document.getElementById('down__box');
+let box_left = document.getElementById('left__box');
+let box_right = document.getElementById('right__box');
 
+let up = document.getElementById('up');
+let down = document.getElementById('down');
+let left = document.getElementById('left');
+let right = document.getElementById('right');
+
+let tag_up = document.getElementById('up-tag');
+let tag_down = document.getElementById('down-tag');
+let tag_left = document.getElementById('left-tag');
+let tag_right = document.getElementById('right-tag');
+
+
+// Поведение
 info_up.addEventListener('mouseover', () => addHover('.up'));
 info_down.addEventListener('mouseover', () => addHover('.down'));
 info_left.addEventListener('mouseover', () => addHover('.left'));
@@ -122,12 +154,6 @@ info_up.addEventListener('mouseout', removeAll);
 info_down.addEventListener('mouseout', removeAll);
 info_left.addEventListener('mouseout', removeAll);
 info_right.addEventListener('mouseout', removeAll);
-
-
-let box_up = document.getElementById('up__box');
-let box_down = document.getElementById('down__box');
-let box_left = document.getElementById('left__box');
-let box_right = document.getElementById('right__box');
 
 box_up.addEventListener('mouseover', () => addHover('.up'));
 box_down.addEventListener('mouseover', () => addHover('.down'));
@@ -139,37 +165,42 @@ box_down.addEventListener('mouseout', removeAll);
 box_left.addEventListener('mouseout', removeAll);
 box_right.addEventListener('mouseout', removeAll);
 
+up.addEventListener('touchstart', () => addHoverReset('.up'));
+down.addEventListener('touchstart', () => addHoverReset('.down'));
+left.addEventListener('touchstart', () => addHoverReset('.left'));
+right.addEventListener('touchstart', () => addHoverReset('.right'));
 
-// Наведение в мобильной версии
+tag_up.addEventListener('touchstart', () => addHoverReset('.up'));
+tag_down.addEventListener('touchstart', () => addHoverReset('.down'));
+tag_left.addEventListener('touchstart', () => addHoverReset('.left'));
+tag_right.addEventListener('touchstart', () => addHoverReset('.right'));
 
-let cls = document.getElementById('close');
-let tag_up = document.getElementById('up-tag');
-let tag_down = document.getElementById('down-tag');
-let tag_left = document.getElementById('left-tag');
-let tag_right = document.getElementById('right-tag');
-let header = document.getElementById('header');
-let footer = document.getElementById('footer');
-
-tag_up.addEventListener('touchstart', () => addHoverMobile('.up'));
-tag_down.addEventListener('touchstart', () => addHoverMobile('.down'));
-tag_left.addEventListener('touchstart', () => addHoverMobile('.left'));
-tag_right.addEventListener('touchstart', () => addHoverMobile('.right'));
-
-// Блокировка случайного движения
-tag_up.addEventListener('mouseover', blockActiveSet);
-tag_down.addEventListener('mouseover', blockActiveSet);
-tag_left.addEventListener('mouseover', blockActiveSet);
-tag_right.addEventListener('mouseover', blockActiveSet);
-
-// Закрытие в мобильной версии
+// Закрытие в полноэкранном режиме
 cls.addEventListener('click', removeAll);
-header.addEventListener('click', logoRemoveAnimation);
-header.addEventListener('mouseover', logoRemoveAnimation);
+header.addEventListener('click', removeAll);
+header.addEventListener('mouseover', removeAll);
 footer.addEventListener('click', removeAll);
 footer.addEventListener('mouseover', removeAll);
 
+// Управление анимацией
+logo.addEventListener('mouseover', function () {
+	logoActive = true;
+});
+logo.addEventListener('mouseout', function () {
+	logoActive = false;
+	logoSetAnimation();
+});
 
-
+window.addEventListener('resize', function () {
+	if (offScreen.matches && blockActive != false) location.reload();
+	if (fullScreen.matches && blockActive != false) {
+		hiddenTitleTag();
+	} else if (blockActive != false) {
+		showTitleTag();
+		document.querySelector(blockActive + ' .tag').classList.add('hover');
+		document.querySelector(blockActive + ' .title-tag').classList.add('hover');
+	}
+});
 
 
 //* Движения
@@ -178,20 +209,16 @@ var initialPoint;
 var finalPoint;
 
 document.addEventListener('touchstart', function(event) {
-	// event.preventDefault();
-	// event.stopPropagation();
-	initialPoint=event.changedTouches[0];
+	turnOffMouse();
+	initialPoint = event.changedTouches[0];
 }, false);
 
 document.addEventListener('touchend', function(event) {
-	// event.preventDefault();
-	// event.stopPropagation();
-	finalPoint=event.changedTouches[0];
-	var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
-	var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
-	if (!blockActive)  {
-		if (xAbs > 20 || yAbs > 20) {
-			// alert(document.querySelector('.hover'));
+	if (blockActive == false) {
+		finalPoint = event.changedTouches[0];
+		var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
+		var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
+		if (xAbs > 30 || yAbs > 30) {
 			if (xAbs > yAbs) {
 				if (finalPoint.pageX < initialPoint.pageX) {
 					addHover('.right'); 								//Движение влево
@@ -212,7 +239,7 @@ document.addEventListener('touchend', function(event) {
 	}
 }, false);
 
-
+document.onmousemove = turnOnMouse();
 
 
 

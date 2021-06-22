@@ -6,44 +6,24 @@
 	}
 
 	&__content {
-		padding: 10px 20px;
-
-		@include mobile {
-			padding: 10px 10px;
-		}
-	}
-
-	&__wrapper {
-		height: 100%;
-		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
+	}
 
-		&-label {
-			display: flex;
-			justify-content: start;
-			border-bottom: 1px solid $title-light;
-
-			@include tablet {
-				justify-content: space-around;
-			}
-		}
+	&__wrapper-label {
+		display: flex;
+		justify-content: space-around;
+		border-bottom: 1px solid $title-light;
+		padding-top: 10px;
 	}
 
 	& label {
 		box-sizing: content-box;
+		width: 30%;
 		height: 100%;
-		margin-right: 30px;
-		padding: 0px 20px;
+		flex-grow: 1;
 		font-size: 16px;
-
-		@include tablet {
-			flex-grow: 1;
-			margin-right: 0;
-			padding: 0;
-			width: 30%;
-			text-align: center;
-		}
+		text-align: center;
 
 		@include mobile {
 			font-size: 14px;
@@ -59,24 +39,58 @@
 	opacity: 0;
 	animation: info-opacity infinite 8s linear;
 
-	&__up,
-	&__down {
-		padding: 20px;
-	}
-
 	&__up {
 		animation: info-text infinite 72s linear;
+	}
 
-		& p {
+	&__up,
+	&__down {
+
+		& h2 {
 			display: none;
+			margin: 40px 0 20px;
+			font-weight: 700;
+			text-align: center;
+
+			@include screen-off {
+				display: block;
+			}
 		}
+	}
 
-		& img {
-			display: none;
+	@include screen-off {
+		height: auto;
+		opacity: 1;
+		animation: unset;
+
+		&__up {
+			overflow: visible;
+			animation: unset;
+			background: none;
+
+			& p {
+				mix-blend-mode: unset;
+			}
 		}
 	}
 }
 
+.text-up-1,
+.text-up-2,
+.text-up-3,
+.text-down-1,
+.text-down-2,
+.img-up-1,
+.img-up-2,
+.img-up-3 {
+	display: none;
+
+	@include screen-off {
+		display: block;
+	}
+}
+
+// Контент верхнего блока
 .img-up-1 {
 	float: left;
 	margin-right: 15px;
@@ -89,6 +103,420 @@
 		text-align: center;
 	}
 }
+
+.img-up-2 {
+	margin: 20px 0;
+	text-align: center;
+
+	& img {
+		@media (max-width: 430px) {
+			width: 100%;
+			height: auto;
+		}
+	}
+}
+
+.img-up-3 {
+	width: 100%;
+	margin: 20px 0;
+	text-align: center;
+
+	& img {
+		width: 49%;
+		height: auto;
+
+		@media (max-width: 640px) {
+			width: 375px;
+			height: 250px;
+		}
+
+		@media (max-width: 420px) {
+			width: 100%;
+			height: auto;
+		}
+	}
+}
+
+// Контент нижнего блока
+.text-down-1 {
+	max-width: 500px;
+	height: 100%;
+	margin: 0 auto;
+	padding: 0 40px;
+
+	@media (max-width: 500px) {
+		padding: 0;
+	}
+
+	& li {
+		position: relative;
+
+		&::after {
+			position: absolute;
+			bottom: 0;
+			content: "";
+			width: 100%;
+			height: 1px;
+			background: $background-dark;
+			background-image: linear-gradient(to left, $background-light, $background-dark, $background-light);
+		}
+	}
+
+	& a {
+		display: block;
+		min-height: 70px;
+		padding: 15px 0;
+
+		& img {
+			@include position-center;
+			opacity: 0.2;
+		}
+
+		& h3 {
+			font-weight: 700;
+		}
+
+		& time {
+			display: block;
+			width: 100%;
+			font-size: 10px;
+			text-align: right;
+			color: #555;
+		}
+
+		& .circle {
+			border-radius: 50%;
+		}
+	}
+}
+
+.text-down-2 {
+	flex-direction: column;
+	justify-content: space-around;
+	height: 100%;
+	max-width: 600px;
+	margin: 0 auto;
+	transition: all $timeout;
+
+	//* Настройка ориентации 1-8
+	// 3 состояния экрана: обычный (по умолчанию);
+	// 	альбомный  (min-aspect-ratio: 5/2);
+	// 	книжный (max-aspect-ratio: 3/4)
+	@media (min-width: $tablet-width) and (max-height: $break-height) {
+		max-width: none;
+		width: 100%;
+		justify-content: space-between;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	@include screen-off {
+		position: relative;
+		z-index: -1;
+		display: flex;
+		max-width: 1024px;
+		margin: 0 auto;
+
+		&::after {
+			content: "";
+			@include position-size-parent;
+			z-index: 1;
+		}
+	}
+}
+
+hr {
+	border: 0;
+	width: 80%;
+	height: 1px;
+	margin: 0 auto;
+	background: $background-dark;
+	background-image: linear-gradient(to left, $background-light, $background-dark, $background-light);
+
+	// Настройка ориентации 2-8
+	@media (min-width: $tablet-width) and (max-height: $break-height) {
+		margin: auto 0;
+		width: 1px;
+		height: 80%;
+		background-image: linear-gradient(to top, $background-light, $background-dark, $background-light);
+	}
+
+	@include screen-off {
+		margin: 20px auto;
+	}
+}
+
+.rgu,
+.gb {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	height: 49%;
+	text-align: center;
+	transition: all $timeout;
+
+	// Настройка ориентации 3-8
+	@media (min-width: $tablet-width) and (max-height: $break-height) {
+		width: 49%;
+		height: 95%;
+	}
+
+	@media (max-aspect-ratio: 3/4) {
+		flex-direction: column;
+	}
+
+	&__text {
+		position: relative;
+		width: 50%;
+		height: 100%;
+
+		// Настройка ориентации 4-8
+		@include tablet {
+			width: 240px; // связь с &__diploma
+		}
+
+		@media (max-aspect-ratio: 3/4) {
+			width: 100%;
+			height: 110px; // связь с &__diploma
+		}
+
+		@include screen-off {
+			width: 100%;
+			height: auto;
+		}
+
+
+		&::after {
+			content: "";
+			@include position-size-parent;
+			z-index: -1;
+			opacity: 0.2;
+
+			@include screen-off {
+				opacity: 0;
+			}
+		}
+
+		&-main {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			height: 100%;
+
+			// Настройка ориентации 5-8
+			@media (max-aspect-ratio: 3/4) {
+				justify-content: start;
+			}
+
+			& h3 {
+				font-weight: 700;
+			}
+
+			& h4 {
+				text-transform: none;
+
+				@include tablet {
+					display: none;
+				}
+			}
+
+			& p {
+				margin-top: 30px;
+				margin-bottom: 0;
+
+				@media (max-width: $mobile-width),
+				(max-height: 500px) {
+					display: none;
+				}
+			}
+
+			& time {
+				font-size: 12px;
+				color: #555;
+
+				@media (max-width: $mobile-width),
+				(max-height: 500px) {
+					display: none;
+				}
+			}
+		}
+	}
+
+	&__program {
+		display: none;
+		width: 0;
+		height: 0;
+		overflow: hidden;
+		text-align: left;
+		font-size: 14px;
+
+		& li {
+			position: relative;
+			padding-left: 20px;
+			color: $text-dark;
+
+			&::after {
+				position: absolute;
+				left: 0;
+				top: -1px;
+				font-size: 10px;
+				font-weight: 700;
+				text-align: center;
+				color: $title-dark;
+			}
+		}
+
+		& li:first-child {
+			margin-bottom: 10px;
+			padding-left: 35px;
+			font-weight: 700;
+			color: $title-dark;
+		}
+	}
+
+	&__diploma {
+
+		width: 50%;
+		height: 90%;
+		object-fit: contain;
+
+		@include tablet {
+			width: calc(100% - 240px); // связь с &__text
+		}
+
+		// Настройка ориентации 6-8
+		@media (max-aspect-ratio: 3/4) {
+			width: 100%;
+			height: calc(100% - 120px); // связь с &__text
+		}
+	}
+}
+
+.rgu__text::after {
+	background: url(../img/down-rgu-logo.png) center center no-repeat;
+
+	@media (min-width: $mobile-width) and (max-height: 500px) {
+		background: url(../img/down-rgu-logo.png) center 70% no-repeat;
+	}
+}
+
+.gb__text::after {
+	background: url(../img/down-gb-logo.svg) center center no-repeat;
+
+	@media (min-width: $mobile-width) and (max-height: 500px) {
+		background: url(../img/down-gb-logo.svg) center 70% no-repeat;
+	}
+}
+
+.ready::after {
+	content: "V";
+}
+
+.five::after {
+	content: "5";
+}
+
+.future::after {
+	content: "-";
+}
+
+.text-down-2:hover {
+
+	.rgu,
+	.gb {
+		opacity: 0.3;
+		height: 20%;
+
+		// Настройка ориентации 7-8
+		@media (min-width: $tablet-width) and (max-height: $break-height) {
+			width: 30%;
+			height: 95%;
+		}
+
+		@include mobile {
+			height: 60px;
+		}
+
+		&__text {
+			max-width: 400px;
+			margin: 0 auto;
+
+			&::after {
+				background-position: center 25px;
+			}
+
+			&-main {
+				justify-content: start;
+				height: 50px;
+
+				& h4,
+				& p,
+				& time {
+					display: none;
+				}
+			}
+		}
+
+		&__diploma {
+			display: none;
+		}
+	}
+
+	& .rgu:hover {
+		opacity: 1;
+		height: 80%;
+
+		// Настройка ориентации 8а-8
+		@media (min-width: $tablet-width) and (max-height: $break-height) {
+			width: 60%;
+			height: 95%;
+		}
+
+		@include mobile {
+			height: calc(100% - 70px);
+		}
+
+		& .rgu__text {
+			height: 95%;
+			width: 100%;
+			overflow: auto;
+
+
+		}
+
+		& .rgu__program {
+			display: block;
+			animation: transition-program $timeout forwards;
+		}
+	}
+
+	& .gb:hover {
+		opacity: 1;
+		height: 75%;
+
+		// Настройка ориентации 8б-8
+		@media (min-width: $tablet-width) and (max-height: $break-height) {
+			width: 60%;
+			height: 95%;
+		}
+
+		@include mobile {
+			height: calc(100% - 70px);
+		}
+
+		& .gb__text {
+			height: 95%;
+			width: 100%;
+			overflow: auto;
+		}
+
+		& .gb__program {
+			display: block;
+			animation: transition-program $timeout forwards;
+		}
+	}
+}
+
 
 #up-1:checked~.wrap__center .label-up-1,
 #up-2:checked~.wrap__center .label-up-2,
@@ -106,9 +534,7 @@
 
 #up-1:checked~.wrap__center .text-up-1,
 #up-2:checked~.wrap__center .text-up-2,
-#up-3:checked~.wrap__center .text-up-3,
-#down-1:checked~.wrap__center .text-down-1,
-#down-2:checked~.wrap__center .text-down-2 {
+#up-3:checked~.wrap__center .text-up-3 {
 	display: block;
 }
 
@@ -130,7 +556,10 @@
 #up-2:checked~.wrap__center .up.hover~.info .img-up-2,
 #up-3:checked~.wrap__center .up:hover~.info .img-up-3,
 #up-3:checked~.wrap__center .up.hover~.info .img-up-3 {
-
 	display: block;
+}
 
+#down-1:checked~.wrap__center .text-down-1,
+#down-2:checked~.wrap__center .text-down-2 {
+	display: flex;
 }

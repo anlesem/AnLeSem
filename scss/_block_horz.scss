@@ -21,6 +21,7 @@
 			align-items: center;
 			height: 70%;
 			width: 100%;
+			text-align: center;
 			overflow: hidden;
 
 			// Внутреннее перестроение для сохранения правильных пропорций 2-4 
@@ -31,7 +32,8 @@
 
 			& picture {
 				display: none;
-				object-fit: cover;
+				object-fit: contain;
+				object-position: 50% 50%;
 			}
 		}
 
@@ -76,6 +78,11 @@
 	& h2 {
 		margin: 0 0 20px 30px;
 		font-weight: 700;
+
+		@include screen-off {
+			margin: 40px 0 20px;
+			text-align: center;
+		}
 	}
 }
 

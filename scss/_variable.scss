@@ -1,12 +1,13 @@
 //* Параметры адаптивного поведения
 // BreakPoints
 $pc-width: 1310px;
+// ? Переход в полноэкранный режим
 $laptop-width: 1024px;
 $tablet-width: 768px;
 $mobile-width: 375px;
 
 // Соотношение сторон экрана 
-$proportion: "2/1";
+$proportion: "5/2";
 
 // Минимальная высота
 $break-height: 640px;
@@ -14,6 +15,7 @@ $break-height: 640px;
 // Узкий экран
 $slim-screen: 270px;
 $slim-screen-tag: 320px;
+$screen-off: 200px;
 
 // Задержка наведения основная
 $timeout: 200ms;
@@ -22,7 +24,7 @@ $timeout: 200ms;
 // * Цветовая палитра
 // Фон
 $background-dark: rgba(0, 0, 0, .7);
-$background-light: rgba(255, 255, 255, .8);
+$background-light: rgba(255, 252, 250, 0.8);
 
 // Текст
 $text-light: #eed5c3;
