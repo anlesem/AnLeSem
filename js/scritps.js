@@ -202,14 +202,30 @@ window.addEventListener('resize', function () {
 	}
 });
 
+// Определение типа устройства ввода
+// Ловит "движение". Для улавливания "касания" лучше использовать pointerdown (нажатие)
+document.addEventListener('pointermove', function(event) {
+	switch (event.pointerType) {
+	  case 'mouse':
+		turnOnMouse();
+		 break;
+	  case 'pen':
+		console.log('pen');
+		 break;
+	  case 'touch':
+		turnOffMouse();
+		 break;
+	  default:
+		 console.log(`pointerType ${event.pointerType} is not supported`);
+	}
+ }, false);
 
-//* Движения
 
+// Движения
 var initialPoint;
 var finalPoint;
 
 document.addEventListener('touchstart', function(event) {
-	turnOffMouse();
 	initialPoint = event.changedTouches[0];
 }, false);
 
@@ -238,8 +254,6 @@ document.addEventListener('touchend', function(event) {
 		}
 	}
 }, false);
-
-document.onmousemove = turnOnMouse();
 
 
 
