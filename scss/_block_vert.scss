@@ -433,10 +433,6 @@ hr {
 			height: 95%;
 		}
 
-		@include mobile {
-			height: 60px;
-		}
-
 		&__text {
 			max-width: 400px;
 			margin: 0 auto;
@@ -447,7 +443,6 @@ hr {
 
 			&-main {
 				justify-content: start;
-				height: 50px;
 
 				& h4,
 				& p,
@@ -464,7 +459,7 @@ hr {
 
 	& .rgu:hover {
 		opacity: 1;
-		height: 80%;
+		height: 75%;
 
 		// Настройка ориентации 8а-8
 		@media (min-width: $tablet-width) and (max-height: $break-height) {
@@ -472,16 +467,15 @@ hr {
 			height: 95%;
 		}
 
-		@include mobile {
-			height: calc(100% - 70px);
-		}
-
 		& .rgu__text {
-			height: 95%;
 			width: 100%;
 			overflow: auto;
 
-
+			& h4,
+			& p,
+			& time {
+				display: block;
+			}
 		}
 
 		& .rgu__program {
@@ -500,14 +494,15 @@ hr {
 			height: 95%;
 		}
 
-		@include mobile {
-			height: calc(100% - 70px);
-		}
-
 		& .gb__text {
-			height: 95%;
 			width: 100%;
 			overflow: auto;
+
+			& h4,
+			& p,
+			& time {
+				display: block;
+			}
 		}
 
 		& .gb__program {

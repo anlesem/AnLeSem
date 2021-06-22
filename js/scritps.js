@@ -191,6 +191,7 @@ logo.addEventListener('mouseout', function () {
 	logoSetAnimation();
 });
 
+// Отслеживаем корректное переключение бирок при изменении размеров экрана
 window.addEventListener('resize', function () {
 	if (offScreen.matches && blockActive != false) location.reload();
 	if (fullScreen.matches && blockActive != false) {
