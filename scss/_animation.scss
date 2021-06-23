@@ -357,7 +357,7 @@ $range-min: 1px;
 
 	50% {
 		width: 100%;
-		height: calc(100%-50px);
+		height: auto;
 	}
 
 	99% {
@@ -366,7 +366,7 @@ $range-min: 1px;
 
 	to {
 		width: 100%;
-		height: calc(100%-50px);
+		height: auto;
 		overflow: visible;
 	}
 }

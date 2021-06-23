@@ -43,7 +43,6 @@ function removeAll() {
 
 function addHoverReset(block) {
 	removeAll();
-	turnOffMouse();
 	addHover(block);
 }
 
@@ -128,11 +127,6 @@ let info_down = document.getElementById('info__down');
 let info_left = document.getElementById('info__left');
 let info_right = document.getElementById('info__right');
 
-let box_up = document.getElementById('up__box');
-let box_down = document.getElementById('down__box');
-let box_left = document.getElementById('left__box');
-let box_right = document.getElementById('right__box');
-
 let up = document.getElementById('up');
 let down = document.getElementById('down');
 let left = document.getElementById('left');
@@ -143,6 +137,10 @@ let tag_down = document.getElementById('down-tag');
 let tag_left = document.getElementById('left-tag');
 let tag_right = document.getElementById('right-tag');
 
+let box_up = document.getElementById('up__box');
+let box_down = document.getElementById('down__box');
+let box_left = document.getElementById('left__box');
+let box_right = document.getElementById('right__box');
 
 // Поведение
 info_up.addEventListener('mouseover', () => addHover('.up'));
@@ -204,7 +202,23 @@ window.addEventListener('resize', function () {
 });
 
 // Определение типа устройства ввода
-// Ловит "движение". Для улавливания "касания" лучше использовать pointerdown (нажатие)
+// Ловит "касания" (нажатие)
+document.addEventListener('pointerdown', function(event) {
+	switch (event.pointerType) {
+	  case 'mouse':
+		turnOnMouse();
+		 break;
+	  case 'pen':
+		console.log('pen');
+		 break;
+	  case 'touch':
+		turnOffMouse();
+		 break;
+	  default:
+		 console.log(`pointerType ${event.pointerType} is not supported`);
+	}
+ }, false);
+
 document.addEventListener('pointermove', function(event) {
 	switch (event.pointerType) {
 	  case 'mouse':

@@ -1,6 +1,6 @@
 * {
 	scrollbar-width: thin;
-	scrollbar-color: $background-dark transparent;
+	scrollbar-color: rgba(0, 0, 0, .1) transparent;
 
 	&::-webkit-scrollbar {
 		width: 8px;
@@ -11,7 +11,7 @@
 	}
 
 	&::-webkit-scrollbar-thumb {
-		background-color: $background-dark;
+		background-color: rgba(0, 0, 0, .1);
 	}
 }
 
@@ -107,7 +107,7 @@ body {
 }
 
 .container-content {
-	max-width: 600px;
+	max-width: $content-width;
 	margin: 0 auto;
 }
 
