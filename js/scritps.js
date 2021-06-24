@@ -76,7 +76,6 @@ function tagRemoveAnimation() {
 	document.querySelector('.down-tag').style.animation = 'none';
 }
 
-
 // скрытие/показ наименований всех бирок в полноэкранном режиме 
 function hiddenTitleTag() {
 	if (fullScreen.matches) {
@@ -94,6 +93,87 @@ function showTitleTag() {
 	for (let elem of title) { elem.classList.remove('hover'); }
 }
 
+// Движения
+function start(event) {
+	event.preventDefault();
+	initialPoint = event.changedTouches[0];
+}
+
+function end(event) {
+	finalPoint = event.changedTouches[0];
+	var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
+	var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
+	if (xAbs > 30 || yAbs > 30) {
+		if (xAbs > yAbs) {
+			if (finalPoint.pageX < initialPoint.pageX) {
+				if (blockActive && fullScreen.matches) slide('next');	//! +1
+				else if (!blockActive) addHover('.right'); 				//Движение влево
+			}
+			else if (blockActive && fullScreen.matches) slide(); //! -1
+			else if (!blockActive) addHover('.left');						//Движение вправо
+		}
+		else if (!blockActive) {
+			if (finalPoint.pageY < initialPoint.pageY) {
+				addHover('.down'); 								//Движение вверх
+			}
+			else {
+				addHover('.up'); 									//Движение вниз
+			}
+		}
+	}
+}
+
+// Переключение содержимого в полноэкранном режиме
+function slide(n) {
+	for (let i = 0; i < radioList.length; i++) {
+		if (radioList[i][0] == blockActive) {
+			for (let j = 1; j < radioList[i].length; j++) {
+				if (radioList[i][j].checked) {						// Итог поиска актуальной позиции 
+					if (n == 'next') {									// Прокрутка по часовой стрелке
+						if ((j + 1) == radioList[i].length) {
+							if ((i + 1) == radioList.length) {
+								console.log('aaa' + radioList[i][j]);
+								addHoverReset('.up'); 
+								radioList[0][1].checked = true;
+								return;			
+							} else {
+								console.log('bbb' + radioList[i][j]);
+								addHoverReset(radioList[i + 1][0]);
+								radioList[i][1].checked = true;
+								radioList[i + 1][1].checked = true;
+								return;
+							}
+						} else {
+							console.log('ccc' + radioList[i][j]);
+							radioList[i][j + 1].checked = true;
+							return;
+						}
+					} else {
+						if ((j - 1) == 0) {
+							if (i == 0) {
+								let x = radioList.length - 1;
+								console.log('aaa' + i + j);
+								addHoverReset('.left');
+								radioList[x][1].checked = true;
+								return;
+							} else {
+								console.log('bbb' + i + j);
+								addHoverReset(radioList[i - 1][0]);
+								radioList[i][1].checked = true;
+								radioList[i - 1][1].checked = true;
+								return;
+							}
+						} else {
+							console.log('ccc' + i + j);
+							radioList[i][j - 1].checked = true;
+							return;
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 //* ----------------------------------------------------------------
 
@@ -109,6 +189,9 @@ var screen_off = 200;
 
 var logoActive = false;
 var blockActive = false;
+
+var initialPoint;	// начало движения
+var finalPoint;	// конец движения
 
 // Медиа запросы  (следует уточнять в _mixin.scss)
 const fullScreen = window.matchMedia('(max-width:  ' + pc_width + 'px) and (min-aspect-ratio: ' + proportion + '), (max-height: ' + break_height + 'px), (max-width:  ' + laptop_width + 'px)');
@@ -141,6 +224,32 @@ let box_up = document.getElementById('up__box');
 let box_down = document.getElementById('down__box');
 let box_left = document.getElementById('left__box');
 let box_right = document.getElementById('right__box');
+
+let radio_up1 = document.getElementById('up-1');
+let radio_up2 = document.getElementById('up-2');
+let radio_up3 = document.getElementById('up-3');
+let radio_down1 = document.getElementById('down-1');
+let radio_down2 = document.getElementById('down-2');
+let radio_left1 = document.getElementById('left-1');
+let radio_left2 = document.getElementById('left-2');
+let radio_left3 = document.getElementById('left-3');
+let radio_right1 = document.getElementById('right-1');
+let radio_right2 = document.getElementById('right-2');
+let radio_right3 = document.getElementById('right-3');
+
+// var radioList = [
+// 	['.up', 'up-1', 'up-2', 'up-3'],
+// 	['.right', 'right-1', 'right-2', 'right-3'],
+// 	['.down', 'down-1', 'down-2'],
+// 	['.left', 'left-1', 'left-2', 'left-3']
+// ];
+
+var radioList = [
+	['.up', radio_up1, radio_up2, radio_up3],
+	['.right', radio_right1, radio_right2, radio_right3],
+	['.down', radio_down1, radio_down2 ],
+	['.left', radio_left1, radio_left2, radio_left3]
+];
 
 // Поведение
 info_up.addEventListener('mouseover', () => addHover('.up'));
@@ -189,6 +298,10 @@ logo.addEventListener('mouseout', function () {
 	logoSetAnimation();
 });
 
+// Отслеживание движения
+document.addEventListener('touchstart', start, false);
+document.addEventListener('touchend', end, false);
+
 // Отслеживаем корректное переключение бирок при изменении размеров экрана
 window.addEventListener('resize', function () {
 	if (offScreen.matches && blockActive != false) location.reload();
@@ -201,8 +314,8 @@ window.addEventListener('resize', function () {
 	}
 });
 
-// Определение типа устройства ввода
-// Ловит "касания" (нажатие)
+// Отслеживание типа устройства ввода
+// Определение "касания" (нажатие) преимущественно для touch
 document.addEventListener('pointerdown', function(event) {
 	switch (event.pointerType) {
 	  case 'mouse':
@@ -219,6 +332,7 @@ document.addEventListener('pointerdown', function(event) {
 	}
  }, false);
 
+ // Определение "движения" (нажатие) преимущественно для mouse
 document.addEventListener('pointermove', function(event) {
 	switch (event.pointerType) {
 	  case 'mouse':
@@ -236,39 +350,7 @@ document.addEventListener('pointermove', function(event) {
  }, false);
 
 
-// Движения
-var initialPoint;
-var finalPoint;
 
-document.addEventListener('touchstart', function(event) {
-	initialPoint = event.changedTouches[0];
-}, false);
-
-document.addEventListener('touchend', function(event) {
-	if (blockActive == false) {
-		finalPoint = event.changedTouches[0];
-		var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
-		var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
-		if (xAbs > 30 || yAbs > 30) {
-			if (xAbs > yAbs) {
-				if (finalPoint.pageX < initialPoint.pageX) {
-					addHover('.right'); 								//Движение влево
-				}
-				else {
-					addHover('.left');								//Движение влево
-				}
-			}
-			else {
-				if (finalPoint.pageY < initialPoint.pageY) {
-					addHover('.down'); 								//Движение вверх
-				}
-				else {
-					addHover('.up'); 									//Движение вниз
-				}
-			}
-		}
-	}
-}, false);
 
 
 

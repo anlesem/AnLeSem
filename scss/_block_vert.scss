@@ -100,7 +100,7 @@
 
 	@media (max-width: 600px) {
 		float: none;
-		text-align: center;
+		margin: 0 auto;
 	}
 
 	@include mobile {
