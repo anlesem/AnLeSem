@@ -1,0 +1,402 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+body {
+    background-color: #fff;
+    margin: 0 auto;
+    font-family: Roboto, sans-serif;
+    letter-spacing: 0.04em;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.main {
+    background-image: url(images/illustration.png);
+    background-repeat: no-repeat;
+    background-position: bottom 10% right;
+    min-height: 768px;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 42px;
+}
+
+.menu a {
+    display: block;
+}
+
+.index {
+    background: linear-gradient(0deg, #EBF3FB 8.84%, rgba(152, 195, 232, 0) 31.12%);
+}
+
+.greeting {
+    margin-top: 115px;
+}
+
+.mainHead {
+    max-width: 504px;
+    font-size: 64px;
+    font-weight: 300;
+    line-height: 74px;
+    color: #1F3F68;
+}
+
+.text {
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0.05em;
+    color: #1F3F68;
+    opacity: 0.6;
+}
+
+.greeting .text {
+    max-width: 425px;
+    margin-top: 32px;
+}
+
+.button {
+    display: inline-block;
+    margin-top: 71px;
+    padding: 15px 50px;
+    background: #5A98D0;
+    box-shadow: 5px 10px 20px rgba(53, 110, 173, 0.2);
+    border-radius: 10px;
+    color: #FFFFFF;
+}
+
+
+.content {
+    margin-top: 64px;
+}
+
+.treeHead {
+    font-size: 36px;
+    line-height: 46px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    color: #000;
+}
+
+.what-we-do {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 64px;
+}
+
+.card {
+    max-width: 359px;
+    padding: 44px 30px;
+    box-sizing: border-box;
+    background: #FFFFFF;
+    box-shadow: 5px 20px 50px rgba(16, 112, 177, 0.2);
+    border-radius: 10px;
+}
+
+.image {
+    text-align: center;
+    min-height: 173px;
+}
+
+.forHead {
+    font-size: 20px;
+    line-height: 30px;
+    color: #1F3F68;
+}
+
+.card .text {
+    margin-top: 14px;
+}
+
+.card a {
+    display: block;
+    margin-top: 30px;
+    font-size: 14px;
+    line-height: 30px;
+    letter-spacing: 0.05em;
+    color: #5A98D0;
+}
+
+.something {
+    margin-top: 64px;
+    padding-bottom: 112px;
+    text-align: center;
+}
+
+.something .text {
+    margin-top: 32px;
+    padding: 0 -195px;
+    opacity: 1;
+    color: #222;
+}
+
+.something img {
+    width: 100%;
+}
+
+.smart {
+    position: relative;
+    margin-top: 64px;
+}
+
+.smart h5 {
+    position: absolute;
+    top: 64px;
+    right: 64px;
+    font-size: 32px;
+    font-weight: normal;
+    line-height: 46px;
+    text-align: right;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+}
+
+.appBox {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
+}
+
+.appBox .app:first-child {
+    margin-right: 32px;
+}
+
+.app {
+    flex-grow: 1;
+    position: relative;
+}
+
+.app h6 {
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    font-size: 28px;
+    font-weight: normal;
+    line-height: 46px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+}
+
+.footer {
+    background-color: #316099;
+}
+
+.footerUp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 91px;
+    padding-bottom: 96px;
+}
+
+.intersted-to-woek {
+    max-width: 495px;
+}
+
+.intersted-to-woek h3 {
+    max-width: 340px;
+    padding-bottom: 32px;
+    text-align: left;
+    font-weight: normal;
+    color: #FFF;
+}
+
+.intersted-to-woek .text {
+    color: #FFF;
+}
+
+.let a {
+    display: inline-block;
+    padding: 15px 80px;
+    background: #5A98D0;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #FFF;
+    opacity: 1;
+}
+
+hr {
+    opacity: 0.4;
+}
+
+.footer ol {
+    display: flex;
+    padding: 64px 0;
+}
+
+.footer li {
+    list-style-position: outside;
+    max-width: 316px;
+    margin-left: 20px;
+    padding-left: 40px;
+    padding-right: 32px;
+    color: #fff;
+}
+
+.copyright {
+    padding-bottom: 64px;
+}
+
+.copyright .text {
+    color: #FFFFFF;
+    opacity: 0.4;
+}
+
+
+
+
+
+/*                    допы Contacts    */
+.contactUS {
+    min-height: 250px;
+    background-image: url(images/contactUs.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 54px;
+}
+
+.contactUS .container {
+    padding: 50px 150px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.toHead {
+    font-weight: 500;
+    font-size: 44px;
+    line-height: 74px;
+    color: #fff;
+}
+
+.contactUS p {
+    padding-top: 16px;
+    font-size: 20px;
+    line-height: 30px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.containerLight {
+    max-width: 940px;
+    margin: 0 auto;
+}
+
+.containerLight h4 {
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+
+.form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 30px;
+    color: #1F3F68;
+}
+
+.left {
+    max-width: 300px;
+}
+
+.left img {
+    width: 100%;
+    padding-bottom: 12px;
+}
+
+.left h4 {
+    margin-top: 40px;
+    margin-bottom: 24px;
+}
+
+.left li {
+    list-style: none;
+    margin-top: 16px;
+    padding-left: 37px;
+}
+
+.phone li {
+    background: url(images/phone.svg) no-repeat 0 4px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+}
+
+.site {
+    background: url(images/site.svg) no-repeat 0 4px;
+}
+
+.email {
+    background: url(images/email.svg) no-repeat 0 4px;
+}
+
+.right {
+    width: 540px;
+    padding: 56px;
+    background: #FFF;
+    box-shadow: 5px 10px 50px rgba(16, 112, 177, 0.2);
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.right h4 {
+    margin-bottom: 48px;
+}
+
+form {
+    opacity: 0.8;
+}
+
+.enter {
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 32px;
+    padding: 21px 42px;
+    border: 1px solid #356EAD;
+    box-sizing: border-box;
+    border-radius: 10px;
+    opacity: 0.4;
+}
+
+.send {
+    width: 100%;
+    margin-top: 40px;
+    padding: 23px 0;
+    background: #5A98D0;
+    box-shadow: 5px 20px 50px rgba(16, 112, 177, 0.2);
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
+    color: #FFF;
+    text-transform: uppercase;
+    opacity: 1;
+}
+
+.frame {
+    margin-top: 96px;
+    margin-bottom: 112px;
+}
+
+iframe {
+    width: 100%;
+    height: 500px;
+    border: 0px;
+}

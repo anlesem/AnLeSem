@@ -4,7 +4,7 @@ body {
 	justify-content: space-between;
 
 	// Настройка ориентации 1-2 (+ general, header и footer)
-	@media (min-aspect-ratio: $proportion) {
+	@media (min-aspect-ratio: $proportion-land) {
 		flex-direction: row;
 	}
 
@@ -27,7 +27,7 @@ main {
 	}
 
 	// Настройка ориентации 2-2
-	@media (min-aspect-ratio: $proportion) {
+	@media (min-aspect-ratio: $proportion-land) {
 		height: 100%;
 	}
 

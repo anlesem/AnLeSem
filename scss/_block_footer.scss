@@ -5,7 +5,7 @@ footer {
 	background-color: $background-dark;
 
 	// Настройка ориентации 1-4 (+ general, header и main)
-	@media (min-aspect-ratio: $proportion) {
+	@media (min-aspect-ratio: $proportion-land) {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
@@ -33,7 +33,7 @@ footer {
 	margin-right: 30px;
 
 	// Настройка ориентации 2-4
-	@media (min-aspect-ratio: $proportion) {
+	@media (min-aspect-ratio: $proportion-land) {
 		text-align: center;
 		margin-right: 0;
 	}
@@ -58,7 +58,7 @@ footer {
 	&__full {
 
 		// Настройка ориентации 3-4
-		@media (min-height: $screen-off) and (min-aspect-ratio: $proportion) {
+		@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 			display: none;
 		}
 
@@ -100,7 +100,7 @@ footer {
 		opacity: 1;
 
 		// Настройка ориентации 4-4
-		@media (min-aspect-ratio: $proportion) {
+		@media (min-aspect-ratio: $proportion-land) {
 			width: 60px;
 			height: 180px;
 		}

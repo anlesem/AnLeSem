@@ -25,7 +25,7 @@
 // Переход в полноэкранный режим
 @mixin screen-full {
 
-	@media (max-width: $pc-width) and (min-aspect-ratio: $proportion),
+	@media (max-width: $pc-width) and (min-aspect-ratio: $proportion-land),
 	(max-height: $break-height),
 	(max-width: $laptop-width) {
 		@content;
@@ -45,7 +45,7 @@
 
 	@media (max-width: $slim-screen-tag),
 	(max-height: $slim-screen-tag),
-	(max-height: 475px) and (max-aspect-ratio: $proportion) {
+	(max-height: 475px) and (max-aspect-ratio: $proportion-land) {
 		@content;
 	}
 }
@@ -55,7 +55,7 @@
 
 	@media (max-width: $screen-off),
 	(max-height: $screen-off),
-	(max-height: 350px) and (max-aspect-ratio: $proportion) {
+	(max-height: 350px) and (max-aspect-ratio: $proportion-land) {
 		@content;
 	}
 }

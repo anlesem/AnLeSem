@@ -3,7 +3,7 @@ header {
 	background-color: $background-dark;
 
 	// Настройка ориентации 1-6 (+ general, main и footer)
-	@media (min-height: $screen-off) and (min-aspect-ratio: $proportion) {
+	@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 		width: 30%;
 		height: 100%;
 	}
@@ -20,7 +20,7 @@ header {
 	color: $text-menu;
 
 	// Настройка ориентации 2-9
-	@media (min-height: $screen-off) and (min-aspect-ratio: $proportion) {
+	@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 		flex-direction: column;
 		height: 100%;
 	}
@@ -51,7 +51,7 @@ header {
 			}
 
 			// Настройка ориентации 3-9
-			@media (min-height: $screen-off) and (min-aspect-ratio: $proportion) {
+			@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 				width: 100%;
 				height: 10%;
 			}
@@ -98,7 +98,7 @@ header {
 				opacity: 0.8;
 
 				// Настройка ориентации 4-9
-				@media (min-height: $screen-off) and (min-aspect-ratio: $proportion) {
+				@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 					width: auto;
 					height: 100%;
 				}
@@ -200,7 +200,7 @@ header {
 		}
 
 		// Настройка ориентации 5-9
-		@media (min-height: $screen-off) and (min-aspect-ratio: $proportion) {
+		@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 			width: 90%;
 		}
 
@@ -211,7 +211,7 @@ header {
 		& h3 {
 
 			// Настройка ориентации 6-9
-			@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion) {
+			@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion-land) {
 				display: none;
 			}
 		}
@@ -220,7 +220,7 @@ header {
 			animation: contacts $timeout 300ms linear forwards;
 
 			// Настройка ориентации 7-9
-			@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion) {
+			@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion-land) {
 				font-size: 10px;
 			}
 		}
@@ -233,7 +233,7 @@ header {
 			}
 
 			// Настройка ориентации 8-9
-			@media (min-height: $screen-off) and (min-aspect-ratio: $proportion) {
+			@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 				height: 5%;
 				width: 100%;
 			}
@@ -246,7 +246,7 @@ header {
 			}
 
 			// Настройка ориентации 8-9
-			@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion) {
+			@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion-land) {
 				height: 100%;
 				width: auto;
 			}

@@ -1,20 +1,4 @@
-// Отключение наведения мышью
-function turnOffMouse() {
-	document.querySelector('.up').classList.remove('up-hover');
-	document.querySelector('.down').classList.remove('down-hover');
-	document.querySelector('.left').classList.remove('left-hover');
-	document.querySelector('.right').classList.remove('right-hover');
-}
-
-// Включение наведения мышью
-function turnOnMouse() {
-	document.querySelector('.up').classList.add('up-hover');
-	document.querySelector('.down').classList.add('down-hover');
-	document.querySelector('.left').classList.add('left-hover');
-	document.querySelector('.right').classList.add('right-hover');
-}
-
-// показ при наведении
+// показ при наведении для мышки
 function addHover(block) {
 	if (!offScreen.matches) {
 		document.querySelector(block).classList.add('hover');
@@ -25,6 +9,17 @@ function addHover(block) {
 		hiddenTitleTag();
 	}
 }
+
+// показ при наведении для касаний
+function addHoverReset(block) {
+	removeAll();
+	addHover(block);
+}
+
+// Флаг Активного блока
+function blockActiveSet(block) {
+	blockActive = block;
+};
 
 // Закрытие всего открытого
 function removeAll() {
@@ -38,18 +33,9 @@ function removeAll() {
 	if (logoActive) document.querySelector('.logo').style.animation = "unset";
 	else logoSetAnimation();
 	tagSetAnimation();
-	// document.addEventListener('touchend', end);
 }
 
-function addHoverReset(block) {
-	removeAll();
-	addHover(block);
-}
-
-function blockActiveSet (block) {
-	blockActive = block;
-};
-
+// Управление анимацией
 function logoSetAnimation() {
 	document.querySelector('.logo').style.animation = "circle infinite 8s 4s linear";
 }
@@ -91,6 +77,11 @@ function showTitleTag() {
 	let title = document.querySelectorAll('.title-tag');
 	for (let elem of tag) { elem.classList.remove('hover'); }
 	for (let elem of title) { elem.classList.remove('hover'); }
+}
+
+function scrollUp() {
+	info_up.scrollTop = 0;
+	info_right.scrollTop = 0;
 }
 
 // Движения
@@ -145,9 +136,20 @@ function slide(n) {
 	}
 }
 
-window.onbeforeunload = function(event) {
-	event.preventDefault();
-	return false;
+// Отключение наведения мышью
+function turnOffMouse() {
+	document.querySelector('.up').classList.remove('up-hover');
+	document.querySelector('.down').classList.remove('down-hover');
+	document.querySelector('.left').classList.remove('left-hover');
+	document.querySelector('.right').classList.remove('right-hover');
+}
+
+// Включение наведения мышью
+function turnOnMouse() {
+	document.querySelector('.up').classList.add('up-hover');
+	document.querySelector('.down').classList.add('down-hover');
+	document.querySelector('.left').classList.add('left-hover');
+	document.querySelector('.right').classList.add('right-hover');
 }
 
 
@@ -215,12 +217,9 @@ let radio_right1 = document.getElementById('right-1');
 let radio_right2 = document.getElementById('right-2');
 let radio_right3 = document.getElementById('right-3');
 
-// var radioList = [
-// 	['.up', 'up-1', 'up-2', 'up-3'],
-// 	['.right', 'right-1', 'right-2', 'right-3'],
-// 	['.down', 'down-1', 'down-2'],
-// 	['.left', 'left-1', 'left-2', 'left-3']
-// ];
+let text_up1 = document.getElementById('text-up-1');
+let text_up2 = document.getElementById('text-up-2');
+let text_up3 = document.getElementById('text-up-3');
 
 var radioList = [
 	['.up', radio_up1, radio_up2, radio_up3],
@@ -259,6 +258,13 @@ tag_up.addEventListener('touchstart', () => addHoverReset('.up'));
 tag_down.addEventListener('touchstart', () => addHoverReset('.down'));
 tag_left.addEventListener('touchstart', () => addHoverReset('.left'));
 tag_right.addEventListener('touchstart', () => addHoverReset('.right'));
+
+// Возвращение наверх текстового наполнения
+radio_up1.addEventListener('click', scrollUp);
+radio_up2.addEventListener('click', scrollUp);
+radio_up3.addEventListener('click', scrollUp);
+radio_down1.addEventListener('click', scrollUp);
+radio_down2.addEventListener('click', scrollUp);
 
 // Закрытие в полноэкранном режиме
 cls.addEventListener('click', removeAll);

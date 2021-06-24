@@ -91,13 +91,13 @@ body {
 
 // Настройка ориентации 1-1 (+ main, header и footer)
 .container {
-	width: calc(100vh + 20vh);
+	width: calc(100vh + 30vh);
 	margin: 0 auto;
 
 	// Настройка высоты блока для сохранения правильных пропорций 1-1 (+ main)
 	@media (orientation: portrait),
 	(orientation: landscape) and (max-aspect-ratio: 4/3),
-	(min-aspect-ratio: $proportion) {
+	(min-aspect-ratio: $proportion-land) {
 		width: 100%;
 	}
 

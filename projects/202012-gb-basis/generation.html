@@ -1,0 +1,89 @@
+<!DOCTYPELetter html>
+    <html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Личный сайт студента GeekBrains</title>
+        <link rel="stylesheet" href="style.css">
+        <script type="text/javascript">
+            function generationCode() {
+                var codes = "";
+                for (var i = 65; i <= 255; i++) {
+                    codes += i + " - " + String.fromCodePoint(i) + "\n";
+                }
+                alert(codes);
+            }
+
+            function generation() {
+                var letter = 0;
+                var a = 0;
+                var typeLetter = parseInt(Math.random() * 3);
+                if (typeLetter == 0) {
+                    letter = parseInt(Math.random() * 10);
+                } else if (typeLetter == 1) {
+                    // коды для A - Z: 65 - 90              
+                    a = 65 + parseInt(Math.random() * 26);
+                    letter = String.fromCodePoint(a);
+                } else if (typeLetter == 2) {
+                    // коды для a - z: 97 - 122
+                    a = 97 + parseInt(Math.random() * 26);
+                    letter = String.fromCodePoint(a);
+                }
+                return letter;
+            }
+
+            function passwordd() {
+                var password = "";
+                var letterNumber = 0;
+                var passLenght = +document.getElementById("passLenght").value;
+                for (var i = 1; i <= passLenght; i++) {
+                    password = password + generation();
+
+                }
+                document.getElementById("pass").innerHTML = password;
+            }
+
+        </script>
+    </head>
+
+    <body>
+
+        <div class="content">
+            <div class="header">
+                <a href="index.html">Главная</a>
+                <a href="secret.html">Загадки</a>
+                <a href="#">Угадайка</a>
+                <a href="generation.html">Генератор паролей</a>
+            </div>
+
+            <div class="contentWrap">
+                <div class="content">
+                    <div class="center">
+
+                        <h1>Генератор паролей</h1>
+
+<div></div>
+                        <div class="box">
+
+                            <p id="info">Введите длину пароля:</p>
+                            <input type="text" id="passLenght">
+                            <div id="pass"></div>
+
+                            <a href="#" onClick="passwordd();" id="button">Сгенерировать</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="footer">
+            Copyright &copy; Vasily Pupkin
+            <div>
+
+
+    </body>
+
+    </html>
