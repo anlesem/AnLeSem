@@ -145,15 +145,11 @@ function slide(n) {
 	}
 }
 
-function restart(event) {
+window.onbeforeunload = function(event) {
 	event.preventDefault();
-	initialPoint2 = event.changedTouches[0];
+	return false;
 }
 
-function reend(event) {
-	event.preventDefault();
-	finalPoint2 = event.changedTouches[0];
-}
 
 //* ----------------------------------------------------------------
 
@@ -283,9 +279,6 @@ logo.addEventListener('mouseout', function () {
 // Отслеживание движения
 document.addEventListener('touchstart', start, false);
 document.addEventListener('touchend', end, false);
-
-window.addEventListener('touchstart', restart, false);
-window.addEventListener('touchend', reend, false);
 
 // Отслеживаем корректное переключение бирок при изменении размеров экрана
 window.addEventListener('resize', function () {
