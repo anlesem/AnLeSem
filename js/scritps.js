@@ -81,7 +81,8 @@ function showTitleTag() {
 
 function scrollUp() {
 	info_up.scrollTop = 0;
-	info_right.scrollTop = 0;
+	down_rgu.scrollTop = 0;
+	down_gb.scrollTop = 0;
 }
 
 // Движения
@@ -217,9 +218,8 @@ let radio_right1 = document.getElementById('right-1');
 let radio_right2 = document.getElementById('right-2');
 let radio_right3 = document.getElementById('right-3');
 
-let text_up1 = document.getElementById('text-up-1');
-let text_up2 = document.getElementById('text-up-2');
-let text_up3 = document.getElementById('text-up-3');
+let down_rgu = document.getElementById('rgu');
+let down_gb = document.getElementById('gb');
 
 var radioList = [
 	['.up', radio_up1, radio_up2, radio_up3],
@@ -265,6 +265,8 @@ radio_up2.addEventListener('click', scrollUp);
 radio_up3.addEventListener('click', scrollUp);
 radio_down1.addEventListener('click', scrollUp);
 radio_down2.addEventListener('click', scrollUp);
+down_rgu.addEventListener('click', scrollUp);
+down_gb.addEventListener('click', scrollUp);
 
 // Закрытие в полноэкранном режиме
 cls.addEventListener('click', removeAll);
