@@ -99,7 +99,6 @@ function start(event) {
 }
 
 function end(event) {
-	event.preventDefault();
 	finalPoint = event.changedTouches[0];
 	var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
 	var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
@@ -146,6 +145,16 @@ function slide(n) {
 	}
 }
 
+function restart(event) {
+	event.preventDefault();
+	initialPoint2 = event.changedTouches[0];
+}
+
+function reend(event) {
+	event.preventDefault();
+	finalPoint2 = event.changedTouches[0];
+}
+
 //* ----------------------------------------------------------------
 
 // параметры (следует уточнять в _variable.scss)
@@ -163,6 +172,8 @@ var blockActive = false;
 
 var initialPoint;	// начало движения
 var finalPoint;	// конец движения
+var initialPoint2;	// начало движения
+var finalPoint2;	// конец движения
 
 // Медиа запросы  (следует уточнять в _mixin.scss)
 const fullScreen = window.matchMedia('(max-width:  ' + pc_width + 'px) and (min-aspect-ratio: ' + proportion + '), (max-height: ' + break_height + 'px), (max-width:  ' + laptop_width + 'px)');
@@ -272,6 +283,9 @@ logo.addEventListener('mouseout', function () {
 // Отслеживание движения
 document.addEventListener('touchstart', start, false);
 document.addEventListener('touchend', end, false);
+
+window.addEventListener('touchstart', restart, false);
+window.addEventListener('touchend', reend, false);
 
 // Отслеживаем корректное переключение бирок при изменении размеров экрана
 window.addEventListener('resize', function () {
