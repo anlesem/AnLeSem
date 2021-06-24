@@ -95,21 +95,21 @@ function showTitleTag() {
 
 // Движения
 function start(event) {
-	event.preventDefault();
 	initialPoint = event.changedTouches[0];
 }
 
 function end(event) {
+	event.preventDefault();
 	finalPoint = event.changedTouches[0];
 	var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
 	var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
 	if (xAbs > 30 || yAbs > 30) {
 		if (xAbs > yAbs) {
 			if (finalPoint.pageX < initialPoint.pageX) {
-				if (blockActive && fullScreen.matches) slide('next');	//! +1
+				if (blockActive && fullScreen.matches) slide('next');	
 				else if (!blockActive) addHover('.right'); 				//Движение влево
 			}
-			else if (blockActive && fullScreen.matches) slide(); //! -1
+			else if (blockActive && fullScreen.matches) slide('prev');
 			else if (!blockActive) addHover('.left');						//Движение вправо
 		}
 		else if (!blockActive) {
@@ -129,45 +129,16 @@ function slide(n) {
 		if (radioList[i][0] == blockActive) {
 			for (let j = 1; j < radioList[i].length; j++) {
 				if (radioList[i][j].checked) {						// Итог поиска актуальной позиции 
-					if (n == 'next') {									// Прокрутка по часовой стрелке
-						if ((j + 1) == radioList[i].length) {
-							if ((i + 1) == radioList.length) {
-								console.log('aaa' + radioList[i][j]);
-								addHoverReset('.up'); 
-								radioList[0][1].checked = true;
-								return;			
-							} else {
-								console.log('bbb' + radioList[i][j]);
-								addHoverReset(radioList[i + 1][0]);
-								radioList[i][1].checked = true;
-								radioList[i + 1][1].checked = true;
-								return;
-							}
-						} else {
-							console.log('ccc' + radioList[i][j]);
+					if (n == 'next') {									
+						if ((j + 1) == radioList[i].length) return;			
+						else {
 							radioList[i][j + 1].checked = true;
 							return;
 						}
-					} else {
-						if ((j - 1) == 0) {
-							if (i == 0) {
-								let x = radioList.length - 1;
-								console.log('aaa' + i + j);
-								addHoverReset('.left');
-								radioList[x][1].checked = true;
-								return;
-							} else {
-								console.log('bbb' + i + j);
-								addHoverReset(radioList[i - 1][0]);
-								radioList[i][1].checked = true;
-								radioList[i - 1][1].checked = true;
-								return;
-							}
-						} else {
-							console.log('ccc' + i + j);
-							radioList[i][j - 1].checked = true;
-							return;
-						}
+					} else if ((j - 1) == 0) return;
+						else {
+						radioList[i][j - 1].checked = true;
+						return;
 					}
 				}
 			}
