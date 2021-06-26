@@ -124,11 +124,13 @@ function slide(n) {
 						if ((j + 1) == radioList[i].length) return;			
 						else {
 							radioList[i][j + 1].checked = true;
+							scrollUp();
 							return;
 						}
 					} else if ((j - 1) == 0) return;
 						else {
 						radioList[i][j - 1].checked = true;
+						scrollUp();
 						return;
 					}
 				}
@@ -161,7 +163,7 @@ var pc_width = 1310;
 var laptop_width = 1024;
 // var tablet_width = 768;
 // var mobile_width = 375;
-var proportion = 5 / 2;
+var proportion = '5 / 2';
 var break_height = 640;
 var slim_screen_tag = 320;
 var screen_off = 200;

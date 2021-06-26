@@ -343,30 +343,3 @@ $range-min: 1px;
 		clip-path: polygon(0% 0%, 0% 33.3%, 33.3% 33.3%, 33.3% 0%);
 	}
 }
-
-
-//* Нижний блок (программа)
-
-
-@keyframes transition-program {
-	from {
-		width: 0;
-		height: 0;
-		overflow: hidden;
-	}
-
-	50% {
-		width: 100%;
-		height: auto;
-	}
-
-	99% {
-		overflow: hidden;
-	}
-
-	to {
-		width: 100%;
-		height: auto;
-		overflow: visible;
-	}
-}
