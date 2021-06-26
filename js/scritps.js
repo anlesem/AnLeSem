@@ -2,9 +2,9 @@
 function addHover(block) {
 	if (!offScreen.matches) {
 		document.querySelector(block).classList.add('hover');
-		document.querySelector('.logo').style.animation = "unset";
 		document.querySelector('.close').classList.add('hover');
 		blockActiveSet(block);
+		logoRemoveAnimation();
 		tagRemoveAnimation();
 		hiddenTitleTag();
 	}
@@ -30,14 +30,33 @@ function removeAll() {
 	document.querySelector('.left').classList.remove('hover');
 	document.querySelector('.right').classList.remove('hover');
 	blockActive = false;
-	if (logoActive) document.querySelector('.logo').style.animation = "unset";
+	if (logoActive) logoRemoveAnimation();
 	else logoSetAnimation();
 	tagSetAnimation();
 }
 
 // Управление анимацией
+function allSetAnimation() {
+	console.log('Запуск анимации');
+	document.querySelector('.info').style.animation = "info-opacity infinite 8s linear";
+	document.querySelector('.info__up').style.animation = "info-text infinite 72s linear";
+	logoSetAnimation();
+	tagSetAnimation();
+}
+
+function allRemoveAnimation() {
+	document.querySelector('.info').style.animation = "unset";
+	document.querySelector('.info__up').style.animation = "unset";
+	logoRemoveAnimation();
+	tagRemoveAnimation();
+}
+
 function logoSetAnimation() {
 	document.querySelector('.logo').style.animation = "circle infinite 8s 4s linear";
+}
+
+function logoRemoveAnimation() {
+	document.querySelector('.logo').style.animation = "unset";
 }
 
 function tagSetAnimation() {
@@ -56,10 +75,10 @@ function tagSetAnimation() {
 }
 
 function tagRemoveAnimation() {
-	document.querySelector('.left-tag').style.animation = 'none';
-	document.querySelector('.right-tag').style.animation = 'none';
-	document.querySelector('.up-tag').style.animation = 'none';
-	document.querySelector('.down-tag').style.animation = 'none';
+	document.querySelector('.left-tag').style.animation = 'unset';
+	document.querySelector('.right-tag').style.animation = 'unset';
+	document.querySelector('.up-tag').style.animation = 'unset';
+	document.querySelector('.down-tag').style.animation = 'unset';
 }
 
 // скрытие/показ наименований всех бирок в полноэкранном режиме 
@@ -278,6 +297,21 @@ footer.addEventListener('click', removeAll);
 footer.addEventListener('mouseover', removeAll);
 
 // Управление анимацией
+switch (document.readyState) {
+	case "loading":
+	  // Страница все ещё загружается
+		console.log('загружается');
+		allRemoveAnimation();
+	case "interactive":
+	  // Страница уже загружена. Теперь мы можем получить доступ к DOM объектам.
+	  console.log('почти');
+		allRemoveAnimation();
+	case "complete":
+		// Страница загружена вместе с дополнительными ресурсами.
+		console.log('готово');
+		setTimeout(allSetAnimation, 3000);
+ }
+
 logo.addEventListener('mouseover', function () {
 	logoActive = true;
 });
