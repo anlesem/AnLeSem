@@ -37,10 +37,10 @@
 
 .info {
 	opacity: 0;
-	animation: info-opacity infinite 8s linear;
+	animation: info-opacity infinite 8s 5s linear;
 
 	&__up {
-		animation: info-text infinite 72s linear;
+		animation: info-text infinite 72s 5s linear;
 	}
 
 	&__up,

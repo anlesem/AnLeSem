@@ -36,23 +36,8 @@ function removeAll() {
 }
 
 // Управление анимацией
-function allSetAnimation() {
-	console.log('Запуск анимации');
-	document.querySelector('.info').style.animation = "info-opacity infinite 8s linear";
-	document.querySelector('.info__up').style.animation = "info-text infinite 72s linear";
-	logoSetAnimation();
-	tagSetAnimation();
-}
-
-function allRemoveAnimation() {
-	document.querySelector('.info').style.animation = "unset";
-	document.querySelector('.info__up').style.animation = "unset";
-	logoRemoveAnimation();
-	tagRemoveAnimation();
-}
-
 function logoSetAnimation() {
-	document.querySelector('.logo').style.animation = "circle infinite 8s 4s linear";
+	document.querySelector('.logo').style.animation = "circle infinite 8s 9s linear";
 }
 
 function logoRemoveAnimation() {
@@ -62,15 +47,15 @@ function logoRemoveAnimation() {
 function tagSetAnimation() {
 	tagRemoveAnimation();
 	if (slimScreen.matches) {
-		document.querySelector('.up-tag').style.animation = 'rhythm-tag-vert-slim infinite 8s 8s linear';
-		document.querySelector('.down-tag').style.animation = 'rhythm-tag-vert-slim infinite 8s 8s linear';
-		document.querySelector('.left-tag').style.animation = 'rhythm-tag-horz-slim infinite 8s 8s linear';
-		document.querySelector('.right-tag').style.animation = 'rhythm-tag-horz-slim infinite 8s 8s linear';
+		document.querySelector('.up-tag').style.animation = 'rhythm-tag-vert-slim infinite 8s 13s linear';
+		document.querySelector('.down-tag').style.animation = 'rhythm-tag-vert-slim infinite 8s 13s linear';
+		document.querySelector('.left-tag').style.animation = 'rhythm-tag-horz-slim infinite 8s 13s linear';
+		document.querySelector('.right-tag').style.animation = 'rhythm-tag-horz-slim infinite 8s 13s linear';
 	} else {
-		document.querySelector('.left-tag').style.animation = 'rhythm-tag-horz infinite 8s 8s linear';
-		document.querySelector('.right-tag').style.animation = 'rhythm-tag-horz infinite 8s 8s linear';
-		document.querySelector('.up-tag').style.animation = 'rhythm-tag-vert infinite 8s 8s linear';
-		document.querySelector('.down-tag').style.animation = 'rhythm-tag-vert infinite 8s 8s linear';
+		document.querySelector('.left-tag').style.animation = 'rhythm-tag-horz infinite 8s 13s linear';
+		document.querySelector('.right-tag').style.animation = 'rhythm-tag-horz infinite 8s 13s linear';
+		document.querySelector('.up-tag').style.animation = 'rhythm-tag-vert infinite 8s 13s linear';
+		document.querySelector('.down-tag').style.animation = 'rhythm-tag-vert infinite 8s 13s linear';
 	}
 }
 
@@ -295,22 +280,6 @@ header.addEventListener('click', removeAll);
 header.addEventListener('mouseover', removeAll);
 footer.addEventListener('click', removeAll);
 footer.addEventListener('mouseover', removeAll);
-
-// Управление анимацией
-switch (document.readyState) {
-	case "loading":
-	  // Страница все ещё загружается
-		console.log('загружается');
-		allRemoveAnimation();
-	case "interactive":
-	  // Страница уже загружена. Теперь мы можем получить доступ к DOM объектам.
-	  console.log('почти');
-		allRemoveAnimation();
-	case "complete":
-		// Страница загружена вместе с дополнительными ресурсами.
-		console.log('готово');
-		setTimeout(allSetAnimation, 3000);
- }
 
 logo.addEventListener('mouseover', function () {
 	logoActive = true;
