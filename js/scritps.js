@@ -1,38 +1,66 @@
-// показ при наведении для мышки
-function addHover(block) {
-	if (!offScreen.matches) {
-		document.querySelector(block).classList.add('hover');
-		document.querySelector('.close').classList.add('hover');
-		blockActiveSet(block);
-		logoRemoveAnimation();
-		tagRemoveAnimation();
-		hiddenTitleTag();
+// первоначальный показ при наведении
+function addHoverFirst(block) {
+	console.log(blockStop);
+	if (!offScreen.matches && !blockStop) {
+		removeAll();
+		addHover(block);
+		blockStopSet(block);
+	}
+	else if (blockStopName != block) {
+		removeAll();
+		addHover(block);
+		blockStopSet(block);
+		blockStop = false;
 	}
 }
 
-// показ при наведении для касаний
-function addHoverReset(block) {
-	removeAll();
-	addHover(block);
+// показ при наведении на внутренние компоненты
+function addHover(block) {
+	document.querySelector(block).classList.add('hover');
+	document.querySelector('.close-all').classList.add('hover');
+	blockActiveSet(block);
+	hiddenTitleTag();
+	logoRemoveAnimation();
+	tagRemoveAnimation();
 }
 
 // Флаг Активного блока
 function blockActiveSet(block) {
-	blockActive = block;
+	blockActiveName = block;
+	blockActive = true;
 };
 
+// Флаг блокирующего блока
+function blockStopSet(block) {
+	if (fullScreen.matches && block == '.left') blockStopName = '.right'; 
+	else blockStopName = block;
+	console.log(blockStopName);
+}
+
 // Закрытие всего открытого
-function removeAll() {
+function removeAll(n) {
 	showTitleTag();
-	document.querySelector('.close').classList.remove('hover');
+	document.querySelector('.close-all').classList.remove('hover');
 	document.querySelector('.up').classList.remove('hover');
 	document.querySelector('.down').classList.remove('hover');
 	document.querySelector('.left').classList.remove('hover');
 	document.querySelector('.right').classList.remove('hover');
 	blockActive = false;
+	if (n == 'full') blockStop = false;
 	if (logoActive) logoRemoveAnimation();
 	else logoSetAnimation();
 	tagSetAnimation();
+}
+
+// Кнопка закрыть 
+function closeButton(n) {
+	if (!n && fullScreen.matches) {
+		cls.style.visibility = 'hidden';
+		closeAll.style.visibility = 'visible';
+	} else {
+		cls.style.visibility = 'visible';
+		closeAll.style.visibility = 'hidden';
+	}
 }
 
 // Управление анимацией
@@ -121,7 +149,7 @@ function end(event) {
 // Переключение содержимого в полноэкранном режиме
 function slide(n) {
 	for (let i = 0; i < radioList.length; i++) {
-		if (radioList[i][0] == blockActive) {
+		if (radioList[i][0] == blockActiveName) {
 			for (let j = 1; j < radioList[i].length; j++) {
 				if (radioList[i][j].checked) {						// Итог поиска актуальной позиции 
 					if (n == 'next') {									
@@ -143,23 +171,6 @@ function slide(n) {
 	}
 }
 
-// Отключение наведения мышью
-function turnOffMouse() {
-	document.querySelector('.up').classList.remove('up-hover');
-	document.querySelector('.down').classList.remove('down-hover');
-	document.querySelector('.left').classList.remove('left-hover');
-	document.querySelector('.right').classList.remove('right-hover');
-}
-
-// Включение наведения мышью
-function turnOnMouse() {
-	document.querySelector('.up').classList.add('up-hover');
-	document.querySelector('.down').classList.add('down-hover');
-	document.querySelector('.left').classList.add('left-hover');
-	document.querySelector('.right').classList.add('right-hover');
-}
-
-
 //* ----------------------------------------------------------------
 
 // параметры (следует уточнять в _variable.scss)
@@ -174,6 +185,9 @@ var screen_off = 200;
 
 var logoActive = false;
 var blockActive = false;
+var blockActiveName;
+var blockStop = false;
+var blockStopName;
 
 var initialPoint;	// начало движения
 var finalPoint;	// конец движения
@@ -191,7 +205,9 @@ let logo = document.getElementById('logo');
 
 let footer = document.getElementById('footer');
 let cls = document.getElementById('close');
+let closeAll = document.getElementById('close-all');
 
+let info = document.getElementById('info');
 let info_up = document.getElementById('info__up');
 let info_down = document.getElementById('info__down');
 let info_left = document.getElementById('info__left');
@@ -235,35 +251,34 @@ var radioList = [
 ];
 
 // Поведение
-info_up.addEventListener('mouseover', () => addHover('.up'));
-info_down.addEventListener('mouseover', () => addHover('.down'));
-info_left.addEventListener('mouseover', () => addHover('.left'));
-info_right.addEventListener('mouseover', () => addHover('.right'));
+info.addEventListener('mouseenter', function () {
+	if (blockActiveName) {
+		addHover(blockActiveName);
+		blockActiveName = false;
+	}
+});
 
-info_up.addEventListener('mouseout', removeAll);
-info_down.addEventListener('mouseout', removeAll);
-info_left.addEventListener('mouseout', removeAll);
-info_right.addEventListener('mouseout', removeAll);
+info.addEventListener('mouseleave', removeAll);
 
-box_up.addEventListener('mouseover', () => addHover('.up'));
-box_down.addEventListener('mouseover', () => addHover('.down'));
-box_left.addEventListener('mouseover', () => addHover('.left'));
-box_right.addEventListener('mouseover', () => addHover('.right'));
+up.addEventListener('mouseover', () => addHoverFirst('.up'));
+down.addEventListener('mouseover', () => addHoverFirst('.down'));
+left.addEventListener('mouseover', () => addHoverFirst('.left'));
+right.addEventListener('mouseover', () => addHoverFirst('.right'));
+
+box_up.addEventListener('mouseover', () => addHoverFirst('.up'));
+box_down.addEventListener('mouseover', () => addHoverFirst('.down'));
+box_left.addEventListener('mouseover', () => addHoverFirst('.left'));
+box_right.addEventListener('mouseover', () => addHoverFirst('.right'));
 
 box_up.addEventListener('mouseout', removeAll);
 box_down.addEventListener('mouseout', removeAll);
 box_left.addEventListener('mouseout', removeAll);
 box_right.addEventListener('mouseout', removeAll);
 
-up.addEventListener('touchstart', () => addHoverReset('.up'));
-down.addEventListener('touchstart', () => addHoverReset('.down'));
-left.addEventListener('touchstart', () => addHoverReset('.left'));
-right.addEventListener('touchstart', () => addHoverReset('.right'));
-
-tag_up.addEventListener('touchstart', () => addHoverReset('.up'));
-tag_down.addEventListener('touchstart', () => addHoverReset('.down'));
-tag_left.addEventListener('touchstart', () => addHoverReset('.left'));
-tag_right.addEventListener('touchstart', () => addHoverReset('.right'));
+tag_up.addEventListener('mouseover', () => addHoverFirst('.up'));
+tag_down.addEventListener('mouseover', () => addHoverFirst('.down'));
+tag_left.addEventListener('mouseover', () => addHoverFirst('.left'));
+tag_right.addEventListener('mouseover', () => addHoverFirst('.right'));
 
 // Возвращение наверх текстового наполнения
 radio_up1.addEventListener('click', scrollUp);
@@ -275,11 +290,19 @@ down_rgu.addEventListener('click', scrollUp);
 down_gb.addEventListener('click', scrollUp);
 
 // Закрытие в полноэкранном режиме
-cls.addEventListener('click', removeAll);
-header.addEventListener('click', removeAll);
-header.addEventListener('mouseover', removeAll);
-footer.addEventListener('click', removeAll);
-footer.addEventListener('mouseover', removeAll);
+cls.addEventListener('click', function() {
+	removeAll();
+	blockStop = true;
+	setTimeout(() => {
+		blockStop = false;
+	}, 1000);
+});
+
+closeAll.addEventListener('click', () => removeAll('full'));
+header.addEventListener('click', () => removeAll('full'));
+header.addEventListener('mouseover',() => removeAll('full'));
+footer.addEventListener('click', () => removeAll('full'));
+footer.addEventListener('mouseover', () => removeAll('full'));
 
 logo.addEventListener('mouseover', function () {
 	logoActive = true;
@@ -295,13 +318,13 @@ document.addEventListener('touchend', end, false);
 
 // Отслеживаем корректное переключение бирок при изменении размеров экрана
 window.addEventListener('resize', function () {
-	if (offScreen.matches && blockActive != false) location.reload();
-	if (fullScreen.matches && blockActive != false) {
+	if (offScreen.matches && blockActive) location.reload();
+	if (fullScreen.matches && blockActive) {
 		hiddenTitleTag();
-	} else if (blockActive != false) {
+	} else if (blockActive) {
 		showTitleTag();
-		document.querySelector(blockActive + ' .tag').classList.add('hover');
-		document.querySelector(blockActive + ' .title-tag').classList.add('hover');
+		document.querySelector(blockActiveName + ' .tag').classList.add('hover');
+		document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');
 	}
 });
 
@@ -310,16 +333,15 @@ window.addEventListener('resize', function () {
 document.addEventListener('pointerdown', function(event) {
 	switch (event.pointerType) {
 	  case 'mouse':
-		turnOnMouse();
+		closeButton(true);
 		 break;
 	  case 'pen':
-		console.log('pen');
+		closeButton(false);
 		 break;
 	  case 'touch':
-		turnOffMouse();
+		closeButton(false);
 		 break;
 	  default:
-		 console.log(`pointerType ${event.pointerType} is not supported`);
 	}
  }, false);
 
@@ -327,16 +349,15 @@ document.addEventListener('pointerdown', function(event) {
 document.addEventListener('pointermove', function(event) {
 	switch (event.pointerType) {
 	  case 'mouse':
-		turnOnMouse();
+		closeButton(true);
 		 break;
 	  case 'pen':
-		console.log('pen');
+		closeButton(false);
 		 break;
 	  case 'touch':
-		turnOffMouse();
+		closeButton(false);
 		 break;
 	  default:
-		 console.log(`pointerType ${event.pointerType} is not supported`);
 	}
  }, false);
 

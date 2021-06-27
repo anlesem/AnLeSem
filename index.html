@@ -122,7 +122,7 @@
 		<input type="radio" name="up" class="up__radio" id="up-3">
 		<input type="radio" name="down" class="down__radio" id="down-1" checked>
 		<input type="radio" name="down" class="down__radio" id="down-2">
-		<section class="left left-hover" id="left">
+		<section class="left" id="left">
 			<div class="left-tag tag" id="left-tag"><span class="title-tag">Ежедневник</span></div>
 			<div class="left__box" id="left__box">
 				<div class="left__content container-content">
@@ -172,7 +172,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="right right-hover" id="right">
+		<section class="right" id="right">
 			<div class="right-tag tag" id="right-tag"><span class="title-tag">Мира Вид</span></div>
 			<div class="right__box" id="right__box">
 				<div class="right__content container-content">
@@ -223,7 +223,7 @@
 			</div>
 		</section>
 		<section class="wrap__center">
-			<section class="up up-hover" id="up">
+			<section class="up" id="up">
 				<div class="up-tag tag" id="up-tag"><span class="title-tag">Концепция</span></div>
 				<div class="up__box" id="up__box">
 					<div class="up__content container-content">
@@ -238,7 +238,7 @@
 					</div>
 				</div>
 			</section>
-			<section class="down down-hover" id="down">
+			<section class="down" id="down">
 				<div class="down-tag tag" id="down-tag"><span class="title-tag">Прочее</span></div>
 				<div class="down__box" id="down__box">
 					<div class="down__content container-content">
@@ -251,7 +251,13 @@
 					</div>
 				</div>
 			</section>
-			<section class="info">
+			<section class="info" id="info">
+				<button class="close" id="close" type="button">
+					<span>Закрыть</span>
+					<svg width="20" height="20" viewBox="0 0 20 20">
+						<use href="#icon__close" />
+					</svg>
+				</button>
 				<article class="info__up text-dark" id="info__up">
 					<h1 class="visually-hidden">Концепция</h1>
 					<div class="container-content text-up-1" id="text-up-1">
@@ -554,7 +560,7 @@
 	</main>
 	<footer id="footer">
 		<div class="copyright">&copy; 2021 <span class="copyright__full">Все права защищены. </span> </div>
-		<div class="close" id="close">
+		<div class="close-all" id="close-all">
 			<svg width="35" height="35" viewBox="0 0 35 35">
 				<use href="#icon__close" />
 			</svg>

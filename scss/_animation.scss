@@ -230,6 +230,7 @@ $range-min: 1px;
 // дыхание окон
 @keyframes info-opacity {
 	from {
+		width: 100%;
 		opacity: 0;
 	}
 
@@ -250,6 +251,7 @@ $range-min: 1px;
 	}
 
 	to {
+		width: 100%;
 		opacity: 0;
 	}
 }

@@ -132,14 +132,12 @@ main {
 	}
 
 	// Настройка бирок 4а-7 (наведение)
-	&-hover:hover &-tag,
 	&.hover &-tag {
 		left: 100%;
 		transition: left $timeout;
 	}
 
 	// Настройка контента 4а-7 (наведение)
-	&-hover:hover &__box,
 	&.hover &__box {
 		width: 100%;
 		z-index: 10;
@@ -174,14 +172,12 @@ main {
 	}
 
 	// Настройка бирок 4б-7 (наведение)
-	&-hover:hover &-tag,
 	&.hover &-tag {
 		right: 100%;
 		transition: right $timeout;
 	}
 
 	// Настройка контента 4б-7 (наведение)
-	&-hover:hover &__box,
 	&.hover &__box {
 		width: 100%;
 		z-index: 10;
@@ -278,14 +274,12 @@ main {
 	}
 
 	// Настройка бирок 7а-7 (наведение) 
-	&-hover:hover &-tag,
 	&.hover &-tag {
 		top: 100%;
 		transition: top $timeout;
 	}
 
 	// Настройка контента 7а-7 (наведение)
-	&-hover:hover &__box,
 	&.hover &__box {
 		height: 100%;
 		transition: height $timeout;
@@ -316,14 +310,12 @@ main {
 	}
 
 	// Настройка бирок 7б-7  (наведение)
-	&-hover:hover &-tag,
 	&.hover &-tag {
 		bottom: 100%;
 		transition: bottom $timeout;
 	}
 
 	// Настройка контента 7б-7 (наведение)
-	&-hover:hover &__box,
 	&.hover &__box {
 		height: 100%;
 		transition: height $timeout;
@@ -331,7 +323,8 @@ main {
 }
 
 .info {
-	width: 100%;
+	position: relative;
+	width: 60%;
 	height: 70%;
 	margin: 0 auto;
 	order: 2;
@@ -344,6 +337,43 @@ main {
 	// Переход в полноэкранный режим 5-7
 	@include screen-full {
 		height: 100%;
+	}
+
+	& .close {
+		display: none;
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		z-index: 15;
+		width: 30px;
+		height: 30px;
+		line-height: 25px;
+		border: 1px solid $background-dark;
+		border-radius: 15px;
+		background: none;
+		opacity: 0.5;
+
+		& span {
+			display: none;
+		}
+
+		& svg {
+			@include position-center;
+		}
+
+		&:hover {
+			width: 80px;
+			cursor: pointer;
+			background: $background-light;
+
+			& span {
+				display: block;
+			}
+
+			& svg {
+				display: none;
+			}
+		}
 	}
 
 	&__up {
@@ -404,17 +434,17 @@ main {
 }
 
 // Размеры горизонтальных блоков при наведении
-.left-hover:hover,
 .left.hover,
-.right-hover:hover,
 .right.hover {
 	width: $width-horz-block;
 	transition: all $timeout;
+
 
 	&~.wrap__center {
 		width: $width-horz-block;
 
 		& .info {
+			width: 100%;
 			height: $height-horz-block;
 
 			// Ограничение высоты блока для сохранения правильных пропорций 3-3
@@ -458,15 +488,15 @@ main {
 }
 
 // Размеры вертикальных блоков при наведении
-.up-hover:hover,
 .up.hover,
-.down-hover:hover,
 .down.hover {
 	position: relative;
 	height: $height-vert-block;
 	transition: all $timeout;
 
+
 	&~.info {
+		width: 100%;
 		height: 70%;
 
 		// Переход в полноэкранный режим 7б-7
@@ -477,7 +507,6 @@ main {
 }
 
 // Отключение анимации (верх)
-.up-hover:hover,
 .up.hover {
 
 	&~.info {
@@ -495,7 +524,6 @@ main {
 }
 
 // Отключение анимации (низ)
-.down-hover:hover,
 .down.hover {
 
 	&~.info {
@@ -507,13 +535,9 @@ main {
 }
 
 // отключение заголовка бирки
-.left-hover:hover,
 .left.hover,
-.right-hover:hover,
 .right.hover,
-.up-hover:hover,
 .up.hover,
-.down-hover:hover,
 .down.hover {
 
 	&>div:first-child {
@@ -535,27 +559,23 @@ main {
 }
 
 // отключение анимации "дыхание окон"
-.left-hover:hover~.wrap__center .info,
 .left.hover~.wrap__center .info,
-.right-hover:hover+.wrap__center .info,
 .right.hover+.wrap__center .info,
-.up-hover:hover~.info,
 .up.hover~.info,
-.down-hover:hover+.info,
 .down.hover+.info {
 	animation: unset;
 	opacity: 1;
-	transition: opacity $timeout;
+	transition: opacity 100ms;
+
+	& .close {
+		display: block;
+	}
 }
 
 // отображение основного контента (область белого)
-.left-hover:hover~.wrap__center .info__left,
 .left.hover~.wrap__center .info__left,
-.right-hover:hover+.wrap__center .info__right,
 .right.hover+.wrap__center .info__right,
-.up-hover:hover~.info .info__up,
 .up.hover~.info .info__up,
-.down-hover:hover+.info .info__down,
 .down.hover+.info .info__down {
 	display: block;
 	position: relative;
@@ -565,13 +585,9 @@ main {
 }
 
 // отображение заголовков для контента (область чёрного)
-.left-hover:hover .left__content,
 .left.hover .left__content,
-.right-hover:hover .right__content,
 .right.hover .right__content,
-.up-hover:hover .up__content,
 .up.hover .up__content,
-.down-hover:hover .down__content,
 .down.hover .down__content {
 	display: flex;
 	width: 100%;

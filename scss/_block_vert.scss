@@ -582,11 +582,8 @@ hr {
 	}
 }
 
-#up-1:checked~.wrap__center .up:hover~.info .img-up-1,
 #up-1:checked~.wrap__center .up.hover~.info .img-up-1,
-#up-2:checked~.wrap__center .up:hover~.info .img-up-2,
 #up-2:checked~.wrap__center .up.hover~.info .img-up-2,
-#up-3:checked~.wrap__center .up:hover~.info .img-up-3,
 #up-3:checked~.wrap__center .up.hover~.info .img-up-3 {
 	display: block;
 }
