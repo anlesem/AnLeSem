@@ -165,12 +165,8 @@ header {
 	}
 
 	&__card {
-		position: absolute;
+		@include position-size-parent;
 		z-index: 2;
-		top: 50%;
-		bottom: 50%;
-		left: 50%;
-		right: 50%;
 		overflow: hidden;
 		display: flex;
 		flex-direction: column;
@@ -188,9 +184,14 @@ header {
 			font-weight: 700;
 			color: $title-dark;
 		}
+
+		& a:hover {
+			opacity: 0.4;
+		}
 	}
 
-	&:hover {
+	&:hover,
+	&.hover {
 		width: 250px;
 		transition: all 500ms;
 		animation: unset;
@@ -214,10 +215,15 @@ header {
 			@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion-land) {
 				display: none;
 			}
+
+			@include screen-off {
+				display: none;
+			}
 		}
 
 		& .logo__card {
-			animation: contacts $timeout 300ms linear forwards;
+			opacity: 1;
+			transition: opacity $timeout;
 
 			// Настройка ориентации 7-9
 			@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion-land) {

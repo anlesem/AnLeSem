@@ -63,8 +63,17 @@ function closeButton(n) {
 }
 
 // Управление анимацией
+
+function startLogo(event) {
+	event.preventDefault();
+	document.querySelector('.logo').classList.add('hover');
+	logo.removeEventListener('touchstart', startLogo, false);
+}
+
 function logoSetAnimation() {
+	document.querySelector('.logo').classList.remove('hover');
 	document.querySelector('.logo').style.animation = "circle infinite 8s 9s linear";
+	logo.addEventListener('touchstart', startLogo, false);
 }
 
 function logoRemoveAnimation() {
@@ -301,6 +310,17 @@ info.addEventListener('mouseenter', function () {
 });
 info.addEventListener('mouseleave', removeAll);
 
+
+// Поведение логотипа
+logo.addEventListener('touchstart', startLogo, false);
+logo.addEventListener('mouseover', function () {
+	logoActive = true;
+});
+logo.addEventListener('mouseout', function () {
+	logoActive = false;
+	logoSetAnimation();
+});
+
 // Закрытие в полноэкранном режиме
 cls.addEventListener('click', function() {
 	removeAll();
@@ -321,14 +341,6 @@ down_rgu.addEventListener('click', scrollUp);
 down_rgu.addEventListener('mouseover', scrollRGU);
 down_gb.addEventListener('click', scrollUp);
 down_gb.addEventListener('mouseover', scrollGB);
-
-logo.addEventListener('mouseover', function () {
-	logoActive = true;
-});
-logo.addEventListener('mouseout', function () {
-	logoActive = false;
-	logoSetAnimation();
-});
 
 // Отслеживание движения
 document.addEventListener('touchstart', start, false);
