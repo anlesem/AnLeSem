@@ -1,6 +1,5 @@
 // первоначальный показ при наведении
 function addHoverFirst(block) {
-	console.log(blockStop);
 	if (!offScreen.matches && !blockStop) {
 		removeAll();
 		addHover(block);
@@ -34,7 +33,6 @@ function blockActiveSet(block) {
 function blockStopSet(block) {
 	if (fullScreen.matches && block == '.left') blockStopName = '.right'; 
 	else blockStopName = block;
-	console.log(blockStopName);
 }
 
 // Закрытие всего открытого
@@ -50,6 +48,7 @@ function removeAll(n) {
 	if (logoActive) logoRemoveAnimation();
 	else logoSetAnimation();
 	tagSetAnimation();
+	scrollReturn();
 }
 
 // Кнопка закрыть 
@@ -111,10 +110,28 @@ function showTitleTag() {
 	for (let elem of title) { elem.classList.remove('hover'); }
 }
 
+// Восстановление верхнего положения прокрутки
 function scrollUp() {
 	info_up.scrollTop = 0;
 	down_rgu.scrollTop = 0;
 	down_gb.scrollTop = 0;
+}
+
+function scrollRGU() {
+	down_rgu.scrollTop = 0;
+	down_rgu.removeEventListener('mouseover', scrollRGU);
+	down_gb.addEventListener('mouseover', scrollGB);
+}
+
+function scrollGB() {
+	down_gb.scrollTop = 0;
+	down_gb.removeEventListener('mouseover', scrollGB);
+	down_rgu.addEventListener('mouseover', scrollRGU);
+}
+
+function scrollReturn() {
+	down_rgu.addEventListener('mouseover', scrollRGU);
+	down_gb.addEventListener('mouseover', scrollGB);
 }
 
 // Движения
@@ -184,15 +201,14 @@ var slim_screen_tag = 320;
 var screen_off = 200;
 
 var logoActive = false;
-var blockActive = false;
-var blockActiveName;
-var blockStop = false;
-var blockStopName;
+var blockActive = false; 	// Флаг открыт ли какой-нибудь блок (обнуляется при RemoveAll)
+var blockActiveName;			// Какой блок открыт для подключения info (и сразу обнуляется)
+var blockStop = false;		// Флаг, блокирующий открытие блока
+var blockStopName;			// Блокирует тот блок, который был открыт
+var mouse;						// Хранит используемое устройство ввода
 
 var initialPoint;	// начало движения
 var finalPoint;	// конец движения
-var initialPoint2;	// начало движения
-var finalPoint2;	// конец движения
 
 // Медиа запросы  (следует уточнять в _mixin.scss)
 const fullScreen = window.matchMedia('(max-width:  ' + pc_width + 'px) and (min-aspect-ratio: ' + proportion + '), (max-height: ' + break_height + 'px), (max-width:  ' + laptop_width + 'px)');
@@ -251,15 +267,6 @@ var radioList = [
 ];
 
 // Поведение
-info.addEventListener('mouseenter', function () {
-	if (blockActiveName) {
-		addHover(blockActiveName);
-		blockActiveName = false;
-	}
-});
-
-info.addEventListener('mouseleave', removeAll);
-
 up.addEventListener('mouseover', () => addHoverFirst('.up'));
 down.addEventListener('mouseover', () => addHoverFirst('.down'));
 left.addEventListener('mouseover', () => addHoverFirst('.left'));
@@ -280,14 +287,19 @@ tag_down.addEventListener('mouseover', () => addHoverFirst('.down'));
 tag_left.addEventListener('mouseover', () => addHoverFirst('.left'));
 tag_right.addEventListener('mouseover', () => addHoverFirst('.right'));
 
-// Возвращение наверх текстового наполнения
-radio_up1.addEventListener('click', scrollUp);
-radio_up2.addEventListener('click', scrollUp);
-radio_up3.addEventListener('click', scrollUp);
-radio_down1.addEventListener('click', scrollUp);
-radio_down2.addEventListener('click', scrollUp);
-down_rgu.addEventListener('click', scrollUp);
-down_gb.addEventListener('click', scrollUp);
+closeAll.addEventListener('click', () => removeAll('full'));
+header.addEventListener('click', () => removeAll('full'));
+header.addEventListener('mouseover',() => removeAll('full'));
+footer.addEventListener('click', () => removeAll('full'));
+footer.addEventListener('mouseover', () => removeAll('full'));
+
+info.addEventListener('mouseenter', function () {
+	if (blockActiveName) {
+		addHover(blockActiveName);
+		blockActiveName = false;
+	}
+});
+info.addEventListener('mouseleave', removeAll);
 
 // Закрытие в полноэкранном режиме
 cls.addEventListener('click', function() {
@@ -295,14 +307,20 @@ cls.addEventListener('click', function() {
 	blockStop = true;
 	setTimeout(() => {
 		blockStop = false;
-	}, 1000);
+	}, 500);
 });
 
-closeAll.addEventListener('click', () => removeAll('full'));
-header.addEventListener('click', () => removeAll('full'));
-header.addEventListener('mouseover',() => removeAll('full'));
-footer.addEventListener('click', () => removeAll('full'));
-footer.addEventListener('mouseover', () => removeAll('full'));
+// Возвращение наверх текстового наполнения
+radio_up1.addEventListener('click', scrollUp);
+radio_up2.addEventListener('click', scrollUp);
+radio_up3.addEventListener('click', scrollUp);
+radio_down1.addEventListener('click', scrollUp);
+radio_down2.addEventListener('click', scrollUp);
+
+down_rgu.addEventListener('click', scrollUp);
+down_rgu.addEventListener('mouseover', scrollRGU);
+down_gb.addEventListener('click', scrollUp);
+down_gb.addEventListener('mouseover', scrollGB);
 
 logo.addEventListener('mouseover', function () {
 	logoActive = true;
@@ -326,20 +344,24 @@ window.addEventListener('resize', function () {
 		document.querySelector(blockActiveName + ' .tag').classList.add('hover');
 		document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');
 	}
+	closeButton(mouse);
 });
 
 // Отслеживание типа устройства ввода
 // Определение "касания" (нажатие) преимущественно для touch
 document.addEventListener('pointerdown', function(event) {
 	switch (event.pointerType) {
-	  case 'mouse':
-		closeButton(true);
+		case 'mouse':
+			mouse = true;
+		closeButton(mouse);
 		 break;
-	  case 'pen':
-		closeButton(false);
+		case 'pen':
+			mouse = false;
+			closeButton(mouse);
 		 break;
 	  case 'touch':
-		closeButton(false);
+			mouse = false;
+			closeButton(mouse);
 		 break;
 	  default:
 	}
@@ -349,13 +371,16 @@ document.addEventListener('pointerdown', function(event) {
 document.addEventListener('pointermove', function(event) {
 	switch (event.pointerType) {
 	  case 'mouse':
-		closeButton(true);
+			mouse = true;
+			closeButton(mouse);
 		 break;
-	  case 'pen':
-		closeButton(false);
+		case 'pen':
+			mouse = false;
+			closeButton(mouse);
 		 break;
 	  case 'touch':
-		closeButton(false);
+			mouse = false;
+			closeButton(mouse);
 		 break;
 	  default:
 	}

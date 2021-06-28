@@ -40,7 +40,7 @@
 	animation: info-opacity infinite 8s 5s linear;
 
 	&__up {
-		animation: info-text infinite 72s 5s linear;
+		animation: info-text infinite 24s 5s linear;
 	}
 
 	&__up,
@@ -193,9 +193,12 @@
 			opacity: 1;
 			transition: opacity $timeout;
 
-			&:hover,
+			&:hover {
+				opacity: 0.4;
+			}
+
 			&[href='#'] {
-				opacity: 0.3;
+				visibility: hidden;
 			}
 		}
 

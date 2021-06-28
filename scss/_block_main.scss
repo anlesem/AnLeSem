@@ -351,7 +351,7 @@ main {
 		border: 1px solid $background-dark;
 		border-radius: 15px;
 		background: none;
-		opacity: 0.5;
+		opacity: 0.3;
 
 		& span {
 			display: none;
@@ -363,8 +363,10 @@ main {
 
 		&:hover {
 			width: 80px;
+			opacity: 1;
 			cursor: pointer;
-			background: $background-light;
+			border: 1px solid #000;
+			background: #fff;
 
 			& span {
 				display: block;
