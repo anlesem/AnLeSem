@@ -1,4 +1,17 @@
-// первоначальный показ при наведении
+// Флаг. Активный блок
+function blockActiveSet(block) {
+	blockActiveName = block;
+	blockActive = true;
+};
+
+// Флаг. Блокирующий блок
+function blockStopSet(block) {
+	if (fullScreen.matches && block == '.left') blockStopName = '.right'; 
+	else blockStopName = block;
+}
+
+
+// Поведение. Первоначальный показ при наведении
 function addHoverFirst(block) {
 	if (!offScreen.matches && !blockStop) {
 		removeAll();
@@ -13,7 +26,7 @@ function addHoverFirst(block) {
 	}
 }
 
-// показ при наведении на внутренние компоненты
+// Поведение. Показ при наведении на внутренние компоненты
 function addHover(block) {
 	document.querySelector(block).classList.add('hover');
 	document.querySelector('.close-all').classList.add('hover');
@@ -23,19 +36,7 @@ function addHover(block) {
 	tagRemoveAnimation();
 }
 
-// Флаг Активного блока
-function blockActiveSet(block) {
-	blockActiveName = block;
-	blockActive = true;
-};
-
-// Флаг блокирующего блока
-function blockStopSet(block) {
-	if (fullScreen.matches && block == '.left') blockStopName = '.right'; 
-	else blockStopName = block;
-}
-
-// Закрытие всего открытого
+// Поведение. Закрытие всего открытого
 function removeAll(n) {
 	showTitleTag();
 	document.querySelector('.close-all').classList.remove('hover');
@@ -51,7 +52,7 @@ function removeAll(n) {
 	scrollReturn();
 }
 
-// Кнопка закрыть 
+// Поведение. Кнопка закрыть 
 function closeButton(n) {
 	if (!n && fullScreen.matches) {
 		cls.style.visibility = 'hidden';
@@ -62,14 +63,16 @@ function closeButton(n) {
 	}
 }
 
-// Управление анимацией
-
+// Поведение. Логотип 
 function startLogo(event) {
 	event.preventDefault();
 	document.querySelector('.logo').classList.add('hover');
+	document.querySelector('.close-all').classList.add('hover');
+	logoRemoveAnimation();
 	logo.removeEventListener('touchstart', startLogo, false);
 }
 
+// Управление анимацией. Логотип
 function logoSetAnimation() {
 	document.querySelector('.logo').classList.remove('hover');
 	document.querySelector('.logo').style.animation = "circle infinite 8s 9s linear";
@@ -80,6 +83,7 @@ function logoRemoveAnimation() {
 	document.querySelector('.logo').style.animation = "unset";
 }
 
+// Управление анимацией. Бирки
 function tagSetAnimation() {
 	tagRemoveAnimation();
 	if (slimScreen.matches) {
@@ -102,7 +106,7 @@ function tagRemoveAnimation() {
 	document.querySelector('.down-tag').style.animation = 'unset';
 }
 
-// скрытие/показ наименований всех бирок в полноэкранном режиме 
+// Управление анимацией. Бирки. Скрытие/показ наименований в полноэкранном режиме 
 function hiddenTitleTag() {
 	if (fullScreen.matches) {
 		let tag = document.querySelectorAll('.tag');
@@ -119,7 +123,7 @@ function showTitleTag() {
 	for (let elem of title) { elem.classList.remove('hover'); }
 }
 
-// Восстановление верхнего положения прокрутки
+// Прокрутка. Восстановление верхнего положения
 function scrollUp() {
 	info_up.scrollTop = 0;
 	down_rgu.scrollTop = 0;
@@ -143,7 +147,7 @@ function scrollReturn() {
 	down_gb.addEventListener('mouseover', scrollGB);
 }
 
-// Движения
+// Отслеживание. Движения
 function start(event) {
 	initialPoint = event.changedTouches[0];
 }
@@ -156,23 +160,23 @@ function end(event) {
 		if (xAbs > yAbs) {
 			if (finalPoint.pageX < initialPoint.pageX) {
 				if (blockActive && fullScreen.matches) slide('next');	
-				else if (!blockActive) addHover('.right'); 				//Движение влево
+				else if (!blockActive) addHoverFirst('.right'); 				//Движение влево
 			}
 			else if (blockActive && fullScreen.matches) slide('prev');
-			else if (!blockActive) addHover('.left');						//Движение вправо
+			else if (!blockActive) addHoverFirst('.left');						//Движение вправо
 		}
 		else if (!blockActive) {
 			if (finalPoint.pageY < initialPoint.pageY) {
-				addHover('.down'); 								//Движение вверх
+				addHoverFirst('.down'); 												//Движение вверх
 			}
 			else {
-				addHover('.up'); 									//Движение вниз
+				addHoverFirst('.up'); 													//Движение вниз
 			}
 		}
 	}
 }
 
-// Переключение содержимого в полноэкранном режиме
+// Отслеживание. Движения. Переключение содержимого в полноэкранном режиме
 function slide(n) {
 	for (let i = 0; i < radioList.length; i++) {
 		if (radioList[i][0] == blockActiveName) {
@@ -275,7 +279,7 @@ var radioList = [
 	['.left', radio_left1, radio_left2, radio_left3]
 ];
 
-// Поведение
+// Поведение.
 up.addEventListener('mouseover', () => addHoverFirst('.up'));
 down.addEventListener('mouseover', () => addHoverFirst('.down'));
 left.addEventListener('mouseover', () => addHoverFirst('.left'));
@@ -310,8 +314,16 @@ info.addEventListener('mouseenter', function () {
 });
 info.addEventListener('mouseleave', removeAll);
 
+// Поведение. Закрытие в полноэкранном режиме
+cls.addEventListener('click', function() {
+	removeAll();
+	blockStop = true;
+	setTimeout(() => {
+		blockStop = false;
+	}, 500);
+});
 
-// Поведение логотипа
+// Поведение. Логотип
 logo.addEventListener('touchstart', startLogo, false);
 logo.addEventListener('mouseover', function () {
 	logoActive = true;
@@ -321,16 +333,7 @@ logo.addEventListener('mouseout', function () {
 	logoSetAnimation();
 });
 
-// Закрытие в полноэкранном режиме
-cls.addEventListener('click', function() {
-	removeAll();
-	blockStop = true;
-	setTimeout(() => {
-		blockStop = false;
-	}, 500);
-});
-
-// Возвращение наверх текстового наполнения
+// Прокрутка. Восстановление верхнего положения
 radio_up1.addEventListener('click', scrollUp);
 radio_up2.addEventListener('click', scrollUp);
 radio_up3.addEventListener('click', scrollUp);
@@ -342,11 +345,11 @@ down_rgu.addEventListener('mouseover', scrollRGU);
 down_gb.addEventListener('click', scrollUp);
 down_gb.addEventListener('mouseover', scrollGB);
 
-// Отслеживание движения
+// Отслеживание. Движения
 document.addEventListener('touchstart', start, false);
 document.addEventListener('touchend', end, false);
 
-// Отслеживаем корректное переключение бирок при изменении размеров экрана
+// Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
 window.addEventListener('resize', function () {
 	if (offScreen.matches && blockActive) location.reload();
 	if (fullScreen.matches && blockActive) {
@@ -359,8 +362,8 @@ window.addEventListener('resize', function () {
 	closeButton(mouse);
 });
 
-// Отслеживание типа устройства ввода
-// Определение "касания" (нажатие) преимущественно для touch
+// Отслеживание. Тип устройства ввода
+// Отслеживание. Тип устройства ввода. Касание / нажатие (преимущественно для touch)
 document.addEventListener('pointerdown', function(event) {
 	switch (event.pointerType) {
 		case 'mouse':
@@ -379,7 +382,7 @@ document.addEventListener('pointerdown', function(event) {
 	}
  }, false);
 
- // Определение "движения" (нажатие) преимущественно для mouse
+// Отслеживание. Тип устройства ввода. Движение (преимущественно для mouse)
 document.addEventListener('pointermove', function(event) {
 	switch (event.pointerType) {
 	  case 'mouse':
