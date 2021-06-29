@@ -238,42 +238,35 @@ $range-min: 2px;
 }
 
 // перемещение окон
-$point-up: 50% 30%;
-$point-up-move: 50% 10%;
-$point-down: 50% 70%;
-$point-down-move: 50% 90%;
-
-$point-left: 20% 40%;
-$point-left-move: 5% 40%;
-$point-right: 80% 40%;
-$point-right-move: 95% 40%;
+$point-up: 50% 70%;
+$point-down: 50% 80%;
 
 @keyframes info-text {
 
 	// Алмаз
 	from {
-		clip-path: polygon($point-up, 90% 0%, 100% 0%, $point-right, $point-down, $point-left, 0% 0%, 10% 0%);
+		clip-path: polygon(50% 50%, 85% 0%, 95% 0%, 100% 15%, $point-up, 0% 15%, 5% 0%, 15% 0%);
 	}
 
 	33.3% {
-		clip-path: polygon($point-up-move, 80% 0%, 100% 0%, $point-right-move, $point-down-move, $point-left-move, 0% 0%, 20% 0%);
+		clip-path: polygon(50% 30%, 65% 0%, 95% 0%, 100% 20%, $point-down, 0% 20%, 5% 0%, 35% 0%);
 	}
 
 	// Огонь
 	33.4% {
-		clip-path: polygon($point-up, 65% 50%, $point-right, 100% 100%, $point-down, 0% 100%, $point-left, 35% 50%);
+		clip-path: polygon(50% 50%, 75% 30%, 100% 100%, $point-up, 0% 100%, 25% 30%);
 	}
 
 	66.6% {
-		clip-path: polygon($point-up-move, 80% 30%, $point-right-move, 100% 100%, $point-down-move, 0% 100%, $point-left-move, 20% 30%);
+		clip-path: polygon(50% 30%, 90% 15%, 100% 100%, $point-down, 0% 100%, 10% 15%);
 	}
 
 	// Птаха
 	66.7% {
-		clip-path: polygon($point-up, 80% 35%, 100% 0%, 100% 100%, $point-right, $point-down, $point-left, 0% 100%, 0% 0%, 20% 35%);
+		clip-path: polygon(50% 20%, 70% 35%, 50% 80%, 30% 35%);
 	}
 
 	to {
-		clip-path: polygon($point-up-move, 65% 15%, 100% 0%, 100% 100%, 70% 70%, $point-down-move, 30% 70%, 0% 100%, 0% 0%, 35% 15%);
+		clip-path: polygon(70% 10%, 80% 50%, 30% 90%, 15% 15%);
 	}
 }

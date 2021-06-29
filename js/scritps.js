@@ -94,7 +94,7 @@ function startLogo(event) {
 
 // Управление анимацией. 
 function setAnimation() {
-	let intervals = 8;
+	let intervals = 4;
 	let delay = 0;									//ToDo 
 	let delayTags = delay + intervals;
 
@@ -384,6 +384,7 @@ window.addEventListener('resize', function () {
 	if (fullScreen.matches && blockActive) {
 		hiddenTitleTag();
 	} else if (blockActive) {
+		console.log(blockActiveName);
 		showTitleTag();
 		document.querySelector(blockActiveName + ' .tag').classList.add('hover');
 		document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');
