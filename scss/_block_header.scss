@@ -127,7 +127,6 @@ header {
 	margin: 10px;
 	background: transparent;
 	text-align: center;
-	animation: circle infinite 8s 9s linear;
 
 	@media (max-width: $screen-off) {
 		width: 30vw;
@@ -190,11 +189,9 @@ header {
 		}
 	}
 
-	&:hover,
 	&.hover {
 		width: 250px;
 		transition: all 500ms;
-		animation: unset;
 
 		&::after {
 			background-size: 100%;

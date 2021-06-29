@@ -30,10 +30,11 @@ function addHoverFirst(block) {
 function addHover(block) {
 	document.querySelector(block).classList.add('hover');
 	document.querySelector('.close-all').classList.add('hover');
-	blockActiveSet(block);
-	hiddenTitleTag();
-	logoRemoveAnimation();
-	tagRemoveAnimation();
+	if (block != '.logo') {
+		blockActiveSet(block);
+		hiddenTitleTag();
+	}
+	removeAnimation();
 }
 
 // Поведение. Закрытие всего открытого
@@ -44,11 +45,11 @@ function removeAll(n) {
 	document.querySelector('.down').classList.remove('hover');
 	document.querySelector('.left').classList.remove('hover');
 	document.querySelector('.right').classList.remove('hover');
+	document.querySelector('.logo').classList.remove('hover');
+	logo.addEventListener('touchstart', startLogo, false);
 	blockActive = false;
 	if (n == 'full') blockStop = false;
-	if (logoActive) logoRemoveAnimation();
-	else logoSetAnimation();
-	tagSetAnimation();
+	setAnimation();
 	scrollReturn();
 }
 
@@ -63,47 +64,55 @@ function closeButton(n) {
 	}
 }
 
-// Поведение. Логотип 
+// Поведение. Только логотип - касание 
 function startLogo(event) {
 	event.preventDefault();
-	document.querySelector('.logo').classList.add('hover');
-	document.querySelector('.close-all').classList.add('hover');
-	logoRemoveAnimation();
+	addHover('.logo');
 	logo.removeEventListener('touchstart', startLogo, false);
 }
 
-// Управление анимацией. Логотип
-function logoSetAnimation() {
-	document.querySelector('.logo').classList.remove('hover');
-	document.querySelector('.logo').style.animation = "circle infinite 8s 9s linear";
-	logo.addEventListener('touchstart', startLogo, false);
-}
+// Управление анимацией. 
+function setAnimation() {
+	let intervals = 8;
+	let delay = 0;
+	let delayTags = delay + intervals;
 
-function logoRemoveAnimation() {
-	document.querySelector('.logo').style.animation = "unset";
-}
-
-// Управление анимацией. Бирки
-function tagSetAnimation() {
-	tagRemoveAnimation();
+	document.querySelector('.info').style.animation = 'info-opacity infinite ' + intervals + 's ' + delay + 's linear';
+	document.querySelector('.info__up').style.animation = 'info-text infinite ' + intervals * 3 + 's ' + delay + 's linear';
+	document.querySelector('.logo').style.animation = 'circle infinite ' + intervals + 's ' + delay + 4 + 's linear';
 	if (slimScreen.matches) {
-		document.querySelector('.up-tag').style.animation = 'rhythm-tag-vert-slim infinite 8s 13s linear';
-		document.querySelector('.down-tag').style.animation = 'rhythm-tag-vert-slim infinite 8s 13s linear';
-		document.querySelector('.left-tag').style.animation = 'rhythm-tag-horz-slim infinite 8s 13s linear';
-		document.querySelector('.right-tag').style.animation = 'rhythm-tag-horz-slim infinite 8s 13s linear';
+		tag = 'slim';
+		document.querySelector('.up-tag').style.animation = 'rhythm-tag-vert-slim infinite ' + intervals + 's ' + delayTags + 's linear';
+		document.querySelector('.down-tag').style.animation = 'rhythm-tag-vert-slim infinite ' + intervals + 's ' + delayTags + 's linear';
+		document.querySelector('.left-tag').style.animation = 'rhythm-tag-horz-slim infinite ' + intervals + 's ' + delayTags + 's linear';
+		document.querySelector('.right-tag').style.animation = 'rhythm-tag-horz-slim infinite ' + intervals + 's ' + delayTags + 's linear';
 	} else {
-		document.querySelector('.left-tag').style.animation = 'rhythm-tag-horz infinite 8s 13s linear';
-		document.querySelector('.right-tag').style.animation = 'rhythm-tag-horz infinite 8s 13s linear';
-		document.querySelector('.up-tag').style.animation = 'rhythm-tag-vert infinite 8s 13s linear';
-		document.querySelector('.down-tag').style.animation = 'rhythm-tag-vert infinite 8s 13s linear';
+		tag = 'normal';
+		document.querySelector('.left-tag').style.animation = 'rhythm-tag-horz infinite ' + intervals + 's ' + delayTags + 's linear';
+		document.querySelector('.right-tag').style.animation = 'rhythm-tag-horz infinite ' + intervals + 's ' + delayTags + 's linear';
+		document.querySelector('.up-tag').style.animation = 'rhythm-tag-vert infinite ' + intervals + 's ' + delayTags + 's linear';
+		document.querySelector('.down-tag').style.animation = 'rhythm-tag-vert infinite ' + intervals + 's ' + delayTags + 's linear';
 	}
 }
 
-function tagRemoveAnimation() {
+function removeAnimation() {
+	document.querySelector('.info').style.animation = "unset";
+	document.querySelector('.info__up').style.animation = "unset";
+	document.querySelector('.logo').style.animation = "unset";
 	document.querySelector('.left-tag').style.animation = 'unset';
 	document.querySelector('.right-tag').style.animation = 'unset';
 	document.querySelector('.up-tag').style.animation = 'unset';
 	document.querySelector('.down-tag').style.animation = 'unset';
+}
+
+function resetAnimation() {
+	if (changeTag != tag) {
+		removeAnimation();
+		setTimeout(() => {
+			if (!blockActive) setAnimation();
+		}, 3000);
+		changeTag = tag;
+	} else setAnimation();
 }
 
 // Управление анимацией. Бирки. Скрытие/показ наименований в полноэкранном режиме 
@@ -213,12 +222,13 @@ var break_height = 640;
 var slim_screen_tag = 320;
 var screen_off = 200;
 
-var logoActive = false;
 var blockActive = false; 	// Флаг открыт ли какой-нибудь блок (обнуляется при RemoveAll)
 var blockActiveName;			// Какой блок открыт для подключения info (и сразу обнуляется)
 var blockStop = false;		// Флаг, блокирующий открытие блока
 var blockStopName;			// Блокирует тот блок, который был открыт
 var mouse;						// Хранит используемое устройство ввода
+var tag;							// Флаг большие или маленькие бирки
+var changeTag;					// Отслеживание момента изменения размера бирок для корректного Resize
 
 var initialPoint;	// начало движения
 var finalPoint;	// конец движения
@@ -300,9 +310,12 @@ tag_down.addEventListener('mouseover', () => addHoverFirst('.down'));
 tag_left.addEventListener('mouseover', () => addHoverFirst('.left'));
 tag_right.addEventListener('mouseover', () => addHoverFirst('.right'));
 
+
+logo.addEventListener('mouseover',() => addHoverFirst('.logo'));
+logo.addEventListener('mouseout', removeAll);
+logo.addEventListener('touchstart', startLogo, false);
+
 closeAll.addEventListener('click', () => removeAll('full'));
-header.addEventListener('click', () => removeAll('full'));
-header.addEventListener('mouseover',() => removeAll('full'));
 footer.addEventListener('click', () => removeAll('full'));
 footer.addEventListener('mouseover', () => removeAll('full'));
 
@@ -323,16 +336,6 @@ cls.addEventListener('click', function() {
 	}, 500);
 });
 
-// Поведение. Логотип
-logo.addEventListener('touchstart', startLogo, false);
-logo.addEventListener('mouseover', function () {
-	logoActive = true;
-});
-logo.addEventListener('mouseout', function () {
-	logoActive = false;
-	logoSetAnimation();
-});
-
 // Прокрутка. Восстановление верхнего положения
 radio_up1.addEventListener('click', scrollUp);
 radio_up2.addEventListener('click', scrollUp);
@@ -345,12 +348,14 @@ down_rgu.addEventListener('mouseover', scrollRGU);
 down_gb.addEventListener('click', scrollUp);
 down_gb.addEventListener('mouseover', scrollGB);
 
-// Отслеживание. Движения
-document.addEventListener('touchstart', start, false);
-document.addEventListener('touchend', end, false);
+// Отслеживание. Анимация
+window.onload = function () {
+	setAnimation();
+};
 
 // Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
 window.addEventListener('resize', function () {
+	console.log(blockActive + blockActiveName);
 	if (offScreen.matches && blockActive) location.reload();
 	if (fullScreen.matches && blockActive) {
 		hiddenTitleTag();
@@ -359,8 +364,13 @@ window.addEventListener('resize', function () {
 		document.querySelector(blockActiveName + ' .tag').classList.add('hover');
 		document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');
 	}
+	if (!blockActive) resetAnimation();
 	closeButton(mouse);
 });
+
+// Отслеживание. Движения
+document.addEventListener('touchstart', start, false);
+document.addEventListener('touchend', end, false);
 
 // Отслеживание. Тип устройства ввода
 // Отслеживание. Тип устройства ввода. Касание / нажатие (преимущественно для touch)

@@ -89,7 +89,6 @@ main {
 		width: $width-horz-tag;
 		height: $height-horz-tag;
 		line-height: $height-horz-tag;
-		animation: rhythm-tag-horz infinite 8s 13s linear;
 
 		&::after {
 			content: "";
@@ -102,7 +101,6 @@ main {
 		@include screen-slim {
 			width: $width-horz-tag - $d-slim-tag;
 			font-size: 14px;
-			animation: rhythm-tag-horz-slim infinite 8s 13s linear;
 		}
 	}
 
@@ -229,13 +227,11 @@ main {
 		height: $height-vert-tag;
 		text-align: center;
 		background-color: $background-dark;
-		animation: rhythm-tag-vert infinite 8s 13s linear;
 
 		// Для сверх узких экранов 2-3
 		@include screen-slim {
 			height: $height-vert-tag - $d-slim-tag;
 			font-size: 14px;
-			animation: rhythm-tag-vert-slim infinite 8s 13s linear;
 		}
 	}
 
@@ -480,7 +476,6 @@ main {
 
 		& .info__up {
 			overflow: auto;
-			animation: unset;
 			background: none;
 
 			& p {
@@ -530,7 +525,6 @@ main {
 .right.hover+.wrap__center .info,
 .up.hover~.info,
 .down.hover+.info {
-	animation: unset;
 	opacity: 1;
 	transition: opacity 100ms;
 
