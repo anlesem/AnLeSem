@@ -47,119 +47,23 @@
 			font-weight: 700;
 			text-align: center;
 
-			@include screen-off {
+			&.light {
 				display: block;
 			}
 		}
 	}
 
-	@include screen-off {
+	&.light {
 		height: auto;
 		opacity: 1;
-		animation: unset;
+		margin-top: 70px;
 
-		&__up {
-			overflow: visible;
-			animation: unset;
-			background: none;
-
-			& p {
-				mix-blend-mode: unset;
-			}
-		}
-	}
-}
-
-.close {
-	display: none;
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	z-index: 15;
-	width: 30px;
-	height: 30px;
-	line-height: 25px;
-	border: 1px solid $background-dark;
-	border-radius: 15px;
-	background: none;
-	opacity: 0.3;
-	transition: all $timeout;
-
-	& span {
-		display: none;
-		overflow: hidden;
-	}
-
-	& svg {
-		@include position-center;
-	}
-
-	&:hover {
-		width: 80px;
-		opacity: 1;
-		cursor: pointer;
-		border: 1px solid #000;
-		background: #fff;
-
-		& span {
-			display: block;
+		@media (max-height: $slim-screen-tag) {
+			margin-top: 0;
 		}
 
-		& svg {
-			display: none;
-		}
-	}
-}
-
-.warning {
-	display: none;
-	position: sticky;
-	top: 5px;
-	left: 5px;
-	z-index: 15;
-	margin-top: 10px;
-	padding: 5px 5px;
-	width: 100%;
-	border: none;
-	background: none;
-	transition: all $timeout;
-
-	@include screen-off {
-		display: block;
-	}
-
-	&::after {
-		content: "!";
-		position: absolute;
-		top: 5px;
-		right: 5px;
-		width: 20px;
-		height: 20px;
-		line-height: 20px;
-		border: 1px solid #d34646;
-		border-radius: 15px;
-		opacity: 0.3;
-		transition: all $timeout;
-		color: #d34646;
-	}
-
-	& span {
-		display: none;
-	}
-
-	&:hover {
-		border: 1px solid #d34646;
-		;
-		background: #fff;
-		border-radius: 3px;
-
-		&::after {
-			content: none;
-		}
-
-		& span {
-			display: block;
-			color: #d34646;
+		& p {
+			mix-blend-mode: unset;
 		}
 	}
 }
@@ -174,7 +78,7 @@
 .img-up-3 {
 	display: none;
 
-	@include screen-off {
+	&.light {
 		display: block;
 	}
 }
@@ -328,7 +232,7 @@
 		align-items: center;
 	}
 
-	@include screen-off {
+	&.light {
 		position: relative;
 		z-index: -1;
 		display: flex;
@@ -359,7 +263,7 @@ hr {
 		background-image: linear-gradient(to top, $background-light, $background-dark, $background-light);
 	}
 
-	@include screen-off {
+	&.light {
 		margin: 20px auto;
 	}
 }
@@ -393,19 +297,18 @@ hr {
 			width: 100%;
 		}
 
-		@include screen-off {
-			width: 100%;
-			height: auto;
-		}
-
-
 		&::after {
 			content: "";
 			@include position-size-parent;
 			z-index: -1;
 			opacity: 0.2;
+		}
 
-			@include screen-off {
+		&.light {
+			width: 100%;
+			height: auto;
+
+			&::after {
 				opacity: 0;
 			}
 		}

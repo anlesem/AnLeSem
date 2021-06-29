@@ -1,8 +1,29 @@
+function fullVersion() {
+	if (!offScreen.matches) {
+		let elemA = document.querySelectorAll('.light');
+		let i = 0;
+		for (let n of elemA) {
+			i++;
+			n.classList.add('normal');
+			n.classList.remove('light');
+			if (i == elemA.length) version = true;			
+		}
+	}
+	let elemB = document.querySelectorAll('.warning-size');
+	let elemC = document.querySelectorAll('.warning span.light');
+	for (let n of elemB) {
+		n.classList.add('size');
+	}
+	for (let n of elemC) {
+		n.classList.remove('light');
+	}
+}
+
 // Флаг. Активный блок
 function blockActiveSet(block) {
 	blockActiveName = block;
 	blockActive = true;
-};
+}
 
 // Флаг. Блокирующий блок
 function blockStopSet(block) {
@@ -74,7 +95,7 @@ function startLogo(event) {
 // Управление анимацией. 
 function setAnimation() {
 	let intervals = 8;
-	let delay = 0;
+	let delay = 0;									//ToDo 
 	let delayTags = delay + intervals;
 
 	document.querySelector('.info').style.animation = 'info-opacity infinite ' + intervals + 's ' + delay + 's linear';
@@ -222,6 +243,7 @@ var break_height = 640;
 var slim_screen_tag = 320;
 var screen_off = 200;
 
+var version = false; 		// Флаг загрузки полной версии сайта
 var blockActive = false; 	// Флаг открыт ли какой-нибудь блок (обнуляется при RemoveAll)
 var blockActiveName;			// Какой блок открыт для подключения info (и сразу обнуляется)
 var blockStop = false;		// Флаг, блокирующий открытие блока
@@ -230,8 +252,8 @@ var mouse;						// Хранит используемое устройство в
 var tag;							// Флаг большие или маленькие бирки
 var changeTag;					// Отслеживание момента изменения размера бирок для корректного Resize
 
-var initialPoint;	// начало движения
-var finalPoint;	// конец движения
+var initialPoint;				// начало движения
+var finalPoint;				// конец движения
 
 // Медиа запросы  (следует уточнять в _mixin.scss)
 const fullScreen = window.matchMedia('(max-width:  ' + pc_width + 'px) and (min-aspect-ratio: ' + proportion + '), (max-height: ' + break_height + 'px), (max-width:  ' + laptop_width + 'px)');
@@ -349,14 +371,16 @@ down_gb.addEventListener('click', scrollUp);
 down_gb.addEventListener('mouseover', scrollGB);
 
 // Отслеживание. Анимация
+fullVersion();
+
 window.onload = function () {
-	setAnimation();
+	if (version) setAnimation();
 };
 
 // Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
 window.addEventListener('resize', function () {
-	console.log(blockActive + blockActiveName);
-	if (offScreen.matches && blockActive) location.reload();
+	if (offScreen.matches && version) location.reload();				
+	else if (!version) fullVersion();
 	if (fullScreen.matches && blockActive) {
 		hiddenTitleTag();
 	} else if (blockActive) {
@@ -364,7 +388,7 @@ window.addEventListener('resize', function () {
 		document.querySelector(blockActiveName + ' .tag').classList.add('hover');
 		document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');
 	}
-	if (!blockActive) resetAnimation();
+	if (version && !blockActive) resetAnimation();
 	closeButton(mouse);
 });
 
@@ -393,27 +417,20 @@ document.addEventListener('pointerdown', function(event) {
  }, false);
 
 // Отслеживание. Тип устройства ввода. Движение (преимущественно для mouse)
-document.addEventListener('pointermove', function(event) {
+document.addEventListener('pointermove', function (event) {
 	switch (event.pointerType) {
-	  case 'mouse':
+		case 'mouse':
 			mouse = true;
 			closeButton(mouse);
-		 break;
+			break;
 		case 'pen':
 			mouse = false;
 			closeButton(mouse);
-		 break;
-	  case 'touch':
+			break;
+		case 'touch':
 			mouse = false;
 			closeButton(mouse);
-		 break;
-	  default:
+			break;
+		default:
 	}
- }, false);
-
-
-
-
-
-
-
+}, false);

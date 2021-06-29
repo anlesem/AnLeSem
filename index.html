@@ -16,7 +16,7 @@
 	<meta name="theme-color" content="#ffffff">
 </head>
 
-<body>
+<body class="light">
 	<svg class="visually-hidden">
 		<symbol id="icon__close" viewBox="0 0 256 256">
 			<path
@@ -73,10 +73,16 @@
 				d="M8.125 9.375H5.938c-.625 0-.75.294-.75.619 0 .579.741 3.453 3.453 7.253 1.807 2.596 4.354 4.003 6.671 4.003 1.391 0 1.563-.313 1.563-.85v-1.962c0-.625.132-.75.572-.75.325 0 .88.162 2.179 1.413 1.483 1.484 1.727 2.149 2.561 2.149h2.188c.625 0 .938-.313.757-.93-.197-.614-.905-1.506-1.845-2.563-.51-.602-1.274-1.251-1.506-1.576-.325-.417-.232-.602 0-.973 0 0 2.665-3.754 2.943-5.029.14-.463 0-.804-.662-.804h-2.187c-.556 0-.813.294-.952.619 0 0-1.112 2.711-2.688 4.472-.51.51-.742.673-1.02.673-.139 0-.34-.163-.34-.626v-4.334c0-.556-.161-.804-.625-.804h-3.438c-.347 0-.556.258-.556.503 0 .527.788.649.869 2.132v3.221c0 .707-.127.835-.406.835-.741 0-2.545-2.724-3.615-5.84-.21-.606-.42-.851-.979-.851z" />
 		</symbol>
 	</svg>
-	<header id="header">
-		<div class="header container">
+	<header class="light" id="header">
+		<button class="warning light" type="button">
+			<span class="warning-size light">Это лёгкая версия сайта. Содержимое отображается не в полном объёме.</span>
+			<span class="light">Ошибка в работе с JavaScript файлом. Не может быть обеспечена корректная
+				работа сайта.</span>
+			<span class="warning-size">Расширение экрана не позволяет корректно отобразить содержимое страницы.</span>
+		</button>
+		<div class="header container light">
 			<div class="logo" id="logo">
-				<div class="logo__card">
+				<div class="logo__card light">
 					<h3>Андрей Семёнов</h3>
 					<a href="tel:+79104238553">+7 910 423-8553</a>
 					<a href="mailto:anlesem@mail.ru">anlesem@mail.ru</a>
@@ -110,7 +116,7 @@
 			</nav>
 		</div>
 	</header>
-	<main class="container">
+	<main class="container light">
 		<input type="radio" name="left" class="left__radio" id="left-1" checked>
 		<input type="radio" name="left" class="left__radio" id="left-2">
 		<input type="radio" name="left" class="left__radio" id="left-3">
@@ -122,7 +128,7 @@
 		<input type="radio" name="up" class="up__radio" id="up-3">
 		<input type="radio" name="down" class="down__radio" id="down-1" checked>
 		<input type="radio" name="down" class="down__radio" id="down-2">
-		<section class="left" id="left">
+		<section class="left light" id="left">
 			<div class="left-tag tag" id="left-tag"><span class="title-tag">Ежедневник</span></div>
 			<div class="left__box" id="left__box">
 				<div class="left__content container-content">
@@ -172,7 +178,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="right" id="right">
+		<section class="right light" id="right">
 			<div class="right-tag tag" id="right-tag"><span class="title-tag">Мира Вид</span></div>
 			<div class="right__box" id="right__box">
 				<div class="right__content container-content">
@@ -222,8 +228,8 @@
 				</div>
 			</div>
 		</section>
-		<section class="wrap__center">
-			<section class="up" id="up">
+		<section class="wrap__center light">
+			<section class="up light" id="up">
 				<div class="up-tag tag" id="up-tag"><span class="title-tag">Концепция</span></div>
 				<div class="up__box" id="up__box">
 					<div class="up__content container-content">
@@ -238,7 +244,7 @@
 					</div>
 				</div>
 			</section>
-			<section class="down" id="down">
+			<section class="down light" id="down">
 				<div class="down-tag tag" id="down-tag"><span class="title-tag">Прочее</span></div>
 				<div class="down__box" id="down__box">
 					<div class="down__content container-content">
@@ -251,20 +257,17 @@
 					</div>
 				</div>
 			</section>
-			<section class="info" id="info">
+			<section class="info text-dark light" id="info">
 				<button class="close" id="close" type="button">
 					<span>Закрыть</span>
 					<svg width="20" height="20" viewBox="0 0 20 20">
 						<use href="#icon__close" />
 					</svg>
 				</button>
-				<button class="warning" type="button">
-					<span>Данное разрешение экрана не позволяет отобразить страницу в полном объёме.</span>
-				</button>
-				<article class="info__up text-dark" id="info__up">
+				<article class="info__up light" id="info__up">
 					<h1 class="visually-hidden">Концепция</h1>
-					<div class="container-content text-up-1" id="text-up-1">
-						<h2 class="title-dark">О сайте</h2>
+					<div class="container-content text-up-1 light" id="text-up-1">
+						<h2 class="title-dark light">О сайте</h2>
 						<p>Это персональный сайт-визитка, посвящённый отрасли веб-разработки;
 							обложка, которая включает в&nbsp;себя единую карту проектов с&nbsp;участием автора (портфолио),
 							данные
@@ -274,7 +277,7 @@
 						</p>
 						<img srcset="img/avatar300.jpg,
 					img/avatar600.jpg 2x,
-					img/avatar900.jpg 3x" src="img/avatar300.jpg" alt="Аватарка" class="img-up-1">
+					img/avatar900.jpg 3x" src="img/avatar300.jpg" alt="Аватарка" class="img-up-1 light">
 						<p>Строка меню включает в&nbsp;себя ссылки на&nbsp;авторские проекты;
 							ссылку
 							на&nbsp;персональные страницы GitHub и&nbsp;ВКонтакте; личные данные для прямой связи (при нажатии
@@ -303,8 +306,8 @@
 							сигнализирует соответствующая иконка.
 						</p>
 					</div>
-					<div class="container-content text-up-2" id="text-up-2">
-						<h2 class="title-dark">Идея</h2>
+					<div class="container-content text-up-2 light" id="text-up-2">
+						<h2 class="title-dark light">Идея</h2>
 						<p>Главная идея, которой придерживается автор при создании дизайна
 							интернет-сайта: сформировать интуитивно понятную художественную композицию, при этом скомпоновать
 							содержимое страницы на&nbsp;одном главном экране, избегая прокрутки или пролистывания вниз. Идея
@@ -313,7 +316,7 @@
 							информационные блоки, представленные целиком в&nbsp;виде единого образа на&nbsp;большом сенсорном
 							экране.
 						</p>
-						<div class="img-up-2">
+						<div class="img-up-2 light">
 							<img src="img/up2-img.gif" alt="Кадры из фильма">
 							<p>Кадры из кинофильма "Железный человек 2" (2010)</p>
 						</div>
@@ -338,24 +341,24 @@
 							сайт запоминается, а&nbsp;иногда и&nbsp;притягивает. И&nbsp;как показывает история это пусть
 							и&nbsp;не&nbsp;главная, но&nbsp;очень важная составляющая успеха.</p>
 					</div>
-					<div class="container-content text-up-3" id="text-up-3">
-						<h2 class="title-dark">История</h2>
-						<p class="text-dark text-up-3">Испокон веков человек стремится к&nbsp;самовыражению, украшая себя или
+					<div class="container-content text-up-3 light" id="text-up-3">
+						<h2 class="title-dark light">История</h2>
+						<p>Испокон веков человек стремится к&nbsp;самовыражению, украшая себя или
 							своё жилище, тем самым демонстрируя чувства и&nbsp;возможности. Богатые реализуют персональных
 							подход
 							в&nbsp;модном стиле, свойственном эпохе. Простой народ придерживается традиционных взглядов
 							(деревянное зодчество). Это непохожие друг на&nbsp;друга миры, но&nbsp;каждый в&nbsp;своём роде
 							прекрасен.
 						</p>
-						<div class="img-up-3">
+						<div class="img-up-3 light">
 							<img srcset="img/up3-1-img375.jpg,
-					img/up3-1-img768.jpg 2x,
-					img/up3-1-img1200.jpg 3x" src="img/up3-1-img375.jpg" alt="Деревянное зодчество">
+								img/up3-1-img768.jpg 2x,
+								img/up3-1-img1200.jpg 3x" src="img/up3-1-img375.jpg" alt="Деревянное зодчество">
 							<img srcset="img/up3-2-img375.jpg,
-					img/up3-2-img768.jpg 2x,
-					img/up3-2-img1200.jpg 3x" src="img/up3-2-img375.jpg" alt="Зимний дворец">
+								img/up3-2-img768.jpg 2x,
+								img/up3-2-img1200.jpg 3x" src="img/up3-2-img375.jpg" alt="Зимний дворец">
 						</div>
-						<p class="text-dark text-up-3">Советский период изначально перенял традицию творческого подхода
+						<p>Советский период изначально перенял традицию творческого подхода
 							к&nbsp;организации жизнедеятельности общества. Например, в&nbsp;Москве строились широкие проспекты
 							с&nbsp;величественными Сталинскими высотками; в&nbsp;метро каждая станция&nbsp;&mdash; отдельное
 							произведение искусства, и&nbsp;по&nbsp;сей день вызывающее душевный трепет у&nbsp;жителей
@@ -369,15 +372,15 @@
 							сорокам, реагируя на&nbsp;всё что блестит. Оттого дома стали наполняться различной утварью,
 							но&nbsp;часто абсолютно ни&nbsp;к&nbsp;месту.
 						</p>
-						<div class="img-up-3">
+						<div class="img-up-3 light">
 							<img srcset="img/up3-3-img375.jpg,
-					img/up3-3-img768.jpg 2x,
-					img/up3-3-img1200.jpg 3x" src="img/up3-3-img375.jpg" alt="Деревянное зодчество">
+								img/up3-3-img768.jpg 2x,
+								img/up3-3-img1200.jpg 3x" src="img/up3-3-img375.jpg" alt="Деревянное зодчество">
 							<img srcset="img/up3-4-img375.jpg,
-					img/up3-4-img768.jpg 2x,
-					img/up3-4-img1200.jpg 3x" src="img/up3-4-img375.jpg" alt="Зимний дворец">
+								img/up3-4-img768.jpg 2x,
+								img/up3-4-img1200.jpg 3x" src="img/up3-4-img375.jpg" alt="Зимний дворец">
 						</div>
-						<p class="text-dark text-up-3">Эта тенденция перешла и&nbsp;в&nbsp;сферу веб-дизайна, когда каждый
+						<p>Эта тенденция перешла и&nbsp;в&nbsp;сферу веб-дизайна, когда каждый
 							лепил
 							кто во&nbsp;что горазд. Так назрела идея минимализма, которую интернет-сообщество приняло
 							с&nbsp;энтузиазмом, потому что теперь картинка стала выглядеть не&nbsp;столь вульгарно
@@ -386,10 +389,10 @@
 						</p>
 					</div>
 				</article>
-				<article class="info__left" id="info__left">
-					<div class="container-content">
-						<h2 class="title-dark">Ежедневник</h2>
-						<p class="text-dark">Дизайн онлайн ежедневника разработан на&nbsp;основе привычных ассоциативных
+				<article class="info__left light" id="info__left">
+					<div class="container-content ">
+						<h2 class="title-dark light">Ежедневник</h2>
+						<p>Дизайн онлайн ежедневника разработан на&nbsp;основе привычных ассоциативных
 							связей
 							в&nbsp;соответствии с&nbsp;бумажным вариантом. Человеку на&nbsp;интуитивном уровне поняты вкладки
 							и&nbsp;закладки, которые упрощают процесс компоновки, сокращая объём анализируемой информации
@@ -398,7 +401,7 @@
 							пространства версия для портативных устройств не&nbsp;способна вместить подобные
 							&laquo;изыски&raquo;.
 						</p>
-						<p class="text-dark">Электронный ежедневник не&nbsp;столь удобен с&nbsp;точки зрения заполнения
+						<p>Электронный ежедневник не&nbsp;столь удобен с&nbsp;точки зрения заполнения
 							информацией (от&nbsp;руки писать проще и&nbsp;быстрее; можно делать наброски схем или рисунков).
 							Но&nbsp;для ведения дел при достаточном разрешении экрана, наличии фильтров, системы компоновки
 							актуальных задач и&nbsp;напоминаний оказывается привлекательнее. Особенно учитывая наличие
@@ -408,20 +411,20 @@
 							но&nbsp;отлично
 							подходит для просмотра и&nbsp;управления существующими задачами, а&nbsp;также для добавления вновь
 							поступивших с&nbsp;целью дальнейшего планирования на&nbsp;стационарном компьютере или ноутбуке.</p>
-						<p class="text-dark">Предлагаемый вариант исполнения Ежедневника отличается от&nbsp;существующих
+						<p>Предлагаемый вариант исполнения Ежедневника отличается от&nbsp;существующих
 							на&nbsp;рынке простотой в&nbsp;использовании, наглядным и&nbsp;понятным дизайном, удобной системой
 							фильтров и&nbsp;наличием области финансового планирования. Разрабатывался данный ресурс для
 							собственного использования, поэтому качество и&nbsp;поддержка проекта гарантированы.</p>
-						<p class="text-dark">P.S. В&nbsp;настоящий момент сайт находится в&nbsp;стадии разработки
+						<p>P.S. В&nbsp;настоящий момент сайт находится в&nbsp;стадии разработки
 							и&nbsp;является
 							дипломным проектом факультета Веб-разработки GeekBrains (см. раздел &laquo;Прочее&raquo;, вкладка
 							&laquo;Обучение&raquo;).</p>
 					</div>
 				</article>
-				<article class="info__right" id="info__right">
+				<article class="info__right light" id="info__right">
 					<div class="container-content">
-						<h2 class="title-dark">Мира Вид</h2>
-						<p class="text-dark">Данный проект&nbsp;&mdash; творческий полёт фантазии; двигатель процесса развития
+						<h2 class="title-dark light">Мира Вид</h2>
+						<p>Данный проект&nbsp;&mdash; творческий полёт фантазии; двигатель процесса развития
 							в&nbsp;направлении интернет-индустрии. Главная цель&nbsp;&mdash; создать ресурс с&nbsp;раскрытием
 							серьёзной темы, но&nbsp;не&nbsp;самой интересной для большинства пользователей. Решить задачу
 							можно,
@@ -429,12 +432,12 @@
 							читатель
 							краем глаза взглянул в&nbsp;сторону смыслов.
 						</p>
-						<p class="text-dark">Да&nbsp;и&nbsp;в&nbsp;целом, если каждый человек на&nbsp;земле безвозмездно
+						<p>Да&nbsp;и&nbsp;в&nbsp;целом, если каждый человек на&nbsp;земле безвозмездно
 							потратит
 							горстку личного времени на&nbsp;дело во&nbsp;имя блага на&nbsp;земле, мир изменится
 							до&nbsp;неузнаваемости.
 						</p>
-						<p class="text-dark">P.S. В&nbsp;настоящий момент сайт находится в&nbsp;стадии доработки дизайна
+						<p>P.S. В&nbsp;настоящий момент сайт находится в&nbsp;стадии доработки дизайна
 							и&nbsp;полной реконструкции технической части. Представленная версия&nbsp;&mdash; дипломный проект
 							по&nbsp;программе &laquo;Разработка интерфейсов и&nbsp;веб-дизайн&raquo; в&nbsp;РГУ им.
 							А.Н.Косыгина
@@ -442,10 +445,10 @@
 						</p>
 					</div>
 				</article>
-				<article class="info__down" id="info__down">
+				<article class="info__down light" id="info__down">
 					<h1 class="visually-hidden">Прочее</h1>
-					<h2 class="title-dark">Работы</h2>
-					<div class="text-down-1 container-content">
+					<h2 class="title-dark light">Работы</h2>
+					<div class="text-down-1 container-content light">
 						<ul>
 							<!-- Максимальная высота логотипа 80px -->
 							<li>
@@ -497,10 +500,10 @@
 							</li>
 						</ul>
 					</div>
-					<h2 class="title-dark">Образование</h2>
-					<div class="text-down-2 container-content">
+					<h2 class="title-dark light">Образование</h2>
+					<div class="text-down-2 container-content light">
 						<div class="rgu" id="rgu">
-							<div class="rgu__text">
+							<div class="rgu__text light">
 								<div class="rgu__text-main">
 									<h3 class="title-dark">РГУ им. А.Н. Косыгина</h3>
 									<h4 class="title-dark">(Технологии. Дизайн. Искусство.)</h4>
@@ -526,9 +529,9 @@
 							img/down-rgu1000.jpg 2x,
 							img/down-rgu1500.jpg 3x" src="img/down-rgu500.jpg" alt="Диплом РГУ им. Косыгина" class="rgu__diploma">
 						</div>
-						<hr>
+						<hr class="light">
 						<div class="gb" id="gb">
-							<div class="gb__text">
+							<div class="gb__text light">
 								<div class="gb__text-main">
 									<h3 class="title-dark">GeekBrains</h3>
 									<p class="text-dark">Факультет веб-разработки</p>
@@ -561,9 +564,9 @@
 			</section>
 		</section>
 	</main>
-	<footer id="footer">
-		<div class="copyright">&copy; 2021 <span class="copyright__full">Все права защищены. </span> </div>
-		<div class="close-all" id="close-all">
+	<footer class="light" id="footer">
+		<div class="copyright light">&copy; 2021 <span class="copyright__full">Все права защищены. </span> </div>
+		<div class="close-all light" id="close-all">
 			<svg width="35" height="35" viewBox="0 0 35 35">
 				<use href="#icon__close" />
 			</svg>

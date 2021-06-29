@@ -38,8 +38,8 @@ body {
 		background-size: 500%;
 	}
 
-	@include screen-off {
-		background: none;
+	@media (max-width: $slim-screen),
+	(max-height: $slim-screen) {
 		font-size: 12px;
 		line-height: 14px;
 	}
@@ -82,9 +82,14 @@ body {
 		@media (max-width: 375px) and (orientation: portrait) {
 			background: $bc-mobile-pt;
 		}
+	}
 
-		@include screen-off {
-			background: none;
+	&.light {
+		background: none;
+
+		&::before,
+		&::after {
+			content: none;
 		}
 	}
 }
