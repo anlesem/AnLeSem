@@ -2,6 +2,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	overflow: hidden;
 
 	// Настройка ориентации 1-2 (+ general, header и footer)
 	@media (min-aspect-ratio: $proportion-land) {
@@ -10,6 +11,7 @@ body {
 
 	&.light {
 		display: block;
+		overflow: visible;
 	}
 }
 

@@ -9,14 +9,8 @@ function fullVersion() {
 			if (i == elemA.length) version = true;			
 		}
 	}
-	let elemB = document.querySelectorAll('.warning-size');
-	let elemC = document.querySelectorAll('.warning span.light');
-	for (let n of elemB) {
-		n.classList.add('size');
-	}
-	for (let n of elemC) {
-		n.classList.remove('light');
-	}
+	let warning = document.getElementById('warning');
+	warning.innerHTML = "Расширение экрана не позволяет корректно отобразить всё оформление страницы.";
 }
 
 // Флаг. Активный блок
@@ -370,11 +364,15 @@ down_rgu.addEventListener('mouseover', scrollRGU);
 down_gb.addEventListener('click', scrollUp);
 down_gb.addEventListener('mouseover', scrollGB);
 
-// Отслеживание. Анимация
+// Включение полного функционала сайта
 fullVersion();
 
+// Отслеживание. Анимация
 window.onload = function () {
-	if (version) setAnimation();
+	if (version) {
+		setAnimation();
+		changeTag = tag;
+	}
 };
 
 // Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
@@ -384,7 +382,6 @@ window.addEventListener('resize', function () {
 	if (fullScreen.matches && blockActive) {
 		hiddenTitleTag();
 	} else if (blockActive) {
-		console.log(blockActiveName);
 		showTitleTag();
 		document.querySelector(blockActiveName + ' .tag').classList.add('hover');
 		document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');

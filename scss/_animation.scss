@@ -239,17 +239,17 @@ $range-min: 2px;
 
 // перемещение окон
 $point-up: 50% 70%;
-$point-down: 50% 80%;
+$point-down: 50% 90%;
 
 @keyframes info-text {
 
 	// Алмаз
 	from {
-		clip-path: polygon(50% 50%, 85% 0%, 95% 0%, 100% 15%, $point-up, 0% 15%, 5% 0%, 15% 0%);
+		clip-path: polygon(50% 30%, 93% 0%, 95% 0%, 96% 2%, $point-up, 4% 2%, 5% 0%, 7% 0%);
 	}
 
 	33.3% {
-		clip-path: polygon(50% 30%, 65% 0%, 95% 0%, 100% 20%, $point-down, 0% 20%, 5% 0%, 35% 0%);
+		clip-path: polygon(50% 10%, 65% 0%, 95% 0%, 100% 30%, $point-down, 0% 30%, 5% 0%, 35% 0%);
 	}
 
 	// Огонь
@@ -258,7 +258,7 @@ $point-down: 50% 80%;
 	}
 
 	66.6% {
-		clip-path: polygon(50% 30%, 90% 15%, 100% 100%, $point-down, 0% 100%, 10% 15%);
+		clip-path: polygon(50% 20%, 90% 10%, 100% 100%, $point-down, 0% 100%, 10% 10%);
 	}
 
 	// Птаха
@@ -267,6 +267,6 @@ $point-down: 50% 80%;
 	}
 
 	to {
-		clip-path: polygon(70% 10%, 80% 50%, 30% 90%, 15% 15%);
+		clip-path: polygon(70% 10%, 90% 60%, 20% 90%, 10% 10%);
 	}
 }
