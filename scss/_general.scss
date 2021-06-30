@@ -27,16 +27,8 @@ body {
 	font-weight: 400;
 	line-height: 22px;
 
-	background: url(../img/background_ls640.jpg) center center no-repeat;
+	background: url(../img/background_lss.jpg) center center no-repeat;
 	background-size: 1000%;
-
-	@media (max-width: 1080px) and (orientation: portrait) {
-		background: url(../img/background_pr280.jpg) center center no-repeat;
-	}
-
-	@include pc {
-		background-size: 500%;
-	}
 
 	@media (max-width: $slim-screen),
 	(max-height: $slim-screen) {
@@ -55,33 +47,8 @@ body {
 	&::after {
 		content: "";
 		@include position-size-parent;
+		@include background;
 		z-index: -10;
-
-		background: $bg-PC;
-
-		@include pc {
-			background: $bc-laptop;
-		}
-
-		@include mobile {
-			background: $bc-mobile;
-		}
-
-		@media (orientation: portrait) {
-			background: $bc-PC-pt;
-		}
-
-		@media (max-width: 1080px) and (orientation: portrait) {
-			background: $bc-laptop-pt;
-		}
-
-		@media (max-width: 768px) and (orientation: portrait) {
-			background: $bc-tablet-pt;
-		}
-
-		@media (max-width: 375px) and (orientation: portrait) {
-			background: $bc-mobile-pt;
-		}
 	}
 
 	&.light {

@@ -50,16 +50,6 @@
 	}
 }
 
-// Отключение оформления для архаических мобильных
-@mixin screen-off {
-
-	@media (max-width: $screen-off),
-	(max-height: $screen-off),
-	(max-height: 350px) and (max-aspect-ratio: $proportion-land) {
-		@content;
-	}
-}
-
 // Внутреннее перестроение для сохранения правильных пропорций левого и правого блоков
 @mixin aspect-ratio-horz {
 
@@ -75,6 +65,36 @@
 
 	@media (orientation: portrait) {
 		@content;
+	}
+}
+
+//Настройка фона
+
+@mixin background {
+	background: url(../img/background_ls2560.jpg) center center no-repeat fixed;
+
+	@media (max-width: 1920px) and (max-height: 1270px) {
+		background: url(../img/background_ls1920.jpg) center center no-repeat fixed;
+	}
+
+	@media (max-width: 1280px) and (max-height: 800px) {
+		background: url(../img/background_ls1280.jpg) center center no-repeat fixed;
+	}
+
+	@media (max-width: 1024px) and (max-height: 640px) {
+		background: url(../img/background_ls1024.jpg) center center no-repeat fixed;
+	}
+
+	@media (max-width: 1080px) and (max-aspect-ratio: 3/4) {
+		background: url(../img/background_pr1080.jpg) center center no-repeat fixed;
+	}
+
+	@media (max-width: 768px) and (max-height: 1365px) and (max-aspect-ratio: 3/4) {
+		background: url(../img/background_pr768.jpg) center center no-repeat fixed;
+	}
+
+	@media (max-width: 375px) and (max-height: 667px) and (max-aspect-ratio: 3/4) {
+		background: url(../img/background_pr375.jpg) center center no-repeat fixed;
 	}
 }
 
