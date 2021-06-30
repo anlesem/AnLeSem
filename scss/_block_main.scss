@@ -2,7 +2,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	overflow: hidden;
 
 	// Настройка ориентации 1-2 (+ general, header и footer)
 	@media (min-aspect-ratio: $proportion-land) {
@@ -169,6 +168,7 @@ main {
 	&__box {
 		position: absolute;
 		right: 0;
+		overflow: hidden;
 	}
 
 	// Настройка бирок 4б-7 (наведение)

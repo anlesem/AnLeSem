@@ -88,8 +88,8 @@ function startLogo(event) {
 
 // Управление анимацией. 
 function setAnimation() {
-	let intervals = 4;
-	let delay = 0;									//ToDo 
+	let intervals = 8;
+	let delay = 5;								
 	let delayTags = delay + intervals;
 
 	document.querySelector('.info').style.animation = 'info-opacity infinite ' + intervals + 's ' + delay + 's linear';
