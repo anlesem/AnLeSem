@@ -2,12 +2,13 @@ header {
 	height: 100px;
 	background-color: $background-dark;
 
-	// Настройка ориентации 1-6 (+ general, main и footer)
+	// Настройка горизонтальной ориентации экрана 1-9 (+ main и footer)
 	@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 		width: 30%;
 		height: 100%;
 	}
 
+	// Лёгкая версия 1-4	(везде)
 	&.light {
 		position: fixed;
 		top: 0;
@@ -23,24 +24,29 @@ header {
 	}
 }
 
-
+// Настройка предупреждения для лёгкой версии
+// Обёртка
 .warning {
 	display: none;
 	position: absolute;
 	top: 100%;
 	right: 10px;
-	z-index: 15;
+	z-index: $index-close;
 	margin-top: 10px;
 	padding: 5px 5px;
-	width: calc(100% - 20px);
-	border: none;
-	background: none;
+	width: calc(100% - 20px); // выравнивание по горизонтали, учитывая отступ right * 2
 	transition: all $timeout;
 
+	// Сброс настроек по умолчанию для кнопок
+	border: none;
+	background: none;
+
+	// Лёгкая версия 2-4	
 	&.light {
 		display: block;
 	}
 
+	// Иконка в пассивном режиме 1-2
 	&::after {
 		content: "!";
 		position: absolute;
@@ -56,6 +62,7 @@ header {
 		color: #d34646;
 	}
 
+	// Содержимое в пассивном режиме 1-2
 	& span {
 		display: none;
 		color: #d34646;
@@ -66,10 +73,12 @@ header {
 		background: #fff;
 		border-radius: 3px;
 
+		// Иконка в режиме наведения 2-2
 		&::after {
 			content: none;
 		}
 
+		// Содержимое в режиме наведения 2-2
 		& span.light {
 			display: block;
 		}
@@ -77,21 +86,24 @@ header {
 }
 
 .header {
+	// Горизонтальное заполнение меню по ширине
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	color: $text-menu;
 
-	// Настройка ориентации 2-9
+	// Настройка горизонтальной ориентации экрана 2-9
 	@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 		flex-direction: column;
 		height: 100%;
 	}
 
+	// Настройка меню
 	& nav {
 		display: contents; // для внедрения блока логотипа
 		height: 100%;
 
+		// Настройка ссылок
 		& a {
 			position: relative;
 			display: inline-block;
@@ -108,7 +120,8 @@ header {
 				width: 10%;
 			}
 
-			// Настройка ориентации 3-9
+			// Настройка горизонтальной ориентации экрана 3-9
+			// переход на большую кнопку, удобную для нажатия
 			@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 				width: 100%;
 				height: 10%;
@@ -119,12 +132,15 @@ header {
 				font-size: 13px;
 			}
 
+			// Смещение порядка в сторону из-за центрального положения логотипа 
 			&:nth-child(n+3) {
 				order: 3;
 			}
 
+			// Эффекты наведения на ссылку
 			&:hover {
 
+				// перемещение иконки на передний план
 				& svg {
 					z-index: auto;
 
@@ -139,6 +155,7 @@ header {
 			}
 		}
 
+		// Отключаем текст на портативных устройствах
 		& span {
 			@include tablet {
 				display: none;
@@ -150,12 +167,14 @@ header {
 			z-index: -1;
 			fill: #777;
 
+			// Перенастройка иконок при отключении текста на портативных устройствах
 			@include tablet {
 				z-index: auto;
 				fill: $text-menu;
 				opacity: 0.8;
 
-				// Настройка ориентации 4-9
+				// Настройка горизонтальной ориентации экрана 4-9
+				// Настройка размеров иконки в зависимости от высоты экрана
 				@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 					width: auto;
 					height: 100%;
@@ -163,6 +182,7 @@ header {
 			}
 
 			// Для сверх узких экранов 2-2
+			// Настройка размеров иконки в зависимости от ширины экрана
 			@media (max-width: $slim-screen) {
 				width: 100%;
 				height: auto;
@@ -170,6 +190,7 @@ header {
 		}
 	}
 
+	// Лёгкая версия 3-4	
 	&.light {
 		flex-direction: row;
 		height: auto;
@@ -191,39 +212,44 @@ header {
 	}
 }
 
+// Обёртка логотипа
 .logo {
 	order: 2;
 	position: relative;
 	display: inline-block;
 	width: 80px;
 	height: 80px;
-	border-radius: 40px;
+	margin: 10px;
+	border-radius: 40px; // чтобы при растягивании был прямоугольник
+	text-align: center;
+
+	// для корректной работы анимации
 	border-top: 3px solid transparent;
 	border-right: 3px solid transparent;
 	border-bottom: 3px solid transparent;
 	border-left: 3px solid transparent;
-	margin: 10px;
 	background: transparent;
-	text-align: center;
 
+	// Пропорциональное уменьшение логотипа на сверх узких экранах 
 	@media (max-width: $screen-off) {
 		width: 30vw;
 		height: 30vw;
 	}
 
+	// Изображение логотипа
 	&::after {
 		content: "";
 		@include position-size-parent;
 		z-index: 0;
 		border-radius: 40px;
 		background: url(../img/logo80.jpg) center center no-repeat;
-		background-size: 80px 80px;
+		background-size: 80px 80px; // чтобы было чёткое изображение
 
 		@media (max-width: $screen-off) {
 			background-size: 100%;
 		}
 
-
+		// Настройка DPI
 		@media (-webkit-min-device-pixel-ratio: 2),
 		(-moz-min-device-pixel-ratio: 2),
 		(-o-min-device-pixel-ratio: 2),
@@ -241,13 +267,17 @@ header {
 		}
 	}
 
+	// Контактные данные
 	&__card {
 		@include position-size-parent;
-		z-index: 2;
+		z-index: 1;
 		overflow: hidden;
+
+		// Вертикальное заполнение по высоте
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
+
 		padding: 10px 0;
 		border-radius: 40px;
 		background-color: $background-light;
@@ -256,6 +286,7 @@ header {
 		font-weight: 700;
 		opacity: 0;
 
+		// ФИО
 		& h3 {
 			font-size: 15px;
 			font-weight: 700;
@@ -266,50 +297,58 @@ header {
 			opacity: 0.4;
 		}
 
+		// Лёгкая версия 4-4	
 		&.light {
 			display: none;
 		}
 	}
 
+	// Открытие данных
 	&.hover {
 		width: 250px;
 		transition: all 500ms;
 
+		// Увеличение фонового изображения
 		&::after {
 			background-size: 100%;
 		}
 
-		// Настройка ориентации 5-9
+		// Настройка горизонтальной ориентации экрана 5-9
+		// Перенастройка во всю ширину header
 		@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 			width: 90%;
 		}
 
+		// Перенастройка во всю ширину header
 		@include mobile {
 			width: 90%;
 		}
 
-		& h3 {
-
-			// Настройка ориентации 6-9
-			@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion-land) {
-				display: none;
-			}
-
-			@include screen-slim {
-				display: none;
-			}
-		}
-
+		// Контактные данные
 		& .logo__card {
 			opacity: 1;
 			transition: opacity $timeout;
 
-			// Настройка ориентации 7-9
+			// Настройка горизонтальной ориентации экрана 7-9
 			@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion-land) {
 				font-size: 10px;
 			}
+
+			// ФИО
+			& h3 {
+
+				// Настройка горизонтальной ориентации экрана 6-9
+				@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion-land) {
+					display: none;
+				}
+
+				@include screen-slim {
+					display: none;
+				}
+			}
 		}
 
+		// Уменьшение размеров ссылок при наведении для освобождения пространства логотипу
 		&+nav a {
 			width: 5%;
 
@@ -317,20 +356,22 @@ header {
 				display: none;
 			}
 
-			// Настройка ориентации 8-9
+			// Настройка горизонтальной ориентации экрана 8-9
 			@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 				height: 5%;
 				width: 100%;
 			}
 		}
 
+		// Корректировка иконок в зависимости от ширины ссылки
 		&+nav svg {
 			@include tablet {
 				width: 100%;
 				height: auto;
 			}
 
-			// Настройка ориентации 8-9
+			// Настройка горизонтальной ориентации экрана 9-9
+			// Корректировка иконок в зависимости от высоты ссылки
 			@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion-land) {
 				height: 100%;
 				width: auto;

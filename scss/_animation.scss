@@ -99,37 +99,37 @@ $range-min: 2px;
 @keyframes rhythm-tag-horz-slim {
 	from {
 		width: $width-horz-tag - $d-slim-tag;
-		height: $height-horz-tag;
+		height: $height-horz-tag - $d-slim-tag;
 	}
 
 	1% {
 		width: $width-horz-tag - $d-slim-tag + $range-max;
-		height: $height-horz-tag + $range-max;
+		height: $height-horz-tag - $d-slim-tag + $range-max;
 	}
 
 	2% {
 		width: $width-horz-tag - $d-slim-tag;
-		height: $height-horz-tag;
+		height: $height-horz-tag - $d-slim-tag;
 	}
 
 	3% {
 		width: $width-horz-tag - $d-slim-tag;
-		height: $height-horz-tag;
+		height: $height-horz-tag - $d-slim-tag;
 	}
 
 	4% {
 		width: $width-horz-tag - $d-slim-tag + $range-min;
-		height: $height-horz-tag + $range-min;
+		height: $height-horz-tag - $d-slim-tag + $range-min;
 	}
 
 	5% {
 		width: $width-horz-tag - $d-slim-tag;
-		height: $height-horz-tag;
+		height: $height-horz-tag - $d-slim-tag;
 	}
 
 	to {
 		width: $width-horz-tag - $d-slim-tag;
-		height: $height-horz-tag;
+		height: $height-horz-tag - $d-slim-tag;
 	}
 }
 
@@ -172,37 +172,37 @@ $range-min: 2px;
 
 @keyframes rhythm-tag-vert-slim {
 	from {
-		width: $width-vert-tag;
+		width: $width-vert-tag - $d-slim-tag;
 		height: $height-vert-tag - $d-slim-tag;
 	}
 
 	1% {
-		width: $width-vert-tag + $range-max;
+		width: $width-vert-tag - $d-slim-tag + $range-max;
 		height: $height-vert-tag - $d-slim-tag + $range-max;
 	}
 
 	2% {
-		width: $width-vert-tag;
+		width: $width-vert-tag - $d-slim-tag;
 		height: $height-vert-tag - $d-slim-tag;
 	}
 
 	3% {
-		width: $width-vert-tag;
+		width: $width-vert-tag - $d-slim-tag;
 		height: $height-vert-tag - $d-slim-tag;
 	}
 
 	4% {
-		width: $width-vert-tag + $range-min;
+		width: $width-vert-tag - $d-slim-tag + $range-min;
 		height: $height-vert-tag - $d-slim-tag + $range-min;
 	}
 
 	5% {
-		width: $width-vert-tag;
+		width: $width-vert-tag - $d-slim-tag;
 		height: $height-vert-tag - $d-slim-tag;
 	}
 
 	to {
-		width: $width-vert-tag;
+		width: $width-vert-tag - $d-slim-tag;
 		height: $height-vert-tag - $d-slim-tag;
 	}
 }

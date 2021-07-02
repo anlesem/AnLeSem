@@ -1,3 +1,5 @@
+// В данном файле указываются персональные настройки внутри вертикальных блоков-обёрток
+
 .up,
 .down {
 
@@ -5,11 +7,14 @@
 		display: none;
 	}
 
+	// Дополнительные настройки к main
+	// Вертикальное заполнение по высоте label и p
 	&__content {
 		flex-direction: column;
 		justify-content: space-around;
 	}
 
+	// Обёртка для горизонтального заполнение по ширине label
 	&__wrapper-label {
 		display: flex;
 		justify-content: space-around;
@@ -17,11 +22,16 @@
 		padding-top: 10px;
 	}
 
+	// Заголовки
 	& label {
-		box-sizing: content-box;
+		flex-grow: 1;
+
 		width: 30%;
 		height: 100%;
-		flex-grow: 1;
+
+		// Для прижатия к нижней черте
+		box-sizing: content-box;
+
 		font-size: 16px;
 		text-align: center;
 
@@ -35,6 +45,8 @@
 	}
 }
 
+// Дополнительные настройки к main
+// Блок-обёртка информационного содержимого (+main)
 .info {
 	opacity: 0;
 
@@ -47,12 +59,14 @@
 			font-weight: 700;
 			text-align: center;
 
+			// Лёгкая версия 1-6	(везде)
 			&.light {
 				display: block;
 			}
 		}
 	}
 
+	// Лёгкая версия 2-6
 	&.light {
 		height: auto;
 		opacity: 1;
@@ -68,6 +82,7 @@
 	}
 }
 
+// Отключение содержимого, которое зависит от input.checked
 .text-up-1,
 .text-up-2,
 .text-up-3,
@@ -78,12 +93,13 @@
 .img-up-3 {
 	display: none;
 
+	// Лёгкая версия 3-6
 	&.light {
 		display: block;
 	}
 }
 
-// Контент верхнего блока
+//* Изображения верхнего блока
 .img-up-1 {
 	float: left;
 	width: 300px;
@@ -138,7 +154,8 @@
 	}
 }
 
-// Контент нижнего блока
+//* Содержимое нижнего блока
+// Список работ
 .text-down-1 {
 	height: 100%;
 	padding: 0 40px;
@@ -152,6 +169,7 @@
 		min-height: 110px;
 		padding: 15px 0;
 
+		// Разделительная черта
 		&::after {
 			position: absolute;
 			bottom: 0;
@@ -162,15 +180,18 @@
 			background-image: linear-gradient(to left, $background-light, $background-dark, $background-light);
 		}
 
+		// Логотип заказчика
 		& img {
 			@include position-center;
 			opacity: 0.2;
 		}
 
+		// Наименование заказчика
 		& h3 {
 			font-weight: 700;
 		}
 
+		// Обёртка для ссылки и даты 
 		& div {
 			display: flex;
 			justify-content: space-between;
@@ -180,6 +201,7 @@
 			}
 		}
 
+		// ссылка на проект
 		& a {
 			margin-left: 20px;
 			padding: 5px 15px;
@@ -191,7 +213,6 @@
 			transition: opacity $timeout;
 
 			@include screen-slim {
-				flex-direction: column-reverse;
 				margin: 10px 20px;
 				text-align: center;
 			}
@@ -200,11 +221,13 @@
 				opacity: 0.4;
 			}
 
+			// отключение ссылки для данного проекта
 			&[href='#'] {
 				visibility: hidden;
 			}
 		}
 
+		// Дата работы над проектом
 		& time {
 			align-self: flex-end;
 			font-size: 11px;
@@ -214,13 +237,14 @@
 	}
 }
 
+// Обучение
 .text-down-2 {
 	flex-direction: column;
 	justify-content: space-around;
 	height: 100%;
 	transition: all $timeout;
 
-	//* Настройка ориентации 1-8
+	//* Настройка ориентации внутри блока 1-8
 	// 3 состояния экрана: обычный (по умолчанию);
 	// 	альбомный  (min-aspect-ratio: 5/2);
 	// 	книжный (max-aspect-ratio: 3/4)
@@ -232,21 +256,17 @@
 		align-items: center;
 	}
 
+	// Лёгкая версия 4-6
 	&.light {
 		position: relative;
 		z-index: -1;
 		display: flex;
 		max-width: 600px;
 		margin: 0 auto;
-
-		&::after {
-			content: "";
-			@include position-size-parent;
-			z-index: 1;
-		}
 	}
 }
 
+// Разделительная черта
 hr {
 	border: 0;
 	width: 90%;
@@ -255,7 +275,7 @@ hr {
 	background: $background-dark;
 	background-image: linear-gradient(to left, $background-light, $background-dark, $background-light);
 
-	// Настройка ориентации 2-8
+	// Настройка ориентации внутри блока 2-8
 	@media (min-width: $tablet-width) and (max-height: $break-height) {
 		margin: auto 0;
 		width: 1px;
@@ -263,6 +283,7 @@ hr {
 		background-image: linear-gradient(to top, $background-light, $background-dark, $background-light);
 	}
 
+	// Лёгкая версия 5-6
 	&.light {
 		margin: 20px auto;
 	}
@@ -277,7 +298,7 @@ hr {
 	text-align: center;
 	transition: all $timeout;
 
-	// Настройка ориентации 3-8
+	// Настройка ориентации внутри блока 3-8
 	@media (min-width: $tablet-width) and (max-height: $break-height) {
 		width: 49%;
 		height: 95%;
@@ -287,16 +308,18 @@ hr {
 		flex-direction: column;
 	}
 
+	// Обёртка для всего текста 1-3
 	&__text {
 		position: relative;
 		width: 50%;
 		height: 100%;
 
-		// Настройка ориентации 4-8
+		// Настройка ориентации внутри блока 4-8
 		@media (max-aspect-ratio: $proportion-port) {
 			width: 100%;
 		}
 
+		// Логотип учебного заведения 1-3
 		&::after {
 			content: "";
 			@include position-size-parent;
@@ -304,6 +327,7 @@ hr {
 			opacity: 0.2;
 		}
 
+		// Лёгкая версия 6-6
 		&.light {
 			width: 100%;
 			height: auto;
@@ -313,13 +337,14 @@ hr {
 			}
 		}
 
+		// Обёртка для заголовков 1-3
 		&-main {
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 			height: 100%;
 
-			// Настройка ориентации 5-8
+			// Настройка ориентации внутри блока 5-8
 			@media (max-aspect-ratio: $proportion-port) {
 				justify-content: start;
 			}
@@ -361,6 +386,7 @@ hr {
 		}
 	}
 
+	// Список пройденных дисциплин 1-2
 	&__program {
 		display: none;
 		margin-top: 20px;
@@ -372,6 +398,7 @@ hr {
 			padding-left: 20px;
 			color: $text-dark;
 
+			// Маркер 1-2 (галочка, прочерк, оценка)
 			&::after {
 				position: absolute;
 				left: 0;
@@ -383,6 +410,7 @@ hr {
 			}
 		}
 
+		// Надпись: Программа обучения
 		& li:first-child {
 			margin-bottom: 10px;
 			padding-left: 35px;
@@ -391,13 +419,15 @@ hr {
 		}
 	}
 
+	// Изображение. Копия диплома 1-3
 	&__diploma {
+		// vh для сохранения пропорций и уменьшения в размерах относительно высоты
 		width: 20vh;
 		height: 14vh;
 		border-radius: 10px;
 		object-fit: cover;
 
-		// Настройка ориентации 6-8
+		// Настройка ориентации внутри блока 6-8
 		@media (max-aspect-ratio: $proportion-port) {
 			width: 16vh;
 			height: 10.5vh;
@@ -405,6 +435,7 @@ hr {
 	}
 }
 
+// Логотип учебного заведения 2а-3
 .rgu__text::after {
 	background: url(../img/down-rgu-logo.png) center center no-repeat;
 
@@ -415,6 +446,7 @@ hr {
 	}
 }
 
+// Логотип учебного заведения 2б-3
 .gb__text::after {
 	background: url(../img/down-gb-logo.svg) center center no-repeat;
 
@@ -424,6 +456,7 @@ hr {
 	}
 }
 
+// Маркер 2-2
 .ready::after {
 	content: "V";
 }
@@ -436,8 +469,10 @@ hr {
 	content: "-";
 }
 
+// Обучение. Наведение
 .text-down-2:hover {
 
+	// Создание эффекта анимации через уменьшение размеров вложенных блоков
 	.rgu,
 	.gb {
 		opacity: 0.3;
@@ -446,18 +481,21 @@ hr {
 		max-width: $content-width - 100px;
 		margin: 0 auto;
 
-		// Настройка ориентации 7-8
+		// Настройка ориентации внутри блока 7-8
 		@media (min-width: $tablet-width) and (max-height: $break-height) {
 			width: 30%;
 			height: 95%;
 		}
 
+		// Обёртка для всего текста 2-3
 		&__text {
 
+			// Логотип учебного заведения 3-3
 			&::after {
 				background-position: center 25px;
 			}
 
+			// Обёртка для заголовков 2-3
 			&-main {
 				justify-content: start;
 
@@ -469,27 +507,31 @@ hr {
 			}
 		}
 
+		// Изображение. Копия диплома 2-3
 		&__diploma {
 			display: none;
 		}
 	}
 
+	// Собственно наведение
 	& .rgu:hover {
 		display: block;
 		opacity: 1;
 		height: 75%;
-		overflow: auto;
+		overflow: auto; // Отображение общей полосы прокрутки
 
-		// Настройка ориентации 8а-8
+		// Настройка ориентации внутри блока 8а-8
 		@media (min-width: $tablet-width) and (max-height: $break-height) {
 			width: 60%;
 			height: 95%;
 		}
 
+		// Обёртка для всего текста 3а-3
 		& .rgu__text {
 			width: 100%;
 			height: auto;
 
+			// Обёртка для заголовков 3а-3
 			&-main {
 				height: auto;
 
@@ -501,10 +543,12 @@ hr {
 			}
 		}
 
+		// Список пройденных дисциплин 2а-2
 		& .rgu__program {
 			display: block;
 		}
 
+		// Изображение. Копия диплома 3а-3
 		& .rgu__diploma {
 			display: block;
 			width: 80%;
@@ -517,18 +561,20 @@ hr {
 		display: block;
 		opacity: 1;
 		height: 75%;
-		overflow: auto;
+		overflow: auto; // Отображение общей полосы прокрутки
 
-		// Настройка ориентации 8б-8
+		// Настройка ориентации внутри блока 8б-8
 		@media (min-width: $tablet-width) and (max-height: $break-height) {
 			width: 60%;
 			height: 95%;
 		}
 
+		// Обёртка для всего текста 3б-3
 		& .gb__text {
 			width: 100%;
 			height: auto;
 
+			// Обёртка для заголовков 3б-3
 			&-main {
 				height: auto;
 
@@ -540,11 +586,12 @@ hr {
 			}
 		}
 
+		// Список пройденных дисциплин 2б-2
 		& .gb__program {
 			display: block;
 		}
 
-
+		// Изображение. Копия диплома 3б-3
 		& .gb__diploma {
 			display: block;
 			width: 80%;
@@ -554,7 +601,7 @@ hr {
 	}
 }
 
-
+// Отображение заголовка label в зависимости от input.checked (тёмная зона)
 #up-1:checked~.wrap__center .label-up-1,
 #up-2:checked~.wrap__center .label-up-2,
 #up-3:checked~.wrap__center .label-up-3,
@@ -569,12 +616,7 @@ hr {
 	}
 }
 
-#up-1:checked~.wrap__center .text-up-1,
-#up-2:checked~.wrap__center .text-up-2,
-#up-3:checked~.wrap__center .text-up-3 {
-	display: block;
-}
-
+// Отображение подзаголовка в зависимости от input.checked (тёмная зона)
 #up-1:checked~.wrap__center .title-up-1,
 #up-2:checked~.wrap__center .title-up-2,
 #up-3:checked~.wrap__center .title-up-3,
@@ -587,13 +629,21 @@ hr {
 	}
 }
 
-#up-1:checked~.wrap__center .up.hover~.info .img-up-1,
-#up-2:checked~.wrap__center .up.hover~.info .img-up-2,
-#up-3:checked~.wrap__center .up.hover~.info .img-up-3 {
+// Отображение текста в зависимости от input.checked (светлая зона)
+#up-1:checked~.wrap__center .text-up-1,
+#up-2:checked~.wrap__center .text-up-2,
+#up-3:checked~.wrap__center .text-up-3 {
 	display: block;
 }
 
 #down-1:checked~.wrap__center .text-down-1,
 #down-2:checked~.wrap__center .text-down-2 {
 	display: flex;
+}
+
+// Отображение картинок в зависимости от input.checked и наведения на соответствующий блок (светлая зона)
+#up-1:checked~.wrap__center .up.hover~.info .img-up-1,
+#up-2:checked~.wrap__center .up.hover~.info .img-up-2,
+#up-3:checked~.wrap__center .up.hover~.info .img-up-3 {
+	display: block;
 }

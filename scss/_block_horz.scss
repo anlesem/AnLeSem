@@ -1,3 +1,5 @@
+// В данном файле указываются персональные настройки внутри горизонтальных блоков-обёрток
+
 .left,
 .right {
 
@@ -5,6 +7,8 @@
 		display: none;
 	}
 
+	// Дополнительные настройки к main
+	// Заполнение изображения и label
 	&__content {
 		flex-direction: column;
 		justify-content: space-around;
@@ -16,9 +20,12 @@
 			justify-content: space-between;
 		}
 
+		// Обёртка для изображения
 		&-img {
+			// Выравнивание изображения по вертикали
 			display: flex;
 			align-items: center;
+
 			height: 70%;
 			width: 100%;
 			text-align: center;
@@ -30,6 +37,7 @@
 				width: 75%;
 			}
 
+			// Настройка изображения
 			& picture {
 				display: none;
 				object-fit: contain;
@@ -37,6 +45,7 @@
 			}
 		}
 
+		// Обёртка для заполнение label в зависимости от пропорций
 		&-label {
 			display: flex;
 			justify-content: space-between;
@@ -52,6 +61,7 @@
 				height: 100%;
 			}
 
+			// Миниатюры
 			& label {
 				width: 30%;
 				max-height: 100px;
@@ -63,6 +73,7 @@
 					height: 30%;
 				}
 
+				// Настройка миниатюры 
 				& img {
 					object-fit: cover;
 				}
@@ -71,7 +82,7 @@
 	}
 }
 
-
+// Дополнительные настройки к main
 .info__left,
 .info__right {
 
@@ -86,6 +97,7 @@
 	}
 }
 
+// Отображение изображения в зависимости от input.checked (светлая зона)
 #left-1:checked~.left .left-img-1,
 #left-2:checked~.left .left-img-2,
 #left-3:checked~.left .left-img-3,
@@ -95,6 +107,7 @@
 	display: block;
 }
 
+// Отображение миниатюр label в зависимости от input.checked (тёмная зона)
 #left-1:checked~.left .left-label-1,
 #left-2:checked~.left .left-label-2,
 #left-3:checked~.left .left-label-3,

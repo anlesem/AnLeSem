@@ -1,10 +1,10 @@
 footer {
-	height: 50px;
-	line-height: 50px;
+	height: 70px;
+	line-height: 70px;
 	position: relative;
 	background-color: $background-dark;
 
-	// Настройка ориентации 1-4 (+ general, header и main)
+	// Настройка горизонтальной ориентации экрана 1-4 (+ header и main)
 	@media (min-aspect-ratio: $proportion-land) {
 		display: flex;
 		flex-direction: column;
@@ -13,26 +13,20 @@ footer {
 		height: 100%;
 	}
 
-	// Переход в полноэкранный режим 1-2 (+ main)
-	@include screen-full {
-		min-height: 70px;
-		line-height: 70px;
-	}
-
+	// Лёгкая версия 1-3	(везде)
 	&.light {
 		display: block;
 		width: 100%;
-		height: 70px;
-		line-height: 70px;
 	}
 }
 
+// Надпись
 .copyright {
 	color: $text-info;
 	text-align: right;
 	margin-right: 30px;
 
-	// Настройка ориентации 2-4
+	// Настройка горизонтальной ориентации экрана 2-4
 	@media (min-aspect-ratio: $proportion-land) {
 		text-align: center;
 		margin-right: 0;
@@ -48,6 +42,7 @@ footer {
 		display: none;
 	}
 
+	// Лёгкая версия 2-3
 	&.light {
 		display: block;
 		margin-right: 30px;
@@ -57,7 +52,7 @@ footer {
 	// Отключение полной надписи для малых экранов
 	&__full {
 
-		// Настройка ориентации 3-4
+		// Настройка горизонтальной ориентации экрана 3-4
 		@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
 			display: none;
 		}
@@ -68,30 +63,34 @@ footer {
 	}
 }
 
+// Кнопка "Закрыть всё" для полноэкранного режима для touch-устройств
 .close-all {
 	display: none;
 	@include position-center;
 	width: 60px;
 	height: 60px;
-	border-radius: 30px;
+	border-radius: 30px; // чтобы при растягивании был прямоугольник
 	border: 2px solid $background-dark;
 	fill: $background-dark;
 	opacity: 0.5;
 	transition: all $timeout;
 
-	// Переход в полноэкранный режим 2-2
+	// Переход в полноэкранный режим (+ main)
 	@include screen-full {
 		display: block;
 	}
 
+	// Лёгкая версия 3-3
 	&.light {
 		display: none;
 	}
 
+	// Х внутри кнопки
 	& svg {
 		@include position-center;
 	}
 
+	// Поведение при наведении
 	&.hover {
 		width: 180px;
 		height: 60px;
@@ -99,7 +98,7 @@ footer {
 		fill: #aaa;
 		opacity: 1;
 
-		// Настройка ориентации 4-4
+		// Настройка горизонтальной ориентации экрана 4-4
 		@media (min-aspect-ratio: $proportion-land) {
 			width: 60px;
 			height: 180px;

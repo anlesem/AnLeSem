@@ -1,10 +1,9 @@
 //* Параметры адаптивного поведения
 // BreakPoints
-$pc-width: 1310px;
-// ? Переход в полноэкранный режим
-$laptop-width: 1024px;
-$tablet-width: 768px;
-$mobile-width: 375px;
+$pc-width: 1310px; // Основной контейнер
+$laptop-width: 1024px; // Переход в полноэкранный режим
+$tablet-width: 768px; // Планшет
+$mobile-width: 375px; // Мобильный
 
 // Соотношение сторон экрана 
 $proportion-land: "5/2";
@@ -28,7 +27,7 @@ $timeout: 300ms;
 // * Цветовая палитра
 // Фон
 $background-dark: rgba(0, 0, 0, .7);
-$background-light: rgba(255, 252, 250, 0.8);
+$background-light: rgba(255, 250, 245, 0.8);
 
 // Текст
 $text-light: #eed5c3;
@@ -43,8 +42,8 @@ $title-dark: #192c01;
 
 
 // * Параметры для блоков
-// Размер секций для срабатывания наведения ~ равен бирке
-$hover-space: 20%;
+// Размер секций для срабатывания наведения
+$hover-space: 15%;
 
 // Ширина и высота (исходя из (100% - 15% ) / 2 ) горизонтальных секций
 $width-horz-block: 42.5%;
@@ -67,24 +66,7 @@ $height-vert-tag: 150px;
 // Дельта для узкого экрана
 $d-slim-tag: 50px;
 
-//* Фон
-// основной для ПК
-$bg-PC: url(../img/background_ls2560.jpg) center center no-repeat fixed;
-
-// основной для портативных устройств
-$bc-laptop: url(../img/background_ls1280.jpg) center center no-repeat fixed;
-
-// основной для мобильных телефонов
-$bc-mobile: url(../img/background_ls1024.jpg) center center no-repeat fixed;
-
-// вертикальный для ПК
-$bc-PC-pt: url(../img/background_pr1620.jpg) center center no-repeat fixed;
-
-// вертикальный для Ноутбуков
-$bc-laptop-pt: url(../img/background_pr1080.jpg) center center no-repeat fixed;
-
-// вертикальный для планшетов
-$bc-tablet-pt: url(../img/background_pr768.jpg) center center no-repeat fixed;
-
-// вертикальный для мобильных телефонов
-$bc-mobile-pt: url(../img/background_pr375.jpg) center center no-repeat fixed;
+// * Позиции Z-index
+$index-tag: 5;
+$index-hover: 10;
+$index-close: 15;
