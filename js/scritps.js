@@ -26,6 +26,14 @@ function fullVersion() {
 	warning.innerHTML = "Расширение экрана не позволяет корректно отобразить всё оформление страницы.";
 }
 
+function removePreloader() {
+	preloader.style.animation = "preloader 1s linear forwards";	// Отключение заставки
+	upTag.style.animation = "load-tag-up 1s linear forwards";	// Отображение бирок
+	downTag.style.animation = "load-tag-down 1s linear forwards";	
+	rightTag.style.animation = "load-tag-right 1s linear forwards";	
+	leftTag.style.animation = "load-tag-left 1s linear forwards";
+}
+
 function lightVersion() {
 	let elemA = document.querySelectorAll('.normal');
 	let i = 0;
@@ -127,16 +135,16 @@ function setAnimation() {
 		logo.style.animation = 'circle infinite ' + intervals + 's ' + (delay + intervals / 2) + 's linear';
 		if (slimScreen.matches) {
 			tag = 'slim';											// Переключение флага размера бирок
-			tag_up.style.animation = 'rhythm-tag-vert-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-			tag_down.style.animation = 'rhythm-tag-vert-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-			tag_left.style.animation = 'rhythm-tag-horz-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-			tag_right.style.animation = 'rhythm-tag-horz-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			upTag.style.animation = 'rhythm-tag-vert-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			downTag.style.animation = 'rhythm-tag-vert-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			leftTag.style.animation = 'rhythm-tag-horz-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			rightTag.style.animation = 'rhythm-tag-horz-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
 		} else {
 			tag = 'normal';										// Переключение флага размера бирок
-			tag_left.style.animation = 'rhythm-tag-horz infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-			tag_right.style.animation = 'rhythm-tag-horz infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-			tag_up.style.animation = 'rhythm-tag-vert infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-			tag_down.style.animation = 'rhythm-tag-vert infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			leftTag.style.animation = 'rhythm-tag-horz infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			rightTag.style.animation = 'rhythm-tag-horz infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			upTag.style.animation = 'rhythm-tag-vert infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			downTag.style.animation = 'rhythm-tag-vert infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
 		}
 	}
 }
@@ -145,10 +153,10 @@ function removeAnimation() {
 	info.style.animation = "unset";
 	info_up.style.animation = "unset";
 	logo.style.animation = "unset";
-	tag_left.style.animation = 'unset';
-	tag_right.style.animation = 'unset';
-	tag_up.style.animation = 'unset';
-	tag_down.style.animation = 'unset';
+	leftTag.style.animation = 'unset';
+	rightTag.style.animation = 'unset';
+	upTag.style.animation = 'unset';
+	downTag.style.animation = 'unset';
 }
 
 function resetAnimation() {
@@ -182,6 +190,28 @@ function showTitleTag() {
 // Прокрутка. Восстановление верхнего положения в верхнем блоке (исправление включения блоков (display none/block) при переключении между вкладками)
 function scrollUp() {
 	info_up.scrollTop = 0;
+}
+
+// Отслеживание. Изменение размеров экрана
+function changeScreen() {
+	console.log(version);
+	// Переключение между лёгкой и полной версией
+	if (offScreen.matches && version) location.reload();		// Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим 		
+	else if (!version) {													// Переход в полную версию при переходе в сверх узкий режим
+		fullVersion();
+		removePreloader();
+	}
+	// Переключение анимации и отображения бирок в полноэкранном режиме
+	if (fullScreen.matches && blockActive) {						// Полноэкранный режим + наведение
+		hiddenTitleTag();
+	} else if (blockActive) {											// Обычный режим + наведение
+		showTitleTag();
+		document.querySelector(blockActiveName + ' .tag').classList.add('hover');
+		document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');
+	}
+	if (version && !blockActive) resetAnimation();				// Перезапуск анимации (дальнейшая проверка внутри)
+	// Переключение отображения кнопок "Закрыть" и "Закрыть всё".
+	closeButton(mouse);
 }
 
 // Отслеживание. Движения
@@ -241,14 +271,14 @@ function slide(n) {
 //* ----------------------------------------------------------------
 
 // параметры (следует уточнять в _variable.scss)
-var pc_width = 1310;
-var laptop_width = 1024;
+var pcWidth = 1310;
+var laptopWidth = 1024;
 // var tablet_width = 768;
 // var mobile_width = 375;
 var proportion = '5 / 2';
-var break_height = 640;
-var slim_screen_tag = 320;
-var screen_off = 200;
+var breakHeight = 640;
+var slimScreenTag = 320;
+var screenOff = 200;
 
 var initialPoint;				// начало движения
 var finalPoint;				// конец движения
@@ -269,11 +299,12 @@ var changeTag;					// Флаг для отслеживание момента и
 var blockStop = false;		// Флаг, блокирующий открытие блока.
 var blockStopName;			// Блокирует тот блок, который был открыт
 var mouse;						// Хранит используемое устройство ввода для появления "Закрыть"
+var rotateScreen = false;	// Флаг поворота экрана, чтобы дважды не вызывать одну и ту же функцию
 
 // Медиа запросы  (следует уточнять в _mixin.scss). Полный, узкий или совсем узкий экран.
-const fullScreen = window.matchMedia('(max-width:  ' + pc_width + 'px) and (min-aspect-ratio: ' + proportion + '), (max-height: ' + break_height + 'px), (max-width:  ' + laptop_width + 'px)');
-const slimScreen = window.matchMedia('(max-width: ' + slim_screen_tag + 'px), (max-height:  ' + slim_screen_tag + 'px), (max-height: 475px) and (max-aspect-ratio: ' + proportion + ')');
-const offScreen = window.matchMedia('(max-width: ' + screen_off + 'px), (max-height:  ' + screen_off + 'px), (max-height: 375px) and (max-aspect-ratio: ' + proportion + ')');
+const fullScreen = window.matchMedia('(max-width:  ' + pcWidth + 'px) and (min-aspect-ratio: ' + proportion + '), (max-height: ' + breakHeight + 'px), (max-width:  ' + laptopWidth + 'px)');
+const slimScreen = window.matchMedia('(max-width: ' + slimScreenTag + 'px), (max-height:  ' + slimScreenTag + 'px), (max-height: 475px) and (max-aspect-ratio: ' + proportion + ')');
+const offScreen = window.matchMedia('(max-width: ' + screenOff + 'px), (max-height:  ' + screenOff + 'px), (max-height: 375px) and (max-aspect-ratio: ' + proportion + ')');
 
 // Активные компоненты
 let header = document.getElementById('header');
@@ -297,34 +328,34 @@ let down = document.getElementById('down');
 let left = document.getElementById('left');
 let right = document.getElementById('right');
 
-let tag_up = document.getElementById('up-tag');
-let tag_down = document.getElementById('down-tag');
-let tag_left = document.getElementById('left-tag');
-let tag_right = document.getElementById('right-tag');
+let upTag = document.getElementById('up-tag');
+let downTag = document.getElementById('down-tag');
+let leftTag = document.getElementById('left-tag');
+let rightTag = document.getElementById('right-tag');
 
-let box_up = document.getElementById('up__box');
-let box_down = document.getElementById('down__box');
-let box_left = document.getElementById('left__box');
-let box_right = document.getElementById('right__box');
+let upWrap = document.getElementById('up__wrap');
+let downWrap = document.getElementById('down__wrap');
+let leftWrap = document.getElementById('left__wrap');
+let rightWrap = document.getElementById('right__wrap');
 
-let radio_up1 = document.getElementById('up-1');
-let radio_up2 = document.getElementById('up-2');
-let radio_up3 = document.getElementById('up-3');
-let radio_down1 = document.getElementById('down-1');
-let radio_down2 = document.getElementById('down-2');
-let radio_left1 = document.getElementById('left-1');
-let radio_left2 = document.getElementById('left-2');
-let radio_left3 = document.getElementById('left-3');
-let radio_right1 = document.getElementById('right-1');
-let radio_right2 = document.getElementById('right-2');
-let radio_right3 = document.getElementById('right-3');
+let radioUp1 = document.getElementById('up-1');
+let radioUp2 = document.getElementById('up-2');
+let radioUp3 = document.getElementById('up-3');
+let radioDown1 = document.getElementById('down-1');
+let radioDown2 = document.getElementById('down-2');
+let radioLeft1 = document.getElementById('left-1');
+let radioLeft2 = document.getElementById('left-2');
+let radioLeft3 = document.getElementById('left-3');
+let radioRight1 = document.getElementById('right-1');
+let radioRight2 = document.getElementById('right-2');
+let radioRight3 = document.getElementById('right-3');
 
 // Создание порядка следования переключения между input.checked/label в полноэкранном режиме при жестах влево/вправо   
 var radioList = [
-	['.up', radio_up1, radio_up2, radio_up3],
-	['.right', radio_right1, radio_right2, radio_right3],
-	['.down', radio_down1, radio_down2 ],
-	['.left', radio_left1, radio_left2, radio_left3]
+	['.up', radioUp1, radioUp2, radioUp3],
+	['.right', radioRight1, radioRight2, radioRight3],
+	['.down', radioDown1, radioDown2 ],
+	['.left', radioLeft1, radioLeft2, radioLeft3]
 ];
 
 // Поведение.
@@ -333,25 +364,25 @@ down.addEventListener('mouseover', () => addHoverFirst('.down'));
 left.addEventListener('mouseover', () => addHoverFirst('.left'));
 right.addEventListener('mouseover', () => addHoverFirst('.right'));
 
-box_up.addEventListener('mouseover', () => addHoverFirst('.up'));
-box_down.addEventListener('mouseover', () => addHoverFirst('.down'));
-box_left.addEventListener('mouseover', () => addHoverFirst('.left'));
-box_right.addEventListener('mouseover', () => addHoverFirst('.right'));
+upWrap.addEventListener('mouseover', () => addHoverFirst('.up'));
+downWrap.addEventListener('mouseover', () => addHoverFirst('.down'));
+leftWrap.addEventListener('mouseover', () => addHoverFirst('.left'));
+rightWrap.addEventListener('mouseover', () => addHoverFirst('.right'));
 
-box_up.addEventListener('mouseout', removeAll);
-box_down.addEventListener('mouseout', removeAll);
-box_left.addEventListener('mouseout', removeAll);
-box_right.addEventListener('mouseout', removeAll);
+upWrap.addEventListener('mouseout', removeAll);
+downWrap.addEventListener('mouseout', removeAll);
+leftWrap.addEventListener('mouseout', removeAll);
+rightWrap.addEventListener('mouseout', removeAll);
 
-tag_up.addEventListener('mouseover', () => addHoverFirst('.up'));
-tag_down.addEventListener('mouseover', () => addHoverFirst('.down'));
-tag_left.addEventListener('mouseover', () => addHoverFirst('.left'));
-tag_right.addEventListener('mouseover', () => addHoverFirst('.right'));
+upTag.addEventListener('mouseover', () => addHoverFirst('.up'));
+downTag.addEventListener('mouseover', () => addHoverFirst('.down'));
+leftTag.addEventListener('mouseover', () => addHoverFirst('.left'));
+rightTag.addEventListener('mouseover', () => addHoverFirst('.right'));
 
 
 logo.addEventListener('mouseover',() => addHoverFirst('.logo'));
 logo.addEventListener('mouseout', removeAll);
-logo.addEventListener('touchstart', startLogo, false); 							// Блокировка случайного нажатия на контактные данные
+logo.addEventListener('touchstart', startLogo, false); 			// Блокировка случайного нажатия на контактные данные
 
 closeAll.addEventListener('click', () => removeAll('full'));
 footer.addEventListener('click', () => removeAll('full'));
@@ -375,10 +406,11 @@ cls.addEventListener('click', function() {
 });
 
 // Прокрутка. Восстановление верхнего положения
-radio_up1.addEventListener('click', scrollUp);
-radio_up2.addEventListener('click', scrollUp);
-radio_up3.addEventListener('click', scrollUp);
+radioUp1.addEventListener('click', scrollUp);
+radioUp2.addEventListener('click', scrollUp);
+radioUp3.addEventListener('click', scrollUp);
 
+// Переключение в лёгкую версию при долгой загрузке страницы
 toLight.addEventListener('click', lightVersion);
 
 //* Загрузка
@@ -393,43 +425,24 @@ let timerId = setInterval(() => {
 // Включение полной версии как только, так сразу
 fullVersion();
 
+//* Отслеживание
 // Отслеживание. Окончание загрузки страницы. 
 window.onload = function () {
 	loadComplete = true;
 	setTimeout(() => {
-		preloader.style.animation = "preloader 1s linear forwards";	// Отключение заставки
-		tag_up.style.animation = "load-tag-up 1s linear forwards";	// Отображение бирок
-		tag_down.style.animation = "load-tag-down 1s linear forwards";	
-		tag_right.style.animation = "load-tag-right 1s linear forwards";	
-		tag_left.style.animation = "load-tag-left 1s linear forwards";
+		removePreloader();
 		setTimeout(() => {
 			if (version && !blockActive) {	// Проверка лёгкой или полной версии и активного из-за смещения во времени
 				resetAnimation();
-				setAnimation();					// Включение анимации
 				changeTag = tag; 					// Флаг для отслеживание момента изменения размера бирок внутри Resize.
 			}	
 		}, 1000);
 	}, 1000);
 };
 
-//* Отслеживание
 // Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
-window.addEventListener('resize', function () {
-	// Переключение между лёгкой и полной версией
-	if (offScreen.matches && version) location.reload();		// Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим 		
-	else if (!version) fullVersion();								// Переход в полную версию при переходе в сверх узкий режим
-	// Переключение анимации и отображения бирок в полноэкранном режиме
-	if (fullScreen.matches && blockActive) {						// Полноэкранный режим + наведение
-		hiddenTitleTag();
-	} else if (blockActive) {											// Обычный режим + наведение
-		showTitleTag();
-		document.querySelector(blockActiveName + ' .tag').classList.add('hover');
-		document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');
-	}
-	if (version && !blockActive) resetAnimation();				// Перезапуск анимации (дальнейшая проверка внутри)
-	// Переключение отображения кнопок "Закрыть" и "Закрыть всё".
-	closeButton(mouse);
-});
+window.addEventListener("orientationchange", changeScreen);	// Поворот экрана
+window.addEventListener('resize', changeScreen);				// Изменение размеров экрана
 
 // Отслеживание. Движения
 document.addEventListener('touchstart', start, false);

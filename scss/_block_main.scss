@@ -21,7 +21,7 @@ main {
 	// позиция для отсутствия движения верхних бирок при наведении на боковые
 	position: relative;
 
-	// Горизонтальное заполнение по ширине left, right и wrap__center
+	// Горизонтальное заполнение по ширине left, right и center
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -60,7 +60,7 @@ main {
 	}
 
 	// Настройка тёмной области label's 1-7 (обёртка)
-	&__box {
+	&__wrap {
 		background-color: $background-dark;
 	}
 
@@ -90,7 +90,7 @@ main {
 	// Настройка бирок 2-7 - горизонтальные
 	&-tag {
 		top: 50%;
-		transform: translateY(-50%);
+		transform: scale(1, 1) translateY(-50%);
 		width: $width-horz-tag;
 		height: $height-horz-tag;
 
@@ -114,7 +114,7 @@ main {
 	}
 
 	// Настройка тёмной области label's 2-7 - горизонтальные
-	&__box {
+	&__wrap {
 		width: 0;
 		height: 100%;
 	}
@@ -133,7 +133,7 @@ main {
 	}
 
 	// Настройка тёмной области label's 3а-7 - левая
-	&__box {
+	&__wrap {
 		position: absolute;
 		left: 0;
 	}
@@ -145,7 +145,7 @@ main {
 	}
 
 	// Настройка тёмной области label's 4а-7 (наведение) - левая
-	&.hover &__box {
+	&.hover &__wrap {
 		width: 100%;
 		z-index: $index-hover;
 		transition: width $timeout;
@@ -173,7 +173,7 @@ main {
 	}
 
 	// Настройка тёмной области label's 3б-7 - правая
-	&__box {
+	&__wrap {
 		position: absolute;
 		right: 0;
 		overflow: hidden; // страховка из-за перехода от right: 0 к 100
@@ -186,7 +186,7 @@ main {
 	}
 
 	// Настройка тёмной области label's 4б-7 (наведение) - правая
-	&.hover &__box {
+	&.hover &__wrap {
 		width: 100%;
 		z-index: $index-hover;
 		transition: width $timeout;
@@ -200,7 +200,7 @@ main {
 	}
 }
 
-.wrap__center {
+.center {
 	width: $width-vert-block;
 	height: 100%;
 
@@ -237,7 +237,7 @@ main {
 	// Настройка бирок 5-7 
 	&-tag {
 		left: 50%;
-		transform: translateX(-50%);
+		transform: scale(1, 1) translateX(-50%);
 		width: $width-vert-tag;
 		height: $height-vert-tag;
 		text-align: center;
@@ -252,7 +252,7 @@ main {
 	}
 
 	// Настройка тёмной области label's 5-7
-	&__box {
+	&__wrap {
 		width: 100%;
 		height: 0;
 		padding: 0 20px;
@@ -281,7 +281,7 @@ main {
 	}
 
 	// Настройка тёмной области label's 6а-7  - верх
-	&__box {
+	&__wrap {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -294,7 +294,7 @@ main {
 	}
 
 	// Настройка тёмной области label's 7а-7 (наведение) - верх
-	&.hover &__box {
+	&.hover &__wrap {
 		height: 100%;
 		transition: height $timeout;
 	}
@@ -318,7 +318,7 @@ main {
 	}
 
 	// Настройка тёмной области label's 6б-7 - низ
-	&__box {
+	&__wrap {
 		position: absolute;
 		bottom: 0;
 		left: 0;
@@ -331,7 +331,7 @@ main {
 	}
 
 	// Настройка тёмной области label's 7б-7 (наведение) - низ
-	&.hover &__box {
+	&.hover &__wrap {
 		height: 100%;
 		transition: height $timeout;
 	}
@@ -411,7 +411,7 @@ main {
 	transition: all $timeout;
 
 
-	&~.wrap__center {
+	&~.center {
 		width: $width-horz-block;
 
 		// Блок-обёртка информационного содержимого 2а-4
@@ -436,7 +436,7 @@ main {
 	@include screen-full {
 		width: 50%;
 
-		&~.wrap__center {
+		&~.center {
 			width: 50%;
 
 			// Блок-обёртка информационного содержимого 2б-4 
@@ -450,7 +450,7 @@ main {
 	@include screen-full-horz {
 		width: 0;
 
-		&~.wrap__center {
+		&~.center {
 			width: 100%;
 
 			// Блок-обёртка информационного содержимого 2в-4 
@@ -529,8 +529,8 @@ main {
 
 // Блок-обёртка информационного содержимого 4-4 
 // Отображение содержимого - блок info 1-2 (область белого)
-.left.hover~.wrap__center .info,
-.right.hover+.wrap__center .info,
+.left.hover~.center .info,
+.right.hover+.center .info,
 .up.hover~.info,
 .down.hover+.info {
 	opacity: 1;
@@ -546,8 +546,8 @@ main {
 
 // Отображение содержимого - блок info 2-2 (область белого)
 // Общие для всех вложенных блоков в info настройки + при наведении 4-4
-.left.hover~.wrap__center .info__left,
-.right.hover+.wrap__center .info__right,
+.left.hover~.center .info__left,
+.right.hover+.center .info__right,
 .up.hover~.info .info__up,
 .down.hover+.info .info__down {
 	display: block;

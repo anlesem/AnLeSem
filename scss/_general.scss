@@ -243,12 +243,14 @@ body {
 	opacity: 0.3;
 	transition: all $timeout;
 
+	// Надпись "Закрыть" в состоянии наведения
 	& span {
 		display: none;
 		overflow: hidden;
 		color: $button-pink;
 	}
 
+	// Х в пассивном режиме
 	& svg {
 		@include position-center;
 		fill: $button-pink;
