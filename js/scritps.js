@@ -1,6 +1,18 @@
+//* Логика Лёгкой версии
+// 1. подключение JS. Если успех, меняется содержимое warning
+// 2. Размер экрана.  
+
+//* Логика анимации загрузки
+// 1. подключение JS. Если успех, отключается анимация появления загрузки для управления в JS
+// 2. отслеживание загрузки страницы:
+//		а. через 3 секунды предоставляется возможность перейти на лёгкую версию
+//		б. при успешной загрузке отключается блок preloader с задержкой 2 секунды, чтобы не было эффекта дозагрузки фонового изображения
+//		в. включение анимации с такой же задержкой
+
 function fullVersion() {
 	// Включение полноценной версии только в случае подходящего разрешения экрана
 	if (!offScreen.matches) {
+		preloader.style.animation = "unset"; // Отключение анимации загрузки для управления в JS
 		let elemA = document.querySelectorAll('.light');
 		let i = 0;
 		for (let n of elemA) {
@@ -11,8 +23,23 @@ function fullVersion() {
 		}
 	}
 	// Изменение предупредительной надписи в лёгкой версии
-	let warning = document.getElementById('warning');
 	warning.innerHTML = "Расширение экрана не позволяет корректно отобразить всё оформление страницы.";
+}
+
+function lightVersion() {
+	let elemA = document.querySelectorAll('.normal');
+	let i = 0;
+	for (let n of elemA) {
+		i++;
+		n.classList.add('light');
+		n.classList.remove('normal');
+		if (i == elemA.length) {
+			preloader.style.display = 'none';	// Отключение заставки
+			version = false;
+			removeAnimation();
+		}
+	}
+	warning.innerHTML = "Имеет смысл перегрузить страницу, когда скорость интернет-соединения станет выше.";
 }
 
 // Флаг. Активный блок - задание актуальных параметров
@@ -30,23 +57,25 @@ function blockStopSet(block) {
 
 // Поведение. Первоначальный показ при наведении
 function addHoverFirst(block) {
-	if (!offScreen.matches && !blockStop) {	// Блокировка наведения при лёгкой версии и при управлении мышью
-		removeAll();
-		addHover(block);
-		blockStopSet(block);
-	}
-	else if (blockStopName != block) {			// Проверка соответствует ли открываемый блок закрытому накануне
-		removeAll();
-		addHover(block);
-		blockStopSet(block);							// Установка нового значения блокирующего блока
-		blockStop = false;							// Сброс блокировки до нажатия на кнопку "Закрыть"
+	if (version) {
+		if (!offScreen.matches && !blockStop) {	// Блокировка наведения при лёгкой версии и при управлении мышью
+			removeAll();
+			addHover(block);
+			blockStopSet(block);
+		}
+		else if (blockStopName != block) {			// Проверка соответствует ли открываемый блок закрытому накануне
+			removeAll();
+			addHover(block);
+			blockStopSet(block);							// Установка нового значения блокирующего блока
+			blockStop = false;							// Сброс блокировки до нажатия на кнопку "Закрыть"
+		}
 	}
 }
 
 // Поведение. Показ при наведении на внутренние компоненты
 function addHover(block) {
 	document.querySelector(block).classList.add('hover');
-	document.querySelector('.close-all').classList.add('hover');
+	closeAll.classList.add('hover');
 	if (block != '.logo') {							// Исключение логотипа из общего стиля поведения
 		blockActiveSet(block);						// Установка нового значения активного блока
 		hiddenTitleTag();								// Скрытие бирок
@@ -57,12 +86,12 @@ function addHover(block) {
 // Поведение. Закрытие всего открытого
 function removeAll(n) {
 	showTitleTag();																	// Включение бирок
-	document.querySelector('.close-all').classList.remove('hover');
-	document.querySelector('.up').classList.remove('hover');
-	document.querySelector('.down').classList.remove('hover');
-	document.querySelector('.left').classList.remove('hover');
-	document.querySelector('.right').classList.remove('hover');
-	document.querySelector('.logo').classList.remove('hover');
+	closeAll.classList.remove('hover');
+	up.classList.remove('hover');
+	down.classList.remove('hover');
+	left.classList.remove('hover');
+	right.classList.remove('hover');
+	logo.classList.remove('hover');
 	logo.addEventListener('touchstart', startLogo, false);				// Восстановление "слушателя" после блокировки случайного нажатия на контактные данные
 	blockActive = false;																// Сброс флага активного блока
 	if (n == 'full') blockStop = false;											// Полный сброс при нажатии на footer или кнопку "Закрыть всё" (если есть такая возможность)
@@ -83,41 +112,43 @@ function closeButton(mouse) {
 // Поведение. Только логотип - касание. Блокировка случайного нажатия на контактные данные
 function startLogo(event) {
 	event.preventDefault();															// Отключение действий браузера по умолчанию
-	addHover('.logo');																// Дублирование эффекта наведения
+	if (version) addHover('.logo');												// Дублирование эффекта наведения
 	logo.removeEventListener('touchstart', startLogo, false);			// Удаление "слушателя" для восстановления действий браузера по умолчанию
 }
 
 // Управление анимацией. 
 function setAnimation() {
-	let intervals = 8;										// Период длительности анимации
-	let delay = 5;												// Общая задержка при старте, чтобы не отвлекала и не мешала активному использованию						
+	if (version) {
+		let intervals = 8;										// Период длительности анимации
+		let delay = 5;												// Общая задержка при старте, чтобы не отвлекала и не мешала активному использованию						
 
-	document.querySelector('.info').style.animation = 'info-opacity infinite ' + intervals + 's ' + delay + 's linear';
-	document.querySelector('.info__up').style.animation = 'info-text infinite ' + intervals * 3 + 's ' + delay + 's linear';
-	document.querySelector('.logo').style.animation = 'circle infinite ' + intervals + 's ' + (delay + intervals / 2) + 's linear';
-	if (slimScreen.matches) {
-		tag = 'slim';											// Переключение флага размера бирок
-		document.querySelector('.up-tag').style.animation = 'rhythm-tag-vert-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		document.querySelector('.down-tag').style.animation = 'rhythm-tag-vert-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		document.querySelector('.left-tag').style.animation = 'rhythm-tag-horz-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		document.querySelector('.right-tag').style.animation = 'rhythm-tag-horz-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-	} else {
-		tag = 'normal';										// Переключение флага размера бирок
-		document.querySelector('.left-tag').style.animation = 'rhythm-tag-horz infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		document.querySelector('.right-tag').style.animation = 'rhythm-tag-horz infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		document.querySelector('.up-tag').style.animation = 'rhythm-tag-vert infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		document.querySelector('.down-tag').style.animation = 'rhythm-tag-vert infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+		info.style.animation = 'info-opacity infinite ' + intervals + 's ' + delay + 's linear';
+		info_up.style.animation = 'info-text infinite ' + intervals * 3 + 's ' + delay + 's linear';
+		logo.style.animation = 'circle infinite ' + intervals + 's ' + (delay + intervals / 2) + 's linear';
+		if (slimScreen.matches) {
+			tag = 'slim';											// Переключение флага размера бирок
+			tag_up.style.animation = 'rhythm-tag-vert-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			tag_down.style.animation = 'rhythm-tag-vert-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			tag_left.style.animation = 'rhythm-tag-horz-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			tag_right.style.animation = 'rhythm-tag-horz-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+		} else {
+			tag = 'normal';										// Переключение флага размера бирок
+			tag_left.style.animation = 'rhythm-tag-horz infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			tag_right.style.animation = 'rhythm-tag-horz infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			tag_up.style.animation = 'rhythm-tag-vert infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+			tag_down.style.animation = 'rhythm-tag-vert infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
+		}
 	}
 }
 
 function removeAnimation() {
-	document.querySelector('.info').style.animation = "unset";
-	document.querySelector('.info__up').style.animation = "unset";
-	document.querySelector('.logo').style.animation = "unset";
-	document.querySelector('.left-tag').style.animation = 'unset';
-	document.querySelector('.right-tag').style.animation = 'unset';
-	document.querySelector('.up-tag').style.animation = 'unset';
-	document.querySelector('.down-tag').style.animation = 'unset';
+	info.style.animation = "unset";
+	info_up.style.animation = "unset";
+	logo.style.animation = "unset";
+	tag_left.style.animation = 'unset';
+	tag_right.style.animation = 'unset';
+	tag_up.style.animation = 'unset';
+	tag_down.style.animation = 'unset';
 }
 
 function resetAnimation() {
@@ -224,6 +255,8 @@ var finalPoint;				// конец движения
 
 // Переменные для хранения актуальных параметров и состояния
 var version = false; 		// Флаг загрузки полной версии сайта
+var loadComplete = false; 	// Флаг загрузки страницы для проверки отображения кнопки перехода на лёгкую версию 
+
 var blockActive = false; 	// Флаг открыт ли какой-нибудь блок. Обнуляется при RemoveAll.
 var blockActiveName;			// Активный блок для подключения info для матрицы в slide и для анимации бирок при resize.  
 									// В отличии от "blockActive" для избегания скачков при движениях обнуляется в info. 
@@ -245,10 +278,13 @@ const offScreen = window.matchMedia('(max-width: ' + screen_off + 'px), (max-hei
 // Активные компоненты
 let header = document.getElementById('header');
 let logo = document.getElementById('logo');
-
 let footer = document.getElementById('footer');
 let cls = document.getElementById('close');
 let closeAll = document.getElementById('close-all');
+
+let preloader = document.getElementById('preloader');
+let toLight = document.getElementById('to-light');
+let warning = document.getElementById('warning');
 
 let info = document.getElementById('info');
 let info_up = document.getElementById('info__up');
@@ -343,17 +379,40 @@ radio_up1.addEventListener('click', scrollUp);
 radio_up2.addEventListener('click', scrollUp);
 radio_up3.addEventListener('click', scrollUp);
 
-// Включение полного функционала сайта
+toLight.addEventListener('click', lightVersion);
+
+//* Загрузка
+// Запуск таймера от начала загрузки страницы
+var t = 0;
+let timerId = setInterval(() => {
+	if (loadComplete) clearInterval(timerId);		// Удаление таймера по факту загрузки страницы
+	t++;
+	if (t == 3) toLight.style.display = 'block';
+}, 1000);
+
+// Включение полной версии как только, так сразу
 fullVersion();
 
-// Отслеживание. Включение анимации при окончании загрузки страницы. 
+// Отслеживание. Окончание загрузки страницы. 
 window.onload = function () {
-	if (version) {					// Проверка лёгкой или полной версии
-		setAnimation();			// Включение анимации
-		changeTag = tag; 			// Флаг для отслеживание момента изменения размера бирок внутри Resize.
-	}
+	loadComplete = true;
+	setTimeout(() => {
+		preloader.style.animation = "preloader 1s linear forwards";	// Отключение заставки
+		tag_up.style.animation = "load-tag-up 1s linear forwards";	// Отображение бирок
+		tag_down.style.animation = "load-tag-down 1s linear forwards";	
+		tag_right.style.animation = "load-tag-right 1s linear forwards";	
+		tag_left.style.animation = "load-tag-left 1s linear forwards";
+		setTimeout(() => {
+			if (version && !blockActive) {	// Проверка лёгкой или полной версии и активного из-за смещения во времени
+				resetAnimation();
+				setAnimation();					// Включение анимации
+				changeTag = tag; 					// Флаг для отслеживание момента изменения размера бирок внутри Resize.
+			}	
+		}, 1000);
+	}, 1000);
 };
 
+//* Отслеживание
 // Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
 window.addEventListener('resize', function () {
 	// Переключение между лёгкой и полной версией

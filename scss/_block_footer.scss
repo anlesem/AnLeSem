@@ -1,15 +1,16 @@
 footer {
+	position: relative;
+	z-index: $index-head-foot;
 	height: 70px;
 	line-height: 70px;
-	position: relative;
 	background-color: $background-dark;
 
-	// Настройка горизонтальной ориентации экрана 1-4 (+ header и main)
+	// Настройка горизонтальной ориентации экрана 1-4 (+ general, main и header)
 	@media (min-aspect-ratio: $proportion-land) {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
-		width: 120px;
+		width: 80px;
 		height: 100%;
 	}
 

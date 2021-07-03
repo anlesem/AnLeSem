@@ -6,7 +6,7 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 
-	// Настройка горизонтальной ориентации экрана 1-2 (+ header и footer) - в горизонтальное положение
+	// Настройка горизонтальной ориентации экрана 1-2 (+ general, header и footer)
 	@media (min-aspect-ratio: $proportion-land) {
 		flex-direction: row;
 	}
@@ -176,6 +176,7 @@ main {
 	&__box {
 		position: absolute;
 		right: 0;
+		overflow: hidden; // страховка из-за перехода от right: 0 к 100
 	}
 
 	// Настройка бирок 4б-7 (наведение) - правая
@@ -398,48 +399,6 @@ main {
 		&.light {
 			display: block;
 			overflow: visible;
-		}
-	}
-}
-
-// Кнопка Закрыть при управлении мышкой + большие экраны
-.close {
-	display: none;
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	z-index: $index-close;
-	width: 30px;
-	height: 30px;
-	line-height: 25px;
-	border: 1px solid $background-dark;
-	border-radius: 15px;
-	background: none;
-	opacity: 0.3;
-	transition: all $timeout;
-
-	& span {
-		display: none;
-		overflow: hidden;
-	}
-
-	& svg {
-		@include position-center;
-	}
-
-	&:hover {
-		width: 80px;
-		opacity: 1;
-		cursor: pointer;
-		border: 1px solid #000;
-		background: #fff;
-
-		& span {
-			display: block;
-		}
-
-		& svg {
-			display: none;
 		}
 	}
 }

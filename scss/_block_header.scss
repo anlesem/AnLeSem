@@ -1,10 +1,12 @@
 header {
+	position: relative;
+	z-index: $index-head-foot;
 	height: 100px;
 	background-color: $background-dark;
 
-	// Настройка горизонтальной ориентации экрана 1-9 (+ main и footer)
+	// Настройка горизонтальной ориентации экрана 1-9 (+ general, main и footer)
 	@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
-		width: 30%;
+		width: 20%;
 		height: 100%;
 	}
 
@@ -14,73 +16,11 @@ header {
 		top: 0;
 		left: 0;
 		right: 0;
-		z-index: 20;
 		width: 100%;
 		height: auto;
 
 		@media (max-height: $slim-screen-tag) {
 			position: relative;
-		}
-	}
-}
-
-// Настройка предупреждения для лёгкой версии
-// Обёртка
-.warning {
-	display: none;
-	position: absolute;
-	top: 100%;
-	right: 10px;
-	z-index: $index-close;
-	margin-top: 10px;
-	padding: 5px 5px;
-	width: calc(100% - 20px); // выравнивание по горизонтали, учитывая отступ right * 2
-	transition: all $timeout;
-
-	// Сброс настроек по умолчанию для кнопок
-	border: none;
-	background: none;
-
-	// Лёгкая версия 2-4	
-	&.light {
-		display: block;
-	}
-
-	// Иконка в пассивном режиме 1-2
-	&::after {
-		content: "!";
-		position: absolute;
-		top: 5px;
-		right: 5px;
-		width: 20px;
-		height: 20px;
-		line-height: 20px;
-		border: 1px solid #d34646;
-		border-radius: 15px;
-		opacity: 0.3;
-		transition: all $timeout;
-		color: #d34646;
-	}
-
-	// Содержимое в пассивном режиме 1-2
-	& span {
-		display: none;
-		color: #d34646;
-	}
-
-	&:hover {
-		border: 1px solid #d34646;
-		background: #fff;
-		border-radius: 3px;
-
-		// Иконка в режиме наведения 2-2
-		&::after {
-			content: none;
-		}
-
-		// Содержимое в режиме наведения 2-2
-		& span.light {
-			display: block;
 		}
 	}
 }
