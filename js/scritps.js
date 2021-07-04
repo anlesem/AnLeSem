@@ -443,6 +443,12 @@ window.onload = function () {
 // Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
 // window.addEventListener("orientationchange", changeScreen);	// Поворот экрана
 // window.addEventListener('resize', changeScreen);				// Изменение размеров экрана
+window.onorientationchange = opppa;
+
+function opppa() {
+	alert('Hi Iphone... opppa');
+	changeScreen();
+}
 
 window.addEventListener('orientationchange', function () {
 	alert('Hi Iphone... orientation');
