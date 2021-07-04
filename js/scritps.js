@@ -441,8 +441,18 @@ window.onload = function () {
 };
 
 // Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
-window.addEventListener("orientationchange", changeScreen);	// Поворот экрана
-window.addEventListener('resize', changeScreen);				// Изменение размеров экрана
+// window.addEventListener("orientationchange", changeScreen);	// Поворот экрана
+// window.addEventListener('resize', changeScreen);				// Изменение размеров экрана
+
+window.addEventListener('orientationchange', function () {
+	alert('Hi Iphone... orientation');
+	changeScreen();
+}, false);
+window.addEventListener('resize', function () {
+	alert('Hi Iphone... resize');
+	changeScreen();
+}, false);				
+
 
 // Отслеживание. Движения
 document.addEventListener('touchstart', start, false);
