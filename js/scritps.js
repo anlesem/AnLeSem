@@ -192,28 +192,6 @@ function scrollUp() {
 	info_up.scrollTop = 0;
 }
 
-// Отслеживание. Изменение размеров экрана
-function changeScreen() {
-	alert('screen ' + offScreen.matches + ', version ' + version);
-	// Переключение между лёгкой и полной версией
-	if (offScreen.matches && version) location.reload();		// Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим 		
-	else if (!version) {													// Переход в полную версию при переходе в сверх узкий режим
-		fullVersion();
-		removePreloader();
-	}
-	// Переключение анимации и отображения бирок в полноэкранном режиме
-	if (fullScreen.matches && blockActive) {						// Полноэкранный режим + наведение
-		hiddenTitleTag();
-	} else if (blockActive) {											// Обычный режим + наведение
-		showTitleTag();
-		document.querySelector(blockActiveName + ' .tag').classList.add('hover');
-		document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');
-	}
-	if (version && !blockActive) resetAnimation();				// Перезапуск анимации (дальнейшая проверка внутри)
-	// Переключение отображения кнопок "Закрыть" и "Закрыть всё".
-	closeButton(mouse);
-}
-
 // Отслеживание. Движения
 function start(event) {
 	initialPoint = event.changedTouches[0];
@@ -441,21 +419,25 @@ window.onload = function () {
 };
 
 // Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
-// window.addEventListener("orientationchange", changeScreen);	// Поворот экрана
-// window.addEventListener('resize', changeScreen);				// Изменение размеров экрана
-// window.onorientationchange = opppa;
-
-// function opppa() {
-// 	alert('Hi Iphone... opppa');
-// 	changeScreen();
-// }
-
-// window.addEventListener('orientationchange', function () {
-// 	alert('Hi Iphone... orientation');
-// 	changeScreen();
-// }, false);
 window.addEventListener('resize', function () {
-		changeScreen();
+	alert('screen ' + window.innerHeight);
+	// Переключение между лёгкой и полной версией
+	if (offScreen.matches && version) location.reload();		// Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим 		
+	else if (!version) {													// Переход в полную версию при переходе в сверх узкий режим
+		fullVersion();
+		removePreloader();
+	}
+	// Переключение анимации и отображения бирок в полноэкранном режиме
+	if (fullScreen.matches && blockActive) {						// Полноэкранный режим + наведение
+		hiddenTitleTag();
+	} else if (blockActive) {											// Обычный режим + наведение
+		showTitleTag();
+		document.querySelector(blockActiveName + ' .tag').classList.add('hover');
+		document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');
+	}
+	if (version && !blockActive) resetAnimation();				// Перезапуск анимации (дальнейшая проверка внутри)
+	// Переключение отображения кнопок "Закрыть" и "Закрыть всё".
+	closeButton(mouse);
 }, false);				
 
 
