@@ -280,9 +280,9 @@ var mouse;						// Хранит используемое устройство в
 var rotateScreen = false;	// Флаг поворота экрана, чтобы дважды не вызывать одну и ту же функцию
 
 // Медиа запросы  (следует уточнять в _mixin.scss). Полный, узкий или совсем узкий экран.
-const fullScreen = window.matchMedia('(max-width:  ' + pcWidth + 'px) and (min-aspect-ratio: ' + proportion + '), (max-height: ' + breakHeight + 'px), (max-width:  ' + laptopWidth + 'px)');
-const slimScreen = window.matchMedia('(max-width: ' + slimScreenTag + 'px), (max-height:  ' + slimScreenTag + 'px), (max-height: 475px) and (max-aspect-ratio: ' + proportion + ')');
-const offScreen = window.matchMedia('(max-width: ' + screenOff + 'px), (max-height:  ' + screenOff + 'px), (max-height: 375px) and (max-aspect-ratio: ' + proportion + ')');
+const fullScreen = window.matchMedia('screen and (max-width:  ' + pcWidth + 'px) and (min-aspect-ratio: ' + proportion + '), (max-height: ' + breakHeight + 'px), (max-width:  ' + laptopWidth + 'px)');
+const slimScreen = window.matchMedia('screen and (max-width: ' + slimScreenTag + 'px), (max-height:  ' + slimScreenTag + 'px), (max-height: 475px) and (max-aspect-ratio: ' + proportion + ')');
+const offScreen = window.matchMedia('screen and (max-width: ' + screenOff + 'px), (max-height:  ' + screenOff + 'px), (max-height: 375px) and (max-aspect-ratio: ' + proportion + ')');
 
 // Активные компоненты
 let header = document.getElementById('header');
