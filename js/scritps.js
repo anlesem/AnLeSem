@@ -282,7 +282,7 @@ var rotateScreen = false;	// Флаг поворота экрана, чтобы 
 // Медиа запросы  (следует уточнять в _mixin.scss). Полный, узкий или совсем узкий экран.
 const fullScreen = window.matchMedia('screen and (max-width:  ' + pcWidth + 'px) and (min-aspect-ratio: ' + proportion + '), (max-height: ' + breakHeight + 'px), (max-width:  ' + laptopWidth + 'px)');
 const slimScreen = window.matchMedia('screen and (max-width: ' + slimScreenTag + 'px), (max-height:  ' + slimScreenTag + 'px), (max-height: 475px) and (max-aspect-ratio: ' + proportion + ')');
-const offScreen = window.matchMedia('screen and (max-width: ' + screenOff + 'px), screen and (max-height:  ' + screenOff + 'px), screen and (max-height: 375px) and (max-aspect-ratio: ' + proportion + ')');
+const offScreen = window.matchMedia('screen and (max-width: ' + screenOff + 'px), screen and (max-height:  ' + screenOff + 'px), screen and (max-height: 380px) and (max-aspect-ratio: ' + proportion + ')');
 
 // Активные компоненты
 let header = document.getElementById('header');
@@ -419,12 +419,17 @@ window.onload = function () {
 };
 
 // Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
-offScreen.addEventListener(handleTabletChange);
+offScreen.addListener(screenOnOff);
 
-function handleTabletChange() {
-	alert(window.innerWidth + ' viewport ' + window.innerHeight + ' off ' + offScreen.matches + '\n' +
+function screenOnOff() {
+	if (offScreen.matches) {
+		alert(window.innerWidth + ' viewport ' + window.innerHeight + ' off ' + offScreen.matches + '\n' +
 			window.screen.width + ' screen ' + window.screen.height + ' screen and');
-	if (version) location.reload();
+		if (version) location.reload();
+	} else if (!version) {													// Переход в полную версию при переходе в сверх узкий режим
+		fullVersion();
+		removePreloader();
+	}
 }
 
 
