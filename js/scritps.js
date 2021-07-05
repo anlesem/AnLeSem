@@ -420,7 +420,7 @@ window.onload = function () {
 
 // Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
 window.addEventListener('resize', function () {
-	alert('screen ' + window.innerHeight);
+	alert(window.innerWidth + ' screen ' + window.innerHeight);
 	// Переключение между лёгкой и полной версией
 	if (offScreen.matches && version) location.reload();		// Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим 		
 	else if (!version) {													// Переход в полную версию при переходе в сверх узкий режим
