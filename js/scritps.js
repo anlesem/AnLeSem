@@ -419,27 +419,36 @@ window.onload = function () {
 };
 
 // Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
-window.addEventListener('resize', function () {
+offScreen.addEventListener(handleTabletChange);
+
+function handleTabletChange() {
 	alert(window.innerWidth + ' viewport ' + window.innerHeight + ' off ' + offScreen.matches + '\n' +
-	window.screen.width + ' screen ' + window.screen.height + ' screen and');
-	// Переключение между лёгкой и полной версией
-	if (offScreen.matches && version) location.reload();		// Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим 		
-	else if (!version) {													// Переход в полную версию при переходе в сверх узкий режим
-		fullVersion();
-		removePreloader();
-	}
-	// Переключение анимации и отображения бирок в полноэкранном режиме
-	if (fullScreen.matches && blockActive) {						// Полноэкранный режим + наведение
-		hiddenTitleTag();
-	} else if (blockActive) {											// Обычный режим + наведение
-		showTitleTag();
-		document.querySelector(blockActiveName + ' .tag').classList.add('hover');
-		document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');
-	}
-	if (version && !blockActive) resetAnimation();				// Перезапуск анимации (дальнейшая проверка внутри)
-	// Переключение отображения кнопок "Закрыть" и "Закрыть всё".
-	closeButton(mouse);
-}, false);				
+			window.screen.width + ' screen ' + window.screen.height + ' screen and');
+	if (version) location.reload();
+}
+
+
+// window.addEventListener('resize', function () {
+// 	alert(window.innerWidth + ' viewport ' + window.innerHeight + ' off ' + offScreen.matches + '\n' +
+// 	window.screen.width + ' screen ' + window.screen.height + ' screen and');
+// 	// Переключение между лёгкой и полной версией
+// 	if (offScreen.matches && version) location.reload();		// Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим 		
+// 	else if (!version) {													// Переход в полную версию при переходе в сверх узкий режим
+// 		fullVersion();
+// 		removePreloader();
+// 	}
+// 	// Переключение анимации и отображения бирок в полноэкранном режиме
+// 	if (fullScreen.matches && blockActive) {						// Полноэкранный режим + наведение
+// 		hiddenTitleTag();
+// 	} else if (blockActive) {											// Обычный режим + наведение
+// 		showTitleTag();
+// 		document.querySelector(blockActiveName + ' .tag').classList.add('hover');
+// 		document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');
+// 	}
+// 	if (version && !blockActive) resetAnimation();				// Перезапуск анимации (дальнейшая проверка внутри)
+// 	// Переключение отображения кнопок "Закрыть" и "Закрыть всё".
+// 	closeButton(mouse);
+// }, false);				
 
 
 // Отслеживание. Движения
