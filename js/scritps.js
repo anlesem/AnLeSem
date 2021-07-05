@@ -194,7 +194,7 @@ function scrollUp() {
 
 // Отслеживание. Изменение размеров экрана
 function changeScreen() {
-	console.log(version);
+	alert('screen ' + offScreen.matches + ', version ' + version);
 	// Переключение между лёгкой и полной версией
 	if (offScreen.matches && version) location.reload();		// Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим 		
 	else if (!version) {													// Переход в полную версию при переходе в сверх узкий режим
@@ -443,20 +443,19 @@ window.onload = function () {
 // Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
 // window.addEventListener("orientationchange", changeScreen);	// Поворот экрана
 // window.addEventListener('resize', changeScreen);				// Изменение размеров экрана
-window.onorientationchange = opppa;
+// window.onorientationchange = opppa;
 
-function opppa() {
-	alert('Hi Iphone... opppa');
-	changeScreen();
-}
+// function opppa() {
+// 	alert('Hi Iphone... opppa');
+// 	changeScreen();
+// }
 
-window.addEventListener('orientationchange', function () {
-	alert('Hi Iphone... orientation');
-	changeScreen();
-}, false);
+// window.addEventListener('orientationchange', function () {
+// 	alert('Hi Iphone... orientation');
+// 	changeScreen();
+// }, false);
 window.addEventListener('resize', function () {
-	alert('Hi Iphone... resize');
-	changeScreen();
+		changeScreen();
 }, false);				
 
 
