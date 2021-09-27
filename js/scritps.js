@@ -31,11 +31,11 @@ function fullVersion() {
 
 // Отключение загрузочной заставки
 function removePreloader() {
-	preloader.style.animation = "preloader 1s linear forwards";	// Отключение заставки
-	upTag.style.animation = "load-tag-up 1s linear forwards";	// Отображение бирок
-	downTag.style.animation = "load-tag-down 1s linear forwards";	
-	rightTag.style.animation = "load-tag-right 1s linear forwards";	
-	leftTag.style.animation = "load-tag-left 1s linear forwards";
+	preloader.style.animation = "preloader 300ms linear forwards";	// Отключение заставки
+	upTag.style.animation = "load-tag-up 300ms linear forwards";	// Отображение бирок
+	downTag.style.animation = "load-tag-down 300ms linear forwards";	
+	rightTag.style.animation = "load-tag-right 300ms linear forwards";	
+	leftTag.style.animation = "load-tag-left 300ms linear forwards";
 }
 
 // Возврат на лёгкую версию
@@ -49,6 +49,7 @@ function lightVersion() {
 		if (i == elemA.length) {
 			preloader.style.display = 'none';	// Отключение заставки
 			version = false;
+			versionLight = true;
 			removeAnimation();
 		}
 	}
@@ -59,30 +60,21 @@ function lightVersion() {
 // Полноэкранный режим
 function fullScreenMedia() {
 	if ((window.innerWidth < pcWidth && window.innerWidth / window.innerHeight > proportion) ||
-		window.innerHeight < breakHeight || window.innerWidth < laptopWidth) {
-			console.log('full');
-			return true;
-		}
+		window.innerHeight < breakHeight || window.innerWidth < laptopWidth) return true;
 	else return false;
 }
 
 // Узкий экран
 function slimScreenMedia() {
 	if ((window.innerHeight < 475 && window.innerWidth / window.innerHeight < proportion) ||
-		window.innerHeight < slimScreenTag || window.innerWidth < slimScreenTag) {
-		console.log('slim');
-		return true;
-	}
+		window.innerHeight < slimScreenTag || window.innerWidth < slimScreenTag) return true;
 	else return false;
 }
 
 // Экран только для лёгкой версии
 function offScreenMedia() {
 	if ((window.innerHeight < 375 && window.innerWidth / window.innerHeight < proportion) ||
-		window.innerHeight < screenOff || window.innerWidth < screenOff) {
-			console.log('off');
-			return true;
-		}
+		window.innerHeight < screenOff || window.innerWidth < screenOff) return true;
 	else return false;
 }
 
@@ -166,7 +158,7 @@ function startLogo(event) {
 function setAnimation() {
 	if (version) {
 		let intervals = 8;										// Период длительности анимации
-		let delay = 0;												// Общая задержка при старте, чтобы не отвлекала и не мешала активному использованию						
+		let delay = 8;												// Общая задержка при старте, чтобы не отвлекала и не мешала активному использованию						
 
 		info.style.animation = 'info-opacity infinite ' + intervals + 's ' + delay + 's linear';
 		info_up.style.animation = 'info-text infinite ' + intervals * 3 + 's ' + delay + 's linear';
@@ -242,7 +234,7 @@ function end(event) {
 	if (xAbs > 30 || yAbs > 30) {														// Диапазон смещения. Данный весьма мал, но сбоев не обнаружено
 		if (xAbs > yAbs) {
 			if (finalPoint.pageX < initialPoint.pageX) {
-				if (blockActive && fullScreens) slide('next');			// в полноэкранном режиме переключение между input.checked/label
+				if (blockActive && fullScreen) slide('next');			// в полноэкранном режиме переключение между input.checked/label
 				else if (!blockActive) addHoverFirst('.right'); 				// Движение влево только в неактивном состоянии 
 			}
 			else if (blockActive && fullScreen) slide('prev');		// в полноэкранном режиме переключение между input.checked/label
@@ -302,6 +294,7 @@ var finalPoint;				// конец движения
 // Переменные для хранения актуальных параметров и состояния
 var version = false; 		// Флаг загрузки полной версии сайта
 var loadComplete = false; 	// Флаг загрузки страницы для проверки отображения кнопки перехода на лёгкую версию 
+var versionLight = false; 	// Флаг перехода на лёгкую версии, чтобы она не сбрасывалась при resize  
 
 var blockActive = false; 	// Флаг открыт ли какой-нибудь блок. Обнуляется при RemoveAll.
 var blockActiveName;			// Активный блок для подключения info для матрицы в slide и для анимации бирок при resize.  
@@ -459,33 +452,35 @@ window.onload = function () {
 
 // Отслеживание. Корректное переключение анимации бирок, кнопки закрыть и "screenOff" при изменении размеров экрана
 window.addEventListener('resize', function () {
+	if (!versionLight) {											// Блокировка изменений при resize, когда переход на лёгкую версию выполнен вручную
+
+		// Переопределение медиа запросов
+		offScreen = offScreenMedia();
+		slimScreen = slimScreenMedia();
+		fullScreen = fullScreenMedia();
 	
-	// Переопределение медиа запросов
-	offScreen = offScreenMedia();
-	slimScreen = slimScreenMedia();
-	fullScreen = fullScreenMedia();
+		// Переключение между лёгкой и полной версией
+		if (offScreen && version) location.reload();		// Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим 		
+		else if (!version) {										// Переход в полную версию при переходе в сверх узкий режим
+			fullVersion();
+			removePreloader();
+		}
 	
-	// Переключение между лёгкой и полной версией
-	if (offScreen && version) location.reload();		// Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим 		
-	else if (!version) {										// Переход в полную версию при переходе в сверх узкий режим
-		fullVersion();
-		removePreloader();
+		// Полноэкранный режим. Переключение анимации и отображения бирок
+		if (fullScreen && blockActive) {						// Полноэкранный режим + наведение
+			hiddenTitleTag();
+		} else if (blockActive) {								// Обычный режим + наведение
+			showTitleTag();
+			document.querySelector(blockActiveName + ' .tag').classList.add('hover');
+			document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');
+		}
+	
+		// Перезапуск анимации (дальнейшая проверка внутри)
+		if (version && !blockActive) resetAnimation();
+	
+		// Переключение отображения кнопок "Закрыть" и "Закрыть всё".
+		closeButton(mouse);
 	}
-	
-	// Полноэкранный режим. Переключение анимации и отображения бирок
-	if (fullScreen && blockActive) {						// Полноэкранный режим + наведение
-		hiddenTitleTag();
-	} else if (blockActive) {								// Обычный режим + наведение
-		showTitleTag();
-		document.querySelector(blockActiveName + ' .tag').classList.add('hover');
-		document.querySelector(blockActiveName + ' .title-tag').classList.add('hover');
-	}
-	
-	// Перезапуск анимации (дальнейшая проверка внутри)
-	if (version && !blockActive) resetAnimation();				
-	
-	// Переключение отображения кнопок "Закрыть" и "Закрыть всё".
-	closeButton(mouse);
 }, false);				
 
 
