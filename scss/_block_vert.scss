@@ -122,11 +122,11 @@
 	margin: 20px 0;
 	text-align: center;
 
-	& img {
-		width: 384px;
-		height: 214px;
+	& video {
+		width: 480px;
+		height: 204px;
 
-		@media (max-width: 430px) {
+		@media (max-width: 530px) {
 			width: 100%;
 			height: auto;
 		}

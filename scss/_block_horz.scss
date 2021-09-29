@@ -38,7 +38,8 @@
 			}
 
 			// Настройка изображения
-			& picture {
+			& picture,
+			& video {
 				display: none;
 				object-fit: contain;
 				object-position: 50% 50%;
