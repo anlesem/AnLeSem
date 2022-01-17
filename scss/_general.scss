@@ -31,6 +31,8 @@ body {
 	font-weight: 400;
 	line-height: 22px;
 
+	overflow: hidden;
+
 	@media (max-width: $slim-screen),
 	(max-height: $slim-screen) {
 		font-size: 12px;
