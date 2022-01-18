@@ -224,10 +224,13 @@ function scrollUp() {
 
 // Отслеживание. Движения
 function start(event) {
+	event.preventDefault();
 	initialPoint = event.changedTouches[0];
+
 }
 
 function end(event) {
+	// event.preventDefault();
 	finalPoint = event.changedTouches[0];
 	var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
 	var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
@@ -486,7 +489,7 @@ window.addEventListener('resize', function () {
 
 // Отслеживание. Движения
 document.addEventListener('touchstart', start, false);
-document.addEventListener('touchend', end, false);
+document.addEventListener('touchmove', end, false);
 
 // Отслеживание. Тип устройства ввода
 // Отслеживание. Тип устройства ввода. Касание / нажатие (преимущественно для touch)
