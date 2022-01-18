@@ -227,8 +227,13 @@ function start(event) {
 	initialPoint = event.changedTouches[0];
 }
 
-function end(event) {
+function move(event) {
 	event.preventDefault();
+	// ToDO скролл
+}
+
+function end(event) {
+
 	finalPoint = event.changedTouches[0];
 	var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
 	var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
@@ -486,8 +491,9 @@ window.addEventListener('resize', function () {
 
 
 // Отслеживание. Движения
-document.addEventListener('touchstart', start, {passive: false});
-document.addEventListener('touchmove', end, {passive: false});
+document.addEventListener('touchstart', start);
+document.addEventListener('touchmove', move, {passive: false});
+document.addEventListener('touchend', end);
 
 // Отслеживание. Тип устройства ввода
 // Отслеживание. Тип устройства ввода. Касание / нажатие (преимущественно для touch)
