@@ -229,7 +229,7 @@ function start(event) {
 }
 
 function end(event) {
-	event.preventDefault();
+	if (!blockActive) event.preventDefault();
 	finalPoint = event.changedTouches[0];
 	var xAbs = Math.abs(initialPoint.pageX - finalPoint.pageX);
 	var yAbs = Math.abs(initialPoint.pageY - finalPoint.pageY);
