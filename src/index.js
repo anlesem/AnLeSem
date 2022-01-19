@@ -30,28 +30,12 @@ const animation = new Animation(8, 8, blocks);
 const screen = new Screen(1310, 1024, 5 / 2, 640, 320, 200, blocks, animation);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //! ---------------------------------------------------------------- Вызовы
 
 // Включение полной версии как только, так сразу
-screen.fullVersionOn();
-
-window.onload = () => {
-	screen.onload();
-};
+// Параметры (speed, delay): скорость переключения заставки и контента (значение в ms), 
+// задержка отображения кнопки перехода на лёгкую версию (значение в s)
+screen.fullVersionOn(500, 3);
 
 console.log(screen);
 console.log(blocks);

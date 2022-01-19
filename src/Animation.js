@@ -7,14 +7,14 @@ export default class Animation {
 	}
 
 	// Отключение анимации (заставки) при загрузке страницы за (ms)
-	removePreloader(timeOut) {
+	removePreloader(speed) {
 
 		// Отключение заставки
-		this.blocks.preloader.style.animation = `preloader ${timeOut}ms linear forwards`;
+		this.blocks.preloader.style.animation = `preloader ${speed}ms linear forwards`;
 
 		// Отображение бирок
 		this.blocks.block.forEach(element => {
-			element.tag.style.animation = `load-tag-${element.name} ${timeOut}ms linear forwards`;
+			element.tag.style.animation = `load-tag-${element.name} ${speed}ms linear forwards`;
 		});
 	}
 }

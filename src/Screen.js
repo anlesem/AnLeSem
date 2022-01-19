@@ -14,7 +14,10 @@ export default class Screen {
 	}
 
 	// Включение полной версии как только, так сразу
-	fullVersionOn() {
+	fullVersionOn(speed, delay) {
+		// Задержка до появления кнопки "Перейти на лёгкую версию" при старте в секундах
+		this.setButtonToLight(delay);
+
 		// Включение полноценной версии только в случае подходящего разрешения экрана
 		if (!this.offScreen) {
 
@@ -29,25 +32,28 @@ export default class Screen {
 		// Изменение предупредительной надписи в лёгкой версии
 		this.blocks.warning.innerHTML = "Расширение экрана не позволяет корректно отобразить всё оформление страницы.";
 
-		// Задержка до появления кнопки "Перейти на лёгкую версию" при старте в секундах
-		this.setButtonToLight(3);
+		// Отслеживание окончания загрузки страницы
+		window.onload = () => {
+			this.onload(speed);
+		};
 	}
 
 	// Задержка до появления кнопки "Перейти на лёгкую версию" при старте в секундах
-	setButtonToLight(timeOut) {
+	setButtonToLight(delay) {
 		let t = 0;
 		let timerId = setInterval(() => {
 			if (this.loadComplete) clearInterval(timerId);		// Удаление таймера по факту загрузки страницы
 			t++;
-			if (t == timeOut) this.blocks.toLight.style.display = 'block';
+			if (t == delay) this.blocks.toLight.style.display = 'block';
 		}, 1000);
 	}
 
-	onload() {
+	// Отслеживание окончания загрузки страницы
+	onload(speed) {
 		this.loadComplete = true;
 
 		setTimeout(() => {
-			this.animation.removePreloader(300);	// Отключение анимации (заставки) за (ms)
+			this.animation.removePreloader(speed);	// Отключение анимации (заставки) за (ms)
 		}, 1000);
 	}
 }
