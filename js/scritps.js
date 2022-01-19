@@ -225,11 +225,18 @@ function scrollUp() {
 // Отслеживание. Движения
 function start(event) {
 	initialPoint = event.changedTouches[0];
+	scrollPoint = event.changedTouches[0].screenY;
 }
 
 function move(event) {
 	event.preventDefault();
-	// ToDO скролл
+
+	if (event.defaultPrevented && blockActive) {
+		if (scrollPoint > event.changedTouches[0].screenY) {
+			info_up.scrollTop += 5;
+		} else info_up.scrollTop -= 5;
+		scrollPoint = event.changedTouches[0].screenY;
+	}
 }
 
 function end(event) {
@@ -296,6 +303,7 @@ var screenOff = 200;
 
 var initialPoint;				// начало движения
 var finalPoint;				// конец движения
+var scrollPoint;				// движение
 
 // Переменные для хранения актуальных параметров и состояния
 var version = false; 		// Флаг загрузки полной версии сайта
