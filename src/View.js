@@ -1,5 +1,5 @@
-export default class Screen {
-	constructor(pcWidth, laptopWidth, proportion, breakHeight, slimScreenTag, screenOff, blocks, animation) {
+export default class View {
+	constructor({ pcWidth, laptopWidth, proportion, breakHeight, slimScreenTag, screenOff }, blocks, animation) {
 		this.pcWidth = pcWidth;
 		this.laptopWidth = laptopWidth;
 		this.proportion = proportion;
@@ -10,9 +10,15 @@ export default class Screen {
 		this.blocks = blocks;
 		this.animation = animation;
 
-		this.loadComplete = false;
+		// Для установки задержки до появления кнопки "Перейти на лёгкую версию" при старте
+		this.timerId = null;
+
+		// Флаг перехода на лёгкую версию, чтобы она не сбрасывалась при resize
+		//? может проверить через класс одного из элементов
+		this.versionLightFlag = false;
 	}
 
+	//! ------------------------------------------------- Загрузка
 	// Включение полной версии как только, так сразу
 	fullVersionOn(speed, delay) {
 		// Задержка до появления кнопки "Перейти на лёгкую версию" при старте в секундах
@@ -38,22 +44,23 @@ export default class Screen {
 		};
 	}
 
-	// Задержка до появления кнопки "Перейти на лёгкую версию" при старте в секундах
+	// Задержка до появления кнопки "Перейти на лёгкую версию" при старте
 	setButtonToLight(delay) {
-		let t = 0;
-		let timerId = setInterval(() => {
-			if (this.loadComplete) clearInterval(timerId);		// Удаление таймера по факту загрузки страницы
-			t++;
-			if (t == delay) this.blocks.toLight.style.display = 'block';
-		}, 1000);
+		this.timerId = setTimeout(() => {
+			this.blocks.toLight.style.display = 'block';
+		}, delay);
 	}
 
 	// Отслеживание окончания загрузки страницы
 	onload(speed) {
-		this.loadComplete = true;
+
+		// Удаление таймера кнопки "Перейти на лёгкую версию" при старте по факту загрузки страницы
+		clearTimeout(this.timerId);
 
 		setTimeout(() => {
 			this.animation.removePreloader(speed);	// Отключение анимации (заставки) за (ms)
 		}, 1000);
 	}
+
+	//! ------------------------------------------------- Изменение размеров экрана
 }

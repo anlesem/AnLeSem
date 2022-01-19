@@ -1,5 +1,5 @@
 export default class Animation {
-	constructor(intervals, delay, blocks) {
+	constructor({ intervals, delay }, blocks) {
 		this.intervals = intervals;
 		this.delay = delay;
 
