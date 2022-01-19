@@ -3,6 +3,14 @@
 # Example .gitignore files: https://github.com/github/gitignore
 /bower_components/
 /node_modules/
+/dist/
+/public/css/
+/public/projects/
+/public/js/
+/public/fonts/
+/public/icon/
+/public/img/
+/public/js/
 .vscode/
 ToDo.txt
 comments.txt
