@@ -1,11 +1,13 @@
 export default class ViewScreen {
-	constructor({ pcWidth, laptopWidth, proportion, breakHeight, slimScreenTag, screenOff }, blocks, animation) {
+	constructor({ pcWidth, laptopWidth, offWidth, proportion, breakHeight, slimScreenTag, userToLight }, blocks, animation) {
 		this.pcWidth = pcWidth;
 		this.laptopWidth = laptopWidth;
+		this.offWidth = offWidth;
 		this.proportion = proportion;
 		this.breakHeight = breakHeight;
 		this.slimScreenTag = slimScreenTag;
-		this.screenOff = screenOff;
+
+		this.userToLight = userToLight;
 
 		this.blocks = blocks;
 		this.animation = animation;
@@ -13,54 +15,155 @@ export default class ViewScreen {
 		// Для установки задержки до появления кнопки "Перейти на лёгкую версию" при старте
 		this.timerId = null;
 
-		// Флаг перехода на лёгкую версию, чтобы она не сбрасывалась при resize
-		//? может проверить через класс одного из элементов
-		this.versionLightFlag = false;
+		// Медиа запросы  (следует уточнять в _mixin.scss). Полный, узкий или совсем узкий экран. (window.matchMedia не всегда работает)
+		this.fullScreen = null;
+		this.slimScreen = null;
+		this.offScreen = null;
+
+		// Хранит используемое устройство ввода для появления "Закрыть"
+		this.mouse = null;
+
 	}
 
 	//! ------------------------------------------------- Загрузка
-	// Включение полной версии как только, так сразу
-	fullVersionOn(speed, delay) {
-		// Задержка до появления кнопки "Перейти на лёгкую версию" при старте в секундах
+	// Стартовая функция. Задача - правильно распределить поведение в зависимости от условий:
+	// - Перехват управления анимацией (заставкой) при загрузке из CSS в JS, 
+	// 	чтобы остановить её исчезновение по умолчанию через 3 сек в случае лёгкой версии
+	// - Отслеживание нажатия на кнопку "Перейти на лёгкую версию":
+	//		- изменение Флага для блокировки полной версии;
+	//		- отключение анимации (заставки)
+	// 	- изменение предупредительной надписи в лёгкой версии на случай неподходящего разрешения экрана
+	//			(по умолчанию предупреждение указывает на отсутствие JS)
+	// - Установка задержки (delay) до появления кнопки "Перейти на лёгкую версию" 
+	//		при старте, чтобы надпись не мелькала при нормальной загрузке
+	// - Определение параметров экрана для установки первоначальных параметров отображения
+	onload(delay) {
+		this.blocks.preloader.style.animation = "unset";
+
+		this.blocks.toLight.addEventListener('click', () => {
+			this.userToLight = true;
+			preloader.style.display = 'none';
+			this.blocks.warning.innerHTML = "Имеет смысл перегрузить страницу, когда скорость интернет-соединения станет выше.";
+		});
+
 		this.setButtonToLight(delay);
 
-		// Включение полноценной версии только в случае подходящего разрешения экрана
-		if (!this.offScreen) {
-
-			// Перехват управления анимацией (заставкой) при загрузке из CSS в JS
-			this.blocks.preloader.style.animation = "unset";
-
-			document.querySelectorAll('.light').forEach((element) => {
-				element.classList.add('normal');
-				element.classList.remove('light');
-			});
-		}
-		// Изменение предупредительной надписи в лёгкой версии
-		this.blocks.warning.innerHTML = "Расширение экрана не позволяет корректно отобразить всё оформление страницы.";
-
-		// Отслеживание окончания загрузки страницы
-		window.onload = () => {
-			this.onload(speed);
-		};
+		this.fullScreenMedia();
+		this.slimScreenMedia();
+		this.offScreenMedia();
 	}
 
 	// Задержка до появления кнопки "Перейти на лёгкую версию" при старте
+	// - Задание именованного таймера для возможности его отключения
+	// - Отображение кнопки "Перейти на лёгкую версию"
 	setButtonToLight(delay) {
 		this.timerId = setTimeout(() => {
 			this.blocks.toLight.style.display = 'block';
 		}, delay);
 	}
 
-	// Отслеживание окончания загрузки страницы
-	onload(speed) {
+	// По окончании загрузки страницы активация полной версии сайта, при:
+	// 	- отсутствии нажатия на кнопку "Перейти на лёгкую версию";
+	//		- разрешении экрана больше, чем (offScreen)
+	// - Отключение кнопки "Перейти на лёгкую версию"
+	// - Удаление таймера кнопки "Перейти на лёгкую версию" при старте по факту загрузки страницы
+	// - Активация полной версии сайта
+	// - Изменение предупредительной надписи в лёгкой версии на случай неподходящего разрешения экрана
+	//		(по умолчанию предупреждение указывает на отсутствие JS)
+	// - Отслеживание Устройства ввода
+	// - Отключение анимации (заставки), где (speed) скорость в (ms)
+	fullVersionOn(speed) {
+		if (!this.userToLight) {
 
-		// Удаление таймера кнопки "Перейти на лёгкую версию" при старте по факту загрузки страницы
-		clearTimeout(this.timerId);
+			this.blocks.toLight.style.display = 'none';
+			clearTimeout(this.timerId);
 
-		setTimeout(() => {
-			this.animation.removePreloader(speed);	// Отключение анимации (заставки) за (ms)
-		}, 1000);
+			if (!this.offScreen) {
+				document.querySelectorAll('.light').forEach((element) => {
+					element.classList.remove('light');
+				});
+			}
+			this.blocks.warning.innerHTML = "Расширение экрана не позволяет корректно отобразить всё оформление страницы.";
+			this.typeOfPointer();
+			setTimeout(() => {
+				this.animation.removePreloader(speed);
+			}, 1000);
+
+			return true;
+		}
+		return false;
 	}
 
 	//! ------------------------------------------------- Изменение размеров экрана
+	// Медиа запросы:
+	// - полноэкранный режим
+	// - узкий экран
+	// - экран только для лёгкой версии
+	fullScreenMedia() {
+		if ((window.innerWidth < this.pcWidth && window.innerWidth / window.innerHeight > this.proportion) ||
+			window.innerHeight < this.breakHeight || window.innerWidth < this.laptopWidth) this.fullScreen = true;
+		else this.fullScreen = false;
+	}
+	slimScreenMedia() {
+		if ((window.innerHeight < 475 && window.innerWidth / window.innerHeight < this.proportion) ||
+			window.innerHeight < this.slimScreenTag || window.innerWidth < this.slimScreenTag) this.slimScreen = true;
+		else this.slimScreen = false;
+	}
+	offScreenMedia() {
+		if ((window.innerHeight < 375 && window.innerWidth / window.innerHeight < this.proportion) ||
+			window.innerHeight < this.offWidth || window.innerWidth < this.offWidth) this.offScreen = true;
+		else this.offScreen = false;
+	}
+
+	//! ------------------------------------------------- Устройства ввода
+	typeOfPointer() {
+		// Отслеживание. Тип устройства ввода
+		// Отслеживание. Тип устройства ввода. Касание / нажатие (преимущественно для touch)
+		document.addEventListener('pointerdown', (event) => {
+			switch (event.pointerType) {
+				case 'mouse':
+					this.mouse = true;
+					this.closeButton(this.mouse);
+					break;
+				case 'pen':
+					this.mouse = false;
+					this.closeButton(this.mouse);
+					break;
+				case 'touch':
+					this.mouse = false;
+					this.closeButton(this.mouse);
+					break;
+				default:
+			}
+		}, false);
+
+		// Отслеживание. Тип устройства ввода. Движение (преимущественно для mouse)
+		document.addEventListener('pointermove', (event) => {
+			switch (event.pointerType) {
+				case 'mouse':
+					this.mouse = true;
+					this.closeButton(this.mouse);
+					break;
+				case 'pen':
+					this.mouse = false;
+					this.closeButton(this.mouse);
+					break;
+				case 'touch':
+					this.mouse = false;
+					this.closeButton(this.mouse);
+					break;
+				default:
+			}
+		}, false);
+	}
+
+	closeButton(mouse) {
+		if (!mouse && this.fullScreen) {						// Для мышки и полноэкранного режима
+			this.blocks.cls.style.visibility = 'hidden';
+			this.blocks.clsAll.style.visibility = 'visible';
+		} else {														// Для больших экранов при любом устройстве ввода
+			this.blocks.cls.style.visibility = 'visible';
+			this.blocks.clsAll.style.visibility = 'hidden';
+		}
+	}
 }

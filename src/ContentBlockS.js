@@ -1,6 +1,5 @@
 export default class ContentBlockS {
 	constructor() {
-
 		//!------------------------------------------- Сектор загрузки
 		// Обёртка при загрузке, которая закрывает собой контент
 		this.preloader = document.getElementById('preloader')
@@ -26,14 +25,16 @@ export default class ContentBlockS {
 
 	elementsOfBlock(name) {
 		name.forEach(element => {
-			element.main = document.getElementById(element.name);
-			element.info = document.getElementById(`info__${element.name}`);
-			element.tag = document.getElementById(`${element.name}-tag`);
-			element.wrap = document.getElementById(`${element.name}__wrap`);
+			// element.main = document.getElementById(element.name);						// родительский блок section
+			element.tag = document.getElementById(`${element.name}-tag`);			// бирки
+			element.wrap = document.getElementById(`${element.name}__wrap`);		// блок с переключателями и картинками
+			element.info = document.getElementById(`info__${element.name}`);		// блок с текстом info
+
+			element.tag.dataset.name = element.name;
+
 			element.radio = [];
 			this.elementsOfRadio(element.name, element.radio);
 		});
-		// console.log(name);
 	}
 
 	elementsOfRadio(name, radio) {
@@ -41,7 +42,5 @@ export default class ContentBlockS {
 			radio[i] = document.getElementById(`${name}-${i + 1}`);
 			if (!isNaN(radio[i])) radio.pop();
 		}
-
-		// console.log(name);
 	}
 }
