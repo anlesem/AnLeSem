@@ -1,4 +1,4 @@
-export default class View {
+export default class ViewScreen {
 	constructor({ pcWidth, laptopWidth, proportion, breakHeight, slimScreenTag, screenOff }, blocks, animation) {
 		this.pcWidth = pcWidth;
 		this.laptopWidth = laptopWidth;

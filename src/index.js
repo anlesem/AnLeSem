@@ -1,14 +1,16 @@
-// Модуль данных
-import View from './View.js';
+// Модуль основных Блоков с контентом. Определение. Отслеживание. Поведение
+import ContentBlockS from './ContentBlockS.js';
 
-// Модуль Активных элементов
-import Elements from './Elements.js';
+// Модуль управления жестами
+import TouchAction from './TouchAction.js';
 
 // Модуль Анимации
 import Animation from './Animation.js';
 
-// Модуль поведения (жесты)
-import Action from './Action.js';
+// Модуль отображения страницы, отслеживания её изменений и устройств
+import ViewScreen from './ViewScreen.js';
+
+
 
 
 
@@ -36,15 +38,14 @@ const settings = {
 
 //! ---------------------------------------------------------------- Создание объектов
 
-const blocks = new Elements();
+const contentBlockS = new ContentBlockS();
+const touchAction = new TouchAction(contentBlockS);
 
 // Параметры (intervals, delay, ...)
-const animation = new Animation(settings, blocks);
+const animation = new Animation(settings, contentBlockS);
 
 // Параметры (pcWidth, laptopWidth, proportion, breakHeight, slimScreenTag, screenOff, ...)
-const view = new View(settings, blocks, animation);
-
-const action = new Action(blocks, animation, view);
+const viewScreen = new ViewScreen(settings, contentBlockS, animation);
 
 
 //! ---------------------------------------------------------------- Вызовы
@@ -52,7 +53,7 @@ const action = new Action(blocks, animation, view);
 // Включение полной версии как только, так сразу
 // Параметры (speed, delay): скорость переключения заставки и контента (значение в ms), 
 // задержка отображения кнопки перехода на лёгкую версию (значение в ms)
-view.fullVersionOn(500, 3000);
+viewScreen.fullVersionOn(500, 3000);
 
-console.log(view);
-console.log(blocks);
+console.log(viewScreen);
+console.log(contentBlockS);

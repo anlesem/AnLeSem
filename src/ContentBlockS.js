@@ -1,4 +1,4 @@
-export default class Elements {
+export default class ContentBlockS {
 	constructor() {
 
 		//!------------------------------------------- Сектор загрузки
