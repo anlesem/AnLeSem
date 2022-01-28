@@ -11,7 +11,7 @@ export default class ContentBlockS {
 		this.warning = document.getElementById('warning');
 
 		//!------------------------------------------- Основные элементы
-		this.header = document.getElementById('header');
+		// this.header = document.getElementById('header');
 		this.logo = document.getElementById('logo');
 		this.info = document.getElementById('info');				// Задействован при анимации
 		this.footer = document.getElementById('footer');
@@ -27,8 +27,8 @@ export default class ContentBlockS {
 		name.forEach(element => {
 			// element.main = document.getElementById(element.name);						// родительский блок section
 			element.tag = document.getElementById(`${element.name}-tag`);			// бирки
-			element.wrap = document.getElementById(`${element.name}__wrap`);		// блок с переключателями и картинками
-			element.info = document.getElementById(`info__${element.name}`);		// блок с текстом info
+			// element.wrap = document.getElementById(`${element.name}__wrap`);		// блок с переключателями и картинками
+			// element.info = document.getElementById(`info__${element.name}`);		// блок с текстом info
 
 			element.tag.dataset.name = element.name;
 
