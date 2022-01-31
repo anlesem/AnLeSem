@@ -1,8 +1,11 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
+let isDev = !process.argv.includes('--build');
+
 module.exports = {
-	mode: 'production',
+	mode: isDev ? 'development' : 'production',
+	devtool: isDev ? 'eval-source-map' : false,
 	entry: {
 		main: './src/index.js',
 	},

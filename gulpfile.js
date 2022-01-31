@@ -6,6 +6,7 @@ const { src, dest, series, watch, parallel, task } = require('gulp');
 const del = require('del');
 const sync = require('browser-sync').create();
 const replace = require('gulp-replace');
+const If = require('gulp-if');
 
 const include = require('gulp-file-include');
 const htmlmin = require('gulp-htmlmin');
@@ -26,6 +27,8 @@ const vinyl = require('vinyl-ftp');
 const util = require('gulp-util');
 const { configFTP } = require('./gulp/ftpConfig');
 
+let isBuild = process.argv.includes('--build');
+
 
 //! --------------------------------- Задачи
 // Работа с HTML:
@@ -35,33 +38,33 @@ function html() {
 			prefix: '@@'
 		}))
 		.pipe(replace(/@img\//g, 'img/'))
-		.pipe(htmlmin({
+		.pipe(If(isBuild, htmlmin({
 			collapseWhitespace: true,
 			removeComments: true
-		}))
+		})))
 		.pipe(dest('dist'))
 }
 
 // Работа с SCSS (название должно отличаться от пакета const sass):
 function scss() {
-	return src('src/scss/**.scss')
+	return src('src/scss/**.scss', { sourcemaps: true })
 		.pipe(sass())
 		.pipe(replace(/@img\//g, '../img/'))
-		.pipe(autoprefixer({
+		.pipe(If(isBuild, autoprefixer({
 			browsers: ['last 2 versions']
-		}))
+		})))
 		.pipe(concat('style.css'))
 		.pipe(groupMedia())
-		.pipe(csso())
+		.pipe(If(isBuild, csso()))
 		.pipe(dest('dist/css'))
 }
 
 // Работа с Изображениями (данный вариант требует настройки сервера в .htaccess)
 function images() {
 	return src('src/img/**.{jpg,jpeg,png,webp}')
-		.pipe(newer('dist/img'))
-		.pipe(webp())
-		.pipe(dest('dist/img'))
+		.pipe(If(isBuild, newer('dist/img')))
+		.pipe(If(isBuild, webp()))
+		.pipe(If(isBuild, dest('dist/img')))
 		.pipe(src('src/img/**.*'))
 		.pipe(dest('dist/img'))
 }
@@ -116,10 +119,10 @@ function watching() {
 const mainTasks = parallel(scss, html, images, copyFonts, copyIcons);
 
 // Запуск сценария каскадом series() или по одиночно / в терминале gulp build 
-exports.serve = series(clear, mainTasks, js, watching)
-exports.build = series(clear, mainTasks, js)
-exports.public = series(clear, mainTasks, js, ftp)
+exports.dev = series(clear, mainTasks, js, watching) 		// npm run dev
+exports.build = series(clear, mainTasks, js)					// npm run build
+exports.public = series(clear, mainTasks, js, ftp)			// npm run public
 exports.clear = clear
 
 // Запуск сценария по умолчанию / в терминале gulp 
-task(`default`, exports.serve)
+task(`default`, exports.dev)
