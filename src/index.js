@@ -1,17 +1,17 @@
 // Модуль основных Блоков с контентом. Определение. Отслеживание. Поведение
-import ContentBlockS from '@/js/ContentBlockS.js';
+import ContentBlockS from './js/ContentBlockS.js';
 
 // Модуль управления. Поведение
-import Action from '@/js/Action.js';
+import Action from './js/Action.js';
 
 // Модуль управления жестами
-import TouchAction from '@/js/TouchAction.js';
+import TouchAction from './js/TouchAction.js';
 
 // Модуль Анимации
-import Animation from '@/js/Animation.js';
+import Animation from './js/Animation.js';
 
 // Модуль отображения страницы, отслеживания её изменений и устройств
-import ViewScreen from '@/js/ViewScreen.js';
+import ViewScreen from './js/ViewScreen.js';
 
 //! ---------------------------------------------------------------- Установка параметров
 const settings = {

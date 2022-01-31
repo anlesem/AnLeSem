@@ -1,44 +1,34 @@
-//! --------------------------------- Подключение ядра Gulp. В {} указываются подключаемые функции
-// src - метод Gulp для работы с путями
-// dest - метод Gulp для формирования итоговых данных
-// series - метод Gulp, позволяющий выполнять серию задач
-// watch - метод Gulp, позволяющий выполнять отслеживание изменений в реальном времени
-// parallel - метод Gulp, позволяющий выполнять сценарии одновременно
-// task - метод Gulp для выполнения сценария по умолчанию
+//!------------------------------ Подключение ядра Gulp. В {} указываются подключаемые функции
 const { src, dest, series, watch, parallel, task } = require('gulp');
 
-
 //! --------------------------------- Подключение пакетов
-// include - пакет для соединения файлов HTML
-// htmlmin - пакет для минимизирования файлов HTML
-// sass - пакет для компиляции файлов SCSS
-// autoprefixer - пакет для создания префиксов в итоговом CSS
-// concat - пакет для соединения нескольких файлов в один
-// groupMedia - пакет для группировки медиа-запросов
-// csso - пакет для минимизирования файлов CSS
-// del - пакет для очищения папки назначения
-// replace - пакет для поиска и замены значений
-// sync - пакет для отслеживания изменений в реальном времени
+// Описание всех пакетов в Паметке разработки.
+const del = require('del');
+const sync = require('browser-sync').create();
+const replace = require('gulp-replace');
+
 const include = require('gulp-file-include');
 const htmlmin = require('gulp-htmlmin');
+
 const sass = require('gulp-sass')(require('sass'));
 const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
 const groupMedia = require('gulp-group-css-media-queries');
 const csso = require('gulp-csso');
-const del = require('del');
-const replace = require('gulp-replace');
-const sync = require('browser-sync').create();
+
+const webp = require('gulp-webp');
+const newer = require('gulp-newer');
+
+const webpack = require('webpack-stream');
+const configWebpack = require('./webpack.config');
+
+const vinyl = require('vinyl-ftp');
+const util = require('gulp-util');
+const { configFTP } = require('./gulp/ftpConfig');
+
 
 //! --------------------------------- Задачи
 // Работа с HTML:
-// 	src('src/**.html') - путь. ** - все файлы
-// 	include() - соединение HTML файлов. @@ - префикс для подключения
-// 	replace() - замена символов @img/ на img/
-// 	htmlmin() - минимизирования файлов HTML.
-// 		collapseWhitespace - удаление пробелов
-// 		removeComments - удаление комментариев
-// 	dest('dist') - формирование результата в папку dist
 function html() {
 	return src('src/**.html')
 		.pipe(include({
@@ -53,17 +43,8 @@ function html() {
 }
 
 // Работа с SCSS (название должно отличаться от пакета const sass):
-// 	src('src/**.html') - путь. ** - все файлы
-//			sourcemaps - для более удобного поиска ошибок в разных файлах
-// 	sass() - компиляция итогового файла при помощи пакета sass
-// 	replace() - замена символов @img/ на ../img/
-//		autoprefixer() - добавление авто префиксов
-//		concat() - соединение файлов CSS в один
-//		groupMedia() - группировка медиа-запросов 
-//		csso() - минимизирования файлов CSS 
-// 	dest('dist') - формирование результата в папку dist
 function scss() {
-	return src('src/scss/**.scss', { sourcemaps: true })
+	return src('src/scss/**.scss')
 		.pipe(sass())
 		.pipe(replace(/@img\//g, '../img/'))
 		.pipe(autoprefixer({
@@ -75,26 +56,47 @@ function scss() {
 		.pipe(dest('dist/css'))
 }
 
+// Работа с Изображениями (данный вариант требует настройки сервера в .htaccess)
+function images() {
+	return src('src/img/**.{jpg,jpeg,png,webp}')
+		.pipe(newer('dist/img'))
+		.pipe(webp())
+		.pipe(dest('dist/img'))
+		.pipe(src('src/img/**.*'))
+		.pipe(dest('dist/img'))
+}
+
+// Перенос файлов из папки в итоговую
+function copyFonts() {
+	return src(`src/fonts/**/*.*`)
+		.pipe(dest('dist/fonts/'))
+}
+function copyIcons() {
+	return src(`src/icon/**/*.*`)
+		.pipe(dest('dist/icon/'))
+}
+
+// Работа с JS через WebPack
+function js() {
+	return src('src/**.js')
+		.pipe(webpack(configWebpack))
+		.pipe(dest('dist'))
+}
+
 // Очищение папки назначения
 function clear() {
 	return del('dist')
 }
 
-// Перенос файлов из папки в итоговую
-// src() - доступ к папке откуда
-// dest() - куда
-function copy() {
-	return src(`src/img/**/*.*`)
-		.pipe(dest('dist/img/'))
+// Отправка на сервер (сначала на сервере необходимо создать ftp-подключение)
+function ftp() {
+	configFTP.log = util.log;
+	const ftpConnect = vinyl.create(configFTP);
+	return src('dist/**/*.*', {})
+		.pipe(ftpConnect.dest('/'))
 }
 
-// Отслеживание изменений в реальном времени
-// sync.init - активируем плагин взаимодействия с браузером
-// 	server - путь к итоговой сборке
-//		notify - предупреждения Gulp'а в консоли браузера
-// watch - метод Gulp, позволяющий выполнять отслеживание изменений в реальном времени
-// 	1 элемент - путь и файлы для отслеживания
-//		2 элемент - запуск соответствующей задачи
+// Отслеживание изменений
 function watching() {
 	sync.init({
 		server: './dist',
@@ -102,17 +104,21 @@ function watching() {
 		port: 4040,
 	})
 	watch('src/**.html', series(html)).on('change', sync.reload)
+	watch('src/html/**.html', series(html)).on('change', sync.reload)
 	watch('src/scss/**.scss', series(scss)).on('change', sync.reload)
-	watch('src/img/**/*.*', series(copy)).on('change', sync.reload)
+	watch('src/**.js', series(js)).on('change', sync.reload)
+	watch('src/js/**.js', series(js)).on('change', sync.reload)
+	watch('src/img/**/*.*', series(images)).on('change', sync.reload)
 }
 
 //! --------------------------------- Запуск
 // Создание каскада задач, выполняемых одновременно
-const mainTasks = parallel(scss, html, copy);
+const mainTasks = parallel(scss, html, images, copyFonts, copyIcons);
 
 // Запуск сценария каскадом series() или по одиночно / в терминале gulp build 
-exports.build = series(clear, mainTasks)
-exports.serve = series(clear, mainTasks, watching)
+exports.serve = series(clear, mainTasks, js, watching)
+exports.build = series(clear, mainTasks, js)
+exports.public = series(clear, mainTasks, js, ftp)
 exports.clear = clear
 
 // Запуск сценария по умолчанию / в терминале gulp 

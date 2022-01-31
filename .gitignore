@@ -5,6 +5,7 @@
 /node_modules/
 /dist/
 /public/
+/gulp/
 /src/css/
 /src/projects/
 /src/fonts/
