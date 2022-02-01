@@ -1,8 +1,14 @@
 //!------------------------------ Подключение ядра Gulp. В {} указываются подключаемые функции
+// src - метод Gulp для работы с путями
+// dest - метод Gulp для формирования итоговых данных
+// series - метод Gulp, позволяющий выполнять серию задач
+// watch - метод Gulp, позволяющий выполнять отслеживание изменений в реальном времени
+// parallel - метод Gulp, позволяющий выполнять сценарии одновременно
+// task - метод Gulp для выполнения сценария по умолчанию
 const { src, dest, series, watch, parallel, task } = require('gulp');
 
 //! --------------------------------- Подключение пакетов
-// Описание всех пакетов в Паметке разработки.
+// Описание всех пакетов в Памятке разработки.
 const del = require('del');
 const sync = require('browser-sync').create();
 const replace = require('gulp-replace');
@@ -25,13 +31,26 @@ const configWebpack = require('./webpack.config');
 
 const vinyl = require('vinyl-ftp');
 const util = require('gulp-util');
-const { configFTP } = require('./gulp/ftpConfig');
 
+//! ------------------------------ Объявление переменных
+// const { configFTP } - подключение переменной из другого файла, которая содержит 
+//			скрытые настройки ftp-подключения 
+// isDev - флаг ключа, используемого при запуске (настраивается в package.json) для
+// 		определения режима сборки
+const { configFTP } = require('./gulp/ftpConfig');
 let isBuild = process.argv.includes('--build');
 
 
 //! --------------------------------- Задачи
 // Работа с HTML:
+// 	src('src/**.html') - путь. ** - все файлы
+//		If(isBuild, задача) - задача выполняется только в режиме Production 
+// 	include() - соединение HTML файлов. @@ - префикс для подключения
+// 	replace() - замена символов @img/ на img/
+// 	htmlmin() - минимизирования файлов HTML.
+// 		collapseWhitespace - удаление пробелов
+// 		removeComments - удаление комментариев
+// 	dest('dist') - формирование результата в папку dist
 function html() {
 	return src('src/**.html')
 		.pipe(include({
@@ -46,8 +65,18 @@ function html() {
 }
 
 // Работа с SCSS (название должно отличаться от пакета const sass):
+// 	src('src/**.html') - путь. ** - все файлы
+//		If(isBuild, задача) - задача выполняется только в режиме Production
+// 	sass() - компиляция итогового файла при помощи пакета sass
+//			{ sourcemaps: !isBuild } - карта формируется только в режиме Development
+// 	replace() - замена символов @img/ на ../img/
+//		autoprefixer() - добавление авто префиксов
+//		concat() - соединение файлов CSS в один
+//		groupMedia() - группировка медиа-запросов 
+//		csso() - минимизирования файлов CSS 
+// 	dest('dist') - формирование результата в папку dist
 function scss() {
-	return src('src/scss/**.scss', { sourcemaps: true })
+	return src('src/scss/**.scss', { sourcemaps: !isBuild })
 		.pipe(sass())
 		.pipe(replace(/@img\//g, '../img/'))
 		.pipe(If(isBuild, autoprefixer({
@@ -60,6 +89,12 @@ function scss() {
 }
 
 // Работа с Изображениями (данный вариант требует настройки сервера в .htaccess)
+// src('src/img/**.{jpg,jpeg,png,webp}') - сначала обрабатываются только изображения
+// 	If(isBuild, задача) - задача выполняется только в режиме Production
+//		newer('dist/img')) - проверяется наличие изображений в конечной папке во избежание
+// 								повторной конвертации
+//		webp() - конвертация изображений
+//	src('src/img/**.*') - всё содержимое img копируется в папку с итогом
 function images() {
 	return src('src/img/**.{jpg,jpeg,png,webp}')
 		.pipe(If(isBuild, newer('dist/img')))
@@ -80,6 +115,11 @@ function copyIcons() {
 }
 
 // Работа с JS через WebPack
+// 	webpack(configWebpack) - подключение внешнего файла конфигурации
+//		при минимуме настроек и плагинов можно прописать конфигурацию внутри скобок:
+//			webpack({ 	mode: isBuild ? 'production' : 'development', 
+//							entry: {	main: './src/index.js',	},
+//							output: { filename: `[name].js`,	},})
 function js() {
 	return src('src/**.js')
 		.pipe(webpack(configWebpack))
@@ -92,6 +132,9 @@ function clear() {
 }
 
 // Отправка на сервер (сначала на сервере необходимо создать ftp-подключение)
+// 	configFTP.log - отображение лога загрузки
+// 	ftpConnect.dest('/') - указание удалённой папки для загрузки на сервере.
+//									в данном примере указан корневой каталог сайта.
 function ftp() {
 	configFTP.log = util.log;
 	const ftpConnect = vinyl.create(configFTP);
@@ -100,6 +143,12 @@ function ftp() {
 }
 
 // Отслеживание изменений
+// sync.init - активируем плагин взаимодействия с браузером
+// 	server - путь к итоговой сборке
+//		notify - предупреждения Gulp'а в консоли браузера
+// watch - метод Gulp, позволяющий выполнять отслеживание изменений в реальном времени
+// 	1 элемент - путь и файлы для отслеживания
+//		2 элемент - запуск соответствующей задачи
 function watching() {
 	sync.init({
 		server: './dist',
@@ -119,10 +168,10 @@ function watching() {
 const mainTasks = parallel(scss, html, images, copyFonts, copyIcons);
 
 // Запуск сценария каскадом series() или по одиночно / в терминале gulp build 
-exports.dev = series(clear, mainTasks, js, watching) 		// npm run dev
-exports.build = series(clear, mainTasks, js)					// npm run build
-exports.public = series(clear, mainTasks, js, ftp)			// npm run public
+exports.start = series(clear, mainTasks, js, watching) 		// npm run start
+exports.build = series(clear, mainTasks, js)						// npm run dev / build 
+exports.public = series(clear, mainTasks, js, ftp)				// npm run public
 exports.clear = clear
 
 // Запуск сценария по умолчанию / в терминале gulp 
-task(`default`, exports.dev)
+task(`default`, exports.start)
