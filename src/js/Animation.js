@@ -1,20 +1,24 @@
 export default class Animation {
-	constructor({ intervals, delay }, blocks) {
+	constructor({ intervals, delay, speed }, contentBlocks) {
+
+		// Данные из index.js/settings
 		this.intervals = intervals;
 		this.delay = delay;
+		this.speed = speed;
 
-		this.blocks = blocks;
+		// ссылка на данные активных элементов сайта
+		this.contentBlocks = contentBlocks;
 	}
 
-	// Отключение анимации (заставки) при загрузке страницы за (ms)
-	removePreloader(speed) {
+	//!---------------------------------------------- Методы
+	// Отключение анимации (заставки) при загрузке страницы
+	// 	contentBlocks.preloader - отключение заставки
+	// 	contentBlocks.blocks.forEach(element) - отображение бирок
+	removePreloader() {
+		this.contentBlocks.preloader.style.animation = `preloader ${this.speed}ms linear forwards`;
 
-		// Отключение заставки
-		this.blocks.preloader.style.animation = `preloader ${speed}ms linear forwards`;
-
-		// Отображение бирок
-		this.blocks.block.forEach(element => {
-			element.tag.style.animation = `load-tag-${element.name} ${speed}ms linear forwards`;
+		this.contentBlocks.blocks.forEach(element => {
+			element.tag.style.animation = `load-tag-${element.name} ${this.speed}ms linear forwards`;
 		});
 	}
 
