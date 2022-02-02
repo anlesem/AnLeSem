@@ -210,6 +210,12 @@ header {
 		}
 	}
 
+	// Виртуальный временный блок для предотвращения случайного нажатия на ссылки
+	&-stop {
+		@include position-size-parent;
+		z-index: 10;
+	}
+
 	// Контактные данные
 	&__card {
 		@include position-size-parent;

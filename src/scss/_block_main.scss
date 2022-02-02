@@ -57,6 +57,22 @@ main {
 		z-index: $index-tag;
 		color: $title-light;
 		font-size: 18px;
+
+		&::after {
+			content: "";
+			@include position-size-parent;
+			z-index: -1;
+			background-color: $background-dark;
+		}
+
+		&:hover {
+			cursor: pointer;
+			opacity: 0.7;
+
+			span {
+				color: $text-info;
+			}
+		}
 	}
 
 	// Настройка тёмной области label's 1-7 (обёртка)
@@ -75,11 +91,6 @@ main {
 	width: $hover-space;
 	height: $height-horz-block;
 
-	// Ограничение высоты блока для сохранения правильных пропорций 1-3 (+ general)
-	@include stop-height-horz {
-		height: calc(100vw / 2);
-	}
-
 	// Переход в полноэкранный режим 1-6 (+ footer (кнопка) 
 	// Отключение невидимой области наведения и заполнение по высоте 
 	@include screen-full {
@@ -96,13 +107,6 @@ main {
 
 		// Выравнивание текста по высоте
 		line-height: $height-horz-tag;
-
-		&::after {
-			content: "";
-			@include position-size-parent;
-			z-index: -1;
-			background-color: $background-dark;
-		}
 
 		// Для сверх узких экранов 1-3 (+ header и footer)
 		@include screen-slim {
@@ -241,7 +245,6 @@ main {
 		width: $width-vert-tag;
 		height: $height-vert-tag;
 		text-align: center;
-		background-color: $background-dark;
 
 		// Для сверх узких экранов 2-3
 		@include screen-slim {
@@ -345,11 +348,6 @@ main {
 	margin: 0 auto;
 	order: 2;
 
-	// Ограничение высоты блока для сохранения правильных пропорций 2-3
-	@include stop-height-horz {
-		height: calc(100vw / 2);
-	}
-
 	// Переход в полноэкранный режим 4-5
 	@include screen-full {
 		height: 100%;
@@ -403,7 +401,7 @@ main {
 	}
 }
 
-// * Наведение (кроме персональных настроек бирок и тёмной области см. выше)
+//! Наведение (кроме персональных настроек бирок и тёмной области см. выше)
 // Размеры горизонтальных блоков при наведении
 .left.hover,
 .right.hover {
@@ -418,11 +416,6 @@ main {
 		& .info {
 			width: 100%;
 			height: $height-horz-block;
-
-			// Ограничение высоты блока для сохранения правильных пропорций 3-3
-			@include stop-height-horz {
-				height: calc(100vw / 2);
-			}
 
 			// Общие для всех вложенных блоков в info настройки + при наведении 2-4
 			// Эффекты анимации 2а-2 - отключение при наведении
@@ -515,16 +508,6 @@ main {
 	& span {
 		display: none;
 	}
-}
-
-// Приглушение фона всех бирок для полноэкранного режима
-.tag.hover {
-	opacity: 0.3;
-}
-
-// Отключение всех заголовков бирок для полноэкранного режима
-.title-tag.hover {
-	display: none;
 }
 
 // Блок-обёртка информационного содержимого 4-4 

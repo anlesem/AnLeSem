@@ -1,4 +1,4 @@
-// Молния на логотипе
+//!  ------------------------------- Молния на логотипе
 @keyframes circle {
 	from {
 		border-top: 3px solid transparent;
@@ -51,7 +51,7 @@
 	}
 }
 
-// Пульс бирок
+//!  ------------------------------- Пульс бирок
 $range-max: 5px;
 $range-min: 2px;
 
@@ -203,7 +203,7 @@ $range-min: 2px;
 	}
 }
 
-//* Содержимое
+//!  -------------------------------Содержимое
 // дыхание центральной анимации
 @keyframes info-opacity {
 	from {
@@ -233,7 +233,7 @@ $range-min: 2px;
 	}
 }
 
-// центральная анимация
+//!  ------------------------------- центральная анимация
 $point-up: 50% 70%;
 $point-down: 50% 90%;
 
@@ -267,7 +267,7 @@ $point-down: 50% 90%;
 	}
 }
 
-//* Заставка загрузки страницы
+//!  ------------------------------- Заставка загрузки страницы
 // Обёртка скрытие
 @keyframes preloader {
 	from {
@@ -303,7 +303,7 @@ $point-down: 50% 90%;
 	}
 }
 
-// Анимация появления бирок
+//!  ------------------------------- Анимация появления бирок
 @keyframes load-tag-up {
 	from {
 		transform: scale(0, 0) translateX(-50%);
@@ -381,5 +381,62 @@ $point-down: 50% 90%;
 		transform: scale(1, 1) translateY(-50%);
 		transform-origin: top right;
 		opacity: 1;
+	}
+}
+
+//!  ------------------------------- Анимация скрытия бирок
+@keyframes hide-tag-up {
+	from {
+		transform: scale(1, 1) translateX(-50%);
+		transform-origin: top left;
+		opacity: 1;
+	}
+
+	to {
+		transform: scale(0, 0) translateX(-50%);
+		transform-origin: top left;
+		opacity: 0;
+	}
+}
+
+@keyframes hide-tag-down {
+	from {
+		transform: scale(1, 1) translateX(-50%);
+		transform-origin: bottom left;
+		opacity: 1;
+	}
+
+	to {
+		transform: scale(0, 0) translateX(-50%);
+		transform-origin: bottom left;
+		opacity: 0;
+	}
+}
+
+@keyframes hide-tag-left {
+	from {
+		transform: scale(1, 1) translateY(-50%);
+		transform-origin: top left;
+		opacity: 1;
+	}
+
+	to {
+		transform: scale(0, 0) translateY(-50%);
+		transform-origin: top left;
+		opacity: 0;
+	}
+}
+
+@keyframes hide-tag-right {
+	from {
+		transform: scale(1, 1) translateY(-50%);
+		transform-origin: top right;
+		opacity: 1;
+	}
+
+	to {
+		transform: scale(0, 0) translateY(-50%);
+		transform-origin: top right;
+		opacity: 0;
 	}
 }

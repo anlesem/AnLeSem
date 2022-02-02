@@ -14,12 +14,20 @@ export default class Animation {
 	// Отключение анимации (заставки) при загрузке страницы
 	// 	contentBlocks.preloader - отключение заставки
 	// 	contentBlocks.blocks.forEach(element) - отображение бирок
+	//		setTimeout() - отключение анимации отображения бирок, которая 
+	//			иначе висит и блокирует изменение opacity
 	removePreloader() {
 		this.contentBlocks.preloader.style.animation = `preloader ${this.speed}ms linear forwards`;
 
 		this.contentBlocks.blocks.forEach(element => {
 			element.tag.style.animation = `load-tag-${element.name} ${this.speed}ms linear forwards`;
 		});
+
+		setTimeout(() => {
+			this.contentBlocks.blocks.forEach(element => {
+				element.tag.style.animation = "unset";
+			});
+		}, this.speed)
 	}
 
 	// Отключение всей анимации

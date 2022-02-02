@@ -40,8 +40,8 @@ const animation = new Animation(settings, contentBlockS);
 // Параметры (pcWidth, laptopWidth, offWidth , proportion, breakHeight, slimScreenTag, userToLight, ...)
 const viewScreen = new ViewScreen(settings, contentBlockS, animation);
 
-const action = new Action(contentBlockS, animation);
-const touchAction = new TouchAction(contentBlockS);
+const action = new Action(contentBlockS, animation, viewScreen);
+const touchAction = new TouchAction(contentBlockS, action);
 
 
 //! ---------------------------------------------------------------- Вызовы
@@ -61,7 +61,10 @@ viewScreen.onload(2000);
 // action.startListened - активация прослушивания событий
 window.onload = () => {
 	let readyFullVersion = viewScreen.fullVersionOn();
-	if (readyFullVersion) action.startListened();
+	if (readyFullVersion) {
+		action.startListened();
+		touchAction.startListened();
+	}
 };
 
 
