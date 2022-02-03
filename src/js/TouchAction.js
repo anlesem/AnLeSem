@@ -1,8 +1,10 @@
+// Модуль отслеживает поведение пользователя при управлении жестами.
+
 export default class TouchAction {
-	constructor(contentBlocks, action) {
+	constructor(dataElements, action) {
 
 		// ссылки
-		this.contentBlocks = contentBlocks;
+		this.dataElements = dataElements;
 		this.action = action;
 
 		// Параметры движения
@@ -17,6 +19,8 @@ export default class TouchAction {
 		document.addEventListener('touchstart', (event) => this.start(event));
 		document.addEventListener('touchmove', (event) => this.move(event), { passive: false });
 		document.addEventListener('touchend', (event) => this.end(event));
+
+		this.dataElements.logo.addEventListener('touchstart', () => this.openLogoTouch());
 	}
 
 	start(event) {
@@ -62,6 +66,25 @@ export default class TouchAction {
 		// 	}
 	}
 
+	//!---------------------------------------------- Методы для логотипа
+	// Открытие визитной карточки внутри логотипа в дополнение к наведению:
+	// 	1. при открытии и отсутствии заглушки, создаётся заглушка, блокирующая случайное нажатие на ссылку
+	//			внутри визитной карточки. Заглушка удаляется после задержки в 300ms
+	//		2. собственно открытие визитной карточки
+	openLogoTouch() {
+		if (!this.dataElements.logo.classList.contains('hover') && !document.querySelector('.logo-stop')) {
+			this.dataElements.logo.insertAdjacentHTML('afterbegin', '<div class="logo-stop"></div>');
+			setTimeout(() => {
+				document.querySelector('.logo-stop').remove();
+			}, 300);
+		}
+		this.action.openLogo();
+	}
+
+	// Проверка при касании экрана: открыт ли логотип и где произошло касание. Если блок с логотип активен,
+	// но касание приходится на другую часть сайта, необходимо выполнить действие по аналогии с 'mouseout':
+	//		1. проверка области, на которой произошло событие
+	//		2. если область не содержит класс 'logo', необходимо закрыть логотип 
 	examinationLogo(event) {
 		let logoOpen = false;
 		event.path.forEach(element => {
@@ -69,8 +92,9 @@ export default class TouchAction {
 				if (element.classList.contains('logo')) logoOpen = true;
 			}
 		});
+
 		if (!logoOpen) {
-			this.action.removeHoverLogo();
+			this.action.closeLogo();
 		}
 	}
 }

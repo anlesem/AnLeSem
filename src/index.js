@@ -1,5 +1,5 @@
 // Модуль основных Блоков с контентом. Определение. Отслеживание. Поведение
-import ContentBlockS from './js/ContentBlockS.js';
+import DataElements from './js/DataElements.js';
 
 // Модуль управления. Поведение
 import Action from './js/Action.js';
@@ -32,42 +32,40 @@ const settings = {
 }
 
 //! ---------------------------------------------------------------- Создание объектов
-const contentBlockS = new ContentBlockS();
+const dataElements = new DataElements();
 
 // Параметры (intervals, delay, speed, ...)
-const animation = new Animation(settings, contentBlockS);
+const animation = new Animation(settings, dataElements);
 
 // Параметры (pcWidth, laptopWidth, offWidth , proportion, breakHeight, slimScreenTag, userToLight, ...)
-const viewScreen = new ViewScreen(settings, contentBlockS, animation);
+const viewScreen = new ViewScreen(settings, dataElements, animation);
 
-const action = new Action(contentBlockS, animation, viewScreen);
-const touchAction = new TouchAction(contentBlockS, action);
+const action = new Action(dataElements, animation, viewScreen);
+const touchAction = new TouchAction(dataElements, action);
 
 
-//! ---------------------------------------------------------------- Вызовы
+//! ---------------------------------------------------------------- Вызов
 // viewScreen.onload - Пока грузится страница определяются стартовые параметры отображения.
 // 	Главное на этапе загрузки определить: пользователь ждёт или переходит на лёгкую версию
 // 	В случае перехода необходимо заблокировать активацию полноценной работы сайта (userToLight: true)
 // 	Параметр (delay) - задержка отображения кнопки перехода на лёгкую версию (значение в ms)
 viewScreen.onload(2000);
 
-// window.onload - Отслеживание окончания загрузки страницы
-// readyFullVersion: 
-//		- в случае, если пользователь дождался загрузки, не нажав на кнопку Лёгкой версии
-// 	(userToLight: false), происходит активация полноценной работы сайта и readyFullVersion принимает true
-// 	- в случае, если пользователь нажал на кнопку Лёгкой версии (userToLight: true), происходит блокировка 
-// 	активации полной версии и readyFullVersion принимает false, дабы не активировать прослушивание событий.
-// viewScreen.fullVersionOn - включение полной версии сайта. 
-// action.startListened - активация прослушивания событий
+//! ---------------------------------------------------------------- Отслеживание
+// Отслеживание окончания загрузки страницы
+// 	readyFullVersion:
+//			- в случае, если пользователь дождался загрузки, не нажав на кнопку Лёгкой версии
+// 		(userToLight: false), происходит активация полноценной работы сайта и readyFullVersion принимает true
+// 		- в случае, если пользователь нажал на кнопку Лёгкой версии (userToLight: true), происходит блокировка
+// 		активации полной версии и readyFullVersion принимает false, дабы не активировать прослушивание событий.
+// 	viewScreen.fullVersionOn - включение полной версии сайта.
+//		action.startListened - активация прослушивания событий
+//		viewScreen.resizeScreen() - Отслеживание изменения параметров экрана
 window.onload = () => {
 	let readyFullVersion = viewScreen.fullVersionOn();
 	if (readyFullVersion) {
 		action.startListened();
 		touchAction.startListened();
+		window.addEventListener('resize', () => viewScreen.resizeScreen());
 	}
 };
-
-
-
-// console.log(viewScreen);
-// console.log(contentBlockS);

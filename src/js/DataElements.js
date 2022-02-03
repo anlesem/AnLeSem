@@ -1,4 +1,7 @@
-export default class ContentBlockS {
+// Модуль содержит базу данных используемых элементов на сайте, которую формирует по 
+// фактическому представлению в DOM
+
+export default class dataElements {
 	constructor() {
 		//!------------------------------------------- Сектор загрузки
 		// Обёртка при загрузке, которая закрывает собой контент
@@ -19,37 +22,43 @@ export default class ContentBlockS {
 		this.clsAll = document.getElementById('close-all');	// Кнопка Закрыть в подвале
 
 		//!------------------------------------------- Блоки
-		// blocks - основной объект, содержащий в себе массив данных о задействованных элементах
-		// elementsOfBlock - вызов метода для формирования blocks
-		this.blocks = [{ name: 'up' }, { name: 'down' }, { name: 'left' }, { name: 'right' }]
-		this.elementsOfBlock();
+		// contentBlocks - основной объект, содержащий в себе массив данных о задействованных элементах
+		// setContentBlocks - вызов метода для формирования contentBlocks
+		this.contentBlocks = [{ name: 'up' }, { name: 'down' }, { name: 'left' }, { name: 'right' }]
+		this.setContentBlocks();
+
+		//!------------------------------------------- Общие параметры
+		// Параметр-флаг со значением name открытого Блока
+		// Значение false говорит об отсутствии открытого Блока, что
+		//		позволяет открыть Блок с контентом
+		this.contentBlockActive = false;
 	}
 
 	//!---------------------------------------------- Методы
-	// Формирование объекта blocks по свойству name через добавление соответствующих элементов сайта
+	// Формирование объекта contentBlocks по свойству name через добавление соответствующих элементов сайта
 	//		element.tag - добавление бирок
 	// 	element.tag.dataset.name - присвоение биркам идентификатора, чтобы их распознавать при Событии
 	// 	element.radio - добавление переключателей Контента в Блоках
 	//		elementsOfRadio - вызов метода для формирования списка доступных переключателей:
 	//			(element.name) - имя блока;
 	//			(element.radio) - соответствующий имени блока массив переключателей;
-	elementsOfBlock() {
-		this.blocks.forEach(element => {
+	setContentBlocks() {
+		this.contentBlocks.forEach(element => {
 			element.tag = document.getElementById(`${element.name}-tag`);			// бирки
 			element.tag.dataset.name = element.name;
 			element.radio = [];
-			this.elementsOfRadio(element.name, element.radio);
+			this.setRadio(element.name, element.radio);
 		});
 	}
 
-	// Формирование списка переключателей внутри объекта blocks по свойству name
+	// Формирование списка переключателей внутри объекта contentBlocks по свойству name
 	//			(name) - имя блока;
 	//			(radio) - соответствующий имени блока массив переключателей;
 	// 	Цикл с максимально возможным количеством переключателей в блоке. Данный метод позволяет указывать
 	//			большее количество итераций, т.к. используется фильтр отсутствующих переключателей.
 	//		radio[i] - поиск переключателя по его id, состоящего из привязки к имени блока и порядкового номера ("left-1")
 	//		radio.pop() - фильтр отсутствующих переключателей
-	elementsOfRadio(name, radio) {
+	setRadio(name, radio) {
 		for (let i = 0; i < 3; i++) {
 			radio[i] = document.getElementById(`${name}-${i + 1}`);
 			if (!isNaN(radio[i])) radio.pop();
