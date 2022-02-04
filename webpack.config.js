@@ -7,6 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 // isDev - флаг ключа, используемого при запуске (настраивается в package.json) для
 // 		определения режима сборки
 let isDev = !process.argv.includes('--build');
+const filename = ext => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`;
 
 //! ------------------------------ Настройка
 // Установка режима сборки по умолчанию, для избежания предупреждения.
@@ -29,7 +30,7 @@ module.exports = {
 		main: './src/index.js',
 	},
 	output: {
-		filename: `[name].js`,
+		filename: filename('js'),
 	},
 	optimization: {
 		minimizer: [new TerserPlugin({
@@ -43,7 +44,7 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: './dist/index.html',
+			template: './dist/index.html', // вход
 			filename: 'index.html', // название выходного файла
 			chunks: ['main'] // связь с точкой входа (entry)
 		}),

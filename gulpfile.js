@@ -12,6 +12,7 @@ const { src, dest, series, watch, parallel, task } = require('gulp');
 const del = require('del');
 const sync = require('browser-sync').create();
 const replace = require('gulp-replace');
+const rename = require('gulp-rename')
 const If = require('gulp-if');
 
 const include = require('gulp-file-include');
@@ -19,7 +20,6 @@ const htmlmin = require('gulp-htmlmin');
 
 const sass = require('gulp-sass')(require('sass'));
 const autoprefixer = require('gulp-autoprefixer');
-const concat = require('gulp-concat');
 const groupMedia = require('gulp-group-css-media-queries');
 const csso = require('gulp-csso');
 
@@ -29,16 +29,11 @@ const newer = require('gulp-newer');
 const webpack = require('webpack-stream');
 const configWebpack = require('./webpack.config');
 
-const vinyl = require('vinyl-ftp');
-const util = require('gulp-util');
-
 //! ------------------------------ Объявление переменных
-// const { configFTP } - подключение переменной из другого файла, которая содержит 
-//			скрытые настройки ftp-подключения 
 // isDev - флаг ключа, используемого при запуске (настраивается в package.json) для
 // 		определения режима сборки
-const { configFTP } = require('./gulp/ftpConfig');
 let isBuild = process.argv.includes('--build');
+const { hash } = require('./gulp/hash-generation');
 
 
 //! --------------------------------- Задачи
@@ -57,6 +52,7 @@ function html() {
 			prefix: '@@'
 		}))
 		.pipe(replace(/@img\//g, 'img/'))
+		.pipe(If(isBuild, replace('style.css', 'style' + hash + '.css')))
 		.pipe(If(isBuild, htmlmin({
 			collapseWhitespace: true,
 			removeComments: true
@@ -68,23 +64,23 @@ function html() {
 // 	src('src/**.html') - путь. ** - все файлы
 //		If(isBuild, задача) - задача выполняется только в режиме Production
 // 	sass() - компиляция итогового файла при помощи пакета sass
-//			{ sourcemaps: !isBuild } - карта формируется только в режиме Development
 // 	replace() - замена символов @img/ на ../img/
 //		autoprefixer() - добавление авто префиксов
-//		concat() - соединение файлов CSS в один
 //		groupMedia() - группировка медиа-запросов 
 //		csso() - минимизирования файлов CSS 
 // 	dest('dist') - формирование результата в папку dist
 function scss() {
-	return src('src/scss/**.scss', { sourcemaps: !isBuild })
+	return src('src/scss/**.scss')
 		.pipe(sass())
 		.pipe(replace(/@img\//g, '../img/'))
 		.pipe(If(isBuild, autoprefixer({
 			browsers: ['last 2 versions']
 		})))
-		.pipe(concat('style.css'))
 		.pipe(groupMedia())
 		.pipe(If(isBuild, csso()))
+		.pipe(If(isBuild, rename({
+			suffix: hash
+		})))
 		.pipe(dest('dist/css'))
 }
 
@@ -131,17 +127,6 @@ function clear() {
 	return del('dist')
 }
 
-// Отправка на сервер (сначала на сервере необходимо создать ftp-подключение)
-// 	configFTP.log - отображение лога загрузки
-// 	ftpConnect.dest('/') - указание удалённой папки для загрузки на сервере.
-//									в данном примере указан корневой каталог сайта.
-function ftp() {
-	configFTP.log = util.log;
-	const ftpConnect = vinyl.create(configFTP);
-	return src('dist/**/*.*', {})
-		.pipe(ftpConnect.dest('/'))
-}
-
 // Отслеживание изменений
 // sync.init - активируем плагин взаимодействия с браузером
 // 	server - путь к итоговой сборке
@@ -170,7 +155,6 @@ const mainTasks = parallel(scss, html, images, copyFonts, copyIcons);
 // Запуск сценария каскадом series() или по одиночно / в терминале gulp build 
 exports.start = series(clear, mainTasks, js, watching) 		// npm run start
 exports.build = series(clear, mainTasks, js)						// npm run dev / build 
-exports.public = series(clear, mainTasks, js, ftp)				// npm run public
 exports.clear = clear
 
 // Запуск сценария по умолчанию / в терминале gulp 
