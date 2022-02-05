@@ -1,47 +1,29 @@
+// Пользовательские настройки)
+import { settings } from './js/setting';
+
 // Модуль основных Блоков с контентом. Определение. Отслеживание. Поведение
-import DataElements from './js/DataElements.js';
+import Data from './js/Data';
 
 // Модуль управления. Поведение
-import Action from './js/Action.js';
+import Action from './js/Action';
 
 // Модуль управления жестами
-import TouchAction from './js/TouchAction.js';
+import TouchAction from './js/TouchAction';
 
 // Модуль Анимации
-import Animation from './js/Animation.js';
+import Animation from './js/Animation';
 
 // Модуль отображения страницы, отслеживания её изменений и устройств
-import ViewScreen from './js/ViewScreen.js';
+import ViewScreen from './js/ViewScreen';
 
-//! ---------------------------------------------------------------- Установка параметров
-const settings = {
-	// Параметры для взаимодействия с экраном пользователя в соответствии с _variable.scss)
-	pcWidth: 1310,					// breakpoint, когда контейнер занимает всю ширину экрана
-	laptopWidth: 1024,			// breakpoint, когда открытый Блок занимает всё свободное пространство экрана
-	offWidth: 200,					// breakpoint, когда полноценное отображение контента невозможно (лёгкая версия)
-	proportion: 5 / 2,			// breakpoint, когда отображение контента перестраивается под горизонтальную ориентацию
-	breakHeight: 640,				// breakpoint, когда
-	slimScreenTag: 320,			// breakpoint, когда размер Бирок уменьшается, чтобы освободить пространство экрана
-
-	// Параметры скорости и задержки анимации
-	intervals: 8,					// скорость проигрывания основной анимации (в s)
-	delay: 8,						// задержка при старте проигрывания основной анимации (в s)
-	speed: 500,						// скорость анимации появления контента при старте (в ms)
-
-	userToLight: false			// Флаг переключения на лёгкую версию сайта
-}
 
 //! ---------------------------------------------------------------- Создание объектов
-const dataElements = new DataElements();
+const data = new Data(settings);
+const animation = new Animation(data);
+const viewScreen = new ViewScreen(data, animation);
+const action = new Action(data, animation, viewScreen);
+const touchAction = new TouchAction(data, action);
 
-// Параметры (intervals, delay, speed, ...)
-const animation = new Animation(settings, dataElements);
-
-// Параметры (pcWidth, laptopWidth, offWidth , proportion, breakHeight, slimScreenTag, userToLight, ...)
-const viewScreen = new ViewScreen(settings, dataElements, animation);
-
-const action = new Action(dataElements, animation, viewScreen);
-const touchAction = new TouchAction(dataElements, action);
 
 
 //! ---------------------------------------------------------------- Вызов

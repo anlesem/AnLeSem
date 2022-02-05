@@ -1,10 +1,10 @@
 // Модуль отслеживает поведение пользователя при управлении жестами.
 
 export default class TouchAction {
-	constructor(dataElements, action) {
+	constructor(data, action) {
 
 		// ссылки
-		this.dataElements = dataElements;
+		this.data = data;
 		this.action = action;
 
 		// Параметры движения
@@ -20,7 +20,7 @@ export default class TouchAction {
 		document.addEventListener('touchmove', (event) => this.move(event), { passive: false });
 		document.addEventListener('touchend', (event) => this.end(event));
 
-		this.dataElements.logo.addEventListener('touchstart', () => this.openLogoTouch());
+		this.data.logo.addEventListener('touchstart', () => this.openLogoTouch());
 	}
 
 	start(event) {
@@ -72,8 +72,8 @@ export default class TouchAction {
 	//			внутри визитной карточки. Заглушка удаляется после задержки в 300ms
 	//		2. собственно открытие визитной карточки
 	openLogoTouch() {
-		if (!this.dataElements.logo.classList.contains('hover') && !document.querySelector('.logo-stop')) {
-			this.dataElements.logo.insertAdjacentHTML('afterbegin', '<div class="logo-stop"></div>');
+		if (!this.data.logo.classList.contains('hover') && !document.querySelector('.logo-stop')) {
+			this.data.logo.insertAdjacentHTML('afterbegin', '<div class="logo-stop"></div>');
 			setTimeout(() => {
 				document.querySelector('.logo-stop').remove();
 			}, 300);

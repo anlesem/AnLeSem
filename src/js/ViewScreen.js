@@ -1,17 +1,8 @@
 // Модуль отслеживает и производит преобразования отображения сайта в зависимости от параметров экрана и типа устройств ввода
 
 export default class ViewScreen {
-	constructor({ pcWidth, laptopWidth, offWidth, proportion, breakHeight, slimScreenTag, userToLight }, dataElements, animation) {
-		this.pcWidth = pcWidth;
-		this.laptopWidth = laptopWidth;
-		this.offWidth = offWidth;
-		this.proportion = proportion;
-		this.breakHeight = breakHeight;
-		this.slimScreenTag = slimScreenTag;
-
-		this.userToLight = userToLight;
-
-		this.dataElements = dataElements;
+	constructor(data, animation) {
+		this.data = data;
 		this.animation = animation;
 
 		// Для установки задержки до появления кнопки "Перейти на лёгкую версию" при старте
@@ -24,24 +15,24 @@ export default class ViewScreen {
 
 	//! ------------------------------------------------- Загрузка
 	// onload Стартовая функция. Задача - правильно распределить поведение в зависимости от условий.
-	// this.dataElements.preloader - Перехват управления анимацией (заставкой) при загрузке из CSS в JS, 
+	// this.data.preloader - Перехват управления анимацией (заставкой) при загрузке из CSS в JS, 
 	// 	чтобы остановить её исчезновение по умолчанию через 3 сек в случае лёгкой версии
-	// this.dataElements.toLight - Отслеживание нажатия на кнопку "Перейти на лёгкую версию". При событии:
+	// this.data.toLight - Отслеживание нажатия на кнопку "Перейти на лёгкую версию". При событии:
 	//		this.userToLight - изменение Флага для блокировки полной версии;
-	//		this.dataElements.preloader - отключение анимации (заставки);
-	// 	this.dataElements.warning - изменение предупредительной надписи в лёгкой версии на случай неподходящего 
+	//		this.data.preloader - отключение анимации (заставки);
+	// 	this.data.warning - изменение предупредительной надписи в лёгкой версии на случай неподходящего 
 	//			разрешения экрана (по умолчанию предупреждение указывает на отсутствие JS)
 	// this.setButtonToLight - Установка задержки до появления кнопки "Перейти на лёгкую версию" 
 	//		при старте, чтобы надпись не мелькала при нормальной загрузке
 	//		(delay) - задержка, устанавливается при вызове (onload)
 	// this.fullScreenMedia - Определение параметров экрана для установки первоначальных параметров отображения
 	onload(delay) {
-		this.dataElements.preloader.style.animation = "unset";
+		this.data.preloader.style.animation = "";
 
-		this.dataElements.toLight.addEventListener('click', () => {
-			this.userToLight = true;
-			this.dataElements.preloader.style.display = 'none';
-			this.dataElements.warning.innerHTML = "Имеет смысл перегрузить страницу, когда скорость интернет-соединения станет выше.";
+		this.data.toLight.addEventListener('click', () => {
+			this.data.settings.userToLight = true;
+			this.data.preloader.style.display = 'none';
+			this.data.warning.innerHTML = "Имеет смысл перегрузить страницу, когда скорость интернет-соединения станет выше.";
 		});
 
 		this.setButtonToLight(delay);
@@ -56,7 +47,7 @@ export default class ViewScreen {
 	// - Отображение кнопки "Перейти на лёгкую версию"
 	setButtonToLight(delay) {
 		this.timerId = setTimeout(() => {
-			this.dataElements.toLight.style.display = 'block';
+			this.data.toLight.style.display = 'block';
 		}, delay);
 	}
 
@@ -70,17 +61,15 @@ export default class ViewScreen {
 	//		(по умолчанию предупреждение указывает на отсутствие JS)
 	// - Отслеживание Устройства ввода
 	fullVersionOn() {
-		if (!this.userToLight) {
+		if (!this.data.settings.userToLight) {
 
-			this.dataElements.toLight.style.display = 'none';
+			this.data.toLight.style.display = 'none';
 			clearTimeout(this.timerId);
 
-			if (!this.offScreen) {
-				document.querySelectorAll('.light').forEach((element) => {
-					element.classList.remove('light');
-				});
+			if (!this.data.offScreen) {
+				this.showFullContent();
 			}
-			this.dataElements.warning.innerHTML = "Расширение экрана не позволяет корректно отобразить всё оформление страницы.";
+			this.data.warning.innerHTML = "Расширение экрана не позволяет корректно отобразить всё оформление страницы.";
 			this.typeOfPointer();
 			setTimeout(() => {
 				this.animation.removePreloader();
@@ -91,31 +80,39 @@ export default class ViewScreen {
 		return false;
 	}
 
+	// Отображение полноценного контента
+	showFullContent() {
+		document.querySelectorAll('.light').forEach((element) => {
+			element.classList.remove('light');
+		});
+	}
+
 	//! ------------------------------------------------- Определение размеров экрана
 	// Медиа запросы:
 	// - полноэкранный режим
 	// - узкий экран
 	// - экран только для лёгкой версии
 	fullScreenMedia() {
-		if ((window.innerWidth < this.pcWidth && window.innerWidth / window.innerHeight > this.proportion) ||
-			window.innerHeight < this.breakHeight || window.innerWidth < this.laptopWidth) this.dataElements.fullScreen = true;
-		else this.dataElements.fullScreen = false;
+		if ((window.innerWidth < this.data.settings.pcWidth && window.innerWidth / window.innerHeight > this.data.settings.proportion) ||
+			window.innerHeight < this.data.settings.breakHeight || window.innerWidth < this.data.settings.laptopWidth) this.data.fullScreen = true;
+		else this.data.fullScreen = false;
 	}
 	slimScreenMedia() {
-		if ((window.innerHeight < 475 && window.innerWidth / window.innerHeight < this.proportion) ||
-			window.innerHeight < this.slimScreenTag || window.innerWidth < this.slimScreenTag) this.dataElements.slimScreen = true;
-		else this.dataElements.slimScreen = false;
+		if ((window.innerHeight < 475 && window.innerWidth / window.innerHeight < this.data.settings.proportion) ||
+			window.innerHeight < this.data.settings.slimScreenTag || window.innerWidth < this.data.settings.slimScreenTag) this.data.slimScreen = true;
+		else this.data.slimScreen = false;
 	}
 	offScreenMedia() {
-		if ((window.innerHeight < 375 && window.innerWidth / window.innerHeight < this.proportion) ||
-			window.innerHeight < this.offWidth || window.innerWidth < this.offWidth) this.dataElements.offScreen = true;
-		else this.dataElements.offScreen = false;
+		if ((window.innerHeight < 375 && window.innerWidth / window.innerHeight < this.data.settings.proportion) ||
+			window.innerHeight < this.data.settings.offWidth || window.innerWidth < this.data.settings.offWidth) this.data.offScreen = true;
+		else this.data.offScreen = false;
 	}
 
 	//! ------------------------------------------------- Изменение размеров экрана
 	//	...Media() - Переопределение медиа запросов
 	// |offScreen - Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим
-	// |dataElements.contentBlockActive - Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим
+	// 				и отображение контента при переходе к нормальной ширине экрана
+	// |data.contentBlockActive - в случае открытого блока с контентом
 	//		|fullScreen - гашение или отображение бирок в зависимости от режима открытого блока (полноэкранный)
 	//						- перезапуск анимации для проверки правильных пропорций бирок
 	//	closeButton() - Переключение отображения кнопок "Закрыть" и "Закрыть всё"
@@ -124,10 +121,11 @@ export default class ViewScreen {
 		this.slimScreenMedia();
 		this.offScreenMedia();
 
-		if (this.dataElements.offScreen) location.reload();
+		if (this.data.offScreen) location.reload();
+		else this.showFullContent();
 
-		if (this.dataElements.contentBlockActive) {
-			if (this.dataElements.fullScreen) this.hideTags();
+		if (this.data.contentBlockActive) {
+			if (this.data.fullScreen) this.hideTags();
 			else this.showTags();
 		} else {
 			this.animation.removeAnimation();
@@ -180,19 +178,19 @@ export default class ViewScreen {
 	}
 
 	closeButton(mouse) {
-		if (!mouse && this.fullScreen) {						// Для мышки и полноэкранного режима
-			this.dataElements.cls.style.visibility = 'hidden';
-			this.dataElements.clsAll.style.visibility = 'visible';
+		if (!mouse && this.data.fullScreen) {						// Для мышки и полноэкранного режима
+			this.data.cls.style.visibility = 'hidden';
+			this.data.clsAll.style.visibility = 'visible';
 		} else {														// Для больших экранов при любом устройстве ввода
-			this.dataElements.cls.style.visibility = 'visible';
-			this.dataElements.clsAll.style.visibility = 'hidden';
+			this.data.cls.style.visibility = 'visible';
+			this.data.clsAll.style.visibility = 'hidden';
 		}
 	}
 
 	//! ------------------------------------------------- Бирки
 	// Гашение бирок при открытом блоке с контентом
 	hideTags() {
-		this.dataElements.contentBlocks.forEach(element => {
+		this.data.contentBlocks.forEach(element => {
 			element.tag.style.opacity = '0.2';
 			element.tag.querySelector('span').style.display = 'none';
 		});
@@ -200,7 +198,7 @@ export default class ViewScreen {
 
 	// Нормальное бирок
 	showTags() {
-		this.dataElements.contentBlocks.forEach(element => {
+		this.data.contentBlocks.forEach(element => {
 			element.tag.style.opacity = '';
 			element.tag.querySelector('span').style.display = 'block';
 		});

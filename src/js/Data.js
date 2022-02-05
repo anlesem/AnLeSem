@@ -1,8 +1,10 @@
 // Модуль содержит базу данных используемых элементов на сайте, которую формирует по 
 // фактическому представлению в DOM
 
-export default class dataElements {
-	constructor() {
+export default class Data {
+	constructor(settings) {
+		this.settings = settings;
+
 		//!------------------------------------------- Сектор загрузки
 		// Обёртка при загрузке, которая закрывает собой контент
 		this.preloader = document.getElementById('preloader')
