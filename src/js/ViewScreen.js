@@ -17,11 +17,6 @@ export default class ViewScreen {
 		// Для установки задержки до появления кнопки "Перейти на лёгкую версию" при старте
 		this.timerId = null;
 
-		// Медиа запросы  (следует уточнять в _mixin.scss). Полный, узкий или совсем узкий экран. (window.matchMedia не всегда работает)
-		this.fullScreen = null;
-		this.slimScreen = null;
-		this.offScreen = null;
-
 		// Хранит используемое устройство ввода для появления "Закрыть"
 		this.mouse = null;
 
@@ -103,18 +98,18 @@ export default class ViewScreen {
 	// - экран только для лёгкой версии
 	fullScreenMedia() {
 		if ((window.innerWidth < this.pcWidth && window.innerWidth / window.innerHeight > this.proportion) ||
-			window.innerHeight < this.breakHeight || window.innerWidth < this.laptopWidth) this.fullScreen = true;
-		else this.fullScreen = false;
+			window.innerHeight < this.breakHeight || window.innerWidth < this.laptopWidth) this.dataElements.fullScreen = true;
+		else this.dataElements.fullScreen = false;
 	}
 	slimScreenMedia() {
 		if ((window.innerHeight < 475 && window.innerWidth / window.innerHeight < this.proportion) ||
-			window.innerHeight < this.slimScreenTag || window.innerWidth < this.slimScreenTag) this.slimScreen = true;
-		else this.slimScreen = false;
+			window.innerHeight < this.slimScreenTag || window.innerWidth < this.slimScreenTag) this.dataElements.slimScreen = true;
+		else this.dataElements.slimScreen = false;
 	}
 	offScreenMedia() {
 		if ((window.innerHeight < 375 && window.innerWidth / window.innerHeight < this.proportion) ||
-			window.innerHeight < this.offWidth || window.innerWidth < this.offWidth) this.offScreen = true;
-		else this.offScreen = false;
+			window.innerHeight < this.offWidth || window.innerWidth < this.offWidth) this.dataElements.offScreen = true;
+		else this.dataElements.offScreen = false;
 	}
 
 	//! ------------------------------------------------- Изменение размеров экрана
@@ -122,17 +117,21 @@ export default class ViewScreen {
 	// |offScreen - Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим
 	// |dataElements.contentBlockActive - Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим
 	//		|fullScreen - гашение или отображение бирок в зависимости от режима открытого блока (полноэкранный)
+	//						- перезапуск анимации для проверки правильных пропорций бирок
 	//	closeButton() - Переключение отображения кнопок "Закрыть" и "Закрыть всё"
 	resizeScreen() {
 		this.fullScreenMedia();
 		this.slimScreenMedia();
 		this.offScreenMedia();
 
-		if (this.offScreen) location.reload();
+		if (this.dataElements.offScreen) location.reload();
 
 		if (this.dataElements.contentBlockActive) {
-			if (this.fullScreen) this.hideTags();
+			if (this.dataElements.fullScreen) this.hideTags();
 			else this.showTags();
+		} else {
+			this.animation.removeAnimation();
+			this.animation.setAnimation();
 		}
 
 		this.closeButton(this.mouse);

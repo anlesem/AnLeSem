@@ -66,7 +66,7 @@ export default class Action {
 		this.dataElements.clsAll.classList.add('hover');
 		this.animation.removeAnimation();
 
-		if (this.viewScreen.fullScreen) {
+		if (this.dataElements.fullScreen) {
 			this.viewScreen.hideTags();
 		}
 	}
@@ -85,7 +85,7 @@ export default class Action {
 			this.animation.setAnimation();
 		}
 
-		if (this.viewScreen.fullScreen) {
+		if (this.dataElements.fullScreen) {
 			this.viewScreen.showTags();
 		}
 

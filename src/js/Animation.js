@@ -16,6 +16,7 @@ export default class Animation {
 	// 	dataElements.contentBlocks.forEach(element) - отображение бирок
 	//		setTimeout() - отключение анимации отображения бирок, которая 
 	//			иначе висит и блокирует изменения opacity
+	//			- запуск всей анимации
 	removePreloader() {
 		this.dataElements.preloader.style.animation = `preloader ${this.speed}ms linear forwards`;
 
@@ -24,48 +25,41 @@ export default class Animation {
 		});
 
 		setTimeout(() => {
-			this.dataElements.contentBlocks.forEach(element => {
-				element.tag.style.animation = "";
-			});
+			this.removeAnimationTag();
+			this.setAnimation();
 		}, this.speed)
+	}
+
+	// Включение всей анимации
+	setAnimation() {
+		this.dataElements.info.style.animation = `info-opacity infinite ${this.intervals}s ${this.delay}s linear`;
+		this.dataElements.infoUp.style.animation = `info-text infinite ${this.intervals * 3}s ${this.delay}s linear`;
+		this.dataElements.logo.style.animation = `circle infinite ${this.intervals}s ${this.intervals / 2 + this.delay}s linear`;
+		if (this.dataElements.slimScreen) {
+			this.dataElements.contentBlocks[0].tag.style.animation = `rhythm-tag-vert-slim infinite ${this.intervals}s ${this.intervals + this.delay}s linear`;
+			this.dataElements.contentBlocks[1].tag.style.animation = `rhythm-tag-vert-slim infinite ${this.intervals}s ${this.intervals + this.delay}s linear`;
+			this.dataElements.contentBlocks[2].tag.style.animation = `rhythm-tag-horz-slim infinite ${this.intervals}s ${this.intervals + this.delay}s linear`;
+			this.dataElements.contentBlocks[3].tag.style.animation = `rhythm-tag-horz-slim infinite ${this.intervals}s ${this.intervals + this.delay}s linear`;
+		} else {
+			this.dataElements.contentBlocks[0].tag.style.animation = `rhythm-tag-vert infinite ${this.intervals}s ${this.intervals + this.delay}s linear`;
+			this.dataElements.contentBlocks[1].tag.style.animation = `rhythm-tag-vert infinite ${this.intervals}s ${this.intervals + this.delay}s linear`;
+			this.dataElements.contentBlocks[2].tag.style.animation = `rhythm-tag-horz infinite ${this.intervals}s ${this.intervals + this.delay}s linear`;
+			this.dataElements.contentBlocks[3].tag.style.animation = `rhythm-tag-horz infinite ${this.intervals}s ${this.intervals + this.delay}s linear`;
+		}
 	}
 
 	// Отключение всей анимации
 	removeAnimation() {
-		console.log('enter removeAnimation()');
-
-		// info.style.animation = "unset";
-		// info_up.style.animation = "unset";
-		// logo.style.animation = "unset";
-		// leftTag.style.animation = 'unset';
-		// rightTag.style.animation = 'unset';
-		// upTag.style.animation = 'unset';
-		// downTag.style.animation = 'unset';
+		this.dataElements.info.style.animation = "";
+		this.dataElements.infoUp.style.animation = "";
+		this.dataElements.logo.style.animation = "";
+		this.removeAnimationTag();
 	}
 
-	// Отключение всей анимации
-	setAnimation() {
-		console.log('enter setAnimation()');
-		// if (version) {
-		// 	let intervals = 8;										// Период длительности анимации
-		// 	let delay = 8;												// Общая задержка при старте, чтобы не отвлекала и не мешала активному использованию						
-
-		// 	info.style.animation = 'info-opacity infinite ' + intervals + 's ' + delay + 's linear';
-		// 	info_up.style.animation = 'info-text infinite ' + intervals * 3 + 's ' + delay + 's linear';
-		// 	logo.style.animation = 'circle infinite ' + intervals + 's ' + (delay + intervals / 2) + 's linear';
-		// 	if (slimScreen) {
-		// 		tag = 'slim';											// Переключение флага размера бирок
-		// 		upTag.style.animation = 'rhythm-tag-vert-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		// 		downTag.style.animation = 'rhythm-tag-vert-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		// 		leftTag.style.animation = 'rhythm-tag-horz-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		// 		rightTag.style.animation = 'rhythm-tag-horz-slim infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		// 	} else {
-		// 		tag = 'normal';										// Переключение флага размера бирок
-		// 		leftTag.style.animation = 'rhythm-tag-horz infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		// 		rightTag.style.animation = 'rhythm-tag-horz infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		// 		upTag.style.animation = 'rhythm-tag-vert infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		// 		downTag.style.animation = 'rhythm-tag-vert infinite ' + intervals + 's ' + (delay + intervals) + 's linear';
-		// 	}
-		// }
+	// Отключение анимации бирок
+	removeAnimationTag() {
+		this.dataElements.contentBlocks.forEach(element => {
+			element.tag.style.animation = "";
+		});
 	}
 }

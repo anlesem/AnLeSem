@@ -69,3 +69,4 @@ window.onload = () => {
 		window.addEventListener('resize', () => viewScreen.resizeScreen());
 	}
 };
+
