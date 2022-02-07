@@ -97,6 +97,7 @@ export default class Action {
 		this.data.contentBlockActive = false;
 	}
 
+	// Прокрутка наверх в верхнем блоке при переключении между вкладками
 	scrollUp() {
 		this.data.infoUp.scrollTop = 0;
 	}
