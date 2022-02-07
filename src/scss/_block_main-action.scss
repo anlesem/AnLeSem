@@ -1,0 +1,429 @@
+// В данном файле указываются общие для блоков-обёрток настройки Наведение 
+
+//! --------------------------------------- Нажатие
+// ------------------------- Левый
+#content-left:checked~main {
+	justify-content: flex-start;
+
+	.left {
+		&-tag {
+			display: none;
+		}
+
+		position: relative;
+		z-index: $index-hover;
+		width: $width-horz-block;
+		transition: all $timeout;
+
+		&::after,
+		&::before {
+			right: 0;
+			z-index: -1;
+			opacity: 0.3;
+		}
+
+		&__content {
+			display: flex;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		@include screen-full {
+			width: 50%;
+
+			&~.center {
+				width: 50%;
+
+				& .info {
+					height: 100%;
+				}
+			}
+		}
+
+		@include screen-full-horz {
+			position: absolute;
+			top: 0;
+			width: 100vw;
+			height: 50%;
+
+			&~.center {
+				width: 100%;
+
+				& .info {
+					position: absolute;
+					bottom: 0;
+					height: 50%;
+				}
+			}
+		}
+	}
+
+	.center {
+		width: $width-horz-block;
+
+		.info {
+			width: 100%;
+			height: $height-horz-block;
+			opacity: 1;
+			z-index: unset;
+
+			.close {
+				display: block;
+			}
+
+			&__left {
+				display: block;
+				position: relative;
+				z-index: $index-hover;
+				overflow: auto;
+				background: $background-light;
+
+				& p {
+					mix-blend-mode: normal;
+				}
+			}
+		}
+	}
+}
+
+// ------------------------- Правый
+#content-right:checked~main {
+	justify-content: flex-end;
+
+	.right {
+		&-tag {
+			display: none;
+		}
+
+		position: relative;
+		z-index: $index-hover;
+		width: $width-horz-block;
+		transition: all $timeout;
+
+		&::after,
+		&::before {
+			left: 0;
+			z-index: -1;
+			opacity: 0.3;
+		}
+
+		&__content {
+			display: flex;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		@include screen-full {
+			width: 50%;
+
+			&~.center {
+				width: 50%;
+
+				& .info {
+					height: 100%;
+				}
+			}
+		}
+
+		@include screen-full-horz {
+			position: absolute;
+			top: 0;
+			width: 100vw;
+			height: 50%;
+
+			&~.center {
+				width: 100%;
+
+				& .info {
+					position: absolute;
+					bottom: 0;
+					height: 50%;
+				}
+			}
+		}
+	}
+
+	.center {
+		width: $width-horz-block;
+
+		.info {
+			width: 100%;
+			height: $height-horz-block;
+			opacity: 1;
+			z-index: unset;
+
+			.close {
+				display: block;
+			}
+
+			&__right {
+				display: block;
+				position: relative;
+				z-index: $index-hover;
+				overflow: auto;
+				background: $background-light;
+
+				& p {
+					mix-blend-mode: normal;
+				}
+			}
+		}
+	}
+}
+
+// ------------------------- Верхний
+#content-up:checked~main {
+
+	.up {
+		&-tag {
+			display: none;
+		}
+
+		position: relative;
+		z-index: $index-hover;
+		height: $height-vert-block;
+		transition: all $timeout;
+
+		&::after {
+			bottom: 0;
+			z-index: -1;
+			opacity: 0.3;
+		}
+
+		&__content {
+			display: flex;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+	}
+
+	.center {
+		justify-content: flex-start;
+
+		.info {
+			width: 100%;
+			height: 70%;
+			opacity: 1;
+			z-index: unset;
+
+			@include screen-full {
+				height: 85%;
+			}
+
+			.close {
+				display: block;
+			}
+
+			&__up {
+				display: block;
+				position: relative;
+				z-index: $index-hover;
+				overflow: auto;
+				background: $background-light;
+
+				& p {
+					mix-blend-mode: normal;
+				}
+			}
+		}
+	}
+}
+
+// ------------------------- Нижний
+#content-down:checked~main {
+
+	.down {
+		&-tag {
+			display: none;
+		}
+
+		position: relative;
+		z-index: $index-hover;
+		height: $height-vert-block;
+		transition: all $timeout;
+
+		&::after {
+			top: 0;
+			z-index: -1;
+			opacity: 0.3;
+		}
+
+		&__content {
+			display: flex;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+	}
+
+	.center {
+		justify-content: flex-end;
+
+		.info {
+			width: 100%;
+			height: 70%;
+			opacity: 1;
+			z-index: unset;
+
+			@include screen-full {
+				height: 85%;
+			}
+
+			.close {
+				display: block;
+			}
+
+			&__down {
+				display: block;
+				position: relative;
+				z-index: $index-hover;
+				overflow: auto;
+				background: $background-light;
+
+				& p {
+					mix-blend-mode: normal;
+				}
+			}
+		}
+	}
+}
+
+
+// Приглушение бирок в полноэкранном режиме
+#content-left:checked~main,
+#content-right:checked~main,
+#content-up:checked~main,
+#content-down:checked~main {
+
+	@include screen-full {
+		.tag {
+			display: none;
+		}
+
+		.left::after,
+		.left::before,
+		.right::after,
+		.right::before,
+		.up::after,
+		.down::after {
+			opacity: 0.3;
+		}
+	}
+}
+
+//! --------------------------------------- Наведение
+// @media (min-width: $tablet-width) {
+
+#content-off:checked~main {
+
+	// ------------------------- Левый
+	.left-tag:hover {
+
+		&~.left {
+			position: relative;
+			transition: all $timeout;
+			width: 40px;
+
+			&::after,
+			&::before {
+				right: 0;
+				z-index: 1;
+			}
+		}
+
+		&~.center .info {
+			opacity: 1;
+
+			&__left {
+				display: block;
+			}
+		}
+	}
+
+	// ------------------------- Правый
+	.right-tag:hover {
+
+		&~.right {
+			position: relative;
+			transition: all $timeout;
+			width: 40px;
+
+			&::after,
+			&::before {
+				left: 0;
+			}
+		}
+
+		&~.center .info {
+			opacity: 1;
+
+			&__right {
+				display: block;
+			}
+		}
+	}
+
+	// ------------------------- Верх
+	.up-tag:hover {
+
+		&~.center {
+
+			.up {
+				position: relative;
+				transition: all $timeout;
+				height: 40px;
+
+				&::after {
+					bottom: 0;
+				}
+			}
+
+			.info {
+				opacity: 1;
+
+				&__up {
+					display: block;
+
+					// *:not(p) {
+					// 	display: none;
+					// }
+				}
+			}
+		}
+
+	}
+
+	// ------------------------- Низ
+	.down-tag:hover {
+
+		&~.center {
+
+			.down {
+				position: relative;
+				transition: all $timeout;
+				height: 40px;
+
+				&::after {
+					top: 0;
+				}
+			}
+
+			.info {
+				opacity: 1;
+
+				&__down {
+					display: block;
+
+					// *:not(p) {
+					// 	display: none;
+					// }
+				}
+			}
+		}
+	}
+}
+
+// }

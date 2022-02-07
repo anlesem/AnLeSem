@@ -3,10 +3,6 @@
 .up,
 .down {
 
-	&__radio {
-		display: none;
-	}
-
 	// Дополнительные настройки к main
 	// Вертикальное заполнение по высоте label и p
 	&__content {
@@ -602,11 +598,11 @@ hr {
 }
 
 // Отображение заголовка label в зависимости от input.checked (тёмная зона)
-#up-1:checked~.center .label-up-1,
-#up-2:checked~.center .label-up-2,
-#up-3:checked~.center .label-up-3,
-#down-1:checked~.center .label-down-1,
-#down-2:checked~.center .label-down-2 {
+#up-1:checked~main .center .label-up-1,
+#up-2:checked~main .center .label-up-2,
+#up-3:checked~main .center .label-up-3,
+#down-1:checked~main .center .label-down-1,
+#down-2:checked~main .center .label-down-2 {
 	font-size: 18px;
 	font-weight: 700;
 	border-bottom: 3px solid $title-light;
@@ -617,11 +613,11 @@ hr {
 }
 
 // Отображение подзаголовка в зависимости от input.checked (тёмная зона)
-#up-1:checked~.center .title-up-1,
-#up-2:checked~.center .title-up-2,
-#up-3:checked~.center .title-up-3,
-#down-1:checked~.center .title-down-1,
-#down-2:checked~.center .title-down-2 {
+#up-1:checked~main .center .title-up-1,
+#up-2:checked~main .center .title-up-2,
+#up-3:checked~main .center .title-up-3,
+#down-1:checked~main .center .title-down-1,
+#down-2:checked~main .center .title-down-2 {
 	display: block;
 
 	@media screen and (max-height: $break-height) {
@@ -630,20 +626,20 @@ hr {
 }
 
 // Отображение текста в зависимости от input.checked (светлая зона)
-#up-1:checked~.center .text-up-1,
-#up-2:checked~.center .text-up-2,
-#up-3:checked~.center .text-up-3 {
+#up-1:checked~main .center .text-up-1,
+#up-2:checked~main .center .text-up-2,
+#up-3:checked~main .center .text-up-3 {
 	display: block;
 }
 
-#down-1:checked~.center .text-down-1,
-#down-2:checked~.center .text-down-2 {
+#down-1:checked~main .center .text-down-1,
+#down-2:checked~main .center .text-down-2 {
 	display: flex;
 }
 
 // Отображение картинок в зависимости от input.checked и наведения на соответствующий блок (светлая зона)
-#up-1:checked~.center .up.hover~.info .img-up-1,
-#up-2:checked~.center .up.hover~.info .img-up-2,
-#up-3:checked~.center .up.hover~.info .img-up-3 {
+#up-1:checked~main .center .info .img-up-1,
+#up-2:checked~main .center .info .img-up-2,
+#up-3:checked~main .center .info .img-up-3 {
 	display: block;
 }

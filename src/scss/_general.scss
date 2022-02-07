@@ -227,6 +227,10 @@ body {
 	}
 }
 
+.global__radio {
+	display: none;
+}
+
 // Кнопка Закрыть при управлении мышкой + большие экраны
 .close {
 	display: none;
@@ -248,6 +252,8 @@ body {
 		display: none;
 		overflow: hidden;
 		color: $button-pink;
+		font-size: 14px;
+		text-align: center;
 	}
 
 	// Х в пассивном режиме

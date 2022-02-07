@@ -3,37 +3,39 @@
 
 @@include('html/head.html')
 
-<body class="light">
+<body class="normal">
 
 	@@include('html/svg.html')
+	@@include('html/inputs.html')
 
-	<div id="preloader">
+	<!-- <div id="preloader">
 		<button id="to-light" type="button">Перейти на лёгкую версию</button>
-	</div>
+	</div> -->
 
 	@@include('html/header.html')
 
-	<main class="container light">
+	<main class="container normal">
 
-		@@include('html/inputs.html')
+		<label for="content-left" class="left-tag tag">Ежедневник</label>
+		<label for="content-right" class="right-tag tag">Мира Вид</label>
+		<label for="content-up" class="up-tag tag">Концепция</label>
+		<label for="content-down" class="down-tag tag">Прочее</label>
 
-		@@include('html/left.html')
+		@@include('html/content-left.html')
+		@@include('html/content-right.html')
 
-		@@include('html/right.html')
+		<section class="center normal">
 
-		<section class="center light">
+			@@include('html/content-up.html')
+			@@include('html/content-down.html')
 
-			@@include('html/up.html')
-
-			@@include('html/down.html')
-
-			<section class="info text-dark light" id="info">
-				<button class="close" id="close" type="button">
+			<section class="info text-dark normal">
+				<label for="content-off" class="close">
 					<span>Закрыть</span>
 					<svg width="20" height="20" viewBox="0 0 20 20">
 						<use href="#icon__close" />
 					</svg>
-				</button>
+				</label>
 
 				@@include('html/info-up.html')
 				@@include('html/info-left.html')

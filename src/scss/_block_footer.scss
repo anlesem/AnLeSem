@@ -90,9 +90,14 @@ footer {
 	& svg {
 		@include position-center;
 	}
+}
 
-	// Поведение при наведении
-	&.hover {
+// Поведение при наведении
+#content-left:checked~footer:hover,
+#content-right:checked~footer:hover,
+#content-up:checked~footer:hover,
+#content-down:checked~footer:hover {
+	.close-all {
 		width: 180px;
 		height: 60px;
 		border: 2px solid #aaa;

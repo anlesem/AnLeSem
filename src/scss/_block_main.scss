@@ -1,4 +1,4 @@
-// В данном файле указываются общие для блоков-обёрток настройки: отображение и наведение 
+// В данном файле указываются общие для блоков-обёрток настройки Отображения
 
 body {
 	// Вертикальное заполнение по высоте header, main и footer
@@ -6,12 +6,12 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 
-	// Настройка горизонтальной ориентации экрана 1-2 (+ general, header и footer)
+	// Настройка горизонтальной ориентации экрана (+ general, header и footer)
 	@media (min-aspect-ratio: $proportion-land) {
 		flex-direction: row;
 	}
 
-	// Лёгкая версия 1-7	(везде)
+	// Лёгкая версия (везде)
 	&.light {
 		display: block;
 	}
@@ -29,55 +29,116 @@ main {
 	// Настройка высоты минус header и footer
 	height: calc(100% - 100px - 70px);
 
-	// Настройка горизонтальной ориентации экрана 2-2 - заполнение по высоте
+	// Настройка горизонтальной ориентации экрана - заполнение по высоте
 	@media (min-aspect-ratio: $proportion-land) {
 		height: 100%;
 	}
 
-	// Лёгкая версия 2-7
+	// Лёгкая версия 
 	&.light {
 		display: block;
 		height: auto;
 	}
 }
 
+//! ------------------------ Бирки
 .left,
 .right,
 .up,
 .down {
-
-	// Лёгкая версия 3-7
-	&.light {
-		display: none;
-	}
-
-	// Настройка бирок 1-7 
 	&-tag {
 		position: absolute;
 		z-index: $index-tag;
 		color: $title-light;
 		font-size: 18px;
-
-		&::after {
-			content: "";
-			@include position-size-parent;
-			z-index: -1;
-			background-color: $background-dark;
-		}
+		// background-color: $background-light;
 
 		&:hover {
 			cursor: pointer;
-			opacity: 0.7;
-
-			span {
-				color: $text-info;
-			}
+			color: $text-info;
 		}
 	}
+}
 
-	// Настройка тёмной области label's 1-7 (обёртка)
-	&__wrap {
+.left,
+.right {
+	&-tag {
+		width: $width-horz-tag;
+		height: $height-horz-tag;
+		line-height: $height-horz-tag;
+
+		// Для узких экранов (+ header и footer)
+		@include screen-slim {
+			width: $width-horz-tag - $d-slim-tag;
+			height: $height-horz-tag - $d-slim-tag;
+			line-height: $height-horz-tag - $d-slim-tag;
+			font-size: 14px;
+		}
+	}
+}
+
+.up,
+.down {
+	&-tag {
+		left: 50%;
+		transform: translateX(-50%);
+		width: $width-vert-tag;
+		height: $height-vert-tag;
+		text-align: center;
+
+		@include screen-slim {
+			width: $width-vert-tag - $d-slim-tag;
+			height: $height-vert-tag - $d-slim-tag;
+			font-size: 14px;
+		}
+	}
+}
+
+.left-tag {
+	padding-left: 10px;
+}
+
+.right-tag {
+	right: 0;
+	padding-right: 10px;
+	text-align: right;
+}
+
+.up-tag {
+	top: 0;
+	line-height: 100px;
+
+	@include screen-slim {
+		line-height: 70px;
+	}
+}
+
+.down-tag {
+	bottom: 0;
+	line-height: 200px;
+
+	@include screen-slim {
+		line-height: 130px;
+	}
+}
+
+//! ------------------------ Контент
+.left,
+.right,
+.up,
+.down {
+	background-color: $background-dark;
+
+	&::after,
+	&::before {
+		content: "";
+		position: absolute;
+		z-index: -1;
 		background-color: $background-dark;
+	}
+
+	&.light {
+		display: none;
 	}
 
 	&__content {
@@ -87,120 +148,62 @@ main {
 
 .left,
 .right {
-	position: relative;
-	width: $hover-space;
+	width: 0;
 	height: $height-horz-block;
 
 	// Переход в полноэкранный режим 1-6 (+ footer (кнопка) 
-	// Отключение невидимой области наведения и заполнение по высоте 
 	@include screen-full {
-		width: 0;
 		height: 100%;
 	}
 
-	// Настройка бирок 2-7 - горизонтальные
-	&-tag {
+	&::after,
+	&::before {
 		top: 50%;
-		transform: scale(1, 1) translateY(-50%);
 		width: $width-horz-tag;
 		height: $height-horz-tag;
 
-		// Выравнивание текста по высоте
-		line-height: $height-horz-tag;
-
-		// Для сверх узких экранов 1-3 (+ header и footer)
 		@include screen-slim {
 			width: $width-horz-tag - $d-slim-tag;
 			height: $height-horz-tag - $d-slim-tag;
-			line-height: $height-horz-tag - $d-slim-tag;
-			font-size: 14px;
 		}
-	}
-
-	// Настройка тёмной области label's 2-7 - горизонтальные
-	&__wrap {
-		width: 0;
-		height: 100%;
 	}
 }
 
 .left {
 	order: 1;
 
-	// Настройка бирок 3а-7 - левая
-	&-tag {
-		left: 0;
+	&::after,
+	&::before {
+		right: 100%;
+		transform: translate(100%, -50%);
 		padding-left: 10px;
 		clip-path: polygon(0 0, 100% 50%, 0 100%);
+	}
+
+	&::before {
 		background: url(../img/left_logo.svg) center center no-repeat content-box;
 		background-size: contain;
-	}
-
-	// Настройка тёмной области label's 3а-7 - левая
-	&__wrap {
-		position: absolute;
-		left: 0;
-	}
-
-	// Настройка бирок 4а-7 (наведение) - левая
-	&.hover &-tag {
-		left: 100%;
-		transition: left $timeout;
-	}
-
-	// Настройка тёмной области label's 4а-7 (наведение) - левая
-	&.hover &__wrap {
-		width: 100%;
-		z-index: $index-hover;
-		transition: width $timeout;
-
-		// Разделение на две горизонтальные части левого и правого блоков для малых экранов 1а-2
-		@include screen-full-horz {
-			top: 0;
-			width: 100vw;
-			height: 50%;
-		}
 	}
 }
 
 .right {
 	order: 3;
 
-	// Настройка бирок 3б-7 - правая
-	&-tag {
-		right: 0;
+	&::after,
+	&::before {
+		left: 100%;
+		transform: translate(-100%, -50%);
 		padding-right: 10px;
 		clip-path: polygon(100% 0, 0 50%, 100% 100%);
-		text-align: right;
+	}
+
+	&::before {
 		background: url(../img/right_logo.svg) center center no-repeat content-box;
 		background-size: contain;
 	}
 
-	// Настройка тёмной области label's 3б-7 - правая
-	&__wrap {
-		position: absolute;
-		right: 0;
+	&__content {
 		overflow: hidden; // страховка из-за перехода от right: 0 к 100
-	}
-
-	// Настройка бирок 4б-7 (наведение) - правая
-	&.hover &-tag {
-		right: 100%;
-		transition: right $timeout;
-	}
-
-	// Настройка тёмной области label's 4б-7 (наведение) - правая
-	&.hover &__wrap {
-		width: 100%;
-		z-index: $index-hover;
-		transition: width $timeout;
-
-		// Разделение на две горизонтальные части левого и правого блоков для малых экранов 1б-2
-		@include screen-full-horz {
-			top: 0;
-			width: 100vw;
-			height: 50%;
-		}
 	}
 }
 
@@ -230,7 +233,12 @@ main {
 .up,
 .down {
 	width: 100%;
-	height: $hover-space;
+	height: 0;
+	padding: 0 20px;
+
+	@include mobile {
+		padding: 0 10px;
+	}
 
 	// Переход в полноэкранный режим 3-5
 	// Отключение невидимой области наведения (ширина не меняется) 
@@ -238,30 +246,14 @@ main {
 		height: 0;
 	}
 
-	// Настройка бирок 5-7 
-	&-tag {
+	&::after {
 		left: 50%;
-		transform: scale(1, 1) translateX(-50%);
 		width: $width-vert-tag;
 		height: $height-vert-tag;
-		text-align: center;
 
-		// Для сверх узких экранов 2-3
 		@include screen-slim {
 			width: $width-vert-tag - $d-slim-tag;
 			height: $height-vert-tag - $d-slim-tag;
-			font-size: 14px;
-		}
-	}
-
-	// Настройка тёмной области label's 5-7
-	&__wrap {
-		width: 100%;
-		height: 0;
-		padding: 0 20px;
-
-		@include mobile {
-			padding: 0 10px;
 		}
 	}
 }
@@ -269,117 +261,40 @@ main {
 .up {
 	order: 1;
 
-	// Настройка бирок 6а-7 - верх
-	&-tag {
-		top: 0;
+	&::after {
+		bottom: 100%;
+		transform: translate(-50%, 100%);
 		clip-path: polygon(0 0, 100% 0, 50% 100%);
-
-		// Выравнивание текста по высоте (проще всего из-за разного прилипания текста по вертикали)
-		line-height: 100px;
-
-		// Для сверх узких экранов 3а-3
-		@include screen-slim {
-			line-height: 70px;
-		}
-	}
-
-	// Настройка тёмной области label's 6а-7  - верх
-	&__wrap {
-		position: absolute;
-		top: 0;
-		left: 0;
-	}
-
-	// Настройка бирок 7а-7 (наведение) - верх
-	&.hover &-tag {
-		top: 100%;
-		transition: top $timeout;
-	}
-
-	// Настройка тёмной области label's 7а-7 (наведение) - верх
-	&.hover &__wrap {
-		height: 100%;
-		transition: height $timeout;
 	}
 }
 
 .down {
 	order: 3;
 
-	// Настройка бирок 6б-7 - низ
-	&-tag {
-		bottom: 0;
+	&::after {
+		top: 100%;
+		transform: translate(-50%, -100%);
 		clip-path: polygon(0 100%, 50% 0, 100% 100%);
-
-		// Выравнивание текста по высоте (проще всего из-за разного прилипания текста по вертикали)
-		line-height: 200px;
-
-		// Для сверх узких экранов 3б-3
-		@include screen-slim {
-			line-height: 130px;
-		}
-	}
-
-	// Настройка тёмной области label's 6б-7 - низ
-	&__wrap {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-	}
-
-	// Настройка бирок 7б-7  (наведение) - низ
-	&.hover &-tag {
-		bottom: 100%;
-		transition: bottom $timeout;
-	}
-
-	// Настройка тёмной области label's 7б-7 (наведение) - низ
-	&.hover &__wrap {
-		height: 100%;
-		transition: height $timeout;
 	}
 }
 
+//! ------------------------ Текст
 // Блок-обёртка информационного содержимого 1-4 (+vert)
 .info {
 	position: relative;
+	z-index: -1;
 	width: 50%; // меньше положенного для анимации наведения
-	height: 70%; // не оказывает влияния на анимацию наведения
+	height: 50%; // не оказывает влияния на анимацию наведения
 	margin: 0 auto;
 	order: 2;
-
-	// Переход в полноэкранный режим 4-5
-	@include screen-full {
-		height: 100%;
-	}
 
 	// Лёгкая версия 5-7
 	&.light {
 		width: 100%;
 	}
 
-	// Общие для всех вложенных блоков в info настройки + при наведении 1а-4 (+ vert)
-	// Эффекты анимации 1a-2 - настройка фона
-	&__up {
-		width: 100%;
-		height: 100%;
-		padding: 20px;
-		overflow: hidden;
-		@include background;
-
-		// Лёгкая версия 6-7
-		&.light {
-			background: none;
-			overflow: visible;
-		}
-
-		// Настройка "мистического" текста
-		& p {
-			mix-blend-mode: overlay;
-		}
-	}
-
 	// Общие для всех вложенных блоков в info настройки + при наведении 1б-4 (+ vert и horz)
+	&__up,
 	&__down,
 	&__left,
 	&__right {
@@ -388,6 +303,7 @@ main {
 		height: 100%;
 		padding: 20px;
 		overflow: hidden;
+		@include background;
 
 		@include mobile {
 			padding: 10px;
@@ -398,155 +314,9 @@ main {
 			display: block;
 			overflow: visible;
 		}
-	}
-}
 
-//! Наведение (кроме персональных настроек бирок и тёмной области см. выше)
-// Размеры горизонтальных блоков при наведении
-.left.hover,
-.right.hover {
-	width: $width-horz-block;
-	transition: all $timeout;
-
-
-	&~.center {
-		width: $width-horz-block;
-
-		// Блок-обёртка информационного содержимого 2а-4
-		& .info {
-			width: 100%;
-			height: $height-horz-block;
-
-			// Общие для всех вложенных блоков в info настройки + при наведении 2-4
-			// Эффекты анимации 2а-2 - отключение при наведении
-			&__up {
-				display: none;
-			}
+		& p {
+			mix-blend-mode: overlay;
 		}
 	}
-
-	// Переход в полноэкранный режим 5а-5
-	@include screen-full {
-		width: 50%;
-
-		&~.center {
-			width: 50%;
-
-			// Блок-обёртка информационного содержимого 2б-4 
-			& .info {
-				height: 100%;
-			}
-		}
-	}
-
-	// Разделение на две горизонтальные части левого и правого блоков для малых экранов 2-2
-	@include screen-full-horz {
-		width: 0;
-
-		&~.center {
-			width: 100%;
-
-			// Блок-обёртка информационного содержимого 2в-4 
-			& .info {
-				position: absolute;
-				bottom: 0;
-				height: 50%;
-			}
-		}
-	}
-}
-
-// Размеры вертикальных блоков при наведении
-.up.hover,
-.down.hover {
-	position: relative;
-	height: $height-vert-block;
-	transition: all $timeout;
-
-	// Блок-обёртка информационного содержимого 3-4 
-	&~.info {
-		width: 100%;
-		height: 70%;
-
-		// Переход в полноэкранный режим 5б-5
-		@include screen-full {
-			height: 85%;
-		}
-	}
-}
-
-// Отключение эффектов содержимого верхнего блока (верх)
-// Общие для всех вложенных блоков в info настройки + при наведении 3а-4
-// Эффекты анимации 2б-2 - настройка при наведении + текст
-.up.hover~.info .info__up {
-	overflow: auto;
-	background: none;
-
-	& p {
-		mix-blend-mode: unset;
-	}
-}
-
-// Отключение содержимого верхнего блока (низ)
-// Общие для всех вложенных блоков в info настройки + при наведении 3б-4
-// Эффекты анимации 2в-2 - отключение при наведении
-.down.hover~.info .info__up {
-	display: none;
-}
-
-.left.hover,
-.right.hover,
-.up.hover,
-.down.hover {
-
-	// Приглушение фона бирки для больших экранов
-	&>div:first-child {
-		opacity: 0.3;
-	}
-
-	// Отключение заголовка бирки для больших экранов
-	& span {
-		display: none;
-	}
-}
-
-// Блок-обёртка информационного содержимого 4-4 
-// Отображение содержимого - блок info 1-2 (область белого)
-.left.hover~.center .info,
-.right.hover+.center .info,
-.up.hover~.info,
-.down.hover+.info {
-	opacity: 1;
-
-	// ? проблема плавного появления - эффект скачка у бирок 
-	transition: opacity 100ms;
-
-	// Включение кнопки "Закрыть"
-	& .close {
-		display: block;
-	}
-}
-
-// Отображение содержимого - блок info 2-2 (область белого)
-// Общие для всех вложенных блоков в info настройки + при наведении 4-4
-.left.hover~.center .info__left,
-.right.hover+.center .info__right,
-.up.hover~.info .info__up,
-.down.hover+.info .info__down {
-	display: block;
-	position: relative;
-	z-index: $index-hover;
-	overflow: auto;
-	background-color: $background-light;
-}
-
-// Отображение тёмной области label's (общие для всех настройки. Остальное см. выше)
-.left.hover .left__content,
-.right.hover .right__content,
-.up.hover .up__content,
-.down.hover .down__content {
-	display: flex;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
 }

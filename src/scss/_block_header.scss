@@ -40,12 +40,12 @@ header {
 	}
 
 	// Настройка меню
-	& nav {
+	nav {
 		display: contents; // для внедрения блока логотипа
 		height: 100%;
 
 		// Настройка ссылок
-		& a {
+		a {
 			position: relative;
 			display: inline-block;
 			width: 20%;
@@ -82,7 +82,7 @@ header {
 			&:hover {
 
 				// перемещение иконки на передний план
-				& svg {
+				svg {
 					z-index: auto;
 					fill: #777;
 
@@ -91,20 +91,20 @@ header {
 					}
 				}
 
-				& span {
+				span {
 					opacity: 0.3;
 				}
 			}
 		}
 
 		// Отключаем текст на портативных устройствах
-		& span {
+		span {
 			@include tablet {
 				display: none;
 			}
 		}
 
-		& svg {
+		svg {
 			@include position-center;
 			z-index: -1;
 			fill: #000;
@@ -137,7 +137,7 @@ header {
 		flex-direction: row;
 		height: auto;
 
-		& a {
+		a {
 			width: 20%;
 			font-size: 14px;
 
@@ -235,15 +235,37 @@ header {
 		font-weight: 700;
 		opacity: 0;
 
+		input {
+			display: none;
+		}
+
 		// ФИО
-		& h3 {
+		h3 {
 			font-size: 15px;
 			font-weight: 700;
 			color: $title-dark;
 		}
 
-		& a:hover {
-			opacity: 0.4;
+		p {
+			font-size: 12px;
+		}
+
+		a {
+			display: none;
+
+			&:hover {
+				opacity: 0.4;
+			}
+		}
+
+		input:checked {
+			&~p {
+				display: none;
+			}
+
+			&~a {
+				display: block;
+			}
 		}
 
 		// Лёгкая версия 4-4	
@@ -253,7 +275,7 @@ header {
 	}
 
 	// Открытие данных
-	&.hover {
+	&:hover {
 		width: 250px;
 		transition: all 500ms;
 
@@ -284,7 +306,7 @@ header {
 			}
 
 			// ФИО
-			& h3 {
+			h3 {
 
 				// Настройка горизонтальной ориентации экрана 6-9
 				@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion-land) {
