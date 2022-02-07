@@ -6,7 +6,7 @@ export default class ViewScreen {
 		this.animation = animation;
 
 		// Для установки задержки до появления кнопки "Перейти на лёгкую версию" при старте
-		this.timerId = null;
+		this.timerIdLight = null;
 
 		// Хранит используемое устройство ввода для появления "Закрыть"
 		this.mouse = null;
@@ -46,7 +46,7 @@ export default class ViewScreen {
 	// - Задание именованного таймера для возможности его отключения
 	// - Отображение кнопки "Перейти на лёгкую версию"
 	setButtonToLight(delay) {
-		this.timerId = setTimeout(() => {
+		this.timerIdLight = setTimeout(() => {
 			this.data.toLight.style.display = 'block';
 		}, delay);
 	}
@@ -62,10 +62,8 @@ export default class ViewScreen {
 	// - Отслеживание Устройства ввода
 	fullVersionOn() {
 		if (!this.data.settings.userToLight) {
-
 			this.data.toLight.style.display = 'none';
-			clearTimeout(this.timerId);
-
+			clearTimeout(this.timerIdLight);
 			if (!this.data.offScreen) {
 				this.showFullContent();
 			}

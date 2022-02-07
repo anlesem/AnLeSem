@@ -16,15 +16,12 @@ import Animation from './js/Animation';
 // Модуль отображения страницы, отслеживания её изменений и устройств
 import ViewScreen from './js/ViewScreen';
 
-
 //! ---------------------------------------------------------------- Создание объектов
 const data = new Data(settings);
 const animation = new Animation(data);
 const viewScreen = new ViewScreen(data, animation);
 const action = new Action(data, animation, viewScreen);
 const touchAction = new TouchAction(data, action);
-
-
 
 //! ---------------------------------------------------------------- Вызов
 // viewScreen.onload - Пока грузится страница определяются стартовые параметры отображения.

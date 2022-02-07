@@ -13,6 +13,7 @@ export default class Action {
 	// 	data.contentBlocks - нажатие на бирку
 	// 	data.cls - нажатие на кнопку закрыть
 	// 	data.footer - нажатие на кнопку закрыть (footer)
+	// 	data.contentBlocks[0].radio - прокрутка наверх при переключении статей
 	startListened() {
 		this.data.logo.addEventListener('mouseover', () => this.openLogo());
 		this.data.logo.addEventListener('mouseout', () => this.closeLogo());
@@ -20,8 +21,13 @@ export default class Action {
 		this.data.contentBlocks.forEach(element => {
 			element.tag.addEventListener('click', (event) => this.openContentBlock(event));
 		});
+
 		this.data.cls.addEventListener('click', () => this.closeContentBlock());
 		this.data.footer.addEventListener('click', () => this.closeContentBlock());
+
+		this.data.contentBlocks[0].radio.forEach(element => {
+			element.addEventListener('click', () => this.scrollUp());
+		});
 	}
 
 
@@ -31,7 +37,7 @@ export default class Action {
 	//		document.querySelector - добавление класса hover
 	//		animation.removeAnimation() - отключение анимации 	
 	openLogo() {
-		if (!this.viewScreen.offScreen) {
+		if (!this.data.offScreen) {
 			this.data.logo.classList.add('hover');
 			this.animation.removeAnimation();
 		}
@@ -49,15 +55,18 @@ export default class Action {
 	// Активация отображения блока с контентом
 	//		(event) - объект, на котором произошло Событие
 	//		| data.contentBlockActive - закрытие открытого блока
-	//		data.contentBlockActive - присвоение имени открываемого блока
+	//		data.contentBlockActive - присвоение имени открываемого блока в зависимости 
+	//			откуда пришло событие (нажатие или жест)
 	//		document.querySelector - добавление класса hover открываемому блоку
 	//		data.clsAll - отображение кнопки закрыть в footer
 	//		animation.removeAnimation() - отключение анимации
 	//		| viewScreen.fullScreen - в полноэкранном режиме гашение бирок
-	openContentBlock(event) {
+	openContentBlock(event, name) {
 		if (this.data.contentBlockActive) this.closeContentBlock();
 
-		this.data.contentBlockActive = event.currentTarget.dataset.name;
+		if (event.currentTarget) this.data.contentBlockActive = event.currentTarget.dataset.name;
+		else this.data.contentBlockActive = name;
+
 		document.querySelector(`.${this.data.contentBlockActive}`).classList.add('hover');
 		this.data.clsAll.classList.add('hover');
 		this.animation.removeAnimation();
@@ -86,5 +95,9 @@ export default class Action {
 		}
 
 		this.data.contentBlockActive = false;
+	}
+
+	scrollUp() {
+		this.data.infoUp.scrollTop = 0;
 	}
 }

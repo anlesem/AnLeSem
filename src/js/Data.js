@@ -21,12 +21,9 @@ export default class Data {
 		this.footer = document.getElementById('footer');
 		this.cls = document.getElementById('close');				// Кнопка Закрыть в открытом блоке
 		this.clsAll = document.getElementById('close-all');	// Кнопка Закрыть в подвале
+		this.infoUp = document.getElementById('info__up');		// для прокрутки наверх при переключении
 
-		//!------------------------------------------- Элементы анимации
-		this.info = document.getElementById('info');
-		this.infoUp = document.getElementById('info__up');
-
-		//!------------------------------------------- Блоки
+		//!------------------------------------------- Блоки с контентом
 		// contentBlocks - основной объект, содержащий в себе массив данных о задействованных элементах
 		// setContentBlocks - вызов метода для формирования contentBlocks
 		this.contentBlocks = [{ name: 'up' }, { name: 'down' }, { name: 'left' }, { name: 'right' }]
