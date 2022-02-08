@@ -3,10 +3,6 @@
 .left,
 .right {
 
-	&__radio {
-		display: none;
-	}
-
 	// Дополнительные настройки к main
 	// Заполнение изображения и label
 	&__content {
@@ -99,21 +95,21 @@
 }
 
 // Отображение изображения в зависимости от input.checked (светлая зона)
-#left-1:checked~.left .left-img-1,
-#left-2:checked~.left .left-img-2,
-#left-3:checked~.left .left-img-3,
-#right-1:checked~.right .right-img-1,
-#right-2:checked~.right .right-img-2,
-#right-3:checked~.right .right-img-3 {
+#left-1:checked~.global .left-img-1,
+#left-2:checked~.global .left-img-2,
+#left-3:checked~.global .left-img-3,
+#right-1:checked~.global .right-img-1,
+#right-2:checked~.global .right-img-2,
+#right-3:checked~.global .right-img-3 {
 	display: block;
 }
 
 // Отображение миниатюр label в зависимости от input.checked (тёмная зона)
-#left-1:checked~.left .left-label-1,
-#left-2:checked~.left .left-label-2,
-#left-3:checked~.left .left-label-3,
-#right-1:checked~.right .right-label-1,
-#right-2:checked~.right .right-label-2,
-#right-3:checked~.right .right-label-3 {
+#left-1:checked~.global .left-label-1,
+#left-2:checked~.global .left-label-2,
+#left-3:checked~.global .left-label-3,
+#right-1:checked~.global .right-label-1,
+#right-2:checked~.global .right-label-2,
+#right-3:checked~.global .right-label-3 {
 	opacity: 0.3;
 }

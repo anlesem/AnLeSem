@@ -22,6 +22,14 @@
 	}
 }
 
+// Переход в горизонтальную ориентацию
+@mixin screen-land {
+
+	@media (min-height: $slim-width) and (min-aspect-ratio: $proportion-land) {
+		@content;
+	}
+}
+
 // Переход в полноэкранный режим
 @mixin screen-full {
 
@@ -36,16 +44,6 @@
 @mixin screen-full-horz {
 
 	@media (max-width: $laptop-width) and (max-aspect-ratio: 4/3) {
-		@content;
-	}
-}
-
-// Для сверх узких экранов
-@mixin screen-slim {
-
-	@media (max-width: $slim-screen-tag),
-	(max-height: $slim-screen-tag),
-	(max-height: 475px) and (max-aspect-ratio: $proportion-land) {
 		@content;
 	}
 }

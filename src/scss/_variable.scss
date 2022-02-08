@@ -4,6 +4,7 @@ $pc-width: 1310px; // Основной контейнер
 $laptop-width: 1024px; // Переход в полноэкранный режим
 $tablet-width: 768px; // Планшет
 $mobile-width: 375px; // Мобильный
+$slim-width: 300px; // Лёгкая версия
 
 // Соотношение сторон экрана 
 $proportion-land: "5/2";
@@ -11,11 +12,6 @@ $proportion-port: "3/4";
 
 // Минимальная высота
 $break-height: 640px;
-
-// Узкий экран
-$slim-screen: 270px;
-$slim-screen-tag: 320px;
-$screen-off: 200px;
 
 // Контейнер для содержания
 $content-width: 600px;

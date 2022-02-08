@@ -28,7 +28,7 @@ const touchAction = new TouchAction(data, action);
 // 	Главное на этапе загрузки определить: пользователь ждёт или переходит на лёгкую версию
 // 	В случае перехода необходимо заблокировать активацию полноценной работы сайта (userToLight: true)
 // 	Параметр (delay) - задержка отображения кнопки перехода на лёгкую версию (значение в ms)
-viewScreen.onload(2000);
+// viewScreen.onload(2000);
 
 //! ---------------------------------------------------------------- Отслеживание
 // Отслеживание окончания загрузки страницы
@@ -40,12 +40,12 @@ viewScreen.onload(2000);
 // 	viewScreen.fullVersionOn - включение полной версии сайта.
 //		action.startListened - активация прослушивания событий
 //		viewScreen.resizeScreen() - Отслеживание изменения параметров экрана
-window.onload = () => {
-	let readyFullVersion = viewScreen.fullVersionOn();
-	if (readyFullVersion) {
-		action.startListened();
-		touchAction.startListened();
-		window.addEventListener('resize', () => viewScreen.resizeScreen());
-	}
-};
+// window.onload = () => {
+// 	let readyFullVersion = viewScreen.fullVersionOn();
+// 	if (readyFullVersion) {
+// 		action.startListened();
+// 		touchAction.startListened();
+// 		window.addEventListener('resize', () => viewScreen.resizeScreen());
+// 	}
+// };
 
