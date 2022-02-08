@@ -1,22 +1,5 @@
 // В данном файле указываются общие для блоков-обёрток настройки Отображения
 
-body {
-	// Вертикальное заполнение по высоте header, main и footer
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-
-	// Настройка горизонтальной ориентации экрана (+ general, header и footer)
-	@media (min-aspect-ratio: $proportion-land) {
-		flex-direction: row;
-	}
-
-	// Лёгкая версия (везде)
-	&.light {
-		display: block;
-	}
-}
-
 main {
 	// позиция для отсутствия движения верхних бирок при наведении на боковые
 	position: relative;
@@ -30,14 +13,8 @@ main {
 	height: calc(100% - 100px - 70px);
 
 	// Настройка горизонтальной ориентации экрана - заполнение по высоте
-	@media (min-aspect-ratio: $proportion-land) {
+	@include screen-land {
 		height: 100%;
-	}
-
-	// Лёгкая версия 
-	&.light {
-		display: block;
-		height: auto;
 	}
 }
 
@@ -66,14 +43,6 @@ main {
 		width: $width-horz-tag;
 		height: $height-horz-tag;
 		line-height: $height-horz-tag;
-
-		// Для узких экранов (+ header и footer)
-		@include screen-slim {
-			width: $width-horz-tag - $d-slim-tag;
-			height: $height-horz-tag - $d-slim-tag;
-			line-height: $height-horz-tag - $d-slim-tag;
-			font-size: 14px;
-		}
 	}
 }
 
@@ -85,16 +54,11 @@ main {
 		width: $width-vert-tag;
 		height: $height-vert-tag;
 		text-align: center;
-
-		@include screen-slim {
-			width: $width-vert-tag - $d-slim-tag;
-			height: $height-vert-tag - $d-slim-tag;
-			font-size: 14px;
-		}
 	}
 }
 
 .left-tag {
+	left: 0;
 	padding-left: 10px;
 }
 
@@ -107,19 +71,11 @@ main {
 .up-tag {
 	top: 0;
 	line-height: 100px;
-
-	@include screen-slim {
-		line-height: 70px;
-	}
 }
 
 .down-tag {
 	bottom: 0;
 	line-height: 200px;
-
-	@include screen-slim {
-		line-height: 130px;
-	}
 }
 
 //! ------------------------ Контент
@@ -133,12 +89,7 @@ main {
 	&::before {
 		content: "";
 		position: absolute;
-		z-index: -1;
 		background-color: $background-dark;
-	}
-
-	&.light {
-		display: none;
 	}
 
 	&__content {
@@ -161,11 +112,6 @@ main {
 		top: 50%;
 		width: $width-horz-tag;
 		height: $height-horz-tag;
-
-		@include screen-slim {
-			width: $width-horz-tag - $d-slim-tag;
-			height: $height-horz-tag - $d-slim-tag;
-		}
 	}
 }
 
@@ -221,13 +167,6 @@ main {
 	@include screen-full {
 		width: 100%;
 	}
-
-	// Лёгкая версия 4-7
-	&.light {
-		display: block;
-		width: 100%;
-		height: auto;
-	}
 }
 
 .up,
@@ -250,11 +189,6 @@ main {
 		left: 50%;
 		width: $width-vert-tag;
 		height: $height-vert-tag;
-
-		@include screen-slim {
-			width: $width-vert-tag - $d-slim-tag;
-			height: $height-vert-tag - $d-slim-tag;
-		}
 	}
 }
 
@@ -286,12 +220,8 @@ main {
 	width: 50%; // меньше положенного для анимации наведения
 	height: 50%; // не оказывает влияния на анимацию наведения
 	margin: 0 auto;
+	opacity: 0;
 	order: 2;
-
-	// Лёгкая версия 5-7
-	&.light {
-		width: 100%;
-	}
 
 	// Общие для всех вложенных блоков в info настройки + при наведении 1б-4 (+ vert и horz)
 	&__up,
@@ -307,16 +237,6 @@ main {
 
 		@include mobile {
 			padding: 10px;
-		}
-
-		// Лёгкая версия 7-7
-		&.light {
-			display: block;
-			overflow: visible;
-		}
-
-		& p {
-			mix-blend-mode: overlay;
 		}
 	}
 }

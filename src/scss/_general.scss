@@ -24,23 +24,23 @@ body {
 	height: 100%;
 }
 
-body {
+.global {
+	width: 100%;
+	height: 100%;
 	font-family: lato, Arial, Helvetica, sans-serif;
 	font-size: 16px;
 	font-style: normal;
 	font-weight: 400;
 	line-height: 22px;
 
-	@media (max-width: $slim-screen),
-	(max-height: $slim-screen) {
-		font-size: 12px;
-		line-height: 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	// Настройка горизонтальной ориентации экрана (+ general, header и footer)
+	@include screen-land {
+		flex-direction: row;
 	}
-
-	// Настройка фона
-	background: url(../img/background_lss.jpg) center center no-repeat;
-	background-size: 1000%;
-
 
 	&::before {
 		content: "";
@@ -55,16 +55,6 @@ body {
 		@include position-size-parent;
 		@include background;
 		z-index: -10;
-	}
-
-	// Лёгкая версия 1-1
-	&.light {
-		background: none;
-
-		&::before,
-		&::after {
-			content: none;
-		}
 	}
 }
 
@@ -83,9 +73,9 @@ body {
 		width: 100%;
 	}
 
-	// Настройка горизонтальной ориентации экрана 1-3 (+ main, header и footer)
+	// Настройка горизонтальной ориентации экрана
 	// Задание ширины main в горизонтальной ориентации
-	@media (min-aspect-ratio: $proportion-land) {
+	@include screen-land {
 		width: calc(100% - 20% - 80px); // -header и -footer
 	}
 }
@@ -135,8 +125,8 @@ body {
 			radial-gradient(circle, rgba(175, 184, 148, 0.8) 0%, transparent 100%),
 			linear-gradient(0deg, rgb(209, 100, 22), rgb(28, 13, 97));
 
-		// Настройка горизонтальной ориентации экрана 2-3 (+ main, header и footer)
-		@media (min-aspect-ratio: $proportion-land) {
+		// Настройка горизонтальной ориентации экрана
+		@include screen-land {
 			width: 3vw;
 			height: 3vw;
 			left: calc(20% + (100% - 20% - 80px) / 2); // header + (fullscreen -header -footer)/2
@@ -144,7 +134,7 @@ body {
 	}
 
 	// Кнопка перехода на лёгкую версию при долгой загрузке
-	& button {
+	button {
 		display: none;
 		position: absolute;
 		top: calc(50% + 10vh);
@@ -173,20 +163,16 @@ body {
 // Настройка предупреждения для лёгкой версии
 // Обёртка
 .warning {
-	display: none;
 	position: absolute;
 	top: 100%;
 	right: 10px;
 	z-index: $index-close;
 	margin-top: 10px;
 	padding: 5px 5px;
-	width: calc(100% - 20px); // выравнивание по горизонтали, учитывая отступ right * 2
+	width: 40px;
+	text-align: center;
 	transition: all $timeout;
 
-	// Лёгкая версия 2-4	
-	&.light {
-		display: block;
-	}
 
 	// Иконка в пассивном режиме 1-2
 	&::after {
@@ -205,12 +191,13 @@ body {
 	}
 
 	// Содержимое в пассивном режиме 1-2
-	& p {
+	p {
 		display: none;
 		color: $button-pink;
 	}
 
 	&:hover {
+		width: calc(100% - 20px); // выравнивание по горизонтали, учитывая отступ right * 2
 		border: 1px solid $button-pink;
 		background: #fff;
 		border-radius: 3px;
@@ -220,10 +207,11 @@ body {
 			content: none;
 		}
 
-		// Содержимое в режиме наведения 2-2
-		& p.light {
+		p.normal,
+		p.no-js {
 			display: block;
 		}
+
 	}
 }
 
@@ -248,7 +236,7 @@ body {
 	transition: all $timeout;
 
 	// Надпись "Закрыть" в состоянии наведения
-	& span {
+	span {
 		display: none;
 		overflow: hidden;
 		color: $button-pink;
@@ -257,7 +245,7 @@ body {
 	}
 
 	// Х в пассивном режиме
-	& svg {
+	svg {
 		@include position-center;
 		fill: $button-pink;
 	}
@@ -269,11 +257,11 @@ body {
 		border: 1px solid $button-pink;
 		background: #fff;
 
-		& span {
+		span {
 			display: block;
 		}
 
-		& svg {
+		svg {
 			display: none;
 		}
 	}

@@ -1,20 +1,22 @@
-<header class="normal" id="header">
-	<button class="warning normal" type="button">
-		<p class="normal">Это лёгкая версия сайта. Содержимое отображается не в полном объёме.</p>
-		<p class="normal" id="warning">JavaScript не поддерживается браузером. Не может быть обеспечена корректная
-			работа сайта.</p>
-	</button>
-	<div class="header container normal">
+<header>
+	<label for="version" class="warning">
+		<p class="light">Это лёгкая версия сайта. Содержимое отображается не в полном объёме.</p>
+		<p class="normal">Это полная версия сайта. При проблемах отображения нажмите для перехода на лёгкую версию</p>
+		<p class="slim-screen">Разрешение экрана не позволяет отобразить содержимое сайта в полном объёме.</p>
+		<p class="no-js" id="warning">Проблема с подключением JavaScript на стороне пользователя.</p>
+		<p class="to-full">Нажмите на данное сообщение, чтобы перейти к полной версии.</p>
+	</label>
+	<div class="header container">
 		<div class="logo" id="logo">
-			<label class="logo__card normal">
+			<label class="logo__card">
 				<input type="checkbox">
 				<h3>Андрей Семёнов</h3>
-				<p>Отобразить данные</p>
+				<p>Отобразить контакты</p>
 				<a href="tel:+79104238553">+7 910 423-8553</a>
 				<a href="mailto:anlesem@mail.ru">anlesem@mail.ru</a>
 			</label>
 		</div>
-		<nav>
+		<nav class="header__menu">
 			<a href="https://todoplan.site">
 				<span>Ежедневник</span>
 				<svg width="50" height="50" viewBox="0 0 50 50">

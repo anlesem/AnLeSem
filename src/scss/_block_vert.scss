@@ -19,7 +19,7 @@
 	}
 
 	// Заголовки
-	& label {
+	label {
 		flex-grow: 1;
 
 		width: 30%;
@@ -36,7 +36,7 @@
 		}
 	}
 
-	& p {
+	p {
 		display: none;
 	}
 }
@@ -44,36 +44,15 @@
 // Дополнительные настройки к main
 // Блок-обёртка информационного содержимого (+main)
 .info {
-	opacity: 0;
 
 	&__up,
 	&__down {
 
-		& h2 {
+		h2 {
 			display: none;
 			margin: 40px 0 20px;
 			font-weight: 700;
 			text-align: center;
-
-			// Лёгкая версия 1-6	(везде)
-			&.light {
-				display: block;
-			}
-		}
-	}
-
-	// Лёгкая версия 2-6
-	&.light {
-		height: auto;
-		opacity: 1;
-		margin-top: 70px;
-
-		@media (max-height: $slim-screen-tag) {
-			margin-top: 0;
-		}
-
-		& p {
-			mix-blend-mode: unset;
 		}
 	}
 }
@@ -88,11 +67,6 @@
 .img-up-2,
 .img-up-3 {
 	display: none;
-
-	// Лёгкая версия 3-6
-	&.light {
-		display: block;
-	}
 }
 
 //* Изображения верхнего блока
@@ -160,45 +134,42 @@
 		padding: 0;
 	}
 
-	& li {
+	li {
 		position: relative;
 		min-height: 110px;
 		padding: 15px 0;
 
 		// Разделительная черта
 		&::after {
-			position: absolute;
-			bottom: 0;
 			content: "";
-			width: 100%;
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
 			height: 1px;
 			background: $background-dark;
 			background-image: linear-gradient(to left, $background-light, $background-dark, $background-light);
 		}
 
 		// Логотип заказчика
-		& img {
+		img {
 			@include position-center;
 			opacity: 0.2;
 		}
 
 		// Наименование заказчика
-		& h3 {
+		h3 {
 			font-weight: 700;
 		}
 
 		// Обёртка для ссылки и даты 
-		& div {
+		div {
 			display: flex;
 			justify-content: space-between;
-
-			@include screen-slim {
-				flex-direction: column-reverse;
-			}
 		}
 
 		// ссылка на проект
-		& a {
+		a {
 			margin-left: 20px;
 			padding: 5px 15px;
 			border-radius: 3px;
@@ -207,11 +178,6 @@
 			font-size: 13px;
 			opacity: 1;
 			transition: opacity $timeout;
-
-			@include screen-slim {
-				margin: 10px 20px;
-				text-align: center;
-			}
 
 			&:hover {
 				opacity: 0.4;
@@ -251,15 +217,6 @@
 		flex-direction: row;
 		align-items: center;
 	}
-
-	// Лёгкая версия 4-6
-	&.light {
-		position: relative;
-		z-index: -1;
-		display: flex;
-		max-width: 600px;
-		margin: 0 auto;
-	}
 }
 
 // Разделительная черта
@@ -277,11 +234,6 @@ hr {
 		width: 1px;
 		height: 90%;
 		background-image: linear-gradient(to top, $background-light, $background-dark, $background-light);
-	}
-
-	// Лёгкая версия 5-6
-	&.light {
-		margin: 20px auto;
 	}
 }
 
@@ -321,16 +273,6 @@ hr {
 			@include position-size-parent;
 			z-index: -1;
 			opacity: 0.2;
-		}
-
-		// Лёгкая версия 6-6
-		&.light {
-			width: 100%;
-			height: auto;
-
-			&::after {
-				opacity: 0;
-			}
 		}
 
 		// Обёртка для заголовков 1-3
@@ -598,11 +540,11 @@ hr {
 }
 
 // Отображение заголовка label в зависимости от input.checked (тёмная зона)
-#up-1:checked~main .center .label-up-1,
-#up-2:checked~main .center .label-up-2,
-#up-3:checked~main .center .label-up-3,
-#down-1:checked~main .center .label-down-1,
-#down-2:checked~main .center .label-down-2 {
+#up-1:checked~.global .center .label-up-1,
+#up-2:checked~.global .center .label-up-2,
+#up-3:checked~.global .center .label-up-3,
+#down-1:checked~.global .center .label-down-1,
+#down-2:checked~.global .center .label-down-2 {
 	font-size: 18px;
 	font-weight: 700;
 	border-bottom: 3px solid $title-light;
@@ -613,11 +555,11 @@ hr {
 }
 
 // Отображение подзаголовка в зависимости от input.checked (тёмная зона)
-#up-1:checked~main .center .title-up-1,
-#up-2:checked~main .center .title-up-2,
-#up-3:checked~main .center .title-up-3,
-#down-1:checked~main .center .title-down-1,
-#down-2:checked~main .center .title-down-2 {
+#up-1:checked~.global .center .title-up-1,
+#up-2:checked~.global .center .title-up-2,
+#up-3:checked~.global .center .title-up-3,
+#down-1:checked~.global .center .title-down-1,
+#down-2:checked~.global .center .title-down-2 {
 	display: block;
 
 	@media screen and (max-height: $break-height) {
@@ -626,20 +568,20 @@ hr {
 }
 
 // Отображение текста в зависимости от input.checked (светлая зона)
-#up-1:checked~main .center .text-up-1,
-#up-2:checked~main .center .text-up-2,
-#up-3:checked~main .center .text-up-3 {
+#up-1:checked~.global .center .text-up-1,
+#up-2:checked~.global .center .text-up-2,
+#up-3:checked~.global .center .text-up-3 {
 	display: block;
 }
 
-#down-1:checked~main .center .text-down-1,
-#down-2:checked~main .center .text-down-2 {
+#down-1:checked~.global .center .text-down-1,
+#down-2:checked~.global .center .text-down-2 {
 	display: flex;
 }
 
 // Отображение картинок в зависимости от input.checked и наведения на соответствующий блок (светлая зона)
-#up-1:checked~main .center .info .img-up-1,
-#up-2:checked~main .center .info .img-up-2,
-#up-3:checked~main .center .info .img-up-3 {
+#up-1:checked~.global .center .info .img-up-1,
+#up-2:checked~.global .center .info .img-up-2,
+#up-3:checked~.global .center .info .img-up-3 {
 	display: block;
 }

@@ -2,8 +2,10 @@
 
 //! --------------------------------------- Нажатие
 // ------------------------- Левый
-#content-left:checked~main {
-	justify-content: flex-start;
+#content-left:checked~.global {
+	main {
+		justify-content: flex-start;
+	}
 
 	.left {
 		&-tag {
@@ -78,18 +80,16 @@
 				z-index: $index-hover;
 				overflow: auto;
 				background: $background-light;
-
-				& p {
-					mix-blend-mode: normal;
-				}
 			}
 		}
 	}
 }
 
 // ------------------------- Правый
-#content-right:checked~main {
-	justify-content: flex-end;
+#content-right:checked~.global {
+	main {
+		justify-content: flex-end;
+	}
 
 	.right {
 		&-tag {
@@ -164,17 +164,13 @@
 				z-index: $index-hover;
 				overflow: auto;
 				background: $background-light;
-
-				& p {
-					mix-blend-mode: normal;
-				}
 			}
 		}
 	}
 }
 
 // ------------------------- Верхний
-#content-up:checked~main {
+#content-up:checked~.global {
 
 	.up {
 		&-tag {
@@ -223,17 +219,13 @@
 				z-index: $index-hover;
 				overflow: auto;
 				background: $background-light;
-
-				& p {
-					mix-blend-mode: normal;
-				}
 			}
 		}
 	}
 }
 
 // ------------------------- Нижний
-#content-down:checked~main {
+#content-down:checked~.global {
 
 	.down {
 		&-tag {
@@ -282,10 +274,6 @@
 				z-index: $index-hover;
 				overflow: auto;
 				background: $background-light;
-
-				& p {
-					mix-blend-mode: normal;
-				}
 			}
 		}
 	}
@@ -293,10 +281,10 @@
 
 
 // Приглушение бирок в полноэкранном режиме
-#content-left:checked~main,
-#content-right:checked~main,
-#content-up:checked~main,
-#content-down:checked~main {
+#content-left:checked~.global,
+#content-right:checked~.global,
+#content-up:checked~.global,
+#content-down:checked~.global {
 
 	@include screen-full {
 		.tag {
@@ -315,9 +303,7 @@
 }
 
 //! --------------------------------------- Наведение
-// @media (min-width: $tablet-width) {
-
-#content-off:checked~main {
+#content-off:checked~.global {
 
 	// ------------------------- Левый
 	.left-tag:hover {
@@ -330,15 +316,25 @@
 			&::after,
 			&::before {
 				right: 0;
-				z-index: 1;
 			}
 		}
 
 		&~.center .info {
 			opacity: 1;
+			align-self: flex-start;
+			margin: unset;
+			z-index: -1;
+
+			@include screen-full {
+				margin: 0 auto;
+			}
 
 			&__left {
 				display: block;
+
+				* {
+					mix-blend-mode: overlay;
+				}
 			}
 		}
 	}
@@ -359,9 +355,20 @@
 
 		&~.center .info {
 			opacity: 1;
+			align-self: flex-end;
+			margin: unset;
+			z-index: -1;
+
+			@include screen-full {
+				margin: 0 auto;
+			}
 
 			&__right {
 				display: block;
+
+				* {
+					mix-blend-mode: overlay;
+				}
 			}
 		}
 	}
@@ -383,13 +390,19 @@
 
 			.info {
 				opacity: 1;
+				z-index: -1;
 
 				&__up {
 					display: block;
 
-					// *:not(p) {
-					// 	display: none;
-					// }
+					* {
+						mix-blend-mode: overlay;
+					}
+
+					img,
+					video {
+						display: none;
+					}
 				}
 			}
 		}
@@ -413,17 +426,21 @@
 
 			.info {
 				opacity: 1;
+				z-index: -1;
 
 				&__down {
 					display: block;
 
-					// *:not(p) {
-					// 	display: none;
-					// }
+					* {
+						mix-blend-mode: overlay;
+					}
+
+					img,
+					a {
+						display: none;
+					}
 				}
 			}
 		}
 	}
 }
-
-// }

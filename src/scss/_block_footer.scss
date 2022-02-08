@@ -5,19 +5,13 @@ footer {
 	line-height: 70px;
 	background-color: $background-dark;
 
-	// Настройка горизонтальной ориентации экрана 1-4 (+ general, main и header)
-	@media (min-aspect-ratio: $proportion-land) {
+	// Настройка горизонтальной ориентации экрана (+ general, main и header)
+	@include screen-land {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
 		width: 80px;
 		height: 100%;
-	}
-
-	// Лёгкая версия 1-3	(везде)
-	&.light {
-		display: block;
-		width: 100%;
 	}
 }
 
@@ -28,7 +22,7 @@ footer {
 	margin-right: 30px;
 
 	// Настройка горизонтальной ориентации экрана 2-4
-	@media (min-aspect-ratio: $proportion-land) {
+	@include screen-land {
 		text-align: center;
 		margin-right: 0;
 	}
@@ -37,24 +31,11 @@ footer {
 		margin-right: 10px;
 	}
 
-	// Для сверх узких экранов 1-1 (+ header и main)
-	@media (max-width: $slim-screen-tag) and (orientation: portrait),
-	(max-height: $slim-screen-tag) and (orientation: landscape) {
-		display: none;
-	}
-
-	// Лёгкая версия 2-3
-	&.light {
-		display: block;
-		margin-right: 30px;
-		text-align: right;
-	}
-
 	// Отключение полной надписи для малых экранов
 	&__full {
 
-		// Настройка горизонтальной ориентации экрана 3-4
-		@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
+		// Настройка горизонтальной ориентации экрана
+		@include screen-land {
 			display: none;
 		}
 
@@ -81,11 +62,6 @@ footer {
 		display: block;
 	}
 
-	// Лёгкая версия 3-3
-	&.light {
-		display: none;
-	}
-
 	// Х внутри кнопки
 	& svg {
 		@include position-center;
@@ -104,8 +80,8 @@ footer {
 		fill: #aaa;
 		opacity: 1;
 
-		// Настройка горизонтальной ориентации экрана 4-4
-		@media (min-aspect-ratio: $proportion-land) {
+		// Настройка горизонтальной ориентации экрана
+		@include screen-land {
 			width: 60px;
 			height: 180px;
 		}

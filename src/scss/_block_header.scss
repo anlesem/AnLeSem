@@ -4,24 +4,10 @@ header {
 	height: 100px;
 	background-color: $background-dark;
 
-	// Настройка горизонтальной ориентации экрана 1-9 (+ general, main и footer)
-	@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
+	// Настройка горизонтальной ориентации экрана (+ general, main и footer)
+	@include screen-land {
 		width: 20%;
 		height: 100%;
-	}
-
-	// Лёгкая версия 1-4	(везде)
-	&.light {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		width: 100%;
-		height: auto;
-
-		@media (max-height: $slim-screen-tag) {
-			position: relative;
-		}
 	}
 }
 
@@ -32,15 +18,15 @@ header {
 	align-items: center;
 	color: $text-menu;
 
-	// Настройка горизонтальной ориентации экрана 2-9
-	@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
+	// Настройка горизонтальной ориентации экрана
+	@include screen-land {
 		flex-direction: column;
 		width: 100%;
 		height: 100%;
 	}
 
 	// Настройка меню
-	nav {
+	&__menu {
 		display: contents; // для внедрения блока логотипа
 		height: 100%;
 
@@ -61,16 +47,11 @@ header {
 				width: 10%;
 			}
 
-			// Настройка горизонтальной ориентации экрана 3-9
+			// Настройка горизонтальной ориентации экрана
 			// переход на большую кнопку, удобную для нажатия
-			@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
+			@include screen-land {
 				width: 100%;
 				height: 10%;
-			}
-
-			// Для сверх узких экранов 1-2 (+ main и footer)
-			@media (max-height: $slim-screen-tag) and (orientation: landscape) {
-				font-size: 13px;
 			}
 
 			// Смещение порядка в сторону из-за центрального положения логотипа 
@@ -115,40 +96,12 @@ header {
 				fill: $text-menu;
 				opacity: 0.8;
 
-				// Настройка горизонтальной ориентации экрана 4-9
+				// Настройка горизонтальной ориентации экрана
 				// Настройка размеров иконки в зависимости от высоты экрана
-				@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
+				@include screen-land {
 					width: auto;
 					height: 100%;
 				}
-			}
-
-			// Для сверх узких экранов 2-2
-			// Настройка размеров иконки в зависимости от ширины экрана
-			@media (max-width: $slim-screen) {
-				width: 100%;
-				height: auto;
-			}
-		}
-	}
-
-	// Лёгкая версия 3-4	
-	&.light {
-		flex-direction: row;
-		height: auto;
-
-		a {
-			width: 20%;
-			font-size: 14px;
-
-			// переход на большую кнопку, удобную для нажатия
-			@include tablet {
-				height: 100%;
-				width: 15%;
-			}
-
-			@include mobile {
-				width: 10%;
 			}
 		}
 	}
@@ -172,12 +125,6 @@ header {
 	border-left: 3px solid transparent;
 	background: transparent;
 
-	// Пропорциональное уменьшение логотипа на сверх узких экранах 
-	@media (max-width: $screen-off) {
-		width: 30vw;
-		height: 30vw;
-	}
-
 	// Изображение логотипа
 	&::after {
 		content: "";
@@ -188,7 +135,7 @@ header {
 		background: url(../img/logo80.jpg) center center no-repeat;
 		background-size: 80px 80px; // чтобы было чёткое изображение
 
-		@media (max-width: $screen-off) {
+		@media (max-width: $slim-width) {
 			background-size: 100%;
 		}
 
@@ -208,12 +155,6 @@ header {
 			background: url(../img/logo240.jpg) center center no-repeat;
 			background-size: 100%;
 		}
-	}
-
-	// Виртуальный временный блок для предотвращения случайного нажатия на ссылки
-	&-stop {
-		@include position-size-parent;
-		z-index: 10;
 	}
 
 	// Контактные данные
@@ -247,7 +188,10 @@ header {
 		}
 
 		p {
-			font-size: 12px;
+			position: absolute;
+			width: 100%;
+			bottom: 0;
+			font-size: 10px;
 		}
 
 		a {
@@ -267,11 +211,6 @@ header {
 				display: block;
 			}
 		}
-
-		// Лёгкая версия 4-4	
-		&.light {
-			display: none;
-		}
 	}
 
 	// Открытие данных
@@ -284,9 +223,9 @@ header {
 			background-size: 100%;
 		}
 
-		// Настройка горизонтальной ориентации экрана 5-9
+		// Настройка горизонтальной ориентации экрана
 		// Перенастройка во всю ширину header
-		@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
+		@include screen-land {
 			width: 90%;
 		}
 
@@ -296,25 +235,25 @@ header {
 		}
 
 		// Контактные данные
-		& .logo__card {
+		.logo__card {
 			opacity: 1;
 			transition: opacity $timeout;
 
-			// Настройка горизонтальной ориентации экрана 7-9
-			@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion-land) {
-				font-size: 10px;
+			// Настройка горизонтальной ориентации экрана
+			@include screen-land {
+				@include tablet {
+					font-size: 10px;
+				}
 			}
 
 			// ФИО
 			h3 {
 
-				// Настройка горизонтальной ориентации экрана 6-9
-				@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion-land) {
-					display: none;
-				}
-
-				@include screen-slim {
-					display: none;
+				// Настройка горизонтальной ориентации экрана
+				@include screen-land {
+					@include tablet {
+						display: none;
+					}
 				}
 			}
 		}
@@ -327,8 +266,8 @@ header {
 				display: none;
 			}
 
-			// Настройка горизонтальной ориентации экрана 8-9
-			@media (min-height: $screen-off) and (min-aspect-ratio: $proportion-land) {
+			// Настройка горизонтальной ориентации экрана
+			@include screen-land {
 				height: 5%;
 				width: 100%;
 			}
@@ -341,11 +280,13 @@ header {
 				height: auto;
 			}
 
-			// Настройка горизонтальной ориентации экрана 9-9
+			// Настройка горизонтальной ориентации экрана
 			// Корректировка иконок в зависимости от высоты ссылки
-			@media (min-height: $screen-off) and (max-width: $tablet-width) and (min-aspect-ratio: $proportion-land) {
-				height: 100%;
-				width: auto;
+			@include screen-land {
+				@include tablet {
+					height: 100%;
+					width: auto;
+				}
 			}
 		}
 	}
