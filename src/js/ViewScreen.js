@@ -29,6 +29,8 @@ export default class ViewScreen {
 	onload(delay) {
 		this.data.preloader.style.animation = "";
 
+		//ToDo проверка браузера
+
 		this.data.toLight.addEventListener('click', () => {
 			this.data.settings.userToLight = true;
 			this.data.preloader.style.display = 'none';
@@ -39,7 +41,6 @@ export default class ViewScreen {
 
 		this.fullScreenMedia();
 		this.slimScreenMedia();
-		this.offScreenMedia();
 	}
 
 	// Задержка до появления кнопки "Перейти на лёгкую версию" при старте
@@ -64,11 +65,15 @@ export default class ViewScreen {
 		if (!this.data.settings.userToLight) {
 			this.data.toLight.style.display = 'none';
 			clearTimeout(this.timerIdLight);
-			if (!this.data.offScreen) {
-				this.showFullContent();
-			}
-			this.data.warning.innerHTML = "Расширение экрана не позволяет корректно отобразить всё оформление страницы.";
+
+			this.data.checkVersion.checked = false;
+			this.data.checkVersion.disabled = true;
+			document.querySelectorAll(".warning").forEach((elem) => {
+				elem.style.display = 'none';
+			})
+
 			this.typeOfPointer();
+
 			setTimeout(() => {
 				this.animation.removePreloader();
 			}, 1000);
@@ -78,12 +83,6 @@ export default class ViewScreen {
 		return false;
 	}
 
-	// Отображение полноценного контента
-	showFullContent() {
-		document.querySelectorAll('.light').forEach((element) => {
-			element.classList.remove('light');
-		});
-	}
 
 	//! ------------------------------------------------- Определение размеров экрана
 	// Медиа запросы:
@@ -96,41 +95,21 @@ export default class ViewScreen {
 		else this.data.fullScreen = false;
 	}
 	slimScreenMedia() {
-		if ((window.innerHeight < 475 && window.innerWidth / window.innerHeight < this.data.settings.proportion) ||
-			window.innerHeight < this.data.settings.slimScreenTag || window.innerWidth < this.data.settings.slimScreenTag) this.data.slimScreen = true;
+		if (window.innerHeight < this.data.settings.slimWidth || window.innerWidth < this.data.settings.slimWidth) this.data.slimScreen = true;
 		else this.data.slimScreen = false;
-	}
-	offScreenMedia() {
-		if ((window.innerHeight < 375 && window.innerWidth / window.innerHeight < this.data.settings.proportion) ||
-			window.innerHeight < this.data.settings.offWidth || window.innerWidth < this.data.settings.offWidth) this.data.offScreen = true;
-		else this.data.offScreen = false;
 	}
 
 	//! ------------------------------------------------- Изменение размеров экрана
 	//	...Media() - Переопределение медиа запросов
-	// |offScreen - Перезагрузка страницы в лёгкую версию при переходе в сверх узкий режим
-	// 				и отображение контента при переходе к нормальной ширине экрана
-	// |data.contentBlockActive - в случае открытого блока с контентом
-	//		|fullScreen - гашение или отображение бирок в зависимости от режима открытого блока (полноэкранный)
-	//						- перезапуск анимации для проверки правильных пропорций бирок
-	//	closeButton() - Переключение отображения кнопок "Закрыть" и "Закрыть всё"
+	//	specialOfPointer() - Переключение отображения кнопок "Закрыть" и "Закрыть всё"
+	// data.slimScreen - для узких экранов отключается вся анимация
 	resizeScreen() {
 		this.fullScreenMedia();
 		this.slimScreenMedia();
-		this.offScreenMedia();
 
-		if (this.data.offScreen) location.reload();
-		else this.showFullContent();
+		this.specialOfPointer(this.mouse);
 
-		if (this.data.contentBlockActive) {
-			if (this.data.fullScreen) this.hideTags();
-			else this.showTags();
-		} else {
-			this.animation.removeAnimation();
-			this.animation.setAnimation();
-		}
-
-		this.closeButton(this.mouse);
+		if (this.data.slimScreen) this.animation.removeAnimation();
 	}
 
 	//! ------------------------------------------------- Устройства ввода
@@ -141,15 +120,15 @@ export default class ViewScreen {
 			switch (event.pointerType) {
 				case 'mouse':
 					this.mouse = true;
-					this.closeButton(this.mouse);
+					this.specialOfPointer(this.mouse);
 					break;
 				case 'pen':
 					this.mouse = false;
-					this.closeButton(this.mouse);
+					this.specialOfPointer(this.mouse);
 					break;
 				case 'touch':
 					this.mouse = false;
-					this.closeButton(this.mouse);
+					this.specialOfPointer(this.mouse);
 					break;
 				default:
 			}
@@ -160,45 +139,39 @@ export default class ViewScreen {
 			switch (event.pointerType) {
 				case 'mouse':
 					this.mouse = true;
-					this.closeButton(this.mouse);
+					this.specialOfPointer(this.mouse);
 					break;
 				case 'pen':
 					this.mouse = false;
-					this.closeButton(this.mouse);
+					this.specialOfPointer(this.mouse);
 					break;
 				case 'touch':
 					this.mouse = false;
-					this.closeButton(this.mouse);
+					this.specialOfPointer(this.mouse);
 					break;
 				default:
 			}
 		}, false);
 	}
 
-	closeButton(mouse) {
-		if (!mouse && this.data.fullScreen) {						// Для мышки и полноэкранного режима
+	// Особенности для устройств ввода
+	// 	data.fullScreen - в полноэкранном режиме для Touch кнопка "Закрыть" перемещается в подвал
+	//		data.contacts - включение блокировки случайного нажатия в логотипе для Touch
+	specialOfPointer(mouse) {
+		if (!mouse && this.data.fullScreen) {
 			this.data.cls.style.visibility = 'hidden';
 			this.data.clsAll.style.visibility = 'visible';
-		} else {														// Для больших экранов при любом устройстве ввода
+		} else {
 			this.data.cls.style.visibility = 'visible';
 			this.data.clsAll.style.visibility = 'hidden';
 		}
-	}
 
-	//! ------------------------------------------------- Бирки
-	// Гашение бирок при открытом блоке с контентом
-	hideTags() {
-		this.data.contentBlocks.forEach(element => {
-			element.tag.style.opacity = '0.2';
-			element.tag.querySelector('span').style.display = 'none';
-		});
-	}
-
-	// Нормальное бирок
-	showTags() {
-		this.data.contentBlocks.forEach(element => {
-			element.tag.style.opacity = '';
-			element.tag.querySelector('span').style.display = 'block';
-		});
+		if (mouse) {
+			this.data.contacts.checked = true;
+			this.data.contacts.disabled = true;
+		} else {
+			this.data.contacts.checked = false;
+			this.data.contacts.disabled = false;
+		}
 	}
 }

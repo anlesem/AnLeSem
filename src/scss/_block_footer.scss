@@ -69,10 +69,10 @@ footer {
 }
 
 // Поведение при наведении
-#content-left:checked~footer:hover,
-#content-right:checked~footer:hover,
-#content-up:checked~footer:hover,
-#content-down:checked~footer:hover {
+#content-left:checked~.global,
+#content-right:checked~.global,
+#content-up:checked~.global,
+#content-down:checked~.global {
 	.close-all {
 		width: 180px;
 		height: 60px;

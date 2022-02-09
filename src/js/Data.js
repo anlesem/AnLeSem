@@ -17,11 +17,13 @@ export default class Data {
 
 		//!------------------------------------------- Основные элементы
 		// this.header = document.getElementById('header');
+		this.checkVersion = document.getElementById('version');
+		this.checkContentOff = document.getElementById('content-off');
 		this.logo = document.getElementById('logo');
-		this.footer = document.getElementById('footer');
-		this.cls = document.getElementById('close');				// Кнопка Закрыть в открытом блоке
-		this.clsAll = document.getElementById('close-all');	// Кнопка Закрыть в подвале
-		this.infoUp = document.getElementById('info__up');		// для прокрутки наверх при переключении
+		this.contacts = document.getElementById('contacts');
+		this.cls = document.querySelector('.close');				// Кнопка Закрыть в открытом блоке
+		this.clsAll = document.querySelector('.close-all');	// Кнопка Закрыть в подвале
+		this.infoUp = document.querySelector('.info__up');		// для прокрутки наверх при переключении
 
 		//!------------------------------------------- Блоки с контентом
 		// contentBlocks - основной объект, содержащий в себе массив данных о задействованных элементах
@@ -30,15 +32,9 @@ export default class Data {
 		this.setContentBlocks();
 
 		//!------------------------------------------- Параметры отображения
-		// Параметр-флаг со значением name открытого Блока
-		// Значение false говорит об отсутствии открытого Блока, что
-		//		позволяет открыть Блок с контентом
-		this.contentBlockActive = false;
-
 		// Медиа запросы  (следует уточнять в _mixin.scss). Полный, узкий или совсем узкий экран. (window.matchMedia не всегда работает)
 		this.fullScreen = null;
 		this.slimScreen = null;
-		this.offScreen = null;
 	}
 
 	//!---------------------------------------------- Методы
@@ -51,8 +47,8 @@ export default class Data {
 	//			(element.radio) - соответствующий имени блока массив переключателей;
 	setContentBlocks() {
 		this.contentBlocks.forEach(element => {
-			element.tag = document.getElementById(`${element.name}-tag`);			// бирки
-			element.tag.dataset.name = element.name;
+			element.check = document.getElementById(`content-${element.name}`);	// бирки input
+			element.tag = document.querySelector(`.${element.name}-tag`);			// бирки label
 			element.radio = [];
 			this.setRadio(element.name, element.radio);
 		});

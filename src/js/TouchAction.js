@@ -1,8 +1,9 @@
 // Модуль отслеживает поведение пользователя при управлении жестами.
 
 export default class TouchAction {
-	constructor(data, action) {
+	constructor(data, animation, action) {
 		this.data = data;
+		this.animation = animation;
 		this.action = action;
 
 		// Параметры движения
@@ -26,8 +27,6 @@ export default class TouchAction {
 			cancelable: true
 		});
 		document.addEventListener('touchend', (event) => this.end(event));
-
-		this.data.logo.addEventListener('touchstart', () => this.openLogoTouch());
 	}
 
 	//!---------------------------------------------- Жесты (События)
@@ -75,62 +74,62 @@ export default class TouchAction {
 		if (xAbs > 30 || yAbs > 30) {
 			if (xAbs > yAbs) {
 				if (this.finalPoint.pageX < this.initialPoint.pageX) {
-					if (this.data.contentBlockActive && this.data.fullScreen) this.slide('next');
-					else if (!this.data.contentBlockActive) this.action.openContentBlock('', 'right'); 	// Движение влево 
+					if (!this.data.checkContentOff.checked && this.data.fullScreen) this.slide('next');
+					else if (this.data.checkContentOff.checked) this.openContentBlock('right'); 	// Движение влево 
 				}
-				else if (this.data.contentBlockActive && this.data.fullScreen) this.slide('prev');
-				else if (!this.data.contentBlockActive) this.action.openContentBlock('', 'left');		// Движение вправо
+				else if (!this.data.checkContentOff.checked && this.data.fullScreen) this.slide('prev');
+				else if (this.data.checkContentOff.checked) this.openContentBlock('left');		// Движение вправо
 			}
-			else if (!this.data.contentBlockActive) {
+			else if (this.data.checkContentOff.checked) {
 				if (this.finalPoint.pageY < this.initialPoint.pageY) {
-					this.action.openContentBlock('', 'down'); 														// Движение вверх 
+					this.openContentBlock('down'); 														// Движение вверх 
 				}
 				else {
-					this.action.openContentBlock('', 'up'); 															// Движение вниз 
+					this.openContentBlock('up'); 															// Движение вниз 
 				}
 			}
 		}
 	}
 
-	//!---------------------------------------------- Общие методы
+	//!---------------------------------------------- Методы
 	// Проверка при касании экрана на принадлежность логотипу или блоку, имеющему прокрутку.
-	// 	(isLogo) - флаг нажатия на логотип. Обнуление при каждом вызове метода
 	// 	(scrollElements) - массив элементов с наличием прокрутки на момент касания. Обнуление при каждом вызове метода
 	// 	event.path - проверка проходит по массиву значений. Если хоть одно значение удовлетворяет условию, 
 	// 					соответствующий флаг получает значение true
-	//			element.classList - проверка для логотипа. Область, где произошло Событие Логотип?
-	//									- да - никаких действий не требуется
-	//									- нет - следует закрыть логотип (по аналогии с "mouseout") 
 	//			element.scrollHeight - предположение на наличие прокрутки у блока, чтобы не блокировать напрасно 
 	//									действие браузера по умолчанию (перезагрузка на движение вверх):
 	//									- грубая проверка на разницу высот элемента и наличие overflow:hidden
 	//									- уточнение уже потом при движении move()
-	//		action.closeLogo() - закрытие логотипа
 	examinationElement(event) {
-		let isLogo = false;
 		this.scrollElements = [];
 
 		event.path.forEach(element => {
-			if (element.classList && element.classList.contains('logo')) isLogo = true;
-
 			if (element.clientHeight < element.scrollHeight && !(element.style.overflow && element.style.overflow == 'hidden')) {
 				this.scrollElements.push(element);
 			}
 		});
+	}
 
-		if (!isLogo) {
-			this.action.closeLogo();
-		}
+	// Открытие блока жестом по направлению указателя бирки
+	openContentBlock(name) {
+		this.data.contentBlocks.find(item => item.name === name).check.checked = true;
+		this.animation.removeAnimation();
 	}
 
 	// Открытие блоков с контентом или переключение содержимого в полноэкранном режиме
-	// 	data.contentBlocks.find - Определение списка radio блока, в котором происходит событие
+	//		data.contentBlocks - определение открытого в данный момент блока с контентом и его списка
+	//									переключателей
 	//		| radioList[i].checked - Определение актуальной позиции input.checked
 	//			| 'next' - переключение на следующий и прокрутка, если актуальная позиция не последняя
 	//			| else if - переключение на предыдущий и прокрутка, если актуальная позиция не первая
 	//				scrollUp() - Прокрутка наверх в верхнем блоке при переключении между вкладками
 	slide(n) {
-		let radioList = this.data.contentBlocks.find(item => item.name === this.data.contentBlockActive).radio;
+		let radioList = [];
+
+		this.data.contentBlocks.forEach((element) => {
+			if (element.check.checked) radioList = element.radio;
+		})
+
 		for (let i = 0; i <= radioList.length; i++) {
 			if (radioList[i].checked) {
 				if (n == 'next') {
@@ -144,20 +143,5 @@ export default class TouchAction {
 				return;
 			}
 		}
-	}
-
-	//!---------------------------------------------- Методы для логотипа
-	// Открытие визитной карточки внутри логотипа в дополнение к наведению:
-	// 	1. при открытии и отсутствии заглушки, создаётся заглушка, блокирующая случайное нажатие на ссылку
-	//			внутри визитной карточки. Заглушка удаляется после задержки в 300ms
-	//		2. собственно открытие визитной карточки
-	openLogoTouch() {
-		if (!this.data.logo.classList.contains('hover') && !document.querySelector('.logo-stop')) {
-			this.data.logo.insertAdjacentHTML('afterbegin', '<div class="logo-stop"></div>');
-			setTimeout(() => {
-				document.querySelector('.logo-stop').remove();
-			}, 300);
-		}
-		this.action.openLogo();
 	}
 }
