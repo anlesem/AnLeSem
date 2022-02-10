@@ -48,5 +48,14 @@ module.exports = {
 			filename: 'index.html', // название выходного файла
 			chunks: ['main'] // связь с точкой входа (entry)
 		}),
-	]
+	],
+	module: {
+		rules: [
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				loader: 'babel-loader'
+			}
+		]
+	}
 }

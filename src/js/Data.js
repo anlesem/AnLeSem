@@ -67,4 +67,15 @@ export default class Data {
 			if (!isNaN(radio[i])) radio.pop();
 		}
 	}
+
+	// Возвращает объект с данными открытого блока с контентом для быстрого 
+	// доступа к данным и удобства использования использования
+	elementOpen() {
+		let elementOpen = {};
+		this.contentBlocks.forEach((element) => {
+			if (element.check.checked) elementOpen = element;
+		})
+
+		return elementOpen;
+	}
 }

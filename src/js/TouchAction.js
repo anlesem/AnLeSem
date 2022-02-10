@@ -55,7 +55,7 @@ export default class TouchAction {
 				this.scrollPoint[i] = this.scrollElements[i].scrollTop;
 			}
 		}
-		if (!isScroll && event.cancelable) {
+		if (isScroll === false && event.cancelable) {
 			event.preventDefault();
 		}
 	}
@@ -117,18 +117,14 @@ export default class TouchAction {
 	}
 
 	// Открытие блоков с контентом или переключение содержимого в полноэкранном режиме
-	//		data.contentBlocks - определение открытого в данный момент блока с контентом и его списка
+	//		data.elementOpen() - определение открытого в данный момент блока с контентом и его списка
 	//									переключателей
 	//		| radioList[i].checked - Определение актуальной позиции input.checked
 	//			| 'next' - переключение на следующий и прокрутка, если актуальная позиция не последняя
 	//			| else if - переключение на предыдущий и прокрутка, если актуальная позиция не первая
 	//				scrollUp() - Прокрутка наверх в верхнем блоке при переключении между вкладками
 	slide(n) {
-		let radioList = [];
-
-		this.data.contentBlocks.forEach((element) => {
-			if (element.check.checked) radioList = element.radio;
-		})
+		let radioList = this.data.elementOpen().radio;
 
 		for (let i = 0; i <= radioList.length; i++) {
 			if (radioList[i].checked) {

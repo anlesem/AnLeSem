@@ -8,10 +8,19 @@
 		"dev": "gulp build",
 		"build": "gulp build --build"
 	},
+	"browserslist": "> 0.25%, not dead",
+	"babel": {
+		"presets": [
+		  "@babel/env"
+		]
+	 },
 	"keywords": [],
 	"author": "Andrew Semenov",
 	"license": "ISC",
 	"devDependencies": {
+		"@babel/core": "^7.17.2",
+		"@babel/preset-env": "^7.16.11",
+		"babel-loader": "^8.2.3",
 		"browser-sync": "^2.27.7",
 		"del": "^6.0.0",
 		"gulp": "^4.0.2",
