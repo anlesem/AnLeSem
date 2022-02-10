@@ -123,6 +123,9 @@
 
 			h2 {
 				display: block;
+				margin: 40px 0 20px;
+				text-align: center;
+				font-weight: 700;
 			}
 		}
 	}
@@ -186,6 +189,7 @@
 
 //! ------------------------------------------ Копия для @media
 @media (max-width: $slim-width),
+(max-height: $slim-height) and (max-aspect-ratio: $proportion-land),
 (max-height: $slim-width) {
 
 	//--------------------------- general
@@ -259,6 +263,10 @@
 		height: 60px;
 		opacity: 0.5;
 
+		&::after {
+			background-size: 100%;
+		}
+
 		&:hover {
 			width: 60px;
 			height: 60px;
@@ -315,6 +323,9 @@
 
 			h2 {
 				display: block;
+				margin: 40px 0 20px;
+				text-align: center;
+				font-weight: 700;
 			}
 		}
 	}

@@ -22,14 +22,6 @@
 	}
 }
 
-// Переход в горизонтальную ориентацию
-@mixin screen-land {
-
-	@media (min-height: $slim-width) and (min-aspect-ratio: $proportion-land) {
-		@content;
-	}
-}
-
 // Переход в полноэкранный режим
 @mixin screen-full {
 

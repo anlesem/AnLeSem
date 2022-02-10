@@ -50,9 +50,6 @@
 
 		h2 {
 			display: none;
-			margin: 40px 0 20px;
-			font-weight: 700;
-			text-align: center;
 		}
 	}
 }
@@ -92,7 +89,7 @@
 	margin: 20px 0;
 	text-align: center;
 
-	& video {
+	video {
 		width: 480px;
 		height: 204px;
 
@@ -108,7 +105,7 @@
 	margin: 20px 0;
 	text-align: center;
 
-	& img {
+	img {
 		width: 49%;
 		height: auto;
 
@@ -190,7 +187,7 @@
 		}
 
 		// Дата работы над проектом
-		& time {
+		time {
 			align-self: flex-end;
 			font-size: 11px;
 			text-align: right;
@@ -287,11 +284,11 @@ hr {
 				justify-content: start;
 			}
 
-			& h3 {
+			h3 {
 				font-weight: 700;
 			}
 
-			& h4 {
+			h4 {
 				text-transform: none;
 
 				@media (max-width: $tablet-width),
@@ -300,7 +297,7 @@ hr {
 				}
 			}
 
-			& p {
+			p {
 				margin-top: 30px;
 				margin-bottom: 0;
 
@@ -311,7 +308,7 @@ hr {
 				}
 			}
 
-			& time {
+			time {
 				font-size: 12px;
 				color: #555;
 
@@ -331,7 +328,7 @@ hr {
 		text-align: left;
 		font-size: 14px;
 
-		& li {
+		li {
 			position: relative;
 			padding-left: 20px;
 			color: $text-dark;
@@ -349,7 +346,7 @@ hr {
 		}
 
 		// Надпись: Программа обучения
-		& li:first-child {
+		li:first-child {
 			margin-bottom: 10px;
 			padding-left: 35px;
 			font-weight: 700;
@@ -437,9 +434,9 @@ hr {
 			&-main {
 				justify-content: start;
 
-				& h4,
-				& p,
-				& time {
+				h4,
+				p,
+				time {
 					display: none;
 				}
 			}
@@ -452,7 +449,7 @@ hr {
 	}
 
 	// Собственно наведение
-	& .rgu:hover {
+	.rgu:hover {
 		display: block;
 		opacity: 1;
 		height: 75%;
@@ -465,7 +462,7 @@ hr {
 		}
 
 		// Обёртка для всего текста 3а-3
-		& .rgu__text {
+		.rgu__text {
 			width: 100%;
 			height: auto;
 
@@ -473,21 +470,21 @@ hr {
 			&-main {
 				height: auto;
 
-				& h4,
-				& p,
-				& time {
+				h4,
+				p,
+				time {
 					display: block;
 				}
 			}
 		}
 
 		// Список пройденных дисциплин 2а-2
-		& .rgu__program {
+		.rgu__program {
 			display: block;
 		}
 
 		// Изображение. Копия диплома 3а-3
-		& .rgu__diploma {
+		.rgu__diploma {
 			display: block;
 			width: 80%;
 			height: auto;
@@ -495,7 +492,7 @@ hr {
 		}
 	}
 
-	& .gb:hover {
+	.gb:hover {
 		display: block;
 		opacity: 1;
 		height: 75%;
@@ -508,7 +505,7 @@ hr {
 		}
 
 		// Обёртка для всего текста 3б-3
-		& .gb__text {
+		.gb__text {
 			width: 100%;
 			height: auto;
 
@@ -516,21 +513,21 @@ hr {
 			&-main {
 				height: auto;
 
-				& h4,
-				& p,
-				& time {
+				h4,
+				p,
+				time {
 					display: block;
 				}
 			}
 		}
 
 		// Список пройденных дисциплин 2б-2
-		& .gb__program {
+		.gb__program {
 			display: block;
 		}
 
 		// Изображение. Копия диплома 3б-3
-		& .gb__diploma {
+		.gb__diploma {
 			display: block;
 			width: 80%;
 			height: auto;

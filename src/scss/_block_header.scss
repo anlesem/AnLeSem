@@ -1,29 +1,18 @@
+// Часть настроек в light и land
 header {
 	position: relative;
 	z-index: $index-head-foot;
 	height: 100px;
 	background-color: $background-dark;
-
-	// Настройка горизонтальной ориентации экрана (+ general, main и footer)
-	@include screen-land {
-		width: 20%;
-		height: 100%;
-	}
 }
 
+// Часть настроек в light и land
 .header {
 	// Горизонтальное заполнение меню по ширине
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	color: $text-menu;
-
-	// Настройка горизонтальной ориентации экрана
-	@include screen-land {
-		flex-direction: column;
-		width: 100%;
-		height: 100%;
-	}
 
 	// Настройка меню
 	&__menu {
@@ -45,13 +34,6 @@ header {
 
 			@include mobile {
 				width: 10%;
-			}
-
-			// Настройка горизонтальной ориентации экрана
-			// переход на большую кнопку, удобную для нажатия
-			@include screen-land {
-				width: 100%;
-				height: 10%;
 			}
 
 			// Смещение порядка в сторону из-за центрального положения логотипа 
@@ -95,19 +77,13 @@ header {
 				z-index: auto;
 				fill: $text-menu;
 				opacity: 0.8;
-
-				// Настройка горизонтальной ориентации экрана
-				// Настройка размеров иконки в зависимости от высоты экрана
-				@include screen-land {
-					width: auto;
-					height: 100%;
-				}
 			}
 		}
 	}
 }
 
 // Обёртка логотипа
+// Часть настроек в light и land
 .logo {
 	order: 2;
 	position: relative;
@@ -134,10 +110,6 @@ header {
 		background-color: $background-light;
 		background: url(../img/logo80.jpg) center center no-repeat;
 		background-size: 80px 80px; // чтобы было чёткое изображение
-
-		@media (max-width: $slim-width) {
-			background-size: 100%;
-		}
 
 		// Настройка DPI
 		@media (-webkit-min-device-pixel-ratio: 2),
@@ -223,12 +195,6 @@ header {
 			background-size: 100%;
 		}
 
-		// Настройка горизонтальной ориентации экрана
-		// Перенастройка во всю ширину header
-		@include screen-land {
-			width: 90%;
-		}
-
 		// Перенастройка во всю ширину header
 		@include mobile {
 			width: 90%;
@@ -238,24 +204,6 @@ header {
 		.logo__card {
 			opacity: 1;
 			transition: opacity $timeout;
-
-			// Настройка горизонтальной ориентации экрана
-			@include screen-land {
-				@include tablet {
-					font-size: 10px;
-				}
-			}
-
-			// ФИО
-			h3 {
-
-				// Настройка горизонтальной ориентации экрана
-				@include screen-land {
-					@include tablet {
-						display: none;
-					}
-				}
-			}
 		}
 
 		// Уменьшение размеров ссылок при наведении для освобождения пространства логотипу
@@ -265,12 +213,6 @@ header {
 			@include mobile {
 				display: none;
 			}
-
-			// Настройка горизонтальной ориентации экрана
-			@include screen-land {
-				height: 5%;
-				width: 100%;
-			}
 		}
 
 		// Корректировка иконок в зависимости от ширины ссылки
@@ -278,15 +220,6 @@ header {
 			@include tablet {
 				width: 100%;
 				height: auto;
-			}
-
-			// Настройка горизонтальной ориентации экрана
-			// Корректировка иконок в зависимости от высоты ссылки
-			@include screen-land {
-				@include tablet {
-					height: 100%;
-					width: auto;
-				}
 			}
 		}
 	}

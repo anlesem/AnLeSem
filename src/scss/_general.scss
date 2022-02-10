@@ -24,6 +24,8 @@ body {
 	height: 100%;
 }
 
+// По сути body, только с глобальным переключателем версии
+// Часть настроек в light и land  
 .global {
 	width: 100%;
 	height: 100%;
@@ -36,11 +38,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-
-	// Настройка горизонтальной ориентации экрана (+ general, header и footer)
-	@include screen-land {
-		flex-direction: row;
-	}
 
 	&::before {
 		content: "";
@@ -59,6 +56,7 @@ body {
 }
 
 // Настройка ширины содержимого на начальном экране
+// Часть настроек в land
 .container {
 	width: calc(100vh + 30vh);
 	margin: 0 auto;
@@ -71,12 +69,6 @@ body {
 
 	@include pc {
 		width: 100%;
-	}
-
-	// Настройка горизонтальной ориентации экрана
-	// Задание ширины main в горизонтальной ориентации
-	@include screen-land {
-		width: calc(100% - 20% - 80px); // -header и -footer
 	}
 }
 
@@ -100,6 +92,7 @@ body {
 
 // Заставка загрузки страницы
 // Обёртка
+// Часть настроек в land
 #preloader {
 	visibility: visible;
 	position: absolute;
@@ -124,13 +117,6 @@ body {
 		background:
 			radial-gradient(circle, rgba(175, 184, 148, 0.8) 0%, transparent 100%),
 			linear-gradient(0deg, rgb(209, 100, 22), rgb(28, 13, 97));
-
-		// Настройка горизонтальной ориентации экрана
-		@include screen-land {
-			width: 3vw;
-			height: 3vw;
-			left: calc(20% + (100% - 20% - 80px) / 2); // header + (fullscreen -header -footer)/2
-		}
 	}
 
 	// Кнопка перехода на лёгкую версию при долгой загрузке
@@ -148,12 +134,6 @@ body {
 		opacity: 1;
 		transition: opacity $timeout;
 
-		// Настройка горизонтальной ориентации экрана 3-3
-		@media (min-aspect-ratio: $proportion-land) {
-			top: calc(50% + 15vh);
-			left: calc(20% + (100% - 20% - 80px) / 2); // header + (fullscreen -header -footer)/2
-		}
-
 		&:hover {
 			opacity: 0.3;
 		}
@@ -162,6 +142,7 @@ body {
 
 // Настройка предупреждения для лёгкой версии
 // Обёртка
+// Часть настроек в light
 .warning {
 	position: absolute;
 	top: 100%;

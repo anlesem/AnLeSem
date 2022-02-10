@@ -1,31 +1,18 @@
+// Часть настроек в light и land
 footer {
 	position: relative;
 	z-index: $index-head-foot;
 	height: 70px;
 	line-height: 70px;
 	background-color: $background-dark;
-
-	// Настройка горизонтальной ориентации экрана (+ general, main и header)
-	@include screen-land {
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
-		width: 80px;
-		height: 100%;
-	}
 }
 
 // Надпись
+// Часть настроек в light и land
 .copyright {
 	color: $text-info;
 	text-align: right;
 	margin-right: 30px;
-
-	// Настройка горизонтальной ориентации экрана 2-4
-	@include screen-land {
-		text-align: center;
-		margin-right: 0;
-	}
 
 	@include mobile {
 		margin-right: 10px;
@@ -33,11 +20,6 @@ footer {
 
 	// Отключение полной надписи для малых экранов
 	&__full {
-
-		// Настройка горизонтальной ориентации экрана
-		@include screen-land {
-			display: none;
-		}
 
 		@include tablet {
 			display: none;
@@ -69,6 +51,7 @@ footer {
 }
 
 // Поведение при наведении
+// Часть настроек в light и land
 #content-left:checked~.global,
 #content-right:checked~.global,
 #content-up:checked~.global,
@@ -79,11 +62,5 @@ footer {
 		border: 2px solid #aaa;
 		fill: #aaa;
 		opacity: 1;
-
-		// Настройка горизонтальной ориентации экрана
-		@include screen-land {
-			width: 60px;
-			height: 180px;
-		}
 	}
 }
