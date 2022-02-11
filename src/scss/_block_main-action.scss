@@ -303,141 +303,144 @@
 }
 
 //! --------------------------------------- Наведение
-#content-off:checked~.global {
+@media (min-width: $tablet-width) and (pointer: fine) {
 
-	// ------------------------- Левый
-	.left-tag:hover {
+	#content-off:checked~.global {
 
-		&~.left {
-			position: relative;
-			transition: all $timeout;
-			width: 40px;
+		// ------------------------- Левый
+		.left-tag:hover {
 
-			&::after,
-			&::before {
-				right: 0;
-			}
-		}
-
-		&~.center .info {
-			opacity: 1;
-			align-self: flex-start;
-			margin: unset;
-			z-index: -1;
-
-			@include screen-full {
-				margin: 0 auto;
-			}
-
-			&__left {
-				display: block;
-
-				* {
-					mix-blend-mode: overlay;
-				}
-			}
-		}
-	}
-
-	// ------------------------- Правый
-	.right-tag:hover {
-
-		&~.right {
-			position: relative;
-			transition: all $timeout;
-			width: 40px;
-
-			&::after,
-			&::before {
-				left: 0;
-			}
-		}
-
-		&~.center .info {
-			opacity: 1;
-			align-self: flex-end;
-			margin: unset;
-			z-index: -1;
-
-			@include screen-full {
-				margin: 0 auto;
-			}
-
-			&__right {
-				display: block;
-
-				* {
-					mix-blend-mode: overlay;
-				}
-			}
-		}
-	}
-
-	// ------------------------- Верх
-	.up-tag:hover {
-
-		&~.center {
-
-			.up {
+			&~.left {
 				position: relative;
 				transition: all $timeout;
-				height: 40px;
+				width: 40px;
 
-				&::after {
-					bottom: 0;
+				&::after,
+				&::before {
+					right: 0;
 				}
 			}
 
-			.info {
+			&~.center .info {
 				opacity: 1;
+				align-self: flex-start;
+				margin: unset;
 				z-index: -1;
 
-				&__up {
+				@include screen-full {
+					margin: 0 auto;
+				}
+
+				&__left {
 					display: block;
 
 					* {
 						mix-blend-mode: overlay;
 					}
-
-					img,
-					video {
-						display: none;
-					}
 				}
 			}
 		}
 
-	}
+		// ------------------------- Правый
+		.right-tag:hover {
 
-	// ------------------------- Низ
-	.down-tag:hover {
-
-		&~.center {
-
-			.down {
+			&~.right {
 				position: relative;
 				transition: all $timeout;
-				height: 40px;
+				width: 40px;
 
-				&::after {
-					top: 0;
+				&::after,
+				&::before {
+					left: 0;
 				}
 			}
 
-			.info {
+			&~.center .info {
 				opacity: 1;
+				align-self: flex-end;
+				margin: unset;
 				z-index: -1;
 
-				&__down {
+				@include screen-full {
+					margin: 0 auto;
+				}
+
+				&__right {
 					display: block;
 
 					* {
 						mix-blend-mode: overlay;
 					}
+				}
+			}
+		}
 
-					img,
-					a {
-						display: none;
+		// ------------------------- Верх
+		.up-tag:hover {
+
+			&~.center {
+
+				.up {
+					position: relative;
+					transition: all $timeout;
+					height: 40px;
+
+					&::after {
+						bottom: 0;
+					}
+				}
+
+				.info {
+					opacity: 1;
+					z-index: -1;
+
+					&__up {
+						display: block;
+
+						* {
+							mix-blend-mode: overlay;
+						}
+
+						img,
+						video {
+							display: none;
+						}
+					}
+				}
+			}
+
+		}
+
+		// ------------------------- Низ
+		.down-tag:hover {
+
+			&~.center {
+
+				.down {
+					position: relative;
+					transition: all $timeout;
+					height: 40px;
+
+					&::after {
+						top: 0;
+					}
+				}
+
+				.info {
+					opacity: 1;
+					z-index: -1;
+
+					&__down {
+						display: block;
+
+						* {
+							mix-blend-mode: overlay;
+						}
+
+						img,
+						a {
+							display: none;
+						}
 					}
 				}
 			}

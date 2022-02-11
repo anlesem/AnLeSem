@@ -15,8 +15,10 @@ export default class TouchAction {
 		// 	касания (start), чтобы правильно определить область нажатия и
 		//  	соответствующий ей элемент(ы).
 		// scrollPoint - позиция блока для распознания наличия прокрутки у блока из scrollElements
+		// scrollCheck - проверка, что касание распознано и прошло процедуру формирования scrollElements
 		this.scrollElements = null;
 		this.scrollPoint = null;
+		this.scrollCheck = null;
 	}
 
 	//!---------------------------------------------- Отслеживание
@@ -31,33 +33,24 @@ export default class TouchAction {
 
 	//!---------------------------------------------- Жесты (События)
 	// Момент касания пальцем
-	// 	this.examinationElement() - проверка при касании экрана на принадлежность логотипу или
-	//									блоку, имеющему прокрутку
 	//		initialPoint - стартовая позиция смещения пальца
 	//		scrollPoint - создание массива позиций прокрутки и их обнуление 
+	// 	this.examinationElement() - проверка при касании экрана на принадлежность логотипу или
+	//									блоку, имеющему прокрутку
 	start(event) {
-		this.examinationElement(event);
 		this.initialPoint = event.changedTouches[0];
 		this.scrollPoint = [];
+		this.examinationElement(event);
 	}
 
 	// Удержание пальца
 	// Необходимо заблокировать действия браузера по умолчанию, кроме прокрутки:
-	//		isScroll - флаг наличия прокрутки 
-	//		| scrollElements - проверка реальной прокрутки у элементов, где она предполагалась при касании
-	//		| !isScroll - блокировка	действия браузера по умолчанию при отсутствии прокрутки				 
-	//		| event.cancelable - проверка на возможность блокировать действие браузера (иначе в консоли предупреждения)				 
+	//		examinationScroll() - проверка реальной прокрутки у элементов, где она предполагалась при касании
+	//		| scrollCheck - проверка, что касание распознано и прошло процедуру формирования scrollElements
+	//			stopDefault() - блокировка действия браузера по умолчанию
 	move(event) {
-		let isScroll = false;
-		if (this.scrollElements.length > 0) {
-			for (let i = 0; i < this.scrollElements.length; i++) {
-				if (this.scrollPoint[i] !== this.scrollElements[i].scrollTop) isScroll = true;
-				this.scrollPoint[i] = this.scrollElements[i].scrollTop;
-			}
-		}
-		if (isScroll === false && event.cancelable) {
-			event.preventDefault();
-		}
+		if (this.scrollElements.length > 0) this.examinationScroll(event);
+		else if (this.scrollCheck > 0) this.stopDefault(event);
 	}
 
 	// Момент отпускания пальца
@@ -91,18 +84,18 @@ export default class TouchAction {
 		}
 	}
 
-	//!---------------------------------------------- Методы
+	//!---------------------------------------------- Методы для блокировки
 	// Проверка при касании экрана на принадлежность логотипу или блоку, имеющему прокрутку.
-	// 	(scrollElements) - массив элементов с наличием прокрутки на момент касания. Обнуление при каждом вызове метода
-	// 	event.path - проверка проходит по массиву значений. Если хоть одно значение удовлетворяет условию, 
-	// 					соответствующий флаг получает значение true
+	// 	scrollElements - массив элементов с наличием прокрутки на момент касания. Обнуление при каждом вызове метода
+	//		scrollCheck - формирование проверки, что касание распознано
+	// 	event.path - формирование scrollElements по массиву значений.
 	//			element.scrollHeight - предположение на наличие прокрутки у блока, чтобы не блокировать напрасно 
 	//									действие браузера по умолчанию (перезагрузка на движение вверх):
 	//									- грубая проверка на разницу высот элемента и наличие overflow:hidden
-	//									- уточнение уже потом при движении move()
+	//									- уточнение уже потом при движении move() > examinationScroll()
 	examinationElement(event) {
 		this.scrollElements = [];
-
+		this.scrollCheck = event.path.length;
 		event.path.forEach(element => {
 			if (element.clientHeight < element.scrollHeight && !(element.style.overflow && element.style.overflow == 'hidden')) {
 				this.scrollElements.push(element);
@@ -110,6 +103,30 @@ export default class TouchAction {
 		});
 	}
 
+	// Уточнение наличия прокрутки у блока
+	//		isScroll - флаг наличия прокрутки
+	//		Цикл, только по завершении которого необходимо принять решение о блокировке 
+	//			| !isScroll - блокировка	действия браузера по умолчанию при отсутствии прокрутки				 
+	//			| event.cancelable - проверка на возможность блокировать действие браузера (иначе в консоли предупреждения)
+	//				stopDefault() - блокировка действия браузера по умолчанию
+	examinationScroll(event) {
+		let isScroll = false;
+		for (let i = 0; i < this.scrollElements.length; i++) {
+			if (this.scrollPoint[i] !== this.scrollElements[i].scrollTop) isScroll = true;
+			this.scrollPoint[i] = this.scrollElements[i].scrollTop;
+
+			if ((i + 1) == this.scrollElements.length && !isScroll && event.cancelable) {
+				this.stopDefault(event);
+			}
+		}
+	}
+
+	// Блокировка действия браузера по умолчанию
+	stopDefault(event) {
+		event.preventDefault();
+	}
+
+	//!---------------------------------------------- Методы для активации/переключения
 	// Открытие блока жестом по направлению указателя бирки
 	openContentBlock(name) {
 		this.data.contentBlocks.find(item => item.name === name).check.checked = true;
