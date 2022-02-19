@@ -110,6 +110,12 @@ function copyIcons() {
 		.pipe(dest('dist/icon/'))
 }
 
+function copyHT() {
+	return src(`src/*.htaccess`)
+		.pipe(rename(`.htaccess`))
+		.pipe(If(isBuild, dest('dist')))
+}
+
 // Работа с JS через WebPack
 // 	webpack(configWebpack) - подключение внешнего файла конфигурации
 //		при минимуме настроек и плагинов можно прописать конфигурацию внутри скобок:
@@ -154,7 +160,7 @@ const mainTasks = parallel(scss, html, images, copyFonts, copyIcons);
 
 // Запуск сценария каскадом series() или по одиночно / в терминале gulp build 
 exports.start = series(clear, mainTasks, js, watching) 		// npm run start
-exports.build = series(clear, mainTasks, js)						// npm run dev / build 
+exports.build = series(clear, mainTasks, js, copyHT)			// npm run dev / build 
 exports.clear = clear
 
 // Запуск сценария по умолчанию / в терминале gulp 
