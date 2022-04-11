@@ -18,6 +18,11 @@ export default class Action {
     this.data.logo.addEventListener('mouseover', () => this.animation.removeAnimation());
     this.data.logo.addEventListener('mouseout', () => this.animation.setAnimation());
 
+    this.data.contentBlocks.forEach(element => {
+      element.tag.addEventListener('mouseover', () => this.animation.removeAnimation());
+      element.tag.addEventListener('mouseout', () => this.animation.setAnimation());
+    });
+
     document.querySelectorAll('input[name=content]').forEach((element) => {
       element.addEventListener('change', () => {
         if (this.data.checkContentOff.checked) this.animation.setAnimation();

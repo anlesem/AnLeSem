@@ -1,16 +1,16 @@
 // В данном файле указываются общие для блоков-обёрток настройки Отображения
 // Часть настроек в light и land
 main {
-	// позиция для отсутствия движения верхних бирок при наведении на боковые
-	position: relative;
+  // позиция для отсутствия движения верхних бирок при наведении на боковые
+  position: relative;
 
-	// Горизонтальное заполнение по ширине left, right и center
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  // Горизонтальное заполнение по ширине left, right и center
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-	// Настройка высоты минус header и footer
-	height: calc(100% - 100px - 70px);
+  // Настройка высоты минус header и footer
+  height: calc(100% - 100px - 70px);
 }
 
 //! ------------------------ Бирки
@@ -18,59 +18,59 @@ main {
 .right,
 .up,
 .down {
-	&-tag {
-		position: absolute;
-		z-index: $index-tag;
-		color: $title-light;
-		font-size: 18px;
-		// background-color: $background-light;
+  &-tag {
+    position: absolute;
+    z-index: $index-tag;
+    color: $title-light;
+    font-size: 18px;
+    // background-color: $background-light;
 
-		&:hover {
-			cursor: pointer;
-			color: $text-info;
-		}
-	}
+    &:hover {
+      cursor: pointer;
+      color: $text-info;
+    }
+  }
 }
 
 .left,
 .right {
-	&-tag {
-		width: $width-horz-tag;
-		height: $height-horz-tag;
-		line-height: $height-horz-tag;
-	}
+  &-tag {
+    width: $width-horz-tag;
+    height: $height-horz-tag;
+    line-height: $height-horz-tag;
+  }
 }
 
 .up,
 .down {
-	&-tag {
-		left: 50%;
-		transform: translateX(-50%);
-		width: $width-vert-tag;
-		height: $height-vert-tag;
-		text-align: center;
-	}
+  &-tag {
+    left: 50%;
+    transform: translateX(-50%);
+    width: $width-vert-tag;
+    height: $height-vert-tag;
+    text-align: center;
+  }
 }
 
 .left-tag {
-	left: 0;
-	padding-left: 10px;
+  left: 0;
+  padding-left: 10px;
 }
 
 .right-tag {
-	right: 0;
-	padding-right: 10px;
-	text-align: right;
+  right: 0;
+  padding-right: 10px;
+  text-align: right;
 }
 
 .up-tag {
-	top: 0;
-	line-height: 100px;
+  top: 0;
+  line-height: 100px;
 }
 
 .down-tag {
-	bottom: 0;
-	line-height: 200px;
+  bottom: 0;
+  line-height: 200px;
 }
 
 //! ------------------------ Контент
@@ -78,160 +78,160 @@ main {
 .right,
 .up,
 .down {
-	background-color: $background-dark;
+  background-color: $background-dark;
 
-	&::after,
-	&::before {
-		content: "";
-		position: absolute;
-		background-color: $background-dark;
-	}
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    background-color: $background-dark;
+  }
 
-	&__content {
-		display: none;
-	}
+  &__content {
+    display: none;
+  }
 }
 
 .left,
 .right {
-	width: 0;
-	height: $height-horz-block;
+  width: 0;
+  height: $height-horz-block;
 
-	// Переход в полноэкранный режим 1-6 (+ footer (кнопка) 
-	@include screen-full {
-		height: 100%;
-	}
+  // Переход в полноэкранный режим 1-6 (+ footer (кнопка)
+  @include screen-full {
+    height: 100%;
+  }
 
-	&::after,
-	&::before {
-		top: 50%;
-		width: $width-horz-tag;
-		height: $height-horz-tag;
-	}
+  &::after,
+  &::before {
+    top: 50%;
+    width: $width-horz-tag;
+    height: $height-horz-tag;
+  }
 }
 
 .left {
-	order: 1;
+  order: 1;
 
-	&::after,
-	&::before {
-		right: 100%;
-		transform: translate(100%, -50%);
-		padding-left: 10px;
-		clip-path: polygon(0 0, 100% 50%, 0 100%);
-	}
+  &::after,
+  &::before {
+    right: 100%;
+    transform: translate(100%, -50%);
+    padding-left: 10px;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
 
-	&::before {
-		background: url(../img/left_logo.svg) center center no-repeat content-box;
-		background-size: contain;
-	}
+  &::before {
+    background: url(../img/left_logo.svg) center center no-repeat content-box;
+    background-size: contain;
+  }
 }
 
 .right {
-	order: 3;
+  order: 3;
 
-	&::after,
-	&::before {
-		left: 100%;
-		transform: translate(-100%, -50%);
-		padding-right: 10px;
-		clip-path: polygon(100% 0, 0 50%, 100% 100%);
-	}
+  &::after,
+  &::before {
+    left: 100%;
+    transform: translate(-100%, -50%);
+    padding-right: 10px;
+    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  }
 
-	&::before {
-		background: url(../img/right_logo.svg) center center no-repeat content-box;
-		background-size: contain;
-	}
+  &::before {
+    background: url(../img/right_logo.svg) center center no-repeat content-box;
+    background-size: contain;
+  }
 
-	&__content {
-		overflow: hidden; // страховка из-за перехода от right: 0 к 100
-	}
+  &__content {
+    overflow: hidden; // страховка из-за перехода от right: 0 к 100
+  }
 }
 
 .center {
-	width: $width-vert-block;
-	height: 100%;
+  width: $width-vert-block;
+  height: 100%;
 
-	// Вертикальное заполнение по высоте up, info и down
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	order: 2;
+  // Вертикальное заполнение по высоте up, info и down
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  order: 2;
 
-	// Переход в полноэкранный режим 2-5
-	@include screen-full {
-		width: 100%;
-	}
+  // Переход в полноэкранный режим 2-5
+  @include screen-full {
+    width: 100%;
+  }
 }
 
 .up,
 .down {
-	width: 100%;
-	height: 0;
-	padding: 0 20px;
+  width: 100%;
+  height: 0;
+  padding: 0 20px;
 
-	@include mobile {
-		padding: 0 10px;
-	}
+  @include mobile {
+    padding: 0 10px;
+  }
 
-	// Переход в полноэкранный режим 3-5
-	// Отключение невидимой области наведения (ширина не меняется) 
-	@include screen-full {
-		height: 0;
-	}
+  // Переход в полноэкранный режим 3-5
+  // Отключение невидимой области наведения (ширина не меняется)
+  @include screen-full {
+    height: 0;
+  }
 
-	&::after {
-		left: 50%;
-		width: $width-vert-tag;
-		height: $height-vert-tag;
-	}
+  &::after {
+    left: 50%;
+    width: $width-vert-tag;
+    height: $height-vert-tag;
+  }
 }
 
 .up {
-	order: 1;
+  order: 1;
 
-	&::after {
-		bottom: 100%;
-		transform: translate(-50%, 100%);
-		clip-path: polygon(0 0, 100% 0, 50% 100%);
-	}
+  &::after {
+    bottom: 100%;
+    transform: translate(-50%, 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+  }
 }
 
 .down {
-	order: 3;
+  order: 3;
 
-	&::after {
-		top: 100%;
-		transform: translate(-50%, -100%);
-		clip-path: polygon(0 100%, 50% 0, 100% 100%);
-	}
+  &::after {
+    top: 100%;
+    transform: translate(-50%, -100%);
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  }
 }
 
 //! ------------------------ Текст
 // Блок-обёртка информационного содержимого 1-4 (+vert)
 .info {
-	position: relative;
-	z-index: -1;
-	width: 50%; // меньше положенного для анимации наведения
-	height: 50%; // не оказывает влияния на анимацию наведения
-	margin: 0 auto;
-	opacity: 0;
-	order: 2;
+  position: relative;
+  z-index: -1;
+  width: 50%; // меньше положенного для анимации наведения
+  height: 50%; // не оказывает влияния на анимацию наведения
+  margin: 0 auto;
+  opacity: 0;
+  order: 2;
 
-	// Общие для всех вложенных блоков в info настройки + при наведении 1б-4 (+ vert и horz)
-	&__up,
-	&__down,
-	&__left,
-	&__right {
-		display: none;
-		width: 100%;
-		height: 100%;
-		padding: 20px;
-		overflow: hidden;
-		@include background;
+  // Общие для всех вложенных блоков в info настройки + при наведении 1б-4 (+ vert и horz)
+  &__up,
+  &__down,
+  &__left,
+  &__right {
+    display: none;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    overflow: hidden;
+    @include background;
 
-		@include mobile {
-			padding: 10px;
-		}
-	}
+    @include mobile {
+      padding: 10px;
+    }
+  }
 }

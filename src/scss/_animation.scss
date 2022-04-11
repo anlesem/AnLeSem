@@ -51,154 +51,29 @@
 }
 
 //!  ------------------------------- Пульс бирок
-$range-max: 5px;
-$range-min: 2px;
-
-@keyframes rhythm-tag-horz {
+@keyframes rhythm-tag {
   from {
-    width: $width-horz-tag;
-    height: $height-horz-tag;
+    transform: scale(1);
   }
 
   1% {
-    width: $width-horz-tag + $range-max;
-    height: $height-horz-tag + $range-max;
+    transform: scale(1.1);
   }
 
   2% {
-    width: $width-horz-tag;
-    height: $height-horz-tag;
+    transform: scale(1);
   }
 
   3% {
-    width: $width-horz-tag;
-    height: $height-horz-tag;
+    transform: scale(1.05);
   }
 
   4% {
-    width: $width-horz-tag + $range-min;
-    height: $height-horz-tag + $range-min;
-  }
-
-  5% {
-    width: $width-horz-tag;
-    height: $height-horz-tag;
+    transform: scale(1);
   }
 
   to {
-    width: $width-horz-tag;
-    height: $height-horz-tag;
-  }
-}
-
-@keyframes rhythm-tag-horz-slim {
-  from {
-    width: $width-horz-tag - $d-slim-tag;
-    height: $height-horz-tag - $d-slim-tag;
-  }
-
-  1% {
-    width: $width-horz-tag - $d-slim-tag + $range-max;
-    height: $height-horz-tag - $d-slim-tag + $range-max;
-  }
-
-  2% {
-    width: $width-horz-tag - $d-slim-tag;
-    height: $height-horz-tag - $d-slim-tag;
-  }
-
-  3% {
-    width: $width-horz-tag - $d-slim-tag;
-    height: $height-horz-tag - $d-slim-tag;
-  }
-
-  4% {
-    width: $width-horz-tag - $d-slim-tag + $range-min;
-    height: $height-horz-tag - $d-slim-tag + $range-min;
-  }
-
-  5% {
-    width: $width-horz-tag - $d-slim-tag;
-    height: $height-horz-tag - $d-slim-tag;
-  }
-
-  to {
-    width: $width-horz-tag - $d-slim-tag;
-    height: $height-horz-tag - $d-slim-tag;
-  }
-}
-
-@keyframes rhythm-tag-vert {
-  from {
-    width: $width-vert-tag;
-    height: $height-vert-tag;
-  }
-
-  1% {
-    width: $width-vert-tag + $range-max;
-    height: $height-vert-tag + $range-max;
-  }
-
-  2% {
-    width: $width-vert-tag;
-    height: $height-vert-tag;
-  }
-
-  3% {
-    width: $width-vert-tag;
-    height: $height-vert-tag;
-  }
-
-  4% {
-    width: $width-vert-tag + $range-min;
-    height: $height-vert-tag + $range-min;
-  }
-
-  5% {
-    width: $width-vert-tag;
-    height: $height-vert-tag;
-  }
-
-  to {
-    width: $width-vert-tag;
-    height: $height-vert-tag;
-  }
-}
-
-@keyframes rhythm-tag-vert-slim {
-  from {
-    width: $width-vert-tag - $d-slim-tag;
-    height: $height-vert-tag - $d-slim-tag;
-  }
-
-  1% {
-    width: $width-vert-tag - $d-slim-tag + $range-max;
-    height: $height-vert-tag - $d-slim-tag + $range-max;
-  }
-
-  2% {
-    width: $width-vert-tag - $d-slim-tag;
-    height: $height-vert-tag - $d-slim-tag;
-  }
-
-  3% {
-    width: $width-vert-tag - $d-slim-tag;
-    height: $height-vert-tag - $d-slim-tag;
-  }
-
-  4% {
-    width: $width-vert-tag - $d-slim-tag + $range-min;
-    height: $height-vert-tag - $d-slim-tag + $range-min;
-  }
-
-  5% {
-    width: $width-vert-tag - $d-slim-tag;
-    height: $height-vert-tag - $d-slim-tag;
-  }
-
-  to {
-    width: $width-vert-tag - $d-slim-tag;
-    height: $height-vert-tag - $d-slim-tag;
+    transform: scale(1);
   }
 }
 
@@ -241,139 +116,20 @@ $range-min: 2px;
 }
 
 //!  ------------------------------- Анимация появления бирок
-@keyframes load-tag-up {
+@keyframes load-tag {
   from {
-    transform: scale(0, 0) translateX(-50%);
-    transform-origin: top left;
-    opacity: 0;
+    transform: scale(0);
   }
 
   80% {
-    transform: scale(1.1, 1.1) translateX(-50%);
-    transform-origin: top left;
-    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  99% {
+    transform: scale(1);
   }
 
   to {
-    transform: scale(1, 1) translateX(-50%);
-    transform-origin: top left;
-    opacity: 1;
-  }
-}
-
-@keyframes load-tag-down {
-  from {
-    transform: scale(0, 0) translateX(-50%);
-    transform-origin: bottom left;
-    opacity: 0;
-  }
-
-  80% {
-    transform: scale(1.1, 1.1) translateX(-50%);
-    transform-origin: bottom left;
-    opacity: 1;
-  }
-
-  to {
-    transform: scale(1, 1) translateX(-50%);
-    transform-origin: bottom left;
-    opacity: 1;
-  }
-}
-
-@keyframes load-tag-left {
-  from {
-    transform: scale(0, 0) translateY(-50%);
-    transform-origin: top left;
-    opacity: 0;
-  }
-
-  80% {
-    transform: scale(1.1, 1.1) translateY(-50%);
-    transform-origin: top left;
-    opacity: 1;
-  }
-
-  to {
-    transform: scale(1, 1) translateY(-50%);
-    transform-origin: top left;
-    opacity: 1;
-  }
-}
-
-@keyframes load-tag-right {
-  from {
-    transform: scale(0, 0) translateY(-50%);
-    transform-origin: top right;
-    opacity: 0;
-  }
-
-  80% {
-    transform: scale(1.1, 1.1) translateY(-50%);
-    transform-origin: top right;
-    opacity: 1;
-  }
-
-  to {
-    transform: scale(1, 1) translateY(-50%);
-    transform-origin: top right;
-    opacity: 1;
-  }
-}
-
-//!  ------------------------------- Анимация скрытия бирок
-@keyframes hide-tag-up {
-  from {
-    transform: scale(1, 1) translateX(-50%);
-    transform-origin: top left;
-    opacity: 1;
-  }
-
-  to {
-    transform: scale(0, 0) translateX(-50%);
-    transform-origin: top left;
-    opacity: 0;
-  }
-}
-
-@keyframes hide-tag-down {
-  from {
-    transform: scale(1, 1) translateX(-50%);
-    transform-origin: bottom left;
-    opacity: 1;
-  }
-
-  to {
-    transform: scale(0, 0) translateX(-50%);
-    transform-origin: bottom left;
-    opacity: 0;
-  }
-}
-
-@keyframes hide-tag-left {
-  from {
-    transform: scale(1, 1) translateY(-50%);
-    transform-origin: top left;
-    opacity: 1;
-  }
-
-  to {
-    transform: scale(0, 0) translateY(-50%);
-    transform-origin: top left;
-    opacity: 0;
-  }
-}
-
-@keyframes hide-tag-right {
-  from {
-    transform: scale(1, 1) translateY(-50%);
-    transform-origin: top right;
-    opacity: 1;
-  }
-
-  to {
-    transform: scale(0, 0) translateY(-50%);
-    transform-origin: top right;
-    opacity: 0;
+    transform: none;
   }
 }

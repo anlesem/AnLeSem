@@ -48,8 +48,9 @@ export default class Data {
   //			(element.radio) - соответствующий имени блока массив переключателей;
   setContentBlocks() {
     this.contentBlocks.forEach(element => {
+      element.main = document.querySelector(`.${element.name}`);	        // основной блок с содержимым
       element.check = document.getElementById(`content-${element.name}`);	// бирки input
-      element.tag = document.querySelector(`.${element.name}-tag`);			// бирки label
+      element.tag = document.querySelector(`.${element.name}-tag`);			  // бирки label
       element.radio = [];
       this.setRadio(element.name, element.radio);
     });
