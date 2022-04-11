@@ -1,54 +1,53 @@
 //!  ------------------------------- Молния на логотипе
 @keyframes circle {
-	from {
-		border-top: 3px solid transparent;
-		border-right: 3px solid transparent;
-		border-bottom: 3px solid transparent;
-		border-left: 3px solid transparent;
-	}
+  from {
+    border-top: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-left: 3px solid transparent;
+  }
 
-	0.5% {
-		border-top: 3px solid #fff;
-		border-right: 3px solid transparent;
-	}
+  0.5% {
+    border-top: 3px solid #fff;
+    border-right: 3px solid transparent;
+  }
 
-	1% {
-		border-right: 3px solid #fff;
-		border-bottom: 3px solid transparent;
-	}
+  1% {
+    border-right: 3px solid #fff;
+    border-bottom: 3px solid transparent;
+  }
 
-	1.5% {
-		border-bottom: 3px solid #fff;
-		border-left: 3px solid transparent;
-	}
+  1.5% {
+    border-bottom: 3px solid #fff;
+    border-left: 3px solid transparent;
+  }
 
-	2% {
-		border-left: 3px solid #fff;
-	}
+  2% {
+    border-left: 3px solid #fff;
+  }
 
-	15% {
-		border-top: 3px solid transparent;
-	}
+  15% {
+    border-top: 3px solid transparent;
+  }
 
-	15.5% {
-		border-right: 3px solid transparent;
-	}
+  15.5% {
+    border-right: 3px solid transparent;
+  }
 
-	16% {
-		border-bottom: 3px solid transparent;
-	}
+  16% {
+    border-bottom: 3px solid transparent;
+  }
 
-	16.5% {
-		border-left: 3px solid transparent;
-	}
+  16.5% {
+    border-left: 3px solid transparent;
+  }
 
-
-	to {
-		border-top: 3px solid transparent;
-		border-right: 3px solid transparent;
-		border-bottom: 3px solid transparent;
-		border-left: 3px solid transparent;
-	}
+  to {
+    border-top: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-left: 3px solid transparent;
+  }
 }
 
 //!  ------------------------------- Пульс бирок
@@ -56,326 +55,325 @@ $range-max: 5px;
 $range-min: 2px;
 
 @keyframes rhythm-tag-horz {
-	from {
-		width: $width-horz-tag;
-		height: $height-horz-tag;
-	}
+  from {
+    width: $width-horz-tag;
+    height: $height-horz-tag;
+  }
 
-	1% {
-		width: $width-horz-tag + $range-max;
-		height: $height-horz-tag + $range-max;
-	}
+  1% {
+    width: $width-horz-tag + $range-max;
+    height: $height-horz-tag + $range-max;
+  }
 
-	2% {
-		width: $width-horz-tag;
-		height: $height-horz-tag;
-	}
+  2% {
+    width: $width-horz-tag;
+    height: $height-horz-tag;
+  }
 
-	3% {
-		width: $width-horz-tag;
-		height: $height-horz-tag;
-	}
+  3% {
+    width: $width-horz-tag;
+    height: $height-horz-tag;
+  }
 
-	4% {
-		width: $width-horz-tag + $range-min;
-		height: $height-horz-tag + $range-min;
-	}
+  4% {
+    width: $width-horz-tag + $range-min;
+    height: $height-horz-tag + $range-min;
+  }
 
-	5% {
-		width: $width-horz-tag;
-		height: $height-horz-tag;
-	}
+  5% {
+    width: $width-horz-tag;
+    height: $height-horz-tag;
+  }
 
-	to {
-		width: $width-horz-tag;
-		height: $height-horz-tag;
-	}
+  to {
+    width: $width-horz-tag;
+    height: $height-horz-tag;
+  }
 }
 
 @keyframes rhythm-tag-horz-slim {
-	from {
-		width: $width-horz-tag - $d-slim-tag;
-		height: $height-horz-tag - $d-slim-tag;
-	}
+  from {
+    width: $width-horz-tag - $d-slim-tag;
+    height: $height-horz-tag - $d-slim-tag;
+  }
 
-	1% {
-		width: $width-horz-tag - $d-slim-tag + $range-max;
-		height: $height-horz-tag - $d-slim-tag + $range-max;
-	}
+  1% {
+    width: $width-horz-tag - $d-slim-tag + $range-max;
+    height: $height-horz-tag - $d-slim-tag + $range-max;
+  }
 
-	2% {
-		width: $width-horz-tag - $d-slim-tag;
-		height: $height-horz-tag - $d-slim-tag;
-	}
+  2% {
+    width: $width-horz-tag - $d-slim-tag;
+    height: $height-horz-tag - $d-slim-tag;
+  }
 
-	3% {
-		width: $width-horz-tag - $d-slim-tag;
-		height: $height-horz-tag - $d-slim-tag;
-	}
+  3% {
+    width: $width-horz-tag - $d-slim-tag;
+    height: $height-horz-tag - $d-slim-tag;
+  }
 
-	4% {
-		width: $width-horz-tag - $d-slim-tag + $range-min;
-		height: $height-horz-tag - $d-slim-tag + $range-min;
-	}
+  4% {
+    width: $width-horz-tag - $d-slim-tag + $range-min;
+    height: $height-horz-tag - $d-slim-tag + $range-min;
+  }
 
-	5% {
-		width: $width-horz-tag - $d-slim-tag;
-		height: $height-horz-tag - $d-slim-tag;
-	}
+  5% {
+    width: $width-horz-tag - $d-slim-tag;
+    height: $height-horz-tag - $d-slim-tag;
+  }
 
-	to {
-		width: $width-horz-tag - $d-slim-tag;
-		height: $height-horz-tag - $d-slim-tag;
-	}
+  to {
+    width: $width-horz-tag - $d-slim-tag;
+    height: $height-horz-tag - $d-slim-tag;
+  }
 }
 
 @keyframes rhythm-tag-vert {
-	from {
-		width: $width-vert-tag;
-		height: $height-vert-tag;
-	}
+  from {
+    width: $width-vert-tag;
+    height: $height-vert-tag;
+  }
 
-	1% {
-		width: $width-vert-tag + $range-max;
-		height: $height-vert-tag + $range-max;
-	}
+  1% {
+    width: $width-vert-tag + $range-max;
+    height: $height-vert-tag + $range-max;
+  }
 
-	2% {
-		width: $width-vert-tag;
-		height: $height-vert-tag;
-	}
+  2% {
+    width: $width-vert-tag;
+    height: $height-vert-tag;
+  }
 
-	3% {
-		width: $width-vert-tag;
-		height: $height-vert-tag;
-	}
+  3% {
+    width: $width-vert-tag;
+    height: $height-vert-tag;
+  }
 
-	4% {
-		width: $width-vert-tag + $range-min;
-		height: $height-vert-tag + $range-min;
-	}
+  4% {
+    width: $width-vert-tag + $range-min;
+    height: $height-vert-tag + $range-min;
+  }
 
-	5% {
-		width: $width-vert-tag;
-		height: $height-vert-tag;
-	}
+  5% {
+    width: $width-vert-tag;
+    height: $height-vert-tag;
+  }
 
-	to {
-		width: $width-vert-tag;
-		height: $height-vert-tag;
-	}
+  to {
+    width: $width-vert-tag;
+    height: $height-vert-tag;
+  }
 }
 
 @keyframes rhythm-tag-vert-slim {
-	from {
-		width: $width-vert-tag - $d-slim-tag;
-		height: $height-vert-tag - $d-slim-tag;
-	}
+  from {
+    width: $width-vert-tag - $d-slim-tag;
+    height: $height-vert-tag - $d-slim-tag;
+  }
 
-	1% {
-		width: $width-vert-tag - $d-slim-tag + $range-max;
-		height: $height-vert-tag - $d-slim-tag + $range-max;
-	}
+  1% {
+    width: $width-vert-tag - $d-slim-tag + $range-max;
+    height: $height-vert-tag - $d-slim-tag + $range-max;
+  }
 
-	2% {
-		width: $width-vert-tag - $d-slim-tag;
-		height: $height-vert-tag - $d-slim-tag;
-	}
+  2% {
+    width: $width-vert-tag - $d-slim-tag;
+    height: $height-vert-tag - $d-slim-tag;
+  }
 
-	3% {
-		width: $width-vert-tag - $d-slim-tag;
-		height: $height-vert-tag - $d-slim-tag;
-	}
+  3% {
+    width: $width-vert-tag - $d-slim-tag;
+    height: $height-vert-tag - $d-slim-tag;
+  }
 
-	4% {
-		width: $width-vert-tag - $d-slim-tag + $range-min;
-		height: $height-vert-tag - $d-slim-tag + $range-min;
-	}
+  4% {
+    width: $width-vert-tag - $d-slim-tag + $range-min;
+    height: $height-vert-tag - $d-slim-tag + $range-min;
+  }
 
-	5% {
-		width: $width-vert-tag - $d-slim-tag;
-		height: $height-vert-tag - $d-slim-tag;
-	}
+  5% {
+    width: $width-vert-tag - $d-slim-tag;
+    height: $height-vert-tag - $d-slim-tag;
+  }
 
-	to {
-		width: $width-vert-tag - $d-slim-tag;
-		height: $height-vert-tag - $d-slim-tag;
-	}
+  to {
+    width: $width-vert-tag - $d-slim-tag;
+    height: $height-vert-tag - $d-slim-tag;
+  }
 }
 
 //!  ------------------------------- Заставка загрузки страницы
 // Обёртка скрытие
 @keyframes preloader {
-	from {
-		opacity: 1;
-	}
+  from {
+    opacity: 1;
+  }
 
-	95% {
-		opacity: 0;
-		visibility: visible;
-	}
+  95% {
+    opacity: 0;
+    visibility: visible;
+  }
 
-	to {
-		opacity: 0;
-		visibility: hidden;
-	}
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 // Анимация - птаха
 // Галочка
 @keyframes load {
-	$point-up: 50% 70%;
-	$point-down: 50% 90%;
+  $point-up: 50% 70%;
 
-	from {
-		clip-path: polygon(50% 50%, 100% 0%, 96% 2%, $point-up, 4% 2%, 0% 0%);
-	}
+  from {
+    clip-path: polygon(50% 50%, 100% 0%, 96% 2%, $point-up, 4% 2%, 0% 0%);
+  }
 
-	// Тренога
-	30% {
-		clip-path: polygon(50% 50%, 75% 30%, 100% 100%, $point-up, 0% 100%, 25% 30%);
-	}
+  // Тренога
+  30% {
+    clip-path: polygon(50% 50%, 75% 30%, 100% 100%, $point-up, 0% 100%, 25% 30%);
+  }
 
-	// Галочка
-	to {
-		clip-path: polygon(50% 50%, 100% 0%, 96% 2%, $point-up, 4% 2%, 0% 0%);
-	}
+  // Галочка
+  to {
+    clip-path: polygon(50% 50%, 100% 0%, 96% 2%, $point-up, 4% 2%, 0% 0%);
+  }
 }
 
 //!  ------------------------------- Анимация появления бирок
 @keyframes load-tag-up {
-	from {
-		transform: scale(0, 0) translateX(-50%);
-		transform-origin: top left;
-		opacity: 0;
-	}
+  from {
+    transform: scale(0, 0) translateX(-50%);
+    transform-origin: top left;
+    opacity: 0;
+  }
 
-	80% {
-		transform: scale(1.1, 1.1) translateX(-50%);
-		transform-origin: top left;
-		opacity: 1;
-	}
+  80% {
+    transform: scale(1.1, 1.1) translateX(-50%);
+    transform-origin: top left;
+    opacity: 1;
+  }
 
-	to {
-		transform: scale(1, 1) translateX(-50%);
-		transform-origin: top left;
-		opacity: 1;
-	}
+  to {
+    transform: scale(1, 1) translateX(-50%);
+    transform-origin: top left;
+    opacity: 1;
+  }
 }
 
 @keyframes load-tag-down {
-	from {
-		transform: scale(0, 0) translateX(-50%);
-		transform-origin: bottom left;
-		opacity: 0;
-	}
+  from {
+    transform: scale(0, 0) translateX(-50%);
+    transform-origin: bottom left;
+    opacity: 0;
+  }
 
-	80% {
-		transform: scale(1.1, 1.1) translateX(-50%);
-		transform-origin: bottom left;
-		opacity: 1;
-	}
+  80% {
+    transform: scale(1.1, 1.1) translateX(-50%);
+    transform-origin: bottom left;
+    opacity: 1;
+  }
 
-	to {
-		transform: scale(1, 1) translateX(-50%);
-		transform-origin: bottom left;
-		opacity: 1;
-	}
+  to {
+    transform: scale(1, 1) translateX(-50%);
+    transform-origin: bottom left;
+    opacity: 1;
+  }
 }
 
 @keyframes load-tag-left {
-	from {
-		transform: scale(0, 0) translateY(-50%);
-		transform-origin: top left;
-		opacity: 0;
-	}
+  from {
+    transform: scale(0, 0) translateY(-50%);
+    transform-origin: top left;
+    opacity: 0;
+  }
 
-	80% {
-		transform: scale(1.1, 1.1) translateY(-50%);
-		transform-origin: top left;
-		opacity: 1;
-	}
+  80% {
+    transform: scale(1.1, 1.1) translateY(-50%);
+    transform-origin: top left;
+    opacity: 1;
+  }
 
-	to {
-		transform: scale(1, 1) translateY(-50%);
-		transform-origin: top left;
-		opacity: 1;
-	}
+  to {
+    transform: scale(1, 1) translateY(-50%);
+    transform-origin: top left;
+    opacity: 1;
+  }
 }
 
 @keyframes load-tag-right {
-	from {
-		transform: scale(0, 0) translateY(-50%);
-		transform-origin: top right;
-		opacity: 0;
-	}
+  from {
+    transform: scale(0, 0) translateY(-50%);
+    transform-origin: top right;
+    opacity: 0;
+  }
 
-	80% {
-		transform: scale(1.1, 1.1) translateY(-50%);
-		transform-origin: top right;
-		opacity: 1;
-	}
+  80% {
+    transform: scale(1.1, 1.1) translateY(-50%);
+    transform-origin: top right;
+    opacity: 1;
+  }
 
-	to {
-		transform: scale(1, 1) translateY(-50%);
-		transform-origin: top right;
-		opacity: 1;
-	}
+  to {
+    transform: scale(1, 1) translateY(-50%);
+    transform-origin: top right;
+    opacity: 1;
+  }
 }
 
 //!  ------------------------------- Анимация скрытия бирок
 @keyframes hide-tag-up {
-	from {
-		transform: scale(1, 1) translateX(-50%);
-		transform-origin: top left;
-		opacity: 1;
-	}
+  from {
+    transform: scale(1, 1) translateX(-50%);
+    transform-origin: top left;
+    opacity: 1;
+  }
 
-	to {
-		transform: scale(0, 0) translateX(-50%);
-		transform-origin: top left;
-		opacity: 0;
-	}
+  to {
+    transform: scale(0, 0) translateX(-50%);
+    transform-origin: top left;
+    opacity: 0;
+  }
 }
 
 @keyframes hide-tag-down {
-	from {
-		transform: scale(1, 1) translateX(-50%);
-		transform-origin: bottom left;
-		opacity: 1;
-	}
+  from {
+    transform: scale(1, 1) translateX(-50%);
+    transform-origin: bottom left;
+    opacity: 1;
+  }
 
-	to {
-		transform: scale(0, 0) translateX(-50%);
-		transform-origin: bottom left;
-		opacity: 0;
-	}
+  to {
+    transform: scale(0, 0) translateX(-50%);
+    transform-origin: bottom left;
+    opacity: 0;
+  }
 }
 
 @keyframes hide-tag-left {
-	from {
-		transform: scale(1, 1) translateY(-50%);
-		transform-origin: top left;
-		opacity: 1;
-	}
+  from {
+    transform: scale(1, 1) translateY(-50%);
+    transform-origin: top left;
+    opacity: 1;
+  }
 
-	to {
-		transform: scale(0, 0) translateY(-50%);
-		transform-origin: top left;
-		opacity: 0;
-	}
+  to {
+    transform: scale(0, 0) translateY(-50%);
+    transform-origin: top left;
+    opacity: 0;
+  }
 }
 
 @keyframes hide-tag-right {
-	from {
-		transform: scale(1, 1) translateY(-50%);
-		transform-origin: top right;
-		opacity: 1;
-	}
+  from {
+    transform: scale(1, 1) translateY(-50%);
+    transform-origin: top right;
+    opacity: 1;
+  }
 
-	to {
-		transform: scale(0, 0) translateY(-50%);
-		transform-origin: top right;
-		opacity: 0;
-	}
+  to {
+    transform: scale(0, 0) translateY(-50%);
+    transform-origin: top right;
+    opacity: 0;
+  }
 }

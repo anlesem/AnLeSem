@@ -1,449 +1,457 @@
-// В данном файле указываются общие для блоков-обёрток настройки Наведение 
+// В данном файле указываются общие для блоков-обёрток настройки Наведение
 
 //! --------------------------------------- Нажатие
 // ------------------------- Левый
-#content-left:checked~.global {
-	main {
-		justify-content: flex-start;
-	}
+#content-left:checked ~ .global {
+  main {
+    justify-content: flex-start;
+  }
 
-	.left {
-		&-tag {
-			display: none;
-		}
+  .left {
+    &-tag {
+      display: none;
+    }
 
-		position: relative;
-		z-index: $index-hover;
-		width: $width-horz-block;
-		transition: all $timeout;
+    position: relative;
+    z-index: $index-hover;
+    width: $width-horz-block;
+    transition: all $timeout;
 
-		&::after,
-		&::before {
-			right: 0;
-			z-index: -1;
-			opacity: 0.3;
-		}
+    &::after,
+    &::before {
+      right: 0;
+      z-index: -1;
+      opacity: 0.3;
+    }
 
-		&__content {
-			display: flex;
-			width: 100%;
-			height: 100%;
-			overflow: hidden;
-		}
+    &__content {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
 
-		@include screen-full {
-			width: 50%;
+    @include screen-full {
+      width: 50%;
 
-			&~.center {
-				width: 50%;
+      & ~ .center {
+        width: 50%;
 
-				& .info {
-					height: 100%;
-				}
-			}
-		}
+        & .info {
+          height: 100%;
+        }
+      }
+    }
 
-		@include screen-full-horz {
-			position: absolute;
-			top: 0;
-			width: 100vw;
-			height: 50%;
+    @include screen-full-horz {
+      position: absolute;
+      top: 0;
+      width: 100vw;
+      height: 50%;
 
-			&~.center {
-				width: 100%;
+      & ~ .center {
+        width: 100%;
 
-				& .info {
-					position: absolute;
-					bottom: 0;
-					height: 50%;
-				}
-			}
-		}
-	}
+        & .info {
+          position: absolute;
+          bottom: 0;
+          height: 50%;
+        }
+      }
+    }
+  }
 
-	.center {
-		width: $width-horz-block;
+  .center {
+    width: $width-horz-block;
 
-		.info {
-			width: 100%;
-			height: $height-horz-block;
-			opacity: 1;
-			z-index: unset;
+    .info {
+      width: 100%;
+      height: $height-horz-block;
+      opacity: 1;
+      z-index: unset;
 
-			.close {
-				display: block;
-			}
+      .close {
+        display: block;
+      }
 
-			&__left {
-				display: block;
-				position: relative;
-				z-index: $index-hover;
-				overflow: auto;
-				background: $background-light;
-			}
-		}
-	}
+      &__left {
+        display: block;
+        position: relative;
+        z-index: $index-hover;
+        overflow: auto;
+        background: $background-light;
+      }
+    }
+  }
 }
 
 // ------------------------- Правый
-#content-right:checked~.global {
-	main {
-		justify-content: flex-end;
-	}
+#content-right:checked ~ .global {
+  main {
+    justify-content: flex-end;
+  }
 
-	.right {
-		&-tag {
-			display: none;
-		}
+  .right {
+    &-tag {
+      display: none;
+    }
 
-		position: relative;
-		z-index: $index-hover;
-		width: $width-horz-block;
-		transition: all $timeout;
+    position: relative;
+    z-index: $index-hover;
+    width: $width-horz-block;
+    transition: all $timeout;
 
-		&::after,
-		&::before {
-			left: 0;
-			z-index: -1;
-			opacity: 0.3;
-		}
+    &::after,
+    &::before {
+      left: 0;
+      z-index: -1;
+      opacity: 0.3;
+    }
 
-		&__content {
-			display: flex;
-			width: 100%;
-			height: 100%;
-			overflow: hidden;
-		}
+    &__content {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
 
-		@include screen-full {
-			width: 50%;
+    @include screen-full {
+      width: 50%;
 
-			&~.center {
-				width: 50%;
+      & ~ .center {
+        width: 50%;
 
-				& .info {
-					height: 100%;
-				}
-			}
-		}
+        & .info {
+          height: 100%;
+        }
+      }
+    }
 
-		@include screen-full-horz {
-			position: absolute;
-			top: 0;
-			width: 100vw;
-			height: 50%;
+    @include screen-full-horz {
+      position: absolute;
+      top: 0;
+      width: 100vw;
+      height: 50%;
 
-			&~.center {
-				width: 100%;
+      & ~ .center {
+        width: 100%;
 
-				& .info {
-					position: absolute;
-					bottom: 0;
-					height: 50%;
-				}
-			}
-		}
-	}
+        & .info {
+          position: absolute;
+          bottom: 0;
+          height: 50%;
+        }
+      }
+    }
+  }
 
-	.center {
-		width: $width-horz-block;
+  .center {
+    width: $width-horz-block;
 
-		.info {
-			width: 100%;
-			height: $height-horz-block;
-			opacity: 1;
-			z-index: unset;
+    .info {
+      width: 100%;
+      height: $height-horz-block;
+      opacity: 1;
+      z-index: unset;
 
-			.close {
-				display: block;
-			}
+      .close {
+        display: block;
+      }
 
-			&__right {
-				display: block;
-				position: relative;
-				z-index: $index-hover;
-				overflow: auto;
-				background: $background-light;
-			}
-		}
-	}
+      &__right {
+        display: block;
+        position: relative;
+        z-index: $index-hover;
+        overflow: auto;
+        background: $background-light;
+      }
+    }
+  }
 }
 
 // ------------------------- Верхний
-#content-up:checked~.global {
+#content-up:checked ~ .global {
+  .up {
+    &-tag {
+      display: none;
+    }
 
-	.up {
-		&-tag {
-			display: none;
-		}
+    position: relative;
+    z-index: $index-hover;
+    height: $height-vert-block;
+    transition: all $timeout;
 
-		position: relative;
-		z-index: $index-hover;
-		height: $height-vert-block;
-		transition: all $timeout;
+    &::after {
+      bottom: 0;
+      z-index: -1;
+      opacity: 0.3;
+    }
 
-		&::after {
-			bottom: 0;
-			z-index: -1;
-			opacity: 0.3;
-		}
+    &__content {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
 
-		&__content {
-			display: flex;
-			width: 100%;
-			height: 100%;
-			overflow: hidden;
-		}
-	}
+  .center {
+    justify-content: flex-start;
 
-	.center {
-		justify-content: flex-start;
+    .info {
+      width: 100%;
+      height: 70%;
+      opacity: 1;
+      z-index: unset;
 
-		.info {
-			width: 100%;
-			height: 70%;
-			opacity: 1;
-			z-index: unset;
+      @include screen-full {
+        height: 85%;
+      }
 
-			@include screen-full {
-				height: 85%;
-			}
+      .close {
+        display: block;
+      }
 
-			.close {
-				display: block;
-			}
-
-			&__up {
-				display: block;
-				position: relative;
-				z-index: $index-hover;
-				overflow: auto;
-				background: $background-light;
-			}
-		}
-	}
+      &__up {
+        display: block;
+        position: relative;
+        z-index: $index-hover;
+        overflow: auto;
+        background: $background-light;
+      }
+    }
+  }
 }
 
 // ------------------------- Нижний
-#content-down:checked~.global {
+#content-down:checked ~ .global {
+  .down {
+    &-tag {
+      display: none;
+    }
 
-	.down {
-		&-tag {
-			display: none;
-		}
+    position: relative;
+    z-index: $index-hover;
+    height: $height-vert-block;
+    transition: all $timeout;
 
-		position: relative;
-		z-index: $index-hover;
-		height: $height-vert-block;
-		transition: all $timeout;
+    &::after {
+      top: 0;
+      z-index: -1;
+      opacity: 0.3;
+    }
 
-		&::after {
-			top: 0;
-			z-index: -1;
-			opacity: 0.3;
-		}
+    &__content {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  }
 
-		&__content {
-			display: flex;
-			width: 100%;
-			height: 100%;
-			overflow: hidden;
-		}
-	}
+  .center {
+    justify-content: flex-end;
 
-	.center {
-		justify-content: flex-end;
+    .info {
+      width: 100%;
+      height: 70%;
+      opacity: 1;
+      z-index: unset;
 
-		.info {
-			width: 100%;
-			height: 70%;
-			opacity: 1;
-			z-index: unset;
+      @include screen-full {
+        height: 85%;
+      }
 
-			@include screen-full {
-				height: 85%;
-			}
+      .close {
+        display: block;
+      }
 
-			.close {
-				display: block;
-			}
-
-			&__down {
-				display: block;
-				position: relative;
-				z-index: $index-hover;
-				overflow: auto;
-				background: $background-light;
-			}
-		}
-	}
+      &__down {
+        display: block;
+        position: relative;
+        z-index: $index-hover;
+        overflow: auto;
+        background: $background-light;
+      }
+    }
+  }
 }
 
-
 // Приглушение бирок в полноэкранном режиме
-#content-left:checked~.global,
-#content-right:checked~.global,
-#content-up:checked~.global,
-#content-down:checked~.global {
+#content-left:checked ~ .global,
+#content-right:checked ~ .global,
+#content-up:checked ~ .global,
+#content-down:checked ~ .global {
+  @include screen-full {
+    .tag {
+      display: none;
+    }
 
-	@include screen-full {
-		.tag {
-			display: none;
-		}
-
-		.left::after,
-		.left::before,
-		.right::after,
-		.right::before,
-		.up::after,
-		.down::after {
-			opacity: 0.3;
-		}
-	}
+    .left::after,
+    .left::before,
+    .right::after,
+    .right::before,
+    .up::after,
+    .down::after {
+      opacity: 0.3;
+    }
+  }
 }
 
 //! --------------------------------------- Наведение
-@media (min-width: $tablet-width) and (pointer: fine) {
+#content-off:checked {
+  // ------------------------- Левый
+  & ~ #pointer-mouse:checked ~ .global .left-tag:hover,
+  & ~ .global .left-tag.hover-touch {
+    & ~ .left {
+      position: relative;
+      transition: all $timeout;
+      width: 40px;
 
-	#content-off:checked~.global {
+      &::after,
+      &::before {
+        right: 0;
+      }
+    }
 
-		// ------------------------- Левый
-		.left-tag:hover {
+    & ~ .center .info {
+      opacity: 1;
+      align-self: flex-start;
+      margin: unset;
+      z-index: -1;
+      clip-path: polygon(20% 50%, 0 0, 80% 0, 100% 50%, 80% 100%, 0 100%);
 
-			&~.left {
-				position: relative;
-				transition: all $timeout;
-				width: 40px;
+      @include screen-full {
+        margin: 0 auto;
+      }
 
-				&::after,
-				&::before {
-					right: 0;
-				}
-			}
+      @include tablet {
+        opacity: 0;
+      }
 
-			&~.center .info {
-				opacity: 1;
-				align-self: flex-start;
-				margin: unset;
-				z-index: -1;
+      &__left {
+        display: block;
 
-				@include screen-full {
-					margin: 0 auto;
-				}
+        * {
+          mix-blend-mode: overlay;
+        }
+      }
+    }
+  }
 
-				&__left {
-					display: block;
+  // ------------------------- Правый
+  & ~ #pointer-mouse:checked ~ .global .right-tag:hover,
+  & ~ .global .right-tag.hover-touch {
+    & ~ .right {
+      position: relative;
+      transition: all $timeout;
+      width: 40px;
 
-					* {
-						mix-blend-mode: overlay;
-					}
-				}
-			}
-		}
+      &::after,
+      &::before {
+        left: 0;
+      }
+    }
 
-		// ------------------------- Правый
-		.right-tag:hover {
+    & ~ .center .info {
+      opacity: 1;
+      align-self: flex-end;
+      margin: unset;
+      z-index: -1;
+      clip-path: polygon(80% 50%, 100% 100%, 20% 100%, 0% 50%, 20% 0, 100% 0);
 
-			&~.right {
-				position: relative;
-				transition: all $timeout;
-				width: 40px;
+      @include screen-full {
+        margin: 0 auto;
+      }
 
-				&::after,
-				&::before {
-					left: 0;
-				}
-			}
+      @include tablet {
+        opacity: 0;
+      }
 
-			&~.center .info {
-				opacity: 1;
-				align-self: flex-end;
-				margin: unset;
-				z-index: -1;
+      &__right {
+        display: block;
 
-				@include screen-full {
-					margin: 0 auto;
-				}
+        * {
+          mix-blend-mode: overlay;
+        }
+      }
+    }
+  }
 
-				&__right {
-					display: block;
+  // ------------------------- Верх
+  & ~ #pointer-mouse:checked ~ .global .up-tag:hover,
+  & ~ .global .up-tag.hover-touch {
+    & ~ .center {
+      .up {
+        position: relative;
+        transition: all $timeout;
+        height: 40px;
 
-					* {
-						mix-blend-mode: overlay;
-					}
-				}
-			}
-		}
+        &::after {
+          bottom: 0;
+        }
+      }
 
-		// ------------------------- Верх
-		.up-tag:hover {
+      .info {
+        opacity: 1;
+        z-index: -1;
+        clip-path: polygon(50% 30%, 70% 0%, 95% 0, 100% 20%, 50% 100%, 0 20%, 5% 0, 30% 0);
 
-			&~.center {
+        @include tablet {
+          opacity: 0;
+        }
+        &__up {
+          display: block;
 
-				.up {
-					position: relative;
-					transition: all $timeout;
-					height: 40px;
+          * {
+            mix-blend-mode: overlay;
+          }
 
-					&::after {
-						bottom: 0;
-					}
-				}
+          img,
+          video {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 
-				.info {
-					opacity: 1;
-					z-index: -1;
+  // ------------------------- Низ
+  & ~ #pointer-mouse:checked ~ .global .down-tag:hover,
+  & ~ .global .down-tag.hover-touch {
+    & ~ .center {
+      .down {
+        position: relative;
+        transition: all $timeout;
+        height: 40px;
 
-					&__up {
-						display: block;
+        &::after {
+          top: 0;
+        }
+      }
 
-						* {
-							mix-blend-mode: overlay;
-						}
+      .info {
+        opacity: 1;
+        z-index: -1;
+        clip-path: polygon(50% 25%, 80% 0, 100% 100%, 50% 50%, 0% 100%, 20% 0);
 
-						img,
-						video {
-							display: none;
-						}
-					}
-				}
-			}
+        @include tablet {
+          opacity: 0;
+        }
 
-		}
+        &__down {
+          display: block;
 
-		// ------------------------- Низ
-		.down-tag:hover {
+          * {
+            mix-blend-mode: overlay;
+          }
 
-			&~.center {
-
-				.down {
-					position: relative;
-					transition: all $timeout;
-					height: 40px;
-
-					&::after {
-						top: 0;
-					}
-				}
-
-				.info {
-					opacity: 1;
-					z-index: -1;
-
-					&__down {
-						display: block;
-
-						* {
-							mix-blend-mode: overlay;
-						}
-
-						img,
-						a {
-							display: none;
-						}
-					}
-				}
-			}
-		}
-	}
+          img,
+          a {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 }
