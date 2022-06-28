@@ -7,7 +7,7 @@ $mobile-width: 375px; // Мобильный
 $slim-width: 300px; // Лёгкая версия
 $slim-height: 450px; // Лёгкая версия
 
-// Соотношение сторон экрана 
+// Соотношение сторон экрана
 $proportion-land: "5/2";
 $proportion-port: "3/4";
 
@@ -20,10 +20,9 @@ $content-width: 600px;
 // Задержка наведения основная
 $timeout: 300ms;
 
-
 // * Цветовая палитра
 // Фон
-$background-dark: rgba(0, 0, 0, .7);
+$background-dark: rgba(0, 0, 0, 0.7);
 $background-light: rgba(255, 250, 245, 0.8);
 
 // Текст
@@ -38,7 +37,6 @@ $title-dark: #192c01;
 
 // Кнопки
 $button-pink: #d34646;
-
 
 // * Параметры для блоков
 // Размер секций для срабатывания наведения
@@ -57,7 +55,6 @@ $height-vert-block: 15%;
 $width-horz-tag: 150px;
 $height-horz-tag: 200px;
 
-
 // Вертикальные
 $width-vert-tag: 200px;
 $height-vert-tag: 150px;
@@ -69,5 +66,5 @@ $d-slim-tag: 50px;
 $index-tag: 5;
 $index-hover: 10;
 $index-close: 15;
-$index-preloader: 10;
+$index-preloader: 20;
 $index-head-foot: 15;

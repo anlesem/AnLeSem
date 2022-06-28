@@ -8,12 +8,6 @@ export default class Action {
   }
 
   //!---------------------------------------------- Отслеживание
-  // Отслеживание поведения пользователя
-  // 	data.logo - наведение на логотип
-  // 	data.contentBlocks - нажатие на бирку
-  // 	data.cls - нажатие на кнопку закрыть
-  // 	data.footer - нажатие на кнопку закрыть (footer)
-  // 	data.contentBlocks[0].radio - прокрутка наверх при переключении статей
   startListened() {
     this.data.logo.addEventListener('mouseover', () => this.animation.removeAnimation());
     this.data.logo.addEventListener('mouseout', () => this.animation.setAnimation());
@@ -36,8 +30,6 @@ export default class Action {
   }
 
   //!---------------------------------------------- Методы для блоков
-
-  // Прокрутка наверх в верхнем блоке при переключении между вкладками
   scrollUp() {
     this.data.infoUp.scrollTop = 0;
   }

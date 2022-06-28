@@ -2,278 +2,277 @@
 
 // Настройка полосы прокрутки
 * {
-	scrollbar-width: thin;
-	scrollbar-color: rgba(0, 0, 0, .1) transparent;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
 
-	&::-webkit-scrollbar {
-		width: 8px;
-	}
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
 
-	&::-webkit-scrollbar-track {
-		background: transparent;
-	}
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
-	&::-webkit-scrollbar-thumb {
-		background-color: rgba(0, 0, 0, .1);
-	}
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 }
 
 html,
 body {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 // По сути body, только с глобальным переключателем версии
-// Часть настроек в light и land  
+// Часть настроек в light и land
 .global {
-	width: 100%;
-	height: 100%;
-	font-family: lato, Arial, Helvetica, sans-serif;
-	font-size: 16px;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 22px;
+  width: 100%;
+  height: 100%;
+  font-family: lato, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
 
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-	&::before {
-		content: "";
-		@include position-size-parent;
-		z-index: -1;
-		background-color: $background-light;
-		opacity: .8;
-	}
+  &::before {
+    content: "";
+    @include position-size-parent;
+    z-index: -1;
+    background-color: $background-light;
+    opacity: 0.8;
+  }
 
-	&::after {
-		content: "";
-		@include position-size-parent;
-		@include background;
-		z-index: -10;
-	}
+  &::after {
+    content: "";
+    @include position-size-parent;
+    @include background;
+    z-index: -10;
+  }
 }
 
 // Настройка ширины содержимого на начальном экране
 // Часть настроек в land
 .container {
-	width: calc(100vh + 30vh);
-	margin: 0 auto;
+  width: calc(100vh + 30vh);
+  margin: 0 auto;
 
-	// Настройка высоты блока для сохранения правильных пропорций 1-1 (+ main)
-	@media (orientation: portrait),
-	(orientation: landscape) and (max-aspect-ratio: 4/3) {
-		width: 100%;
-	}
+  // Настройка высоты блока для сохранения правильных пропорций 1-1 (+ main)
+  @media (orientation: portrait), (orientation: landscape) and (max-aspect-ratio: 4/3) {
+    width: 100%;
+  }
 
-	@include pc {
-		width: 100%;
-	}
+  @include pc {
+    width: 100%;
+  }
 }
 
 // Настройка ширины содержимого внутри блоков
 .container-content {
-	max-width: $content-width;
-	margin: 0 auto;
+  max-width: $content-width;
+  margin: 0 auto;
 }
 
 // Сокрытие "лишнего" содержимого
 .visually-hidden {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	margin: -1px;
-	padding: 0;
-	overflow: hidden;
-	border: 0;
-	clip: rect(0 0 0 0);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0);
 }
 
 // Заставка загрузки страницы
 // Обёртка
 // Часть настроек в land
 #preloader {
-	visibility: visible;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: rgb(255, 250, 245);
-	z-index: $index-preloader;
+  visibility: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgb(255, 250, 245);
+  z-index: $index-preloader;
 
-	animation: preloader 1s 2s linear forwards;
+  animation: preloader 1s 2s linear forwards;
 
-	// Анимация - птаха
-	&::after {
-		content: "";
-		@include position-center;
-		width: 5vh;
-		height: 5vh;
+  &.no-animation {
+    animation: none;
+  }
 
-		animation: load infinite 2s linear;
+  // Анимация - птаха
+  &::after {
+    content: "";
+    @include position-center;
+    width: 5vh;
+    height: 5vh;
 
-		background:
-			radial-gradient(circle, rgba(175, 184, 148, 0.8) 0%, transparent 100%),
-			linear-gradient(0deg, rgb(209, 100, 22), rgb(28, 13, 97));
-	}
+    animation: load infinite 2s linear;
 
-	// Кнопка перехода на лёгкую версию при долгой загрузке
-	button {
-		display: none;
-		position: absolute;
-		top: calc(50% + 10vh);
-		left: 50%;
-		transform: translate(-50%, -50%);
-		padding: 5px 5px;
-		border: 1px solid $button-pink;
-		border-radius: 3px;
-		background: #fff;
-		color: $button-pink;
-		opacity: 1;
-		transition: opacity $timeout;
+    background: radial-gradient(circle, rgba(175, 184, 148, 0.8) 0%, transparent 100%),
+      linear-gradient(0deg, rgb(209, 100, 22), rgb(28, 13, 97));
+  }
 
-		&:hover {
-			opacity: 0.3;
-		}
-	}
+  // Кнопка перехода на лёгкую версию при долгой загрузке
+  button {
+    display: none;
+    position: absolute;
+    top: calc(50% + 10vh);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 5px 5px;
+    border: 1px solid $button-pink;
+    border-radius: 3px;
+    background: #fff;
+    color: $button-pink;
+    opacity: 1;
+    transition: opacity $timeout;
+
+    &:hover {
+      opacity: 0.3;
+    }
+  }
 }
 
 // Настройка предупреждения для лёгкой версии
 // Обёртка
 // Часть настроек в light
 .warning {
-	position: absolute;
-	top: 100%;
-	right: 10px;
-	z-index: $index-close;
-	margin-top: 10px;
-	padding: 5px 5px;
-	width: 40px;
-	text-align: center;
-	transition: all $timeout;
+  position: absolute;
+  top: 100%;
+  right: 10px;
+  z-index: $index-close;
+  margin-top: 10px;
+  padding: 5px 5px;
+  width: 40px;
+  text-align: center;
+  transition: all $timeout;
 
+  // Иконка в пассивном режиме 1-2
+  &::after {
+    content: "!";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border: 1px solid $button-pink;
+    border-radius: 15px;
+    opacity: 0.3;
+    transition: all $timeout;
+    color: $button-pink;
+  }
 
-	// Иконка в пассивном режиме 1-2
-	&::after {
-		content: "!";
-		position: absolute;
-		top: 5px;
-		right: 5px;
-		width: 20px;
-		height: 20px;
-		line-height: 20px;
-		border: 1px solid $button-pink;
-		border-radius: 15px;
-		opacity: 0.3;
-		transition: all $timeout;
-		color: $button-pink;
-	}
+  // Содержимое в пассивном режиме 1-2
+  p {
+    display: none;
+    color: $button-pink;
+  }
 
-	// Содержимое в пассивном режиме 1-2
-	p {
-		display: none;
-		color: $button-pink;
-	}
+  &:hover {
+    width: calc(100% - 20px); // выравнивание по горизонтали, учитывая отступ right * 2
+    border: 1px solid $button-pink;
+    background: #fff;
+    border-radius: 3px;
 
-	&:hover {
-		width: calc(100% - 20px); // выравнивание по горизонтали, учитывая отступ right * 2
-		border: 1px solid $button-pink;
-		background: #fff;
-		border-radius: 3px;
+    // Иконка в режиме наведения 2-2
+    &::after {
+      content: none;
+    }
 
-		// Иконка в режиме наведения 2-2
-		&::after {
-			content: none;
-		}
-
-		p.normal,
-		p.no-js {
-			display: block;
-		}
-
-	}
+    p.normal,
+    p.no-js {
+      display: block;
+    }
+  }
 }
 
 .global__radio {
-	display: none;
+  display: none;
 }
 
 // Кнопка Закрыть при управлении мышкой + большие экраны
 .close {
-	display: none;
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	z-index: $index-close;
-	width: 30px;
-	height: 30px;
-	line-height: 25px;
-	border: 1px solid $button-pink;
-	border-radius: 15px;
-	background: none;
-	opacity: 0.3;
-	transition: all $timeout;
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: $index-close;
+  width: 30px;
+  height: 30px;
+  line-height: 25px;
+  border: 1px solid $button-pink;
+  border-radius: 15px;
+  background: none;
+  opacity: 0.3;
+  transition: all $timeout;
 
-	// Надпись "Закрыть" в состоянии наведения
-	span {
-		display: none;
-		overflow: hidden;
-		color: $button-pink;
-		font-size: 14px;
-		text-align: center;
-	}
+  // Надпись "Закрыть" в состоянии наведения
+  span {
+    display: none;
+    overflow: hidden;
+    color: $button-pink;
+    font-size: 14px;
+    text-align: center;
+  }
 
-	// Х в пассивном режиме
-	svg {
-		@include position-center;
-		fill: $button-pink;
-	}
+  // Х в пассивном режиме
+  svg {
+    @include position-center;
+    fill: $button-pink;
+  }
 
-	&:hover {
-		width: 80px;
-		opacity: 1;
-		cursor: pointer;
-		border: 1px solid $button-pink;
-		background: #fff;
+  &:hover {
+    width: 80px;
+    opacity: 1;
+    cursor: pointer;
+    border: 1px solid $button-pink;
+    background: #fff;
 
-		span {
-			display: block;
-		}
+    span {
+      display: block;
+    }
 
-		svg {
-			display: none;
-		}
-	}
+    svg {
+      display: none;
+    }
+  }
 }
 
 //* Настройки текста
 // Заголовки светлые для тёмного фона
 .title-light {
-	text-transform: uppercase;
-	color: $title-light;
+  text-transform: uppercase;
+  color: $title-light;
 }
 
 // Заголовки тёмные для светлого фона
 .title-dark {
-	text-transform: uppercase;
-	color: $title-dark;
+  text-transform: uppercase;
+  color: $title-dark;
 }
 
 // Текст светлый для тёмного фона
 .text-light {
-	color: $text-light;
+  color: $text-light;
 }
 
 // Текст тёмный для светлого фона
 .text-dark {
-	color: $text-dark;
+  color: $text-dark;
 }
 
 .text-light,
 .text-dark {
-	line-height: 22px;
-	margin-bottom: 10px;
+  line-height: 22px;
+  margin-bottom: 10px;
 }

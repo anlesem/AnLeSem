@@ -16,36 +16,24 @@ import Animation from './js/Animation';
 // Модуль отображения страницы, отслеживания её изменений и устройств
 import ViewScreen from './js/ViewScreen';
 
-//! ---------------------------------------------------------------- Создание объектов
+//! ------------------------------------- Создание объектов
 const data = new Data(settings);
 const animation = new Animation(data);
 const viewScreen = new ViewScreen(data, animation);
 const action = new Action(data, animation, viewScreen);
 const touchAction = new TouchAction(data, animation, action);
 
-//! ---------------------------------------------------------------- Вызов
-// viewScreen.onload - Пока грузится страница определяются стартовые параметры отображения.
-// 	Главное на этапе загрузки определить: пользователь ждёт или переходит на лёгкую версию
-// 	В случае перехода необходимо заблокировать активацию полноценной работы сайта (userToLight: true)
+//! ------------------------------------- Вызов
 // 	Параметр (delay) - задержка отображения кнопки перехода на лёгкую версию (значение в ms)
 viewScreen.onload(2000);
 
-//! ---------------------------------------------------------------- Отслеживание
-// Отслеживание окончания загрузки страницы
-// 	readyFullVersion:
-//			- в случае, если пользователь дождался загрузки, не нажав на кнопку Лёгкой версии
-// 		(userToLight: false), происходит активация полноценной работы сайта и readyFullVersion принимает true
-// 		- в случае, если пользователь нажал на кнопку Лёгкой версии (userToLight: true), происходит блокировка
-// 		активации полной версии и readyFullVersion принимает false, дабы не активировать прослушивание событий.
-// 	viewScreen.fullVersionOn - включение полной версии сайта.
-//		action.startListened - активация прослушивания событий
-//		viewScreen.resizeScreen() - Отслеживание изменения параметров экрана
+//! ------------------------------------- Отслеживание окончания загрузки страницы
 window.onload = () => {
-	let readyFullVersion = viewScreen.fullVersionOn();
-	if (readyFullVersion) {
-		action.startListened();
-		touchAction.startListened();
-		window.addEventListener('resize', () => viewScreen.resizeScreen());
-	}
+  let readyFullVersion = viewScreen.fullVersionOn();
+  if (readyFullVersion) {
+    action.startListened();
+    touchAction.startListened();
+    window.addEventListener('resize', () => viewScreen.resizeScreen());
+  }
 };
 

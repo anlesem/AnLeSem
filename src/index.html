@@ -4,50 +4,53 @@
 @@include('html/head.html')
 
 <body>
-	@@include('html/svg.html')
-	@@include('html/inputs.html')
+  @@include('html/svg.html')
+  @@include('html/inputs.html')
 
-	<div class="global">
+  <div class="global">
 
-		<div id="preloader">
-			<button id="to-light" type="button">Перейти на лёгкую версию</button>
-		</div>
+    <div id="preloader">
+      <button id="to-light" type="button">Перейти на лёгкую версию</button>
+    </div>
+    <script>
+      document.getElementById('preloader').classList.add('no-animation');
+    </script>
 
-		@@include('html/header.html')
+    @@include('html/header.html')
 
-		<main class="container">
+    <main class="container">
 
-			<label for="content-left" class="left-tag tag">Ежедневник</label>
-			<label for="content-right" class="right-tag tag">Мира Вид</label>
-			<label for="content-up" class="up-tag tag">Концепция</label>
-			<label for="content-down" class="down-tag tag">Прочее</label>
+      <label for="content-left" class="left-tag tag">Ежедневник</label>
+      <label for="content-right" class="right-tag tag">Мира Вид</label>
+      <label for="content-up" class="up-tag tag">Концепция</label>
+      <label for="content-down" class="down-tag tag">Прочее</label>
 
-			@@include('html/content-left.html')
-			@@include('html/content-right.html')
+      @@include('html/content-left.html')
+      @@include('html/content-right.html')
 
-			<section class="center">
+      <section class="center">
 
-				@@include('html/content-up.html')
-				@@include('html/content-down.html')
+        @@include('html/content-up.html')
+        @@include('html/content-down.html')
 
-				<section class="info text-dark">
-					<label for="content-off" class="close">
-						<span>Закрыть</span>
-						<svg width="20" height="20" viewBox="0 0 20 20">
-							<use href="#icon__close" />
-						</svg>
-					</label>
+        <section class="info text-dark">
+          <label for="content-off" class="close">
+            <span>Закрыть</span>
+            <svg width="20" height="20" viewBox="0 0 20 20">
+              <use href="#icon__close" />
+            </svg>
+          </label>
 
-					@@include('html/info-up.html')
-					@@include('html/info-left.html')
-					@@include('html/info-right.html')
-					@@include('html/info-down.html')
+          @@include('html/info-up.html')
+          @@include('html/info-left.html')
+          @@include('html/info-right.html')
+          @@include('html/info-down.html')
 
-				</section>
-			</section>
-		</main>
-		@@include('html/footer.html')
-	</div>
+        </section>
+      </section>
+    </main>
+    @@include('html/footer.html')
+  </div>
 </body>
 
 </html>
